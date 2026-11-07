@@ -53,6 +53,10 @@
 	description = span_warning("I think I'm going to puke...")
 	mood_change = -5
 
+/datum/mood_event/queasy
+	description = span_warning("My stomach is turning. Something I drank didn't sit right.")
+	mood_change = -3
+
 /datum/mood_event/disgusted
 	description = span_boldwarning("Oh god that's disgusting...")
 	mood_change = -8

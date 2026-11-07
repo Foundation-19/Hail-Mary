@@ -254,7 +254,11 @@
 	taste_description = "dirty water"
 	overdose_threshold = 150 //Imagine drinking a gallon of water
 	var/cooling_temperature = 2
-	thirst_factor = THIRST_FACTOR * 15	// 11.25 per 5 units; 112.5 per 50; 562.5 per 250
+	thirst_factor = THIRST_FACTOR * 30 // Dirty water now hydrates fully; risk comes from contamination
+	/// Rads added per unit drunk
+	var/rad_per_unit = WATER_IMPURE_RAD_PER_UNIT
+	/// Per-unit chance of causing waterborne illness minutes later
+	var/pathogen_chance = WATER_IMPURE_PATHOGEN_CHANCE
 	glass_icon_state = "glass_clear"
 	glass_name = "glass of water"
 	glass_desc = "The father of all refreshments. A bit unclean."
@@ -266,7 +270,6 @@
 	. = ..()
 	if(M.blood_volume)
 		M.blood_volume += 0.1 // water is good for you!
-		M.radiation += 0.5 //Its also good for radiation !
 
 /*
  *	Water reaction to turf
@@ -328,6 +331,9 @@
 	if(method == TOUCH)
 		M.adjust_fire_stacks(-(reac_volume / 10))
 		M.ExtinguishMob()
+	else if(method == INGEST && ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.apply_water_contamination(reac_volume, rad_per_unit, pathogen_chance)
 	..()
 
 /datum/reagent/water/overdose_start(mob/living/M)
@@ -357,6 +363,8 @@
 	taste_description = "clean water"
 	value = REAGENT_VALUE_AMAZING
 	thirst_factor = THIRST_FACTOR * 30 // 22.5 per 5 units; 225 per 50; 1125 per 250
+	rad_per_unit = 0
+	pathogen_chance = 0
 	can_synth = FALSE
 
 /datum/reagent/water/purified/on_mob_life(mob/living/carbon/M) // Pure water is very, very healthy
@@ -370,11 +378,53 @@
 		M.radiation -= min(M.radiation, 2)
 	..()
 
+/datum/reagent/water/boiled
+	name = "Boiled Water"
+	description = "Water that has been boiled. Pathogens are dead, but radiation is not affected."
+	color = "#a8a29a77"
+	taste_description = "flat water"
+	glass_desc = "A glass of boiled water. Safe from germs, not from radiation."
+	pathogen_chance = 0
+
+/datum/reagent/water/treated
+	name = "Treated Water"
+	description = "Water treated with purification tablets. Most pathogens and some radiation are neutralised."
+	color = "#b9c3b977"
+	taste_description = "chlorine"
+	glass_desc = "A glass of water that tastes of purification tablets."
+	rad_per_unit = WATER_IMPURE_RAD_PER_UNIT * WATER_TABLET_RAD_MULT
+	pathogen_chance = WATER_IMPURE_PATHOGEN_CHANCE * WATER_TABLET_PATHOGEN_MULT
+
+/datum/reagent/water/filtered
+	name = "Filtered Water"
+	description = "Water strained through charcoal. Sludge and some pathogens are removed."
+	color = "#9c9a9477"
+	taste_description = "smoky water"
+	glass_desc = "A glass of charcoal-filtered water."
+	pathogen_chance = WATER_IMPURE_PATHOGEN_CHANCE * WATER_FILTER_PATHOGEN_MULT
+
+/datum/reagent/water_tablet
+	name = "Purification Agent"
+	description = "The active ingredient of water purification tablets. Add to water in proportions of 1:10."
+	color = "#d8d8c8"
+	taste_description = "chlorine"
+	value = REAGENT_VALUE_UNCOMMON
+	can_synth = FALSE
+
+/datum/reagent/water_filter_media
+	name = "Charcoal Filter Medium"
+	description = "Powdered charcoal and cloth fibre used to strain water. Add to water in proportions of 1:5."
+	color = "#2b2b2b"
+	taste_description = "ash"
+	can_synth = FALSE
+
 /datum/reagent/water/hollowwater
 	name = "Hollow Water"
 	description = "An ubiquitous chemical substance that is composed of hydrogen and oxygen, but it looks kinda hollow."
 	color = "#88878777"
 	taste_description = "emptyiness"
+	rad_per_unit = 0
+	pathogen_chance = 0
 
 
 /datum/reagent/water/holywater
@@ -386,6 +436,8 @@
 	glass_desc = "A glass of holy water."
 	pH = 7.5 //God is alkaline
 	thirst_factor = THIRST_FACTOR * 18 // Cool water
+	rad_per_unit = 0
+	pathogen_chance = 0
 
 	// Holy water. Mostly the same as water, it also heals the plant a little with the power of the spirits. Also ALSO increases instability.
 /datum/reagent/water/holywater/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray)

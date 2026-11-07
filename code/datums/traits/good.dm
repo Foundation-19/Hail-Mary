@@ -5,14 +5,36 @@ GLOBAL_LIST_INIT(chemwhiz_recipes_basic, list(
 GLOBAL_LIST_INIT(chemwhiz_recipes_mid, list(
 	/datum/crafting_recipe/turbo,
 	/datum/crafting_recipe/buffout,
-	/datum/crafting_recipe/steady))
+	/datum/crafting_recipe/steady,
+	/datum/crafting_recipe/stimpak/herbal,
+	/datum/crafting_recipe/mentat,
+	/datum/crafting_recipe/party_time_mentat,
+	/datum/crafting_recipe/fixer,
+	/datum/crafting_recipe/cateye))
 
 GLOBAL_LIST_INIT(chemwhiz_recipes_advanced, list(
+	// Advanced chemists also know everything from the mid tier, which matters for jobs that are handed only the basic and advanced lists
+	/datum/crafting_recipe/turbo,
+	/datum/crafting_recipe/buffout,
+	/datum/crafting_recipe/steady,
+	/datum/crafting_recipe/stimpak/herbal,
+	/datum/crafting_recipe/mentat,
+	/datum/crafting_recipe/party_time_mentat,
+	/datum/crafting_recipe/fixer,
+	/datum/crafting_recipe/cateye,
 	/datum/crafting_recipe/jet,
 	/datum/crafting_recipe/psycho,
 	/datum/crafting_recipe/medx,
 	/datum/crafting_recipe/stimpak/chemistry,
-	/datum/crafting_recipe/stimpak5/chemistry))
+	/datum/crafting_recipe/stimpak5/chemistry,
+	/datum/crafting_recipe/superstimpak,
+	/datum/crafting_recipe/superstimpak5,
+	/datum/crafting_recipe/superstimpak/chemistry,
+	/datum/crafting_recipe/superstimpak5/chemistry,
+	/datum/crafting_recipe/ultrajet,
+	/datum/crafting_recipe/jet_stream,
+	/datum/crafting_recipe/jet_antidote,
+	/datum/crafting_recipe/rushing_water))
 
 GLOBAL_LIST_INIT(basic_explosive_recipes, list(
 	/datum/crafting_recipe/frag_shrapnel,
@@ -38,6 +60,11 @@ GLOBAL_LIST_INIT(tier_three_parts, list(
 	/datum/crafting_recipe/phasic_scanning,
 	/datum/crafting_recipe/super_capacitor,
 	/datum/crafting_recipe/ultra_micro_laser))
+
+GLOBAL_LIST_INIT(energyweapon_cell_basic, list(
+	/datum/crafting_recipe/ecbad,
+	/datum/crafting_recipe/mfcbad,
+	/datum/crafting_recipe/ecpbad))
 
 GLOBAL_LIST_INIT(energyweapon_cell_crafting, list(
 	/datum/crafting_recipe/enhancedenergycell,
@@ -67,9 +94,6 @@ GLOBAL_LIST_INIT(weaponcrafting_gun_recipes, list(
 	/datum/crafting_recipe/heatsink,
 	/datum/crafting_recipe/laserguide,
 	/datum/crafting_recipe/gigalens,
-	/datum/crafting_recipe/ecpbad,
-	/datum/crafting_recipe/mfcbad,
-	/datum/crafting_recipe/ecbad,
 	/datum/crafting_recipe/gun/flintlock,
 	/datum/crafting_recipe/gun/flintlock_laser))
 
@@ -80,6 +104,7 @@ GLOBAL_LIST_INIT(former_tribal_recipes, list(
 	/datum/crafting_recipe/bitterdrink5,
 	/datum/crafting_recipe/healpoultice,
 	/datum/crafting_recipe/healpoultice5,
+	/datum/crafting_recipe/rushing_water,
 	//datum/crafting_recipe/redpotion,
 	//datum/crafting_recipe/bluepotion,
 	//datum/crafting_recipe/greenpotion,
@@ -161,6 +186,9 @@ Merged into the paired Wasteland Trait "Iron Liver" (code/datums/traits/fallout_
 	desc = "You eat people. Consuming human flesh doesn't bother you, and dishes such as longpork stew will heal you. Probably don't tell your neighbor. ((This is an OOC trait and should only be found out in character and not through technology.))"
 	mob_trait = TRAIT_LONGPORKLOVER
 	value = 1
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 4
 	gain_text = span_notice("You have an insatiable hunger for the flesh of your fellow man.")
 	lose_text = span_notice("The terrible hunger fades - you feel peace at last.")
 
@@ -181,6 +209,9 @@ Merged into the paired Wasteland Trait "Iron Liver" (code/datums/traits/fallout_
 	name = "Former Tribal"
 	desc = "You used to be part of one of the tribes scattered throughout the wasteland. You may have some additional skills as a result, allowing you to make some tribal medical supplies. Advanced tech still confuses you, though."
 	value = 1
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 3
 	gain_text = span_notice("You remember the old ways of your tribe...")
 	lose_text = span_notice("You've forgotten the ways of your ancestors...")
 
@@ -204,6 +235,9 @@ Merged into the paired Wasteland Trait "Iron Liver" (code/datums/traits/fallout_
 	name = "Apathetic"
 	desc = "Between the bombs, the raiders, and the rads, you stopped letting things get to you a long time ago."
 	value = 1
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 3
 	mood_quirk = TRUE
 	medical_record_text = "Patient was administered a standard mental health evaluation but couldn't be bothered to finish it."
 
@@ -222,6 +256,9 @@ Merged into the paired Wasteland Trait "Iron Liver" (code/datums/traits/fallout_
 	name = "Drunken Resilience"
 	desc = "Nothing like a good drink to make you feel on top of the world. Whenever you're drunk, you slowly recover from damage, but not wounds or blood loss."
 	value = 1
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 4
 	mob_trait = TRAIT_DRUNK_HEALING
 	gain_text = span_notice("You feel like a drink would do you good.")
 	lose_text = span_danger("You no longer feel like drinking would ease your pain.")
@@ -266,6 +303,9 @@ Merged into the paired Wasteland Trait "Small Frame" (code/datums/traits/fallout
 	name = "Friendly"
 	desc = "Out here, a genuine hug is rarer than a stash of caps - and you give the best ones. When you're in the right mood your squeezes can cheer up those around you. Unless they don't, but that's okay. :)"
 	value = 1
+	required_special_stat = "special_c"
+	required_special_name = "Charisma"
+	required_special_value = 4
 	mob_trait = TRAIT_FRIENDLY
 	gain_text = span_notice("You want to hug someone.")
 	lose_text = span_danger("You no longer feel compelled to hug others.")
@@ -291,6 +331,9 @@ Merged into the paired Wasteland Trait "People Person" (code/datums/traits/fallo
 	name = "Mood - Optimist"
 	desc = "No matter how bad the wasteland gets, you find a reason to keep smiling. Small mood buffs, occasionally - more often the worse off you are."
 	value = 1
+	required_special_stat = "special_c"
+	required_special_name = "Charisma"
+	required_special_value = 4
 	mob_trait = TRAIT_OPTIMIST
 	mood_quirk = TRUE
 	medical_record_text = "Patient demonstrates unusual resilience of spirit for someone living in the wasteland."
@@ -319,6 +362,9 @@ Merged into the paired Wasteland Trait "People Person" (code/datums/traits/fallo
 	name = "Musician"
 	desc = "You've kept old pre-war instruments alive, and can tune them to play melodies that clear certain negative effects and soothe the soul - and even get one of your choice for free!"
 	value = 1
+	required_special_stat = "special_c"
+	required_special_name = "Charisma"
+	required_special_value = 3
 	mob_trait = TRAIT_MUSICIAN
 	gain_text = span_notice("You know everything about musical instruments.")
 	lose_text = span_danger("You forget how musical instruments work.")
@@ -338,6 +384,9 @@ Merged into the paired Wasteland Trait "People Person" (code/datums/traits/fallo
 	name = "Self-Aware"
 	desc = "Years of patching yourself up in the field taught you your own body inside and out - you can accurately assess the extent of your wounds, sort of like being a medical scanner for yourself."
 	value = 1
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 4
 	mob_trait = TRAIT_SELF_AWARE
 	medical_record_text = "Patient demonstrates an uncanny knack for self-diagnosis."
 
@@ -345,6 +394,9 @@ Merged into the paired Wasteland Trait "People Person" (code/datums/traits/fallo
 	name = "Skittish"
 	desc = "A lifetime in the wasteland taught you how to disappear when danger's close. Ctrl-shift-click a closed locker to jump into it, as long as you have access."
 	value = 1
+	required_special_stat = "special_a"
+	required_special_name = "Agility"
+	required_special_value = 3
 	mob_trait = TRAIT_SKITTISH
 	medical_record_text = "Patient demonstrates a high aversion to danger and has described hiding in containers out of fear."
 
@@ -436,6 +488,9 @@ Merged into ranked Wasteland Perk "Gun Nut" (code/datums/traits/fallout_perks.dm
 	name = "Bottomless Stomach"
 	desc = "Nothing gets between you and your food. You eat twice as fast as everyone else!"
 	value = 1
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 4
 	mob_trait = TRAIT_VORACIOUS
 	gain_text = span_notice("You feel HONGRY.")
 	lose_text = span_danger("You no longer feel HONGRY.")
@@ -445,6 +500,9 @@ Merged into ranked Wasteland Perk "Gun Nut" (code/datums/traits/fallout_perks.dm
 	name = "Extra Blood"
 	desc = "You've a treated form of Polycythemia vera that increases the total blood volume inside of you as well as the rate of replenishment!"
 	value = 2 //I honestly dunno if this is a good trait? It just means you use more of medbay's blood and make janitors madder, but you also regen blood a lil faster.
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 5
 	mob_trait = TRAIT_HIGH_BLOOD
 	gain_text = span_notice("You feel full of blood!")
 	lose_text = span_notice("You feel like your blood pressure went down.")
@@ -462,6 +520,9 @@ Merged into ranked Wasteland Perk "Gun Nut" (code/datums/traits/fallout_perks.dm
 	name = "Primitive Tech"
 	desc = "You're able to use primitive technology."
 	value = 1
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 3
 	mob_trait = TRAIT_MACHINE_SPIRITS
 	gain_text = span_notice("You are now able to use primitive technology.")
 	lose_text = span_danger("You are no longer able to use primitive technology.")
@@ -486,6 +547,9 @@ Merged into the paired Wasteland Trait "Night Owl" (code/datums/traits/fallout_t
 	name = "Nuka Fiend"
 	desc = "You are a fan of America's most popular pre-war soft drink. Your body simply loves the sugary drink so much, it rejects healthier alternatives. Nuka-Cola heals you, sort of."
 	value = 1
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 3
 	mob_trait = TRAIT_NUKA_LOVER
 	gain_text = span_notice("You want to buy the whole world a Nuka-Cola!")
 	lose_text = span_danger("What's the big deal about Nuka-Cola?")
@@ -508,6 +572,9 @@ Merged into the paired Wasteland Trait "Night Owl" (code/datums/traits/fallout_t
 	name = "Trapper"
 	desc = "As an experienced hunter and trapper you know your way around butchering animals for their products, and are able to get twice the usable materials by eliminating waste."
 	value = 1
+	required_special_stat = "special_p"
+	required_special_name = "Perception"
+	required_special_value = 4
 	mob_trait = TRAIT_TRAPPER
 	gain_text = span_notice("You learn the secrets of butchering!")
 	lose_text = span_danger("You forget how to slaughter animals.")
@@ -577,6 +644,12 @@ Merged into ranked Wasteland Perk "Chemist" (code/datums/traits/fallout_perks.dm
 	name = "Power Armor Training"
 	desc = "You've been around the wastes and have learned the wonders of wearing high tech armor from somewhere or something."
 	value = 3 //unlocks an entire iconic armor category, was priced below the other gear-category unlocks (gunsmith/technophreak at 4)
+	required_special_stat = "special_s"
+	required_special_name = "Strength"
+	required_special_value = 5
+	required_special_stat_2 = "special_i"
+	required_special_name_2 = "Intelligence"
+	required_special_value_2 = 5
 	mob_trait = TRAIT_PA_WEAR
 	gain_text = span_notice("You realize how to use Power Armor.")
 	lose_text = span_danger("You forget how Power Armor works.")
@@ -647,8 +720,8 @@ is also still granted for free by the paired Wasteland Trait "Heavy Handed" (cod
 
 /datum/quirk/iron_fist/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.dna.species.punchdamagelow = IRON_FIST_PUNCH_DAMAGE_LOW
-	H.dna.species.punchdamagehigh = IRON_FIST_PUNCH_DAMAGE_MAX
+	H.dna.species.punchdamagelow = max(H.dna.species.punchdamagelow, IRON_FIST_PUNCH_DAMAGE_LOW)
+	H.dna.species.punchdamagehigh = max(H.dna.species.punchdamagehigh, IRON_FIST_PUNCH_DAMAGE_MAX)
 */
 /*
 Merged into ranked Wasteland Perk "Iron Fist" Rank 2 (code/datums/traits/ranked_perks.dm)
@@ -663,14 +736,17 @@ Merged into ranked Wasteland Perk "Iron Fist" Rank 2 (code/datums/traits/ranked_
 
 /datum/quirk/steel_fist/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.dna.species.punchdamagelow = STEEL_FIST_PUNCH_DAMAGE_LOW
-	H.dna.species.punchdamagehigh = STEEL_FIST_PUNCH_DAMAGE_MAX
+	H.dna.species.punchdamagelow = max(H.dna.species.punchdamagelow, STEEL_FIST_PUNCH_DAMAGE_LOW)
+	H.dna.species.punchdamagehigh = max(H.dna.species.punchdamagehigh, STEEL_FIST_PUNCH_DAMAGE_MAX)
 */
 
 /datum/quirk/light_step
 	name = "Glass Walker"
 	desc = "When it comes to stepping on glass, you're pretty die hard.  You'll make less noise when you do so, but it'll still suck without shoes."
 	value = 1
+	required_special_stat = "special_a"
+	required_special_name = "Agility"
+	required_special_value = 4
 	mob_trait = TRAIT_LIGHT_STEP
 	gain_text = span_notice("You walk with a little more litheness.")
 	lose_text = span_danger("You start tromping around like a barbarian.")
@@ -796,6 +872,9 @@ Merged into ranked Wasteland Perk "Demolition Expert" (code/datums/traits/fallou
 	name = "White Legs traditions"
 	desc = "You remember how to make your people's ancient garments after all this time."
 	value = 1
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 3
 	mob_trait = TRAIT_WHITELEGS_TRAD
 	gain_text = span_notice("The mysteries of your ancestors are revealed to you.")
 	lose_text = span_danger("You forget how your ancestors created their garments.")
@@ -816,6 +895,9 @@ Merged into ranked Wasteland Perk "Demolition Expert" (code/datums/traits/fallou
 	name = "Dead Horses traditions"
 	desc = "You remember how to make your people's ancient garments after all this time."
 	value = 1
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 3
 	mob_trait = TRAIT_DEADHORSES_TRAD
 	gain_text = span_notice("The mysteries of your ancestors are revealed to you.")
 	lose_text = span_danger("You forget how your ancestors created their garments.")
@@ -836,6 +918,9 @@ Merged into ranked Wasteland Perk "Demolition Expert" (code/datums/traits/fallou
 	name = "Rust Walkers traditions"
 	desc = "You remember how to make your people's ancient garments after all this time."
 	value = 1
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 3
 	mob_trait = TRAIT_RUSTWALKERS_TRAD
 	gain_text = span_notice("The mysteries of your ancestors are revealed to you.")
 	lose_text = span_danger("You forget how your ancestors created their garments.")
@@ -856,6 +941,9 @@ Merged into ranked Wasteland Perk "Demolition Expert" (code/datums/traits/fallou
 	name = "Eighties traditions"
 	desc = "You remember how to make your people's ancient garments after all this time."
 	value = 1
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 3
 	mob_trait = TRAIT_EIGHTIES_TRAD
 	gain_text = span_notice("The mysteries of your ancestors are revealed to you.")
 	lose_text = span_danger("You forget how your ancestors created their garments.")
@@ -876,6 +964,9 @@ Merged into ranked Wasteland Perk "Demolition Expert" (code/datums/traits/fallou
 	name = "Sorrows traditions"
 	desc = "You remember how to make your people's ancient garments after all this time."
 	value = 1
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 3
 	mob_trait = TRAIT_SORROWS_TRAD
 	gain_text = span_notice("The mysteries of your ancestors are revealed to you.")
 	lose_text = span_danger("You forget how your ancestors created their garments.")
@@ -896,6 +987,9 @@ Merged into ranked Wasteland Perk "Demolition Expert" (code/datums/traits/fallou
 	name = "Wayfarer traditions"
 	desc = "You remember how to make your people's ancient garments after all this time."
 	value = 1
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 3
 	mob_trait = TRAIT_WAYFARER_TRAD
 	gain_text = span_notice("The mysteries of your ancestors are revealed to you.")
 	lose_text = span_danger("You forget how your ancestors created their garments.")
@@ -916,6 +1010,9 @@ Merged into ranked Wasteland Perk "Demolition Expert" (code/datums/traits/fallou
 	name = "Bone Dancer traditions"
 	desc = "You remember how to make your people's ancient garments after all this time."
 	value = 1
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 3
 	mob_trait = TRAIT_BONEDANCER_TRAD
 	gain_text = span_notice("The mysteries of your ancestors are revealed to you.")
 	lose_text = span_danger("You forget how your ancestors created their garments.")
@@ -936,6 +1033,9 @@ Merged into ranked Wasteland Perk "Demolition Expert" (code/datums/traits/fallou
 	name = "Brick wall"
 	desc = "You just don't move when people try to push you out of the way, for whatever reason."
 	value = 1
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 5
 	mob_trait = TRAIT_PUSHIMMUNE
 	gain_text = span_notice("You feel stronger than a brick wall.")
 	lose_text = span_danger("Your feel like you could get thrown down again.")
@@ -945,6 +1045,9 @@ Merged into ranked Wasteland Perk "Demolition Expert" (code/datums/traits/fallou
 	name = "Heat Resistant"
 	desc = "Heat doesn't bother you too much."
 	value = 1
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 4
 	mob_trait = TRAIT_RESISTHEAT
 	gain_text = span_notice("It could be a little warmer in here.")
 	lose_text = span_danger("You know? Being hot kind of sucks actually.")
@@ -954,6 +1057,9 @@ Merged into ranked Wasteland Perk "Demolition Expert" (code/datums/traits/fallou
 	name = "Cold Resistant"
 	desc = "Cold doesn't bother you too much."
 	value = 1
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 4
 	mob_trait = TRAIT_RESISTCOLD
 	gain_text = span_notice("It could be a little colder in here.")
 	lose_text = span_danger("You know? Being cold kind of sucks actually.")
@@ -1010,6 +1116,9 @@ Merged into ranked Wasteland Perk "Demolition Expert" (code/datums/traits/fallou
 	name = "Wire Monkey"
 	desc = "You know how to walk through barbed wire without pain, halves the stun too."
 	value = 2
+	required_special_stat = "special_a"
+	required_special_name = "Agility"
+	required_special_value = 5
 	mob_trait = TRAIT_BARBEDWIRENODMG
 	gain_text = span_notice("You feel at home in the trenches.")
 	lose_text = span_danger("The thought of barbed wire horrifies you.")
@@ -1019,6 +1128,9 @@ Merged into ranked Wasteland Perk "Demolition Expert" (code/datums/traits/fallou
 	name = "Pilot"
 	desc = "You know how to fly Vertibird (and balloons)."
 	value = 2
+	required_special_stat = "special_p"
+	required_special_name = "Perception"
+	required_special_value = 5
 	mob_trait = TRAIT_PILOT
 	gain_text = span_notice("You know how to fly Vertbirds.")
 	lose_text = span_danger("You know how to crash Vertibirds")
@@ -1026,8 +1138,12 @@ Merged into ranked Wasteland Perk "Demolition Expert" (code/datums/traits/fallou
 
 /datum/quirk/quickercarry
 	name = "Quicker Carry"
-	desc = "You're real good at just scooping people up."
+	desc = "You're real good at just scooping people up. Requires Quick Carry."
 	value = 2
+	requires_quirk = "Quick Carry"
+	required_special_stat = "special_s"
+	required_special_name = "Strength"
+	required_special_value = 5
 	mob_trait = TRAIT_QUICKER_CARRY
 	gain_text = span_notice("You feel like a MASTER fireman!")
 	lose_text = span_danger("Your ability to carry folk seems massively diminished.")
@@ -1037,6 +1153,9 @@ Merged into ranked Wasteland Perk "Demolition Expert" (code/datums/traits/fallou
 	name = "Quick Carry"
 	desc = "You're better than most at just scooping people up."
 	value = 1
+	required_special_stat = "special_s"
+	required_special_name = "Strength"
+	required_special_value = 4
 	mob_trait = TRAIT_QUICK_CARRY
 	gain_text = span_notice("You feel like an ACCEPTABLE fireman!")
 	lose_text = span_danger("Your ability to carry folk seems a bit diminished.")
@@ -1046,6 +1165,9 @@ Merged into ranked Wasteland Perk "Demolition Expert" (code/datums/traits/fallou
 	name = "Experienced Builder"
 	desc = "You're good at putting stuff together!"
 	value = 1
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 4
 	mob_trait = TRAIT_QUICK_BUILD
 	gain_text = span_notice("You could throw up a house if you wanted to!")
 	lose_text = span_danger("What's a two by four again?")
@@ -1136,6 +1258,9 @@ Discipline" below instead of being rebalanced/kept in any form.
 	name = "Bow Trained"
 	desc = "You've trained quite a bit with bows of many types, and are pretty good with them for it."
 	value = 2
+	required_special_stat = "special_p"
+	required_special_name = "Perception"
+	required_special_value = 5
 	mob_trait = TRAIT_AUTO_DRAW
 	gain_text = span_notice("You feel like all that training with bows has paid off.")
 	lose_text = span_danger("Guns were always better...")
@@ -1145,6 +1270,9 @@ Discipline" below instead of being rebalanced/kept in any form.
 	name = "Bolt Worker"
 	desc = "You've spent a lot of time working the bolt of a rifle, or the pump of a shotgun. Your skill allows you to click to work the action instead of doing it manually."
 	value = 2
+	required_special_stat = "special_p"
+	required_special_name = "Perception"
+	required_special_value = 6
 	mob_trait = TRAIT_FAST_PUMP
 	gain_text = span_notice("In a sudden haze you realize that the Mosin-Nagant was God's gift to mankind.")
 	lose_text = span_danger("After picking some 250 year old cosmoline out from under one of your nails you realize that... Uh, no, the Mosin-Nagant is a piece of shit.")
@@ -1154,6 +1282,9 @@ Discipline" below instead of being rebalanced/kept in any form.
 	name = "Class Act"
 	desc = "You're good at acting! *deathgasp will be extra convincing to rudimentary tests, such as health-H.U.D.s and examine - though doing so may deal a small quantity of toxin damage."
 	value = 1
+	required_special_stat = "special_c"
+	required_special_name = "Charisma"
+	required_special_value = 4
 	mob_trait = TRAIT_PLAY_DEAD
 	gain_text = span_notice("You feel confident at playing dead.")
 	lose_text = span_danger("You feel that laying down in a field of gunfire may not be such a good idea after all.")
@@ -1163,6 +1294,9 @@ Discipline" below instead of being rebalanced/kept in any form.
 	name = "Beast Friend - Rats"
 	desc = "Rattos and wild mice outright ignore you now."
 	value = 2
+	required_special_stat = "special_c"
+	required_special_name = "Charisma"
+	required_special_value = 4
 	mob_trait = TRAIT_BEASTFRIEND_RAT
 	gain_text = span_notice("Rats are friends!")
 	lose_text = span_danger("God of rats curses your name...")
@@ -1219,6 +1353,9 @@ Discipline" below instead of being rebalanced/kept in any form.
 	name = "Beast Friend - Small Critters"
 	desc = "Roaches, young nightstalkers, and most types of geckos outright ignore you now."
 	value = 3
+	required_special_stat = "special_c"
+	required_special_name = "Charisma"
+	required_special_value = 5
 	mob_trait = TRAIT_BEASTFRIEND_SMALLCRITTER
 	gain_text = span_notice("Some (if not all) wasteland critters doesn't seem to mind you now!")
 	lose_text = span_danger("You feel critters of the wasteland wouldn't be so friendly with you anymore...")
@@ -1274,6 +1411,9 @@ Discipline" below instead of being rebalanced/kept in any form.
 	name = "Tribal Language Comprehension"
 	desc = "You're somehow capable of understanding and speaking the common tribal languages in the area."
 	value = 1
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 4
 	gain_text = span_notice("You remember the old ways of your tribe...")
 	lose_text = span_notice("You've forgotten the ways of your ancestors...")
 
@@ -1290,6 +1430,9 @@ Discipline" below instead of being rebalanced/kept in any form.
 	name = "Spanish Language Comprehension"
 	desc = "You're somehow capable of understanding and speaking the common language of the Mexican cartels in the south."
 	value = 1
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 4
 	gain_text = span_notice("You remember the old tongue of the Mexican cartels.")
 	lose_text = span_notice("You've forgotten the tongue of the Mexican cartels.")
 
@@ -1306,6 +1449,9 @@ Discipline" below instead of being rebalanced/kept in any form.
 	name = "Chinese Language Comprehension"
 	desc = "You are somehow capable of understanding and speaking the old Chinese language."
 	value = 1
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 4
 	gain_text = span_notice("You remember the old language of China.")
 	lose_text = span_notice("You forget the old language of China.")
 
@@ -1322,6 +1468,9 @@ Discipline" below instead of being rebalanced/kept in any form.
 	name = "Japanese Language Comprehension"
 	desc = "You are somehow capable of understanding and speaking the Japanese language."
 	value = 1
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 4
 	gain_text = span_notice("You remember the old tongue of Japan.")
 	lose_text = span_notice("You forget the old language of Japan.")
 

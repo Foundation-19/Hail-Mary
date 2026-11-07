@@ -42,7 +42,7 @@
 			return
 		if(W.use(1))
 			user.visible_message("[user] has added fuel to [src].", span_notice("You have added fuel to [src]."))
-			fuel += 300
+			fuel += HAS_TRAIT(user, TRAIT_CAMPER) ? 450 : 300
 	else if(fired && istype(P, /obj/item/reagent_containers/food/snacks))
 		if(!ishuman(user))
 			return
@@ -50,7 +50,7 @@
 			var/obj/item/reagent_containers/food/snacks/F = P
 			if(F.cooked_type)
 				to_chat(user, "You start cooking a [F.name].")
-				if(do_after(user, 20, target = src))
+				if(do_after(user, HAS_TRAIT(user, TRAIT_CAMPER) ? 12 : 20, target = src))
 					F.microwave_act()
 	else
 		. = ..()

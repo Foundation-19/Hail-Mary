@@ -39,6 +39,8 @@
 	/// Effectiveness penalty multiplier if they dont have the trait
 	var/unskilled_effectiveness_mult = 0.5
 	var/self_penalty_effectiveness = 0.8
+	/// Plant-based dressings cost the body less to heal from, like herbal remedies
+	var/is_herbal = FALSE
 	var/self_delay = 50
 	var/other_delay = 50
 	var/repeating = TRUE
@@ -280,7 +282,13 @@
 				C.emote("scream") // a
 			C.update_damage_overlays()
 	if(heal_operations & DO_HEAL_DAMAGE)
-		if(affected_bodypart.heal_damage(heal_brute, heal_burn, (heal_brute + heal_burn), updating_health = TRUE))
+		var/medic_mult = get_medic_heal_mult(user) * get_special_heal_mult(user, C)
+		if(HAS_TRAIT(C, TRAIT_SLOW_HEALER))
+			medic_mult *= 0.8
+		// Dressings only help the body mend itself, so they need food and water and use them up like any other healing
+		medic_mult *= C.get_repair_resource_factor()
+		C.pay_repair_cost(min((heal_brute + heal_burn) * medic_mult, C.getBruteLoss() + C.getFireLoss()), is_herbal ? HEAL_HERBAL_COST_MULT : 1)
+		if(affected_bodypart.heal_damage(heal_brute * medic_mult, heal_burn * medic_mult, (heal_brute + heal_burn) * medic_mult, updating_health = TRUE))
 			C.update_damage_overlays()
 	/* if(heal_operations & DO_UNBLEED_WOUND)
 		for(var/datum/wound/wounds_to_unbleed in affected_bodypart.wounds)
@@ -337,6 +345,16 @@
 		. = self_delay
 	if(!is_skilled)
 		. *= unskilled_speed_mult
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		. *= max(0.4, 1 - 0.12 * H.get_perk_rank("medic") - (HAS_TRAIT(H, TRAIT_FIELD_MEDIC) ? 0.15 : 0))
+
+/// Healing multiplier from Medic and Field Medic
+/obj/item/stack/medical/proc/get_medic_heal_mult(mob/user)
+	if(!ishuman(user))
+		return 1
+	var/mob/living/carbon/human/H = user
+	return 1 + 0.1 * H.get_perk_rank("medic") + (HAS_TRAIT(H, TRAIT_FIELD_MEDIC) ? 0.1 : 0)
 
 /* * * * * * * * * * * * * * * * * * *
  * Outputs a message at the start or end of use
@@ -423,11 +441,11 @@
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	//needed_trait = TRAIT_SURGERY_LOW
-	heal_brute = 30
-	heal_burn = 30
+	heal_brute = 15
+	heal_burn = 15
 	heal_mobs = 40
-	self_delay = 40
-	other_delay = 20
+	self_delay = 60
+	other_delay = 30
 	grind_results = list(/datum/reagent/medicine/styptic_powder = 10, /datum/reagent/medicine/silver_sulfadiazine = 10)
 	merge_type = /obj/item/stack/medical/bruise_pack
 
@@ -906,6 +924,7 @@
 	other_delay = 10
 	novariants = TRUE
 	heal_burn = 10
+	is_herbal = TRUE
 	amount = 20
 	max_amount = 20
 	grind_results = list(/datum/reagent/consumable/aloejuice = 1)
@@ -929,10 +948,11 @@
 	icon_state = "mourningdust"
 	amount = 15
 	max_amount = 15
-	heal_brute = 10
-	heal_burn = 10
-	self_delay = 40
-	other_delay = 10
+	heal_brute = 6
+	heal_burn = 6
+	is_herbal = TRUE
+	self_delay = 50
+	other_delay = 20
 	merge_type = /obj/item/stack/medical/poultice
 	novariants = TRUE
 

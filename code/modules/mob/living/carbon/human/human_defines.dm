@@ -101,7 +101,16 @@
 	var/busy= FALSE
 
 	var/thirst = THIRST_LEVEL_START
-
+	/// Water waiting in the stomach to be absorbed into thirst
+	var/stomach_water = 0
+	var/hydration_tier = HYDRATION_TIER_HYDRATED
+	var/waterborne_ill = FALSE
+	/// Hidden buildup of dirty-water contamination; decays over time. Illness triggers at HYDRATION_LOAD_SICK
+	var/waterborne_load = 0
+	/// Whether the queasy warning and mood are currently active
+	var/waterborne_queasy = FALSE
+	/// Multiplier on contamination added, for perks/traits
+	var/waterborne_resistance = 1
 /// Unarmed parry/block data for human
 /datum/block_parry_data/unarmed/human
 	parry_respect_clickdelay = TRUE

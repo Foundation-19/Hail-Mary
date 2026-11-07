@@ -13,4 +13,5 @@
 
 /// Applied while wearing/holding a storage item whose contents outweigh the carrier's Strength.
 /datum/movespeed_modifier/overloaded_storage
-	multiplicative_slowdown = 1.5
+	variable = TRUE
+	multiplicative_slowdown = 0.3

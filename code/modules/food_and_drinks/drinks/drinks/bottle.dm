@@ -440,6 +440,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
 	isGlass = FALSE
 	list_reagents = list(/datum/reagent/consumable/orangejuice = 100)
+	aged_pathogen_chance = DRINK_AGED_PATHOGEN_CHANCE
 	foodtype = FRUIT| BREAKFAST
 
 /obj/item/reagent_containers/food/drinks/bottle/bio_carton
@@ -462,6 +463,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
 	isGlass = FALSE
 	list_reagents = list(/datum/reagent/consumable/cream = 100)
+	aged_pathogen_chance = DRINK_AGED_PATHOGEN_CHANCE
 	foodtype = DAIRY
 
 
@@ -482,6 +484,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
 	isGlass = TRUE
 	list_reagents = list(/datum/reagent/consumable/limejuice = 100)
+	aged_pathogen_chance = DRINK_AGED_PATHOGEN_CHANCE
 	foodtype = FRUIT
 
 /obj/item/reagent_containers/food/drinks/bottle/instatea
@@ -531,6 +534,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
 	isGlass = FALSE
 	list_reagents = list(/datum/reagent/consumable/tomatojuice = 100)
+	aged_pathogen_chance = DRINK_AGED_PATHOGEN_CHANCE
 	foodtype = VEGETABLES
 
 /obj/item/reagent_containers/food/drinks/bottle/limejuice
@@ -543,6 +547,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
 	isGlass = FALSE
 	list_reagents = list(/datum/reagent/consumable/limejuice = 100)
+	aged_pathogen_chance = DRINK_AGED_PATHOGEN_CHANCE
 	foodtype = FRUIT
 
 /obj/item/reagent_containers/food/drinks/bottle/pineapplejuice
@@ -554,6 +559,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
 	isGlass = FALSE
 	list_reagents = list(/datum/reagent/consumable/pineapplejuice = 100)
+	aged_pathogen_chance = DRINK_AGED_PATHOGEN_CHANCE
 	foodtype = FRUIT | PINEAPPLE
 
 /obj/item/reagent_containers/food/drinks/bottle/strawberryjuice
@@ -565,6 +571,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
 	isGlass = FALSE
 	list_reagents = list(/datum/reagent/consumable/strawberryjuice = 100)
+	aged_pathogen_chance = DRINK_AGED_PATHOGEN_CHANCE
 	foodtype = FRUIT
 
 /obj/item/reagent_containers/food/drinks/bottle/menthol

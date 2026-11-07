@@ -98,10 +98,10 @@
 		return
 	switch(severity)
 		if(1)
-			owner.nutrition = min(owner.nutrition - 50, 0)
+			owner.nutrition = max(owner.nutrition - 50, 0)
 			to_chat(owner, span_warning("Alert: Detected severe battery discharge!"))
 		if(2)
-			owner.nutrition = min(owner.nutrition - 100, 0)
+			owner.nutrition = max(owner.nutrition - 100, 0)
 			to_chat(owner, span_warning("Alert: Minor battery discharge!"))
 
 /obj/item/organ/stomach/gen2synth

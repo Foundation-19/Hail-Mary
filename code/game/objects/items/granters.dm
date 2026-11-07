@@ -133,12 +133,29 @@
 			return i
 	return 0
 
+/obj/item/book/granter/trait/rank/proc/meets_next_rank_special(mob/living/user)
+	var/next_rank = get_current_rank(user) + 1
+	if(next_rank > length(rank_quirks))
+		return TRUE
+	var/datum/quirk/next_path = rank_quirks[next_rank]
+	var/stat_name = initial(next_path.required_special_stat)
+	var/stat_name_2 = initial(next_path.required_special_stat_2)
+	if((!stat_name || user.vars[stat_name] >= initial(next_path.required_special_value)) && (!stat_name_2 || user.vars[stat_name_2] >= initial(next_path.required_special_value_2)))
+		return TRUE
+	var/req_text = "[initial(next_path.required_special_name)] [initial(next_path.required_special_value)]"
+	if(stat_name_2)
+		req_text += " and [initial(next_path.required_special_name_2)] [initial(next_path.required_special_value_2)]"
+	to_chat(user, span_warning("You can't make sense of this - you'd need [req_text] or better to learn the next level of [traitname]."))
+	return FALSE
+
 /obj/item/book/granter/trait/rank/already_known(mob/user)
 	if(!isliving(user) || !length(rank_quirks))
 		return TRUE
 	var/mob/living/L = user
 	if(get_current_rank(L) >= length(rank_quirks))
 		to_chat(user, span_notice("You already know everything this book could teach you about [traitname]."))
+		return TRUE
+	if(!meets_next_rank_special(L))
 		return TRUE
 	return FALSE
 
@@ -149,6 +166,8 @@
 	if(!isliving(user))
 		return
 	var/mob/living/L = user
+	if(!meets_next_rank_special(L))
+		return
 	var/current = get_current_rank(L)
 	var/next_rank = current + 1
 	if(current > 0)
@@ -264,6 +283,334 @@
 	icon_state = "book2"
 	rank_quirks = list(/datum/quirk/nuclear_physicist_rank1, /datum/quirk/nuclear_physicist_rank2)
 	remarks = list("A margin note reads 'bleed the core slow, not fast'...", "The diagrams on cell regulation are hand-corrected in red pen...", "A whole chapter is devoted to why Vault-Tec's official figures are wrong...", "The last page is a crude hand-drawn chart comparing core lifespans.")
+
+/obj/item/book/granter/trait/rank/toughness
+	name = "Taking It on the Chin"
+	desc = "A battered self-help pamphlet for brawlers and bounty hunters on how to absorb punishment."
+	oneuse = TRUE
+	traitname = "toughness"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/toughness_rank1, /datum/quirk/modular/toughness_rank2, /datum/quirk/modular/toughness_rank3)
+	remarks = list("Tense the abs before impact...", "Roll with the hit, don't fight it...", "Scar tissue is just armor you grew yourself...", "A diagram shows exactly where not to get stabbed.")
+
+/obj/item/book/granter/trait/rank/actionboy
+	name = "Pep Talk Weekly"
+	desc = "A stack of pre-war fitness magazines full of tips for stamina and quick recovery."
+	oneuse = TRUE
+	traitname = "stamina and recovery"
+	icon_state = "book2"
+	rank_quirks = list(/datum/quirk/modular/actionboy_rank1, /datum/quirk/modular/actionboy_rank2, /datum/quirk/modular/actionboy_rank3)
+	remarks = list("Breathe in for four, out for six...", "Never stop moving between sets...", "Hydration is half the battle...", "The interval-training charts are surprisingly detailed.")
+
+/obj/item/book/granter/trait/rank/survivalist
+	name = "Wasteland Survival Guide"
+	desc = "A thumbed-through field guide to rationing food, reading the weather, and not dying out in the sticks."
+	oneuse = TRUE
+	traitname = "wasteland survival"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/survivalist_rank1, /datum/quirk/modular/survivalist_rank2, /datum/quirk/modular/survivalist_rank3)
+	remarks = list("Eat before you're hungry, drink before you're thirsty...", "Layers, always layers...", "Never trust a puddle...", "A hand-drawn map marks every shady spot in the region.")
+
+/obj/item/book/granter/trait/rank/silentrun
+	name = "Light on Your Feet"
+	desc = "A grubby courier's pamphlet on running without announcing yourself to the whole wasteland."
+	oneuse = TRUE
+	traitname = "quiet running"
+	icon_state = "book2"
+	rank_quirks = list(/datum/quirk/modular/silentrun_rank1, /datum/quirk/modular/silentrun_rank2, /datum/quirk/modular/silentrun_rank3)
+	remarks = list("Land on the ball of the foot, not the heel...", "Keep your gear tied down so it doesn't rattle...", "Short strides, long breaths...", "The last page is a sketch of a courier outrunning a very annoyed dog.")
+
+/obj/item/book/granter/trait/rank/fixit
+	name = "Handyman's Almanac"
+	desc = "A grease-stained almanac of shortcuts for fixing, building and jury-rigging nearly anything."
+	oneuse = TRUE
+	traitname = "fixing things"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/fixit_rank1, /datum/quirk/modular/fixit_rank2, /datum/quirk/modular/fixit_rank3)
+	remarks = list("Right tool, right job, half the time...", "Label every screw bin, thank yourself later...", "Duct tape solves everything except bad planning...", "The margins are full of someone's cheerful repair notes.")
+
+/obj/item/book/granter/trait/rank/leadbelly
+	name = "Eating Rust and Other Survival Tips"
+	desc = "A dog-eared guide to what you can safely eat and drink out in the wastes, and what you can't but will anyway."
+	oneuse = TRUE
+	traitname = "iron stomachs"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/leadbelly_rank1, /datum/quirk/modular/leadbelly_rank2, /datum/quirk/modular/leadbelly_rank3)
+	remarks = list("Boil it twice, then boil it again...", "If the can bulges, the can wins...", "Small bites, big grudges...", "The last chapter is a recipe for something that should not be a recipe.")
+
+/obj/item/book/granter/trait/rank/fortunefinder
+	name = "Lucky Breaks and How to Make Them"
+	desc = "A scavenger's memoir about always showing up just before someone else got there."
+	oneuse = TRUE
+	traitname = "finding fortune"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/fortune_finder_rank1, /datum/quirk/modular/fortune_finder_rank2, /datum/quirk/modular/fortune_finder_rank3)
+	remarks = list("Always check the bottom of the pile...", "Luck is mostly showing up...", "The shiny thing is usually the trap...", "A folded page marks someone's very lucky find.")
+
+/obj/item/book/granter/trait/rank/scrounger
+	name = "Waste Not: A Scrounger's Handbook"
+	desc = "Practical advice on getting a second helping out of every pile of junk."
+	oneuse = TRUE
+	traitname = "scrounging"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/scrounger_rank1, /datum/quirk/modular/scrounger_rank2, /datum/quirk/modular/scrounger_rank3)
+	remarks = list("Dig past the first layer...", "Every pile has a hidden second layer...", "Cartridges roll, look under things...", "The back cover lists dozens of places to look.")
+
+/obj/item/book/granter/trait/rank/trader
+	name = "The Art of the Haggle"
+	desc = "A worn merchant's guide to talking prices down."
+	oneuse = TRUE
+	traitname = "haggling"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/trader_rank1, /datum/quirk/modular/trader_rank2)
+	remarks = list("Never accept the first price...", "Act uninterested, always...", "Silence is the best counteroffer...", "Someone has scribbled 'works on vending machines too' in the margin.")
+
+/obj/item/book/granter/trait/rank/leader
+	name = "Lead from the Front"
+	desc = "A dog-eared field guide on keeping a group together when things go bad."
+	oneuse = TRUE
+	traitname = "leadership"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/leader_rank1, /datum/quirk/modular/leader_rank2)
+	remarks = list("Say where you're going before you go...", "Never ask anyone to do what you won't...", "Know who is tired before they say it...", "A margin note reads 'works best with a party aura'.")
+
+/obj/item/book/granter/trait/rank/sniper
+	name = "Long Shots: A Marksman's Primer"
+	desc = "A field manual on breath control, windage and patience."
+	oneuse = TRUE
+	traitname = "sniping"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/sniper_rank1, /datum/quirk/modular/sniper_rank2)
+	remarks = list("Exhale halfway, then hold...", "Never chase the wobble...", "Squeeze, don't pull...", "The last page is a hand-drawn range card.")
+
+/obj/item/book/granter/trait/rank/commando
+	name = "Controlled Bursts"
+	desc = "An infantry pamphlet on keeping automatic fire on target."
+	oneuse = TRUE
+	traitname = "automatic fire"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/commando_rank1, /datum/quirk/modular/commando_rank2)
+	remarks = list("Short bursts, always...", "Lean into the gun...", "Walk the rounds on target...", "Someone has underlined 'ammo is not infinite'.")
+
+/obj/item/book/granter/trait/rank/gunslinger
+	name = "Fast Hands, Faster Triggers"
+	desc = "A dime-novel gunfighter's guide to one-handed shooting."
+	oneuse = TRUE
+	traitname = "gunslinging"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/gunslinger_rank1, /datum/quirk/modular/gunslinger_rank2)
+	remarks = list("Never look at the gun, look at the man...", "Smooth is fast...", "Thumb the hammer, ease the trigger...", "The cover shows a duel at high noon.")
+
+/obj/item/book/granter/trait/rank/heavygunner
+	name = "Heavy Weapons Handling"
+	desc = "A grimy army manual on carrying and firing the big guns."
+	oneuse = TRUE
+	traitname = "heavy weapons"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/heavy_gunner_rank1, /datum/quirk/modular/heavy_gunner_rank2)
+	remarks = list("Brace the weight, don't fight it...", "Let the gun do the work...", "Feed the belt clean...", "Grease stains cover half the diagrams.")
+
+/obj/item/book/granter/trait/rank/blademaster
+	name = "The Edge and the Hand"
+	desc = "A treatise on cutting weapons, from machetes to katanas."
+	oneuse = TRUE
+	traitname = "bladework"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/blademaster_rank1, /datum/quirk/modular/blademaster_rank2, /datum/quirk/modular/blademaster_rank3)
+	remarks = list("Cut through, don't chop...", "The edge does the work...", "Keep your wrist loose...", "Sketches of stances fill the margins.")
+
+/obj/item/book/granter/trait/rank/brawler
+	name = "Knuckles and Elbows"
+	desc = "A battered guide to dirty, effective unarmed fighting."
+	oneuse = TRUE
+	traitname = "brawling"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/brawler_rank1, /datum/quirk/modular/brawler_rank2, /datum/quirk/modular/brawler_rank3)
+	remarks = list("Hit with your hips, not your arm...", "Aim past the target...", "Protect your jaw...", "A ring of old blood stains the cover.")
+
+/obj/item/book/granter/trait/rank/dodger
+	name = "Not Where You Aimed"
+	desc = "A street fighter's notes on slipping blows."
+	oneuse = TRUE
+	traitname = "dodging"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/dodger_rank1, /datum/quirk/modular/dodger_rank2)
+	remarks = list("Watch the shoulders, not the fist...", "Move off the line...", "Stay light on your feet...", "Several pages are stained with someone's blood.")
+
+/obj/item/book/granter/trait/rank/awareness
+	name = "Eyes Open, Mouth Shut"
+	desc = "A survival guide to noticing what's wrong before it goes wrong."
+	oneuse = TRUE
+	traitname = "awareness"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/awareness_rank1, /datum/quirk/modular/awareness_rank2, /datum/quirk/modular/awareness_rank3)
+	remarks = list("Look for the thing that doesn't belong...", "Disturbed dirt means something below...", "Trust the hairs on your neck...", "A pressed flower marks a page on tripwires.")
+
+/obj/item/book/granter/trait/rank/scout
+	name = "Reading the Wastes"
+	desc = "A ranger's field notes on watching and tracking from afar."
+	oneuse = TRUE
+	traitname = "scouting"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/scout_rank1, /datum/quirk/modular/scout_rank2, /datum/quirk/modular/scout_rank3)
+	remarks = list("Take the high ground first...", "Tracks tell you everything...", "Watch the horizon, not the road...", "Hand-drawn maps fill the endpapers.")
+
+/obj/item/book/granter/trait/rank/shadow
+	name = "Walk in Shadow"
+	desc = "A thin pamphlet on moving unseen and unheard."
+	oneuse = TRUE
+	traitname = "shadow work"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/shadow_rank1, /datum/quirk/modular/shadow_rank2)
+	remarks = list("Heel to toe, always...", "Stay where the light isn't...", "Breathe with the wind...", "The last page is blank except for a single word: patience.")
+
+/obj/item/book/granter/trait/rank/medic
+	name = "Wasteland Field Medicine"
+	desc = "A battered handbook on treating wounds with whatever is on hand."
+	oneuse = TRUE
+	traitname = "medicine"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/medic_rank1, /datum/quirk/modular/medic_rank2, /datum/quirk/modular/medic_rank3)
+	remarks = list("Pressure first, then cleanliness...", "Keep the patient talking...", "Don't pull the shrapnel yet...", "Coffee rings and dried blood mark the pages.")
+
+/obj/item/book/granter/trait/rank/healer
+	name = "Principles of Surgical Practice"
+	desc = "A pre-war surgical textbook, remarkably intact."
+	oneuse = TRUE
+	traitname = "surgery"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/healer_rank1, /datum/quirk/modular/healer_rank2)
+	remarks = list("Cut once, cut clean...", "Know the anatomy before the incision...", "Sterility is half the surgery...", "Diagrams of organs fill the margins.")
+
+/obj/item/book/granter/trait/rank/mad_scientist
+	name = "Mad Science Weekly"
+	desc = "A stack of lurid pulp issues full of improbable gadgets."
+	oneuse = TRUE
+	traitname = "mad science"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/mad_scientist_rank1, /datum/quirk/modular/mad_scientist_rank2)
+	remarks = list("It will work if you believe...", "More power, always more power...", "Never label the green bottle...", "Scorch marks run along the spine.")
+
+/obj/item/book/granter/trait/rank/robotics_expert
+	name = "Robotics Maintenance Compendium"
+	desc = "A technical manual on robot internals and salvage."
+	oneuse = TRUE
+	traitname = "robotics"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/robotics_expert_rank1, /datum/quirk/modular/robotics_expert_rank2)
+	remarks = list("The motivator is rarely the problem...", "Mind the capacitors...", "Salvage the servos first...", "Greasy fingerprints cover every page.")
+
+/obj/item/book/granter/trait/rank/more_criticals
+	name = "Anatomy for the Armed"
+	desc = "A grim field guide to where a bullet or blade does the most harm."
+	oneuse = TRUE
+	traitname = "finding weak points"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/more_criticals_rank1, /datum/quirk/modular/more_criticals_rank2, /datum/quirk/modular/more_criticals_rank3)
+	remarks = list("The throat, the eye, the gap in the plate...", "Everyone drops their guard when they think they've won...", "Don't aim for the center, aim for what's behind it...", "Dark stains cover the diagrams.")
+
+//Single-perk Luck books: the same rank-book machinery with a one-entry rank list, so the SPECIAL lock still applies.
+/obj/item/book/granter/trait/rank/lucky_pins
+	name = "Pins and Needles"
+	desc = "A locksmith's pocket notebook, with a lot of notes on not snapping your pins."
+	oneuse = TRUE
+	traitname = "careful lockpicking"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/lucky_pins)
+	remarks = list("Light touch, slow turn...", "A pin bends before it breaks, listen for it...", "Never force a stubborn lock, ask it nicely...", "A few bent pins are taped to the back cover.")
+
+/obj/item/book/granter/trait/rank/jackpot
+	name = "House Always Wins (Except When It Doesn't)"
+	desc = "A casino regular's tell-all about the one-armed bandits."
+	oneuse = TRUE
+	traitname = "slot machines"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/jackpot)
+	remarks = list("Never walk away from a machine that's warming up...", "Quit while you're ahead, and then don't...", "Three of a kind is a promise, not a guarantee...", "Coffee rings circle a list of lucky numbers.")
+
+/obj/item/book/granter/trait/rank/hot_streak
+	name = "Riding the Streak"
+	desc = "A gambler's journal on pushing your luck without losing your shirt."
+	oneuse = TRUE
+	traitname = "hot streaks"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/hot_streak)
+	remarks = list("When the terminal blinks, you blink back...", "A wrong guess is only wrong if you let it be...", "Confidence is a currency...", "The last page just says 'again'.")
+
+/obj/item/book/granter/trait/rank/lucky_break
+	name = "Reliable Arms"
+	desc = "A rumpled armorer's pamphlet on why some guns never let their owners down."
+	oneuse = TRUE
+	traitname = "reliable weapons"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/lucky_break)
+	remarks = list("Clean it, then trust it...", "A jam is a conversation you didn't want to have...", "Every gun has a mood...", "Oil stains cover half the diagrams.")
+
+/obj/item/book/granter/trait/rank/second_wind
+	name = "Nine Lives, More or Less"
+	desc = "A collection of survivors' stories that all end the same way: against all odds."
+	oneuse = TRUE
+	traitname = "cheating death"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/second_wind)
+	remarks = list("They said he was gone, he disagreed...", "One more breath, always one more...", "Fortune favours those who refuse to quit...", "Someone has written 'don't push it' in the margin.")
+
+/obj/item/book/granter/trait/rank/lucky_catch
+	name = "The Patient Angler"
+	desc = "A fisherman's diary, mostly about the one that didn't get away."
+	oneuse = TRUE
+	traitname = "lucky fishing"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/lucky_catch)
+	remarks = list("The fish bite when they're ready...", "Still water, still hands...", "Sometimes two for the price of one...", "A fish scale is pressed between the pages.")
+
+/obj/item/book/granter/trait/rank/vein_finder
+	name = "Reading the Rock"
+	desc = "A prospector's handbook on spotting where the good ore hides."
+	oneuse = TRUE
+	traitname = "finding ore veins"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/vein_finder)
+	remarks = list("A crack in the stone is a door...", "Ore likes company, look around it...", "Strike once, strike true...", "Dust coats every page.")
+
+/obj/item/book/granter/trait/rank/gamblers_eye
+	name = "Loaded Odds"
+	desc = "A dice-hustler's guide to making the numbers behave."
+	oneuse = TRUE
+	traitname = "dice"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/gamblers_eye)
+	remarks = list("Watch the hand, never the dice...", "Roll like you mean it...", "Every table has a rhythm...", "A pair of worn dice are taped inside the cover.")
+
+/obj/item/book/granter/trait/rank/wild_card
+	name = "The Unexpected Move"
+	desc = "A brawler's treatise on doing the one thing nobody saw coming."
+	oneuse = TRUE
+	traitname = "wild cards"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/wild_card)
+	remarks = list("Never fight the same way twice...", "A good hit makes room for a better one...", "When they're reeling, improvise...", "The margins are full of scribbled diagrams.")
+
+/obj/item/book/granter/trait/rank/pa_advanced
+	name = "US Army: Advanced Mechanized Systems Manual"
+	desc = "A thick, restricted-access manual on power armor reactor management. Assumes you already know how to wear the stuff."
+	oneuse = TRUE
+	traitname = "Power Armor systems"
+	icon_state = "book2"
+	rank_quirks = list(/datum/quirk/pa_wear, /datum/quirk/modular/pa_wear_rank2)
+	remarks = list("Never run a fusion cell below ten percent, the core hates it...", "Idle your servos between engagements...", "Reactor load scales with how hard you push the actuators...", "The appendix is a wiring diagram nobody could possibly memorize.")
+
+//Rank 1 can come from a job, the basic handbook or a quirk, so training is judged by the trait, not the quirk
+/obj/item/book/granter/trait/rank/pa_advanced/get_current_rank(mob/living/user)
+	if(user.has_quirk(/datum/quirk/modular/pa_wear_rank2))
+		return 2
+	return HAS_TRAIT(user, TRAIT_PA_WEAR) ? 1 : 0
+
+/obj/item/book/granter/trait/rank/pa_advanced/already_known(mob/user)
+	if(isliving(user) && !HAS_TRAIT(user, TRAIT_PA_WEAR))
+		to_chat(user, span_warning("You can't follow any of this without basic Power Armor training."))
+		return TRUE
+	return ..()
 
 /obj/item/book/granter/action
 	var/granted_action

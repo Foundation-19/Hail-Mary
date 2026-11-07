@@ -55,6 +55,7 @@
 
 	log_combat(user, M, "fed", reagents.log_list())
 	if(reagents.total_volume)
+		note_healer(M, user)
 		reagents.reaction(M, apply_type)
 		reagents.trans_to(M, reagents.total_volume, log = TRUE)
 	qdel(src)
@@ -80,6 +81,18 @@
 	reagents.trans_to(target, reagents.total_volume, log = TRUE)
 	qdel(src)
 	return STOP_ATTACK_PROC_CHAIN
+
+/obj/item/reagent_containers/pill/water_purification
+	name = "water purification tablet"
+	desc = "Drop into a canteen or bottle of dirty water (about 50 units) and wait. Cuts down on germs and some radiation. Not for swallowing."
+	icon_state = "pill8"
+	list_reagents = list(/datum/reagent/water_tablet = 5)
+
+/obj/item/reagent_containers/pill/water_filter
+	name = "charcoal filter pouch"
+	desc = "A cloth pouch of powdered charcoal. Stir into dirty water (about 25 units per pouch) to strain out sludge and some germs. Not for swallowing."
+	icon_state = "pill9"
+	list_reagents = list(/datum/reagent/water_filter_media = 5)
 
 /obj/item/reagent_containers/pill/tox
 	name = "toxins pill"
@@ -262,11 +275,39 @@
 
 /obj/item/reagent_containers/pill/mentat
 	name = "Mentat"
-	desc = "A chalky pill that induces increased memory and cognitive functions, as well as heightened perception and creative faculties. \
-	Also known for fixing eye damage and blindness, for some reason."
+	desc = "A chalky pill that induces increased memory and cognitive functions, as well as heightened perception. Leaves the user tired and unfocused once it wears off."
 	icon = 'icons/obj/medicine/drugs.dmi'
 	icon_state = "pill_mentat"
 	list_reagents = list(/datum/reagent/medicine/mentat = 10)
+
+/obj/item/reagent_containers/pill/mentat/party_time
+	name = "Party Time Mentat"
+	color = "#ff66cc"
+	list_reagents = list(/datum/reagent/medicine/mentat = 10, /datum/reagent/consumable/grapejuice = 3, /datum/reagent/consumable/orangejuice = 3, /datum/reagent/consumable/berryjuice = 3)
+
+/obj/item/reagent_containers/pill/cateye
+	name = "Cateye"
+	desc = "A pill that lets the eyes gather light, granting night vision. Washes out in bright daylight."
+	icon = 'icons/obj/medicine/drugs.dmi'
+	icon_state = "pill_mentat"
+	color = "#C9B44A"
+	list_reagents = list(/datum/reagent/drug/cateye = 10)
+
+/obj/item/reagent_containers/pill/jet_antidote
+	name = "Jet antidote pill"
+	desc = "An endorphin blocker that flushes Jet from the body and cures Jet addiction. Causes cramps and nausea."
+	icon = 'icons/obj/medicine/drugs.dmi'
+	icon_state = "pill_fixer"
+	color = "#B8D8E0"
+	list_reagents = list(/datum/reagent/medicine/jet_antidote = 10)
+
+/obj/item/reagent_containers/pill/rushing_water
+	name = "Rushing Water vial"
+	desc = "A tribal concoction that quickens the blood and closes wounds for a short time. Leaves you very thirsty."
+	icon = 'icons/obj/medicine/drugs.dmi'
+	icon_state = "pill_radx"
+	color = "#7FC8F0"
+	list_reagents = list(/datum/reagent/medicine/rushing_water = 10)
 
 /obj/item/reagent_containers/pill/mentat/grape
 	name = "Grape Mentat"

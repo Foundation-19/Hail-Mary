@@ -171,12 +171,12 @@
 /* Reaver ghoul armor
  * Bullet resistant vest
  * Resists laser and plasma
- * Very weak to melee
+ * Weak to melee
  * Low DT
  * * * * * * * * * * * */
 #define ARMOR_VALUE_GHOUL_REAVER list(\
-		"melee" = -50, \
-		"bullet" = 35, \
+		"melee" = -15, \
+		"bullet" = 20, \
 		"laser" = 20, \
 		"energy" = 25, \
 		"bomb" = 0, \
@@ -190,11 +190,11 @@
 /* Glowy ghoul armor
  * trades resistance for sick colors (and DT)
  * Very resistant to laser and plasma
- * Very weak to melee
+ * Weak to melee and bullets
  * Low DT
  * * * * * * * * * * * */
 #define ARMOR_VALUE_GHOUL_GLOWING list(\
-		"melee" = -50, \
+		"melee" = -20, \
 		"bullet" = -10, \
 		"laser" = 25, \
 		"energy" = 40, \
@@ -434,12 +434,12 @@
 /* Robot Civvy
  * Low DR across the board
  * Kinda weak to lasers (sensors and shit)
- * Resistant to bullets, kinda (metal)
+ * Metal plating resists bullets and blows evenly
  * Higher DT
  * * * * * * * * * * * */
 #define ARMOR_VALUE_ROBOT_CIVILIAN list(\
-		"melee" = 5, \
-		"bullet" = 20, \
+		"melee" = 15, \
+		"bullet" = 15, \
 		"laser" = -5, \
 		"energy" = -5, \
 		"bomb" = 0, \
@@ -453,12 +453,12 @@
 /* Robot Seccie
  * Lowish DR across the board
  * Kinda weak to lasers (sensors and shit)
- * Resistant to bullets, kinda (metal)
+ * Metal plating resists bullets and blows evenly
  * Higher DT
  * * * * * * * * * * * */
 #define ARMOR_VALUE_ROBOT_SECURITY list(\
-		"melee" = 10, \
-		"bullet" = 25, \
+		"melee" = 20, \
+		"bullet" = 20, \
 		"laser" = -5, \
 		"energy" = -5, \
 		"bomb" = 0, \
@@ -472,12 +472,12 @@
 /* Robot Milbot
  * Decent DR across the board
  * Fairly weak to lasers (sensors and shit)
- * Resistant to bullets, kinda (metal)
+ * Metal plating resists bullets and blows evenly
  * Lot of DT
  * * * * * * * * * * * */
 #define ARMOR_VALUE_ROBOT_MILITARY list(\
-		"melee" = 15, \
-		"bullet" = 30, \
+		"melee" = 25, \
+		"bullet" = 25, \
 		"laser" = -20, \
 		"energy" = -20, \
 		"bomb" = 0, \
@@ -491,12 +491,12 @@
 /* Robot Heavy Milbot (Boss-tier)
  * High DR across the board
  * Still weak to lasers (sensors and shit)
- * Very resistant to bullets (thick armor plating)
+ * Resistant to bullets and blows (thick armor plating)
  * Very high DT
  * * * * * * * * * * * */
 #define ARMOR_VALUE_ROBOT_MILITARY_HEAVY list(\
-		"melee" = 25, \
-		"bullet" = 45, \
+		"melee" = 35, \
+		"bullet" = 40, \
 		"laser" = -15, \
 		"energy" = -15, \
 		"bomb" = 10, \
@@ -526,15 +526,15 @@
 		"damage_threshold" = 4)
 
 /* Deathclaw Commonboy
- * Just about impervious to bullets
- * Melee is... okay ish
+ * Thick hide shrugs off small arms (DT does the heavy lifting)
+ * Big rifles and heavy melee both get through
  * Lasers also kinda pathetic
  * Plasma fucks em to death
  * Lot of DT
  * * * * * * * * * * * */
 #define ARMOR_VALUE_DEATHCLAW_COMMON list(\
-		"melee" = 15, \
-		"bullet" = 60, \
+		"melee" = 30, \
+		"bullet" = 35, \
 		"laser" = 20, \
 		"energy" = 0, \
 		"bomb" = 0, \
@@ -565,15 +565,15 @@
 		"damage_threshold" = 16)
 
 /* Deathclaw Mommy
- * Just about impervious to bullets
- * Melee is... okay ish
+ * Thick hide shrugs off small arms (DT does the heavy lifting)
+ * Big rifles and heavy melee both get through
  * Lasers are a bit better
  * Plasma fucks em to death
  * Lot of DT
  * * * * * * * * * * * */
 #define ARMOR_VALUE_DEATHCLAW_MOTHER list(\
-		"melee" = 20, \
-		"bullet" = 65, \
+		"melee" = 35, \
+		"bullet" = 45, \
 		"laser" = 35, \
 		"energy" = 0, \
 		"bomb" = 0, \
@@ -1616,8 +1616,8 @@
  * Low DT from aged equipment
  * * * * * * * * * * * */
 #define ARMOR_VALUE_CHINESE_REMNANT list(\
-		"melee" = -25, \
-		"bullet" = 30, \
+		"melee" = -5, \
+		"bullet" = 20, \
 		"laser" = 20, \
 		"energy" = 25, \
 		"bomb" = 0, \

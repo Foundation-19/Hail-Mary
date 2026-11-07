@@ -58,6 +58,22 @@
 	icon_state = "patch_jet"
 
 
+/obj/item/reagent_containers/pill/patch/ultrajet
+	name = "Ultrajet"
+	desc = "Jet cooked with Sugar Bombs for ghouls. Twice as strong as the regular kind, and just as habit-forming."
+	list_reagents = list(/datum/reagent/drug/jet/ultrajet = 10)
+	icon = 'icons/obj/medicine/drugs.dmi'
+	icon_state = "patch_jet"
+	color = "#9FFFD0"
+
+/obj/item/reagent_containers/pill/patch/jet_stream
+	name = "Jet Stream"
+	desc = "A smoother, far more addictive cut of Jet."
+	list_reagents = list(/datum/reagent/drug/jet/jet_stream = 10)
+	icon = 'icons/obj/medicine/drugs.dmi'
+	icon_state = "patch_jet"
+	color = "#B0E0FF"
+
 // ---------------------------------
 // TURBO
 
@@ -72,13 +88,19 @@
 // ---------------------------------
 // HEALING POWDER
 
-/obj/item/reagent_containers/pill/healingpowder // 50hp over 50 seconds.
+/obj/item/reagent_containers/pill/healingpowder // about 20hp over 20 seconds.
 	name = "Healing powder"
-	desc = "A powder used to heal physical wounds derived from ground broc flowers and xander roots, commonly used by tribals."
+	desc = "A powder used to heal physical wounds derived from ground broc flowers and xander roots, commonly used by tribals. Sprinkled over a wound."
 	icon = 'icons/obj/medicine/drugs.dmi'
 	icon_state = "patch_healingpowder"
 	list_reagents = list(/datum/reagent/medicine/healing_powder = 10)
+	apply_type = PATCH
+	apply_method = "sprinkle"
 	self_delay = 5
+
+// Dusted on the skin, so a mask or helmet is no obstacle.
+/obj/item/reagent_containers/pill/healingpowder/canconsume(mob/eater, mob/user)
+	return iscarbon(eater)
 
 /obj/item/reagent_containers/pill/healingpowder/random
 	name = "randomized powder"
@@ -108,23 +130,24 @@
 // ---------------------------------
 // HEALING POULTICE
 
-/obj/item/reagent_containers/pill/patch/healpoultice // 100hp over 50 seconds. a bit more potent than just bitters.
+/obj/item/reagent_containers/pill/patch/healpoultice // about 60hp over 20 seconds, stronger than plain powder.
 	name = "Healing poultice"
-	desc = "A concoction of broc flower, cave fungus, agrave fruit and xander root."
+	desc = "A concoction of broc flower, cave fungus, agrave fruit and xander root. Pressed onto the skin over a wound."
 	icon = 'icons/obj/medicine/drugs.dmi'
-	list_reagents = list(/datum/reagent/medicine/healing_powder/poultice = 10, /datum/reagent/medicine/healing_powder = 10, /datum/reagent/medicine/bicaridine = 5, /datum/reagent/medicine/kelotane = 5)
+	list_reagents = list(/datum/reagent/medicine/healing_powder/poultice = 10)
 	icon_state = "patch_healingpoultice"
 	self_delay = 5
 
 // ---------------------------------
 // BITTER DRINK
 
-/obj/item/reagent_containers/pill/bitterdrink // 50hp over 25 seconds
+/obj/item/reagent_containers/pill/bitterdrink // about 25hp over 12 seconds
 	name = "Bitter drink"
-	desc = "A strong herbal healing concoction invented and created by the Twin Mothers tribe."
+	desc = "A strong herbal healing concoction invented and created by the Twin Mothers tribe. Drunk, so take off any mask first."
 	icon = 'icons/obj/medicine/drugs.dmi'
 	icon_state = "patch_bitterdrink"
-	list_reagents = list(/datum/reagent/medicine/bitter_drink = 5, /datum/reagent/medicine/bicaridine = 5, /datum/reagent/medicine/kelotane = 5) 
+	list_reagents = list(/datum/reagent/medicine/bitter_drink = 5)
+	apply_method = "drink"
 	self_delay = 5
 
 /obj/item/reagent_containers/pill/patch/random

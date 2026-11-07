@@ -303,9 +303,17 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	
 	var/sound_level = base_movement * armor_multiplier
 
+	if(m_intent == MOVE_INTENT_RUN)
+		if(HAS_TRAIT(src, TRAIT_SILENT_RUN_RANK3))
+			sound_level *= 0.4
+		else if(HAS_TRAIT(src, TRAIT_SILENT_RUN_RANK2))
+			sound_level *= 0.55
+		else if(HAS_TRAIT(src, TRAIT_SILENT_RUN_RANK1))
+			sound_level *= 0.75
 	// Sneaking no longer reduces sound by default - it only shows vision cones.
 	// The Sneak perk is a purchasable exception to that rule, not a baseline mechanic.
 	if(sneaking)
+		sound_level *= 1 - (0.15 * get_perk_rank("shadow"))
 		if(HAS_TRAIT(src, TRAIT_SNEAK_RANK2))
 			sound_level *= 0.25
 		else if(HAS_TRAIT(src, TRAIT_SNEAK_RANK1))
@@ -426,10 +434,14 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	
 	// Clear old cones
 	clear_vision_cones()
+
+	// Awareness (+1/+2/+3) and Scout (+3/+5/+7) let you see cones from further away
+	var/static/list/scout_bonus = list(0, 3, 5, 7)
+	var/cone_bonus = get_perk_rank("awareness") + scout_bonus[get_perk_rank("scout") + 1]
 	
 	// ACTIVATION RANGE: Find all hostile mobs within their BASE vision range
 	// This ignores YOUR darkness penalties - it's based on THEIR potential awareness
-	for(var/mob/living/simple_animal/hostile/H in view(15, src)) // Extended view to catch edge cases
+	for(var/mob/living/simple_animal/hostile/H in view(15 + cone_bonus, src)) // Extended view to catch edge cases
 		if(H.stat == DEAD || H.ckey)
 			continue
 		
@@ -446,7 +458,7 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 		// ACTIVATION TRIGGER: Use mob's BASE vision_range (9 tiles typically)
 		// This is their "awareness bubble" - you can see their cone when you're in it
 		// EVEN IF they can't see you yet due to darkness
-		var/activation_range = H.vision_range // Base range, no penalties
+		var/activation_range = H.vision_range + cone_bonus // Base range plus perk bonus, no penalties
 		
 		// Also activate if we're within sound detection range
 		// Use the LARGER center range (3x multiplier) for activation
@@ -1551,6 +1563,125 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 ///Force set the mob thirst level
 /mob/living/carbon/human/proc/set_thirst(change)
 	thirst = max(0, change)
+
+///Robots and species that don't process food have no use for water
+/mob/living/carbon/human/proc/needs_hydration()
+	if(HAS_TRAIT(src, TRAIT_NO_PROCESS_FOOD))
+		return FALSE
+	if(mob_biotypes & MOB_ROBOTIC)
+		return FALSE
+	return TRUE
+
+///Nutrition including food still being digested, so a full stomach doesn't read as hunger
+/mob/living/proc/get_effective_nutrition()
+	. = nutrition
+	if(!reagents || nutrition >= NUTRITION_LEVEL_FULL)
+		return
+	for(var/datum/reagent/consumable/C in reagents.reagent_list)
+		if(C.metabolization_rate > 0)
+			. += C.nutriment_factor * C.volume / C.metabolization_rate
+	. = min(., NUTRITION_LEVEL_FULL - 1) //pending food only ends hunger, it never counts as being fat
+
+///Queue water into the stomach; it absorbs into thirst over time
+/mob/living/carbon/human/proc/add_stomach_water(amount)
+	if(!needs_hydration())
+		return
+	stomach_water = clamp(stomach_water + amount, 0, HYDRATION_STOMACH_MAX * (dna?.species ? dna.species.stomach_water_mod : 1) * (HAS_TRAIT(src, TRAIT_WATER_WISE) ? HYDRATION_WATER_WISE_STOMACH_MULT : 1))
+
+///Moves water from the stomach into thirst
+/mob/living/carbon/human/proc/absorb_stomach_water()
+	if(stomach_water <= 0)
+		return
+	var/absorbed = min(stomach_water, HYDRATION_ABSORB_RATE)
+	stomach_water -= absorbed
+	adjust_thirst(absorbed)
+
+///Total multiplier applied to the basal thirst drain
+/mob/living/carbon/human/proc/get_hydration_loss_multiplier()
+	var/mult = dna?.species ? dna.species.thirst_rate_mod : 1
+	if(client && world.time - client.last_move <= HYDRATION_ACTIVE_WINDOW)
+		mult *= (m_intent == MOVE_INTENT_RUN) ? HYDRATION_MULT_RUNNING : HYDRATION_MULT_WALKING
+	if(bodytemperature > HYDRATION_HOT_BODYTEMP)
+		// Heat sensitivity (Heat Intolerant, Survivalist, etc.) scales only the extra heat loss
+		mult *= 1 + (HYDRATION_MULT_HOT - 1) * physiology.heat_mod
+	if(HAS_TRAIT(src, TRAIT_POWER_ARMOR))
+		mult *= HYDRATION_MULT_POWER_ARMOR
+	if(get_total_bleed_rate() > 0)
+		mult *= HYDRATION_MULT_BLEEDING
+	if(radiation > HYDRATION_RADIATION_THRESHOLD)
+		mult *= HYDRATION_MULT_IRRADIATED
+	if(drunkenness > HYDRATION_DRUNK_THRESHOLD)
+		mult *= HYDRATION_MULT_DRUNK
+	return mult
+
+///Applies the lasting effects of drinking contaminated water. Rads are immediate, illness is a delayed roll
+/mob/living/carbon/human/proc/apply_water_contamination(volume, rad_per_unit, pathogen_chance)
+	if(!needs_hydration())
+		return
+	// Rad-immune species ignore the dose, except ghouls, who feed on it
+	if(rad_per_unit > 0 && (!HAS_TRAIT(src, TRAIT_RADIMMUNE) || isghoul(src)))
+		radiation += rad_per_unit * volume * get_special_rad_resist_multiplier()
+	// Virus-immune species and those that can't vomit (ghouls, super mutants, androids) don't get sick
+	if(pathogen_chance > 0 && !HAS_TRAIT(src, TRAIT_VIRUSIMMUNE) && !HAS_TRAIT(src, TRAIT_NOHUNGER))
+		var/resistance = waterborne_resistance
+		if(HAS_TRAIT(src, TRAIT_IRON_STOMACH))
+			resistance *= HYDRATION_IRON_STOMACH_MULT
+		if(HAS_TRAIT(src, TRAIT_DELICATE_STOMACH))
+			resistance *= HYDRATION_DELICATE_STOMACH_MULT
+		resistance *= clamp(1 - (special_e - SPECIAL_DEFAULT_ATTR_VALUE) * HYDRATION_ENDURANCE_STEP, 0.6, 1.4)
+		waterborne_load += volume * pathogen_chance * HYDRATION_LOAD_SCALE * resistance
+
+///Decays the contamination load each tick and applies the symptoms it causes: queasiness first, then illness
+/mob/living/carbon/human/proc/process_waterborne_load()
+	if(waterborne_load <= 0)
+		return
+	var/decay = HYDRATION_LOAD_DECAY
+	if(resting || IsSleeping())
+		decay *= HYDRATION_REST_DECAY_MULT
+	waterborne_load = max(waterborne_load - decay, 0)
+	if(waterborne_load >= HYDRATION_LOAD_SICK && !waterborne_ill)
+		waterborne_ill = TRUE
+		to_chat(src, span_warning("Your gut lurches. All that dirty water is catching up with you."))
+		addtimer(CALLBACK(src, .proc/waterborne_illness, HYDRATION_ILLNESS_EPISODES), rand(HYDRATION_ILLNESS_DELAY_MIN, HYDRATION_ILLNESS_DELAY_MAX))
+	else if(waterborne_load >= HYDRATION_LOAD_QUEASY)
+		if(!waterborne_queasy)
+			waterborne_queasy = TRUE
+			to_chat(src, span_warning("Your stomach feels uneasy. Maybe go easy on the dirty water."))
+			SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "waterborne_queasy", /datum/mood_event/queasy)
+	else if(waterborne_queasy)
+		waterborne_queasy = FALSE
+		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "waterborne_queasy")
+
+///Removes contamination load. With cure, also ends an active illness (pending vomiting episodes stop)
+/mob/living/proc/treat_waterborne(amount, cure = FALSE)
+	return
+
+/mob/living/carbon/human/treat_waterborne(amount, cure = FALSE)
+	if(waterborne_load > 0)
+		waterborne_load = max(waterborne_load - amount, 0)
+	if(cure && waterborne_ill)
+		waterborne_ill = FALSE
+		to_chat(src, span_notice("The cramping in your gut eases off. The medicine is working."))
+	if(waterborne_load < HYDRATION_LOAD_QUEASY && waterborne_queasy)
+		waterborne_queasy = FALSE
+		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "waterborne_queasy")
+
+///Vomiting episodes that drain hydration. Self-limiting, so it is always survivable
+/mob/living/carbon/human/proc/waterborne_illness(episodes)
+	if(QDELETED(src) || stat == DEAD || !waterborne_ill)
+		waterborne_ill = FALSE
+		return
+	to_chat(src, span_warning("Your stomach cramps and churns. Too much dirty or spoiled drink has finally got to you."))
+	vomit(10, FALSE, FALSE, 1, FALSE)
+	stomach_water = 0
+	adjust_thirst(-HYDRATION_ILLNESS_LOSS)
+	adjustToxLoss(HYDRATION_ILLNESS_TOX)
+	if(episodes > 1)
+		addtimer(CALLBACK(src, .proc/waterborne_illness, episodes - 1), HYDRATION_ILLNESS_EPISODE_INTERVAL)
+	else
+		waterborne_ill = FALSE
+		waterborne_load = min(waterborne_load, HYDRATION_LOAD_AFTER_ILLNESS)
+		to_chat(src, span_notice("The cramping finally passes."))
 
 /mob/living/carbon/human/species
 	var/race = null

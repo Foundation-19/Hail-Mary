@@ -48,8 +48,8 @@
 
 /datum/quirk/trait_heavy_handed/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.dna.species.punchdamagelow = IRON_FIST_PUNCH_DAMAGE_LOW
-	H.dna.species.punchdamagehigh = IRON_FIST_PUNCH_DAMAGE_MAX
+	H.dna.species.punchdamagelow = max(H.dna.species.punchdamagelow, IRON_FIST_PUNCH_DAMAGE_LOW)
+	H.dna.species.punchdamagehigh = max(H.dna.species.punchdamagehigh, IRON_FIST_PUNCH_DAMAGE_MAX)
 
 /datum/quirk/trait_sure_and_steady
 	name = "Sure and Steady"

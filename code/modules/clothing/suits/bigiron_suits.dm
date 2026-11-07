@@ -3383,6 +3383,8 @@
 		effective_usage_cost *= 0.45
 	else if(HAS_TRAIT(user, TRAIT_NUCLEAR_PHYSICIST_RANK1))
 		effective_usage_cost *= 0.67
+	if(HAS_TRAIT(user, TRAIT_PA_TRAINED_RANK2))
+		effective_usage_cost *= 0.85
 	if((!cell || !cell?.use(effective_usage_cost) || (salvage_step > 1))) // No cell, ran out of charge or we're in the process of being salvaged
 		if(!no_power)
 			remove_power(user)

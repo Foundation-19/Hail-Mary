@@ -36,7 +36,8 @@
 	var/max_items = 7
 	/// Max volume we can hold. Applies to [STORAGE_LIMIT_VOLUME]. Auto scaled on New() if unset.
 	var/max_volume
-
+	/// Fraction of our contents' cost that counts when we are nested inside another storage. Only for compact packs that can hold nothing but tiny items (matches, cigarettes).
+	var/content_cost_mult = 1
 	var/emp_shielded = FALSE
 
 	var/silent = FALSE								//whether this makes a message when things are put in.
@@ -262,7 +263,7 @@
 		if(I.type in rejections) // To limit bag spamming: any given type only complains once
 			continue
 		if(!can_be_inserted(I, stop_messages = TRUE))	// Note can_be_inserted still makes noise when the answer is no
-			if(real_location.contents.len >= max_items)
+			if(real_location.contents.len >= get_max_items())
 				break
 			rejections += I.type	// therefore full bags are still a little spammy
 			continue
@@ -417,7 +418,7 @@
 		return
 	if(!can_be_inserted(I, FALSE, M))
 		var/atom/real_location = real_location()
-		if(real_location.contents.len >= max_items) //don't use items on the backpack if they don't fit
+		if(real_location.contents.len >= get_max_items()) //don't use items on the backpack if they don't fit
 			return TRUE
 		return FALSE
 	handle_item_insertion(I, FALSE, M)
@@ -521,12 +522,13 @@
 			return FALSE
 		// STORAGE LIMITS
 	if(storage_flags & STORAGE_LIMIT_MAX_ITEMS)
-		if(real_location.contents.len >= max_items)
+		if(real_location.contents.len >= get_max_items())
 			if(!stop_messages)
 				to_chat(M, span_warning("[host] has too many things in it, make some space!"))
 			return FALSE //Storage item is full
 	if(storage_flags & STORAGE_LIMIT_COMBINED_W_CLASS)
-		var/sum_w_class = get_nested_w_class(I)
+		var/needed_w_class = get_nested_w_class(I)
+		var/sum_w_class = needed_w_class
 		for(var/obj/item/_I in real_location)
 			sum_w_class += get_nested_w_class(_I) //Adds up the combined w_classes which will be in the storage item if the item is added to it, counting stuffed contents so boxes can't smuggle extra weight for free.
 		var/effective_max_combined_w_class = max_combined_w_class
@@ -535,17 +537,21 @@
 			effective_max_combined_w_class *= wearer.get_strength_carry_capacity_multiplier()
 		if(sum_w_class > effective_max_combined_w_class)
 			if(!stop_messages)
-				to_chat(M, span_warning("[I] won't fit in [host], make some space!"))
+				to_chat(M, span_warning("[I] won't fit in [host] - it needs [needed_w_class] space and only [max(0, round(effective_max_combined_w_class - (sum_w_class - needed_w_class), 0.1))] is left, make some space!"))
 			return FALSE
 	if(storage_flags & STORAGE_LIMIT_VOLUME)
-		var/sum_volume = get_nested_w_volume(I)
+		var/needed_volume = get_nested_w_volume(I)
+		var/sum_volume = needed_volume
 		for(var/obj/item/_I in real_location)
 			sum_volume += get_nested_w_volume(_I)
 		if(sum_volume > get_max_volume())
 			if(!stop_messages)
-				to_chat(M, span_warning("[I] is too spacious to fit in [host], make some space!"))
+				to_chat(M, span_warning("[I] is too spacious to fit in [host] - it needs [needed_volume] space and only [max(0, round(get_max_volume() - (sum_volume - needed_volume), 0.1))] is left, make some space!"))
 			return FALSE
 	/////////////////
+	// Whatever is going in also takes up room in every storage item that already holds this one (e.g. a box inside a backpack).
+	if(!ancestors_can_fit(I, stop_messages, M))
+		return FALSE
 	if(isitem(host))
 		var/obj/item/IP = host
 		var/datum/component/storage/STR_I = I.GetComponent(/datum/component/storage)
@@ -565,21 +571,65 @@
 		return FALSE
 	return master.slave_can_insert_object(src, I, stop_messages, M)
 
-/// Weight of an item plus whatever is stuffed inside it, so nesting storage items can't be used to smuggle free capacity.
+/// Checks that stuffing I into our parent doesn't overfill any storage item our parent is nested inside of.
+/datum/component/storage/proc/ancestors_can_fit(obj/item/I, stop_messages = FALSE, mob/M)
+	var/atom/ancestor = parent
+	var/atom/movable/current = parent
+	var/already_inside = FALSE
+	while(current && isitem(current.loc))
+		ancestor = current.loc
+		var/datum/component/storage/AS = ancestor.GetComponent(/datum/component/storage)
+		if(!AS)
+			return TRUE
+		var/atom/ancestor_contents = AS.real_location()
+		if(already_inside || I.loc == ancestor_contents) // already counted there, moving it deeper adds nothing
+			already_inside = TRUE
+			current = ancestor
+			continue
+		if(AS.storage_flags & STORAGE_LIMIT_COMBINED_W_CLASS)
+			var/sum_w_class = get_nested_w_class(I)
+			for(var/obj/item/_I in ancestor_contents)
+				sum_w_class += get_nested_w_class(_I)
+			var/effective_max = AS.max_combined_w_class
+			var/mob/living/wearer = recursive_loc_check(ancestor, /mob/living)
+			if(wearer)
+				effective_max *= wearer.get_strength_carry_capacity_multiplier()
+			if(sum_w_class > effective_max)
+				if(!stop_messages)
+					to_chat(M, span_warning("[I] won't fit in [parent] without overfilling [ancestor]!"))
+				return FALSE
+		if(AS.storage_flags & STORAGE_LIMIT_VOLUME)
+			var/sum_volume = get_nested_w_volume(I)
+			for(var/obj/item/_I in ancestor_contents)
+				sum_volume += get_nested_w_volume(_I)
+			if(sum_volume > AS.get_max_volume())
+				if(!stop_messages)
+					to_chat(M, span_warning("[I] is too spacious to fit in [parent] without overfilling [ancestor]!"))
+				return FALSE
+		current = ancestor
+	return TRUE
+
+/// Weight of an item plus whatever is stuffed inside it. A storage item's own shell only costs STORAGE_NESTED_SHELL_COST, so organizing things in boxes/pouches is cheap, but the contents count in full (unless the container is a compact pack, see content_cost_mult) and nesting can never create free space.
 /datum/component/storage/proc/get_nested_w_class(obj/item/I)
 	. = I.w_class
 	var/datum/component/storage/nested = I.GetComponent(/datum/component/storage)
 	if(nested)
+		. = min(., STORAGE_NESTED_SHELL_COST)
+		var/contents_cost = 0
 		for(var/obj/item/inner in I)
-			. += nested.get_nested_w_class(inner)
+			contents_cost += nested.get_nested_w_class(inner)
+		. += contents_cost * nested.content_cost_mult
 
-/// Volume of an item plus whatever is stuffed inside it, so nesting storage items can't be used to smuggle free capacity.
+/// Volume of an item plus whatever is stuffed inside it. See get_nested_w_class for how the shell is charged.
 /datum/component/storage/proc/get_nested_w_volume(obj/item/I)
 	. = I.get_w_volume()
 	var/datum/component/storage/nested = I.GetComponent(/datum/component/storage)
 	if(nested)
+		. = min(., STORAGE_NESTED_SHELL_COST)
+		var/contents_cost = 0
 		for(var/obj/item/inner in I)
-			. += nested.get_nested_w_volume(inner)
+			contents_cost += nested.get_nested_w_volume(inner)
+		. += contents_cost * nested.content_cost_mult
 
 /// Has our quota been met?
 /datum/component/storage/proc/check_quota(obj/item/I)
@@ -675,7 +725,7 @@
 
 /datum/component/storage/proc/remaining_space_items()
 	var/atom/real_location = real_location()
-	return max(0, max_items - real_location.contents.len)
+	return max(0, get_max_items() - real_location.contents.len)
 
 /datum/component/storage/proc/signal_fill_type(datum/source, type, amount = 20, force = FALSE)
 	SIGNAL_HANDLER
@@ -728,22 +778,33 @@
 	if(user == overloaded_wearer)
 		clear_overload()
 
-/// Re-evaluates whether the given mob is carrying more combined weight class than their Strength can bear, applying or clearing the overloaded_storage movespeed penalty accordingly.
+/// Re-evaluates whether the given mob is carrying more than they can bear, by combined weight class (scaled by Strength) or by volume (scaled by carry perks), applying or clearing the overloaded_storage movespeed penalty accordingly.
 /datum/component/storage/proc/check_overload(mob/living/wearer)
-	if(!(storage_flags & STORAGE_LIMIT_COMBINED_W_CLASS) || !isliving(wearer))
+	if(!(storage_flags & (STORAGE_LIMIT_COMBINED_W_CLASS | STORAGE_LIMIT_VOLUME)) || !isliving(wearer))
 		clear_overload()
 		return
 	var/atom/real_location = real_location()
-	var/sum_w_class = 0
-	for(var/obj/item/_I in real_location)
-		sum_w_class += get_nested_w_class(_I)
-	var/is_overloaded = sum_w_class > (max_combined_w_class * wearer.get_strength_carry_capacity_multiplier())
+	var/fullness = 0 // 1 means exactly at the limit
+	if(storage_flags & STORAGE_LIMIT_COMBINED_W_CLASS)
+		var/sum_w_class = 0
+		for(var/obj/item/_I in real_location)
+			sum_w_class += get_nested_w_class(_I)
+		fullness = max(fullness, sum_w_class / max(0.1, max_combined_w_class * wearer.get_strength_carry_capacity_multiplier()))
+	if(storage_flags & STORAGE_LIMIT_VOLUME)
+		var/sum_volume = 0
+		for(var/obj/item/_I in real_location)
+			sum_volume += get_nested_w_volume(_I)
+		fullness = max(fullness, sum_volume / max(1, get_max_volume()))
+	var/is_overloaded = fullness > 1
+	if(is_overloaded)
+		// The further past your limit, the heavier the drag: ~0.3 just over, 1.5 at 50% over.
+		var/slowdown = CLAMP((fullness - 1) * 3, 0.3, 1.5)
+		wearer.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/overloaded_storage, multiplicative_slowdown = slowdown)
 	if(is_overloaded && overloaded_wearer != wearer)
 		clear_overload()
 		overloaded_wearer = wearer
-		wearer.add_movespeed_modifier(/datum/movespeed_modifier/overloaded_storage)
 		var/atom/host = parent
-		to_chat(wearer, span_warning("[host] is stuffed well past what your strength can bear - it's dragging you down!"))
+		to_chat(wearer, span_warning("[host] is stuffed well past what you can bear - it's dragging you down!"))
 	else if(!is_overloaded && wearer == overloaded_wearer)
 		clear_overload()
 		to_chat(wearer, span_notice("[parent] feels manageable again."))
@@ -815,4 +876,14 @@
  * Gets our max volume
  */
 /datum/component/storage/proc/get_max_volume()
-	return max_volume || AUTO_SCALE_STORAGE_VOLUME(max_w_class, max_combined_w_class)
+	. = max_volume || AUTO_SCALE_STORAGE_VOLUME(max_w_class, max_combined_w_class)
+	var/mob/living/wearer = recursive_loc_check(parent, /mob/living)
+	if(wearer)
+		. = round(. * (1 + wearer.get_carry_perk_bonus())) //whole numbers only, the volumetric UI divides by this
+
+/// max_items stretched by the carrier's carry perks, rounded down.
+/datum/component/storage/proc/get_max_items()
+	. = max_items
+	var/mob/living/wearer = recursive_loc_check(parent, /mob/living)
+	if(wearer && max_items > 1)
+		. = max(1, . + round(max_items * wearer.get_carry_perk_bonus()))

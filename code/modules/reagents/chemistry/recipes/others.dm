@@ -23,6 +23,32 @@
 	results = list(/datum/reagent/water/purified = 1)
 	required_reagents = list(/datum/reagent/water = 1, /datum/reagent/water_purifier = 1)
 
+/datum/chemical_reaction/boiledwater
+	name = "Boiled Water"
+	id = "boiledwater"
+	results = list(/datum/reagent/water/boiled = 1)
+	required_reagents = list(/datum/reagent/water = 1)
+	required_temp = 374
+
+/datum/chemical_reaction/treatedwater
+	name = "Treated Water"
+	id = "treatedwater"
+	results = list(/datum/reagent/water/treated = 10)
+	required_reagents = list(/datum/reagent/water = 10, /datum/reagent/water_tablet = 1)
+
+/datum/chemical_reaction/filteredwater
+	name = "Filtered Water"
+	id = "filteredwater"
+	results = list(/datum/reagent/water/filtered = 5)
+	required_reagents = list(/datum/reagent/water = 5, /datum/reagent/water_filter_media = 1)
+
+// Boil it, then strain it: slower and wasteful compared to a purifier, but it works anywhere.
+/datum/chemical_reaction/makeshift_purewater
+	name = "Boiled and Filtered Water"
+	id = "makeshift_purewater"
+	results = list(/datum/reagent/water/purified = 3)
+	required_reagents = list(/datum/reagent/water/boiled = 5, /datum/reagent/water_filter_media = 1)
+
 /datum/chemical_reaction/metalgen_imprint/on_reaction(datum/reagents/holder, created_volume)
 	var/datum/reagent/metalgen/MM = holder.get_reagent(/datum/reagent/metalgen)
 	for(var/datum/reagent/R in holder.reagent_list)

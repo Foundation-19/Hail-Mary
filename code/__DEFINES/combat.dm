@@ -113,8 +113,21 @@
 //Actual combat defines
 
 //click cooldowns, in tenths of a second, used for various combat actions
-// Tuned down from 8 so sustained melee DPS stays within realistic striking distance of automatic weapons' TTK.
-#define CLICK_CD_MELEE 6
+// Originally 8. Set to 7 so melee stays competitive without outpacing ranged DPS in PvE.
+#define CLICK_CD_MELEE 7
+#define MELEE_DAMAGE_BONUS_SOFT_THRESHOLD 0.5 // Bonuses above half the weapon's force keep growing with diminishing returns
+#define MELEE_BLUNT_DT_PENETRATION 4 // Blunt weapons trade armor penetration for some DT bypass
+#define MELEE_BLUNT_MAX_ARMOUR_PENETRATION 0.1 // Dedicated high-AP weapons do not also receive blunt DT bypass
+#define MELEE_BREAKER_DT_PENETRATION 2
+#define POWER_ATTACK_WINDUP_SLOWDOWN 2
+#define POWER_ATTACK_STRENGTH_9_SLOWDOWN_REDUCTION 0.15
+#define POWER_ATTACK_STRENGTH_10_SLOWDOWN_REDUCTION 0.25
+#define POWER_ATTACK_IRON_GRIP_DAMAGE_THRESHOLD 10
+#define POWER_ATTACK_IRON_GRIP_COOLDOWN 30 SECONDS
+/// Light hits one charge can grit through before the next one breaks it.
+#define POWER_ATTACK_MAX_SHRUGS 3
+/// Fraction of the stamina cost refunded when a released Power Attack hits nothing.
+#define POWER_ATTACK_WHIFF_REFUND 0.5
 #define CLICK_CD_RANGE 5
 #define CLICK_CD_RAPID 2
 #define CLICK_CD_CLICK_ABILITY 6
@@ -1473,4 +1486,3 @@ GLOBAL_LIST_INIT(main_body_parts, list(
 #define FLINTLOCK_PISTOL_PREFIRE_RANDOMNESS 0.5
 #define FLINTLOCK_MINIMUSKET_PREFIRE_RANDOMNESS 0.4
 #define FLINTLOCK_MUSKET_PREFIRE_RANDOMNESS 0.2
-

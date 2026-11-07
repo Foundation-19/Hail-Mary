@@ -38,9 +38,6 @@ GLOBAL_LIST_INIT(gunsmith_recipes_mods, list(
 	/datum/crafting_recipe/gun/flintlock))
 
 GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
-	/datum/crafting_recipe/ecpbad,
-	/datum/crafting_recipe/mfcbad,
-	/datum/crafting_recipe/ecbad,
 	/datum/crafting_recipe/gun/flintlock_laser))
 
 /* ---------------------------------- Gun Nut ---------------------------------- */
@@ -96,7 +93,7 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 
 /datum/quirk/gunsmith_rank3
 	name = "Gun Nut III"
-	desc = "You've gone from gunsmith to weapons master, fabricating the finest energy-weapon-grade components in the Wasteland. Requires Gun Nut II."
+	desc = "You've gone from gunsmith to weapons master, able to build even the strangest custom firearms, like a laser-wired flintlock. Requires Gun Nut II."
 	value = 6
 	requires_quirk = "Gun Nut II"
 	mob_trait = TRAIT_WEAPONSMITH
@@ -126,7 +123,7 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 
 /datum/quirk/technophreak_rank1
 	name = "Science! I"
-	desc = "You're skilled at breaking down old-war rubble more precisely, gaining more salvage from cars and piles. Unlocks energy weapon cell crafting and power armor repair."
+	desc = "You're skilled at breaking down old-war rubble more precisely, gaining more salvage from cars and piles. Unlocks crafting of small energy cells, microfusion cells and electron charge packs, and power armor repair."
 	value = 2
 	mob_trait = TRAIT_TECHNOPHREAK
 	gain_text = span_notice("Old-War rubble seems considerably more generous to you.")
@@ -140,18 +137,18 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 	var/mob/living/carbon/human/H = quirk_holder
 	if(!H.mind.learned_recipes)
 		H.mind.learned_recipes = list()
-	H.mind.learned_recipes |= GLOB.energyweapon_cell_crafting
+	H.mind.learned_recipes |= GLOB.energyweapon_cell_basic
 	H.mind.learned_recipes |= GLOB.pa_repair
 
 /datum/quirk/technophreak_rank1/remove()
 	var/mob/living/carbon/human/H = quirk_holder
 	if(H && H.mind)
-		H.mind.learned_recipes -= GLOB.energyweapon_cell_crafting
+		H.mind.learned_recipes -= GLOB.energyweapon_cell_basic
 		H.mind.learned_recipes -= GLOB.pa_repair
 
 /datum/quirk/technophreak_rank2
 	name = "Science! II"
-	desc = "Your mastery of complex pre-war technology lets you craft top-tier machine parts. Requires Science! I."
+	desc = "Your mastery of complex pre-war technology lets you craft top-tier machine parts and enhanced energy cells. Requires Science! I."
 	value = 4
 	requires_quirk = "Science! I"
 	mob_trait = TRAIT_TECHNOPHREAK
@@ -166,6 +163,7 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 	var/mob/living/carbon/human/H = quirk_holder
 	if(!H.mind.learned_recipes)
 		H.mind.learned_recipes = list()
+	H.mind.learned_recipes |= GLOB.energyweapon_cell_basic
 	H.mind.learned_recipes |= GLOB.energyweapon_cell_crafting
 	H.mind.learned_recipes |= GLOB.pa_repair
 	H.mind.learned_recipes |= GLOB.tier_three_parts
@@ -173,6 +171,7 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 /datum/quirk/technophreak_rank2/remove()
 	var/mob/living/carbon/human/H = quirk_holder
 	if(H && H.mind)
+		H.mind.learned_recipes -= GLOB.energyweapon_cell_basic
 		H.mind.learned_recipes -= GLOB.energyweapon_cell_crafting
 		H.mind.learned_recipes -= GLOB.pa_repair
 		H.mind.learned_recipes -= GLOB.tier_three_parts
@@ -194,6 +193,7 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 	var/mob/living/carbon/human/H = quirk_holder
 	if(!H.mind.learned_recipes)
 		H.mind.learned_recipes = list()
+	H.mind.learned_recipes |= GLOB.energyweapon_cell_basic
 	H.mind.learned_recipes |= GLOB.energyweapon_cell_crafting
 	H.mind.learned_recipes |= GLOB.pa_repair
 	H.mind.learned_recipes |= GLOB.tier_three_parts
@@ -202,6 +202,7 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 /datum/quirk/technophreak_rank3/remove()
 	var/mob/living/carbon/human/H = quirk_holder
 	if(H && H.mind)
+		H.mind.learned_recipes -= GLOB.energyweapon_cell_basic
 		H.mind.learned_recipes -= GLOB.energyweapon_cell_crafting
 		H.mind.learned_recipes -= GLOB.pa_repair
 		H.mind.learned_recipes -= GLOB.tier_three_parts
@@ -234,7 +235,7 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 
 /datum/quirk/chemwhiz_rank2
 	name = "Chemist II"
-	desc = "You've branched out into combat and performance chems. Requires Chemist I."
+	desc = "You've branched out into combat and performance chems: Turbo, Buffout, Steady, Mentats, Fixer and Cateye. Requires Chemist I."
 	value = 2
 	requires_quirk = "Chemist I"
 	mob_trait = TRAIT_CHEMWHIZ
@@ -260,7 +261,7 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 
 /datum/quirk/chemwhiz_rank3
 	name = "Chemist III"
-	desc = "Decades of practice have taught you advanced chemical formulas. Requires Chemist II."
+	desc = "Decades of practice have taught you advanced chemical formulas: Jet and its variants, Psycho, Med-X, Rushing Water, Jet Antidote and Super Stimpaks. Requires Chemist II."
 	value = 4
 	requires_quirk = "Chemist II"
 	mob_trait = TRAIT_CHEMWHIZ
@@ -403,14 +404,12 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 	required_special_value = 7
 
 /* --------------------------------- Big Leagues --------------------------------- */
-//Real Fallout 4 "Big Leagues" melee perk (5 in-game ranks, +20% melee damage/rank), compressed
-//to 3 ranks here (+20%/+40%/+60%) to fit this codebase's quirk-point economy. Percentage-based
-//force bonus is applied directly in code/_onclick/item_attack.dm's force_modifier elif chain -
-//only the TOP held rank applies (no stacking), mirroring FO4's single always-replaced perk rank.
+//Only the top held rank applies (+20%/+40%/+60%). Combined melee bonuses above +50%
+//of weapon force have diminishing returns in item_attack.dm, rather than a hard cap.
 
 /datum/quirk/bigleagues_rank1
 	name = "Little Leagues"
-	desc = "Swing for the outfield! You deal 20% additional damage with melee weapons."
+	desc = "Swing for the outfield! You gain a 20% melee weapon damage bonus. Combined melee bonuses above 50% have diminishing returns."
 	value = 1
 	mob_trait = TRAIT_LITTLE_LEAGUES
 	gain_text = span_notice("You feel like swinging for the outfield!")
@@ -422,7 +421,7 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 
 /datum/quirk/bigleagues_rank2
 	name = "Big Leagues"
-	desc = "Swing away! You deal 40% additional damage with melee weapons. Requires Little Leagues."
+	desc = "Swing away! You gain a 40% melee weapon damage bonus. Combined melee bonuses above 50% have diminishing returns. Requires Little Leagues."
 	value = 3
 	requires_quirk = "Little Leagues"
 	mob_trait = TRAIT_BIG_LEAGUES_MID
@@ -435,7 +434,7 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 
 /datum/quirk/bigleagues_rank3
 	name = "Big Leagues II"
-	desc = "Swing for the fences! You deal 60% additional damage with melee weapons. Requires Big Leagues."
+	desc = "Swing for the fences! You gain a 60% melee weapon damage bonus. Combined melee bonuses above 50% have diminishing returns. Requires Big Leagues."
 	value = 5
 	requires_quirk = "Big Leagues"
 	mob_trait = TRAIT_BIG_LEAGUES
@@ -445,6 +444,32 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 	required_special_stat = "special_s"
 	required_special_name = "Strength"
 	required_special_value = 7
+
+/* ---------------------------- High Strength Perks ---------------------------- */
+
+/datum/quirk/breaker
+	name = "Breaker"
+	desc = "Fully charged low-AP blunt-weapon Power Attacks gain 2 additional damage-threshold penetration. Requires Strength 9."
+	value = 3
+	mob_trait = TRAIT_BREAKER
+	gain_text = span_notice("You know how to put your full weight behind a crushing blow.")
+	lose_text = span_danger("You lose your knack for breaking through heavy defenses.")
+	locked = TRUE
+	required_special_stat = "special_s"
+	required_special_name = "Strength"
+	required_special_value = 9
+
+/datum/quirk/iron_grip
+	name = "Iron Grip"
+	desc = "Once every 30 seconds, a hit dealing 10 or less damage after armor and damage threshold will not interrupt your Power Attack windup. The hit still deals damage; heavier hits still interrupt. Requires Strength 9."
+	value = 3
+	mob_trait = TRAIT_IRON_GRIP
+	gain_text = span_notice("You feel able to power through glancing blows.")
+	lose_text = span_danger("You can no longer hold your ground through a glancing blow.")
+	locked = TRUE
+	required_special_stat = "special_s"
+	required_special_name = "Strength"
+	required_special_value = 9
 
 /* ---------------------------------- Iron Fist ---------------------------------- */
 //Real Fallout "Iron Fist" unarmed perk, expanded to 3 ranks on this codebase's existing punch
@@ -470,8 +495,8 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 
 /datum/quirk/ironfist_rank1/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.dna.species.punchdamagelow = IRON_FIST_PUNCH_DAMAGE_LOW
-	H.dna.species.punchdamagehigh = IRON_FIST_PUNCH_DAMAGE_MAX
+	H.dna.species.punchdamagelow = max(H.dna.species.punchdamagelow, IRON_FIST_PUNCH_DAMAGE_LOW)
+	H.dna.species.punchdamagehigh = max(H.dna.species.punchdamagehigh, IRON_FIST_PUNCH_DAMAGE_MAX)
 
 /datum/quirk/ironfist_rank2
 	name = "Steel Fist"
@@ -488,8 +513,8 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 
 /datum/quirk/ironfist_rank2/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.dna.species.punchdamagelow = STEEL_FIST_PUNCH_DAMAGE_LOW
-	H.dna.species.punchdamagehigh = STEEL_FIST_PUNCH_DAMAGE_MAX
+	H.dna.species.punchdamagelow = max(H.dna.species.punchdamagelow, STEEL_FIST_PUNCH_DAMAGE_LOW)
+	H.dna.species.punchdamagehigh = max(H.dna.species.punchdamagehigh, STEEL_FIST_PUNCH_DAMAGE_MAX)
 
 /datum/quirk/ironfist_rank3
 	name = "Titanium Fist"
@@ -506,8 +531,8 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 
 /datum/quirk/ironfist_rank3/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.dna.species.punchdamagelow = TITANIUM_FIST_PUNCH_DAMAGE_LOW
-	H.dna.species.punchdamagehigh = TITANIUM_FIST_PUNCH_DAMAGE_MAX
+	H.dna.species.punchdamagelow = max(H.dna.species.punchdamagelow, TITANIUM_FIST_PUNCH_DAMAGE_LOW)
+	H.dna.species.punchdamagehigh = max(H.dna.species.punchdamagehigh, TITANIUM_FIST_PUNCH_DAMAGE_MAX)
 
 /* --------------------------------- Life Giver --------------------------------- */
 //Real Fallout 4 "Life Giver" HP perk (3 ranks: +HP at ranks 1-2, HP regen unlocked at rank 3).
@@ -522,72 +547,90 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 
 /datum/quirk/lifegiver_rank1
 	name = "Life Giver"
-	desc = "You embody wellness! Instantly gain +10 maximum Health, and shrug off fatigue a little better."
+	desc = "You embody wellness! Instantly gain +10 maximum Health, and shrug off fatigue a little better. Super Mutants gain 50% more and C-27s 25% more."
 	value = 1
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 4
 	mob_trait = TRAIT_LIFEGIVER
 	gain_text = span_notice("You feel more healthy than usual.")
 	lose_text = span_danger("You feel less healthy than usual.")
 	medical_record_text = "Patient has higher capacity for injury."
 	locked = TRUE
+	species_mults = list("smutant" = 1.5, "c27" = 1.25)
+	var/hp_applied = 0
 
 /datum/quirk/lifegiver_rank1/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.maxHealth += 10
-	H.health += 10
+	hp_applied = round(10 * species_mult())
+	H.maxHealth += hp_applied
+	H.health += hp_applied
 	H.special_stamina_mod_bonus += 0.1
 
 /datum/quirk/lifegiver_rank1/remove()
 	var/mob/living/carbon/human/H = quirk_holder
 	if(H)
-		H.maxHealth -= 10
+		H.maxHealth -= hp_applied
 		H.health = min(H.health, H.maxHealth)
 		H.special_stamina_mod_bonus -= 0.1
 
 /datum/quirk/lifegiver_rank2
 	name = "Life Giver II"
-	desc = "You embody wellness to the MAX! Instantly gain +20 maximum Health (+30 total), and shrug off fatigue even better. Requires Life Giver."
+	desc = "You embody wellness to the MAX! Instantly gain +20 maximum Health (+30 total), and shrug off fatigue even better. Super Mutants gain 50% more and C-27s 25% more. Requires Life Giver."
 	value = 3
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 6
 	requires_quirk = "Life Giver"
 	mob_trait = TRAIT_LIFEGIVERPLUS
 	gain_text = span_notice("You feel much more healthy than usual.")
 	lose_text = span_danger("You feel much less healthy than usual.")
 	medical_record_text = "Patient has much higher capacity for injury."
 	locked = TRUE
+	species_mults = list("smutant" = 1.5, "c27" = 1.25)
+	var/hp_applied = 0
 
 /datum/quirk/lifegiver_rank2/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.maxHealth += 20
-	H.health += 20
+	hp_applied = round(20 * species_mult())
+	H.maxHealth += hp_applied
+	H.health += hp_applied
 	H.special_stamina_mod_bonus += 0.2
 
 /datum/quirk/lifegiver_rank2/remove()
 	var/mob/living/carbon/human/H = quirk_holder
 	if(H)
-		H.maxHealth -= 20
+		H.maxHealth -= hp_applied
 		H.health = min(H.health, H.maxHealth)
 		H.special_stamina_mod_bonus -= 0.2
 
 /datum/quirk/lifegiver_rank3
 	name = "Life Giver III"
-	desc = "You embody wellness perfected! Instantly gain +40 maximum Health (+70 total), slowly regenerate health over time, and are much harder to exhaust into a stagger. Requires Life Giver II."
+	desc = "You embody wellness perfected! Instantly gain +40 maximum Health (+70 total), slowly regenerate health over time, and are much harder to exhaust into a stagger. Super Mutants gain 50% more and C-27s 25% more. Requires Life Giver II."
 	value = 5
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 8
 	requires_quirk = "Life Giver II"
 	mob_trait = TRAIT_LIFEGIVERMAX
 	gain_text = span_notice("You feel like you could heal from almost anything.")
 	lose_text = span_danger("You feel like your body has lost its resilience.")
 	medical_record_text = "Patient shows a remarkable, near-supernatural rate of recovery."
 	locked = TRUE
+	species_mults = list("smutant" = 1.5, "c27" = 1.25)
+	var/hp_applied = 0
 
 /datum/quirk/lifegiver_rank3/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.maxHealth += 40
-	H.health += 40
+	hp_applied = round(40 * species_mult())
+	H.maxHealth += hp_applied
+	H.health += hp_applied
 	H.special_stamina_mod_bonus += 0.35
 
 /datum/quirk/lifegiver_rank3/remove()
 	var/mob/living/carbon/human/H = quirk_holder
 	if(H)
-		H.maxHealth -= 40
+		H.maxHealth -= hp_applied
 		H.health = min(H.health, H.maxHealth)
 		H.special_stamina_mod_bonus -= 0.35
 
@@ -641,6 +684,9 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 	name = "Rad Resistant I"
 	desc = "The wasteland's radiation doesn't bother you as much as most people. Grants 50% innate radiation resistance."
 	value = 3
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 4
 	mob_trait = TRAIT_50_RAD_RESIST
 	gain_text = span_notice("You've decided radiation only kind of matters.")
 	lose_text = span_danger("You no longer think you should hang out next to rad puddles.")
@@ -650,6 +696,9 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 	name = "Rad Resistant II"
 	desc = "Geiger counters are for suckers, mostly. Grants 75% innate radiation resistance. Requires Rad Resistant I."
 	value = 4
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 6
 	requires_quirk = "Rad Resistant I"
 	mob_trait = TRAIT_75_RAD_RESIST
 	gain_text = span_notice("You've decided radiation just doesn't matter much.")
@@ -660,6 +709,9 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 	name = "Rad Resistant III"
 	desc = "Geiger counters are for suckers. You are entirely immune to radiation. Requires Rad Resistant II."
 	value = 6
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 8
 	requires_quirk = "Rad Resistant II"
 	mob_trait = TRAIT_RADIMMUNE
 	gain_text = span_notice("You've decided radiation just doesn't matter.")
@@ -705,7 +757,7 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 
 /datum/quirk/strongback_rank1
 	name = "Strong Back I"
-	desc = "Years of hauling scrap and salvage have taught you how to pack a bag properly. +20% carry capacity on top of whatever your Strength provides."
+	desc = "Years of hauling scrap and salvage have taught you how to pack a bag properly. +20% carry capacity and item slots on top of whatever your Strength provides."
 	value = 2
 	mob_trait = TRAIT_STRONGBACK_RANK1
 	gain_text = span_notice("You feel like you could stuff a lot more into your bags.")
@@ -715,9 +767,15 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 	required_special_name = "Strength"
 	required_special_value = 4
 
+/datum/quirk/strongback_rank1/add()
+	quirk_holder.queue_storage_overload_check()
+
+/datum/quirk/strongback_rank1/remove()
+	quirk_holder?.queue_storage_overload_check()
+
 /datum/quirk/strongback_rank2
 	name = "Strong Back II"
-	desc = "You've got the frame and the know-how to turn yourself into a pack mule. +45% carry capacity on top of whatever your Strength provides. Requires Strong Back I."
+	desc = "You've got the frame and the know-how to turn yourself into a pack mule. +45% carry capacity and item slots on top of whatever your Strength provides. Requires Strong Back I."
 	value = 4
 	requires_quirk = "Strong Back I"
 	mob_trait = TRAIT_STRONGBACK_RANK2
@@ -727,6 +785,12 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 	required_special_stat = "special_s"
 	required_special_name = "Strength"
 	required_special_value = 6
+
+/datum/quirk/strongback_rank2/add()
+	quirk_holder.queue_storage_overload_check()
+
+/datum/quirk/strongback_rank2/remove()
+	quirk_holder?.queue_storage_overload_check()
 
 /* ------------------------------- Nuclear Physicist ------------------------------ */
 //Reduces how fast a worn Power Armor suit's installed cell drains (usage_cost in
@@ -758,4 +822,3 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 	required_special_stat = "special_i"
 	required_special_name = "Intelligence"
 	required_special_value = 7
-

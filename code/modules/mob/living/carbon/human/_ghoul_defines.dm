@@ -152,3 +152,5 @@
 #define GHOUL_RADX_FEEDBACK       5
 #define GHOUL_STIMPAK_PENALTY     1.5
 #define GHOUL_SUPERSTIM_PENALTY   2.5
+// Ghouls burn through chems that are not marked ghoulfriendly this many extra times as fast, which cuts their benefit
+#define GHOUL_CHEM_BURN_MULT      1

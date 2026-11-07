@@ -58,6 +58,8 @@
 	. = TRUE
 	if(!can_run_emote(user, TRUE, intentional))
 		return FALSE
+	if(is_on_use_cooldown(user, intentional))
+		return FALSE
 	if(no_message)
 		return
 	var/msg = select_message_type(user)
@@ -97,6 +99,16 @@
 	else
 		user.visible_message(msg, blind_message = msg, visible_message_flags = message_flags)
 
+
+/// Per-user throttle so a keybind or macro can't spam an emote (and whatever it does) faster than its `cooldown`. Only applies to intentional use. Returns TRUE if blocked, otherwise starts the cooldown.
+/datum/emote/proc/is_on_use_cooldown(mob/user, intentional)
+	if(!intentional || !cooldown)
+		return FALSE
+	var/cd_key = "emote_use_[type]"
+	if(TIMER_COOLDOWN_CHECK(user, cd_key))
+		return TRUE
+	TIMER_COOLDOWN_START(user, cd_key, cooldown)
+	return FALSE
 
 /// Sends the given emote message for all ghosts with ghost sight enabled, excluding close enough to listen normally.
 /mob/proc/emote_for_ghost_sight(message, admin_only, message_range)

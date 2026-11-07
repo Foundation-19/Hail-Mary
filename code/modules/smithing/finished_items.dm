@@ -442,7 +442,7 @@
 	block_chance = 5
 	block_parry_data = /datum/block_parry_data/waki
 	sharpness = SHARP_EDGED
-	item_flags = ITEM_CAN_PARRY
+	item_flags = ITEM_CAN_PARRY | ITEM_CAN_POWER_ATTACK
 	hitsound = 'code/modules/smithing/sound/hit_sword.ogg'
 
 /datum/block_parry_data/waki
@@ -528,7 +528,7 @@
 	force = FORCE_SMITH_HIGH
 	armour_penetration = PIERCING_MINOR
 	wound_bonus = WOUNDING_BONUS_BIG
-	item_flags = ITEM_CAN_PARRY
+	item_flags = ITEM_CAN_PARRY | ITEM_CAN_POWER_ATTACK
 	block_chance = 10
 	block_parry_data = /datum/block_parry_data/sword
 	w_class = WEIGHT_CLASS_BULKY
@@ -606,7 +606,7 @@
 	throwforce = THROWING_POOR
 	wound_bonus = WOUNDING_BONUS_BIG
 	wielded_mult = 1.25
-	item_flags = ITEM_CAN_PARRY
+	item_flags = ITEM_CAN_PARRY | ITEM_CAN_POWER_ATTACK
 	block_chance = 15
 	block_parry_data = /datum/block_parry_data/smithkatana
 	slot_flags = ITEM_SLOT_BELT
@@ -660,7 +660,7 @@
 	sharpness = SHARP_EDGED
 	wielded_mult = 1.4
 	slot_flags = ITEM_SLOT_BACK
-	item_flags = ITEM_CAN_PARRY
+	item_flags = ITEM_CAN_PARRY | ITEM_CAN_POWER_ATTACK
 	total_mass = TOTAL_MASS_MEDIEVAL_WEAPON * 3
 	hitsound = 'sound/weapons/zweihander.ogg'
 	block_chance = 20

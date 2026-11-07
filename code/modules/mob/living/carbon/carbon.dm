@@ -950,7 +950,7 @@
 	if(stat != CONSCIOUS)
 		clear_typing_indicator()
 	if(stat != DEAD)
-		if(health <= HEALTH_THRESHOLD_DEAD && !HAS_TRAIT(src, TRAIT_NODEATH))
+		if(health <= HEALTH_THRESHOLD_DEAD && !HAS_TRAIT(src, TRAIT_NODEATH) && !is_second_wind_protected() && !try_second_wind())
 			death()
 			return
 		if(IsUnconscious() || IsSleeping() || IsAdminSleeping() || getOxyLoss() > 50 || (HAS_TRAIT(src, TRAIT_DEATHCOMA)) || (health <= HEALTH_THRESHOLD_FULLCRIT && !HAS_TRAIT(src, TRAIT_NOHARDCRIT)))

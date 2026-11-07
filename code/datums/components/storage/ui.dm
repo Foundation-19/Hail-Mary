@@ -27,7 +27,7 @@
 		numbered_contents = _process_numerical_display()
 		adjusted_contents = numbered_contents.len
 
-	var/columns = clamp(max_items, 1, maxcolumns ? maxcolumns : screen_max_columns)
+	var/columns = clamp(get_max_items(), 1, maxcolumns ? maxcolumns : screen_max_columns)
 	var/rows = clamp(CEILING(adjusted_contents / columns, 1), 1, screen_max_rows)
 
 	// First, boxes.
@@ -118,7 +118,7 @@
 		/// the following is only used for single-line storages, or overrun storages
 		percentage_by_item[I] = volume / our_volume
 		if(storage_flags & STORAGE_LIMIT_MAX_ITEMS && max_items > 0)
-			percentage_by_item[I] = max(percentage_by_item[I], (1 / max_items))
+			percentage_by_item[I] = max(percentage_by_item[I], (1 / get_max_items()))
 
 	var/overrun = FALSE
 	if(used > our_volume)
@@ -134,7 +134,7 @@
 		/// Number of pixels that a too-big-for-this-row item overran the limit, to be used for the item when its shoved to the next row
 		var/overrun_pixels
 		/// next, calculate how many pixels per volume unit (please keep these whole numbers) (or max_items)
-		var/pixels_per_volume = FLOOR((horizontal_pixels * number_of_rows) / ((storage_flags & STORAGE_LIMIT_MAX_ITEMS && max_items > 0) ? max_items : get_max_volume()), 1)
+		var/pixels_per_volume = FLOOR((horizontal_pixels * number_of_rows) / ((storage_flags & STORAGE_LIMIT_MAX_ITEMS && max_items > 0) ? get_max_items() : get_max_volume()), 1)
 		/// Next, prepare a list that will contain one line's worth of items
 		var/list/one_row = list()
 		/// also keep track of how many rows we should have
