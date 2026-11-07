@@ -107,9 +107,12 @@
 	heal_skill_mult = clamp(1 + bonus, HEAL_SKILL_MIN, HEAL_SKILL_MAX) * clamp(1 + (C.special_e - SPECIAL_DEFAULT_ATTR_VALUE) * HEAL_ENDURANCE_STEP, 0.85, 1.15)
 	heal_rush_mult = clamp(1 - (intelligence - 5) * HEAL_INT_RUSH_STEP - (luck - 5) * HEAL_LUCK_RUSH_STEP, 0.5, 1.3)
 
-/// Temporarily lowers a SPECIAL stat ("s", "p" or "a") and restores exactly what was removed, so stacked debuffs and stat floors stay consistent
-/proc/special_debuff(mob/living/L, stat, amount, duration)
+/// Temporarily lowers a SPECIAL stat ("s", "p" or "a") and restores exactly what was removed. Repeat doses of the same healer don't stack its own side effect, but different healers each apply theirs.
+/proc/special_debuff(mob/living/L, stat, amount, duration, source)
 	if(!isliving(L))
+		return
+	var/debuff_trait = "heal_debuff_[stat]_[source]"
+	if(HAS_TRAIT(L, debuff_trait))
 		return
 	if(HAS_TRAIT(L, TRAIT_HARDY_METABOLISM))
 		duration *= 0.5
@@ -130,12 +133,14 @@
 		else
 			return
 	if(old_value)
-		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(special_debuff_end), WEAKREF(L), stat, old_value), duration)
+		ADD_TRAIT(L, debuff_trait, "healer_side_effect")
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(special_debuff_end), WEAKREF(L), stat, old_value, debuff_trait), duration)
 
-/proc/special_debuff_end(datum/weakref/ref, stat, amount)
+/proc/special_debuff_end(datum/weakref/ref, stat, amount, debuff_trait)
 	var/mob/living/L = ref?.resolve()
 	if(!istype(L))
 		return
+	REMOVE_TRAIT(L, debuff_trait, "healer_side_effect")
 	switch(stat)
 		if("s")
 			L.set_special_s(L.special_s + amount)
@@ -2298,8 +2303,8 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 
 /datum/reagent/medicine/super_stimpak/on_mob_add(mob/living/L, amount)
 	. = ..()
-	special_debuff(L, "s", HEAL_SUPER_STIM_DEBUFF, HEAL_SUPER_STIM_DEBUFF_TIME)
-	special_debuff(L, "a", HEAL_SUPER_STIM_DEBUFF, HEAL_SUPER_STIM_DEBUFF_TIME)
+	special_debuff(L, "s", HEAL_SUPER_STIM_DEBUFF, HEAL_SUPER_STIM_DEBUFF_TIME, type)
+	special_debuff(L, "a", HEAL_SUPER_STIM_DEBUFF, HEAL_SUPER_STIM_DEBUFF_TIME, type)
 	to_chat(L, span_warning("The super stimpak leaves you weak and clumsy."))
 
 /datum/reagent/medicine/super_stimpak/on_mob_life(mob/living/carbon/M)
@@ -2402,7 +2407,7 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 
 /datum/reagent/medicine/healing_powder/on_mob_add(mob/living/L, amount)
 	. = ..()
-	special_debuff(L, debuff_stat, HEAL_POWDER_DEBUFF, HEAL_POWDER_DEBUFF_TIME)
+	special_debuff(L, debuff_stat, HEAL_POWDER_DEBUFF, HEAL_POWDER_DEBUFF_TIME, type)
 
 /datum/reagent/medicine/healing_powder/on_mob_life(mob/living/carbon/M)
 	var/heal_mult = get_heal_scale(M)
