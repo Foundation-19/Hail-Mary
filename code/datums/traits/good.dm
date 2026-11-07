@@ -59,6 +59,11 @@ GLOBAL_LIST_INIT(tier_three_parts, list(
 	/datum/crafting_recipe/super_capacitor,
 	/datum/crafting_recipe/ultra_micro_laser))
 
+GLOBAL_LIST_INIT(energyweapon_cell_basic, list(
+	/datum/crafting_recipe/ecbad,
+	/datum/crafting_recipe/mfcbad,
+	/datum/crafting_recipe/ecpbad))
+
 GLOBAL_LIST_INIT(energyweapon_cell_crafting, list(
 	/datum/crafting_recipe/enhancedenergycell,
 	/datum/crafting_recipe/enhancedmfcell,
@@ -87,9 +92,6 @@ GLOBAL_LIST_INIT(weaponcrafting_gun_recipes, list(
 	/datum/crafting_recipe/heatsink,
 	/datum/crafting_recipe/laserguide,
 	/datum/crafting_recipe/gigalens,
-	/datum/crafting_recipe/ecpbad,
-	/datum/crafting_recipe/mfcbad,
-	/datum/crafting_recipe/ecbad,
 	/datum/crafting_recipe/gun/flintlock,
 	/datum/crafting_recipe/gun/flintlock_laser))
 

@@ -38,9 +38,6 @@ GLOBAL_LIST_INIT(gunsmith_recipes_mods, list(
 	/datum/crafting_recipe/gun/flintlock))
 
 GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
-	/datum/crafting_recipe/ecpbad,
-	/datum/crafting_recipe/mfcbad,
-	/datum/crafting_recipe/ecbad,
 	/datum/crafting_recipe/gun/flintlock_laser))
 
 /* ---------------------------------- Gun Nut ---------------------------------- */
@@ -96,7 +93,7 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 
 /datum/quirk/gunsmith_rank3
 	name = "Gun Nut III"
-	desc = "You've gone from gunsmith to weapons master, fabricating the finest energy-weapon-grade components in the Wasteland. Requires Gun Nut II."
+	desc = "You've gone from gunsmith to weapons master, able to build even the strangest custom firearms, like a laser-wired flintlock. Requires Gun Nut II."
 	value = 6
 	requires_quirk = "Gun Nut II"
 	mob_trait = TRAIT_WEAPONSMITH
@@ -126,7 +123,7 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 
 /datum/quirk/technophreak_rank1
 	name = "Science! I"
-	desc = "You're skilled at breaking down old-war rubble more precisely, gaining more salvage from cars and piles. Unlocks energy weapon cell crafting and power armor repair."
+	desc = "You're skilled at breaking down old-war rubble more precisely, gaining more salvage from cars and piles. Unlocks crafting of small energy cells, microfusion cells and electron charge packs, and power armor repair."
 	value = 2
 	mob_trait = TRAIT_TECHNOPHREAK
 	gain_text = span_notice("Old-War rubble seems considerably more generous to you.")
@@ -140,18 +137,18 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 	var/mob/living/carbon/human/H = quirk_holder
 	if(!H.mind.learned_recipes)
 		H.mind.learned_recipes = list()
-	H.mind.learned_recipes |= GLOB.energyweapon_cell_crafting
+	H.mind.learned_recipes |= GLOB.energyweapon_cell_basic
 	H.mind.learned_recipes |= GLOB.pa_repair
 
 /datum/quirk/technophreak_rank1/remove()
 	var/mob/living/carbon/human/H = quirk_holder
 	if(H && H.mind)
-		H.mind.learned_recipes -= GLOB.energyweapon_cell_crafting
+		H.mind.learned_recipes -= GLOB.energyweapon_cell_basic
 		H.mind.learned_recipes -= GLOB.pa_repair
 
 /datum/quirk/technophreak_rank2
 	name = "Science! II"
-	desc = "Your mastery of complex pre-war technology lets you craft top-tier machine parts. Requires Science! I."
+	desc = "Your mastery of complex pre-war technology lets you craft top-tier machine parts and enhanced energy cells. Requires Science! I."
 	value = 4
 	requires_quirk = "Science! I"
 	mob_trait = TRAIT_TECHNOPHREAK
@@ -166,6 +163,7 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 	var/mob/living/carbon/human/H = quirk_holder
 	if(!H.mind.learned_recipes)
 		H.mind.learned_recipes = list()
+	H.mind.learned_recipes |= GLOB.energyweapon_cell_basic
 	H.mind.learned_recipes |= GLOB.energyweapon_cell_crafting
 	H.mind.learned_recipes |= GLOB.pa_repair
 	H.mind.learned_recipes |= GLOB.tier_three_parts
@@ -173,6 +171,7 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 /datum/quirk/technophreak_rank2/remove()
 	var/mob/living/carbon/human/H = quirk_holder
 	if(H && H.mind)
+		H.mind.learned_recipes -= GLOB.energyweapon_cell_basic
 		H.mind.learned_recipes -= GLOB.energyweapon_cell_crafting
 		H.mind.learned_recipes -= GLOB.pa_repair
 		H.mind.learned_recipes -= GLOB.tier_three_parts
@@ -194,6 +193,7 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 	var/mob/living/carbon/human/H = quirk_holder
 	if(!H.mind.learned_recipes)
 		H.mind.learned_recipes = list()
+	H.mind.learned_recipes |= GLOB.energyweapon_cell_basic
 	H.mind.learned_recipes |= GLOB.energyweapon_cell_crafting
 	H.mind.learned_recipes |= GLOB.pa_repair
 	H.mind.learned_recipes |= GLOB.tier_three_parts
@@ -202,6 +202,7 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 /datum/quirk/technophreak_rank3/remove()
 	var/mob/living/carbon/human/H = quirk_holder
 	if(H && H.mind)
+		H.mind.learned_recipes -= GLOB.energyweapon_cell_basic
 		H.mind.learned_recipes -= GLOB.energyweapon_cell_crafting
 		H.mind.learned_recipes -= GLOB.pa_repair
 		H.mind.learned_recipes -= GLOB.tier_three_parts
