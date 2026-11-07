@@ -21,7 +21,7 @@
 	var/required_special_stat_2 //optional second S.P.E.C.I.A.L. gate, same format as required_special_stat
 	var/required_special_name_2
 	var/required_special_value_2 = 0
-	var/list/species_whitelist //species ids (e.g. "ghoul") that may take this quirk; null means any species. Species-exclusive perks set this
+	var/species_whitelist //species id (e.g. "ghoul") that alone may take this quirk; null means any species. A string so initial() reads it reliably
 	var/list/species_mults //species id -> multiplier for this quirk's numeric benefit (see species_mult()); unlisted species get 1
 	var/mob/living/quirk_holder
 

@@ -24,6 +24,11 @@
 	/// Worked out from whoever applied the dose when it entered the body
 	var/heal_skill_mult = 1
 	var/heal_rush_mult = 1
+/datum/reagent/medicine/on_mob_life_synth(mob/living/carbon/M)
+	. = ..()
+	if(!combat_load && current_cycle == 1)
+		to_chat(M, "<span class='warning'>Your systems can't make use of the [name]. A machine needs a welder or cable to be repaired.</span>")
+
 /// Records who is applying a dose so the healer chem can scale with their Perception, Intelligence and training
 /proc/note_healer(mob/living/target, mob/living/healer)
 	if(!iscarbon(target) || !istype(healer))
@@ -2832,7 +2837,6 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 	reagent_state = SOLID
 	color = "#C8A5DC"
 	ghoulfriendly = TRUE
-	synth_metabolism_use_human = TRUE
 
 /datum/reagent/medicine/fixer/on_mob_life(mob/living/carbon/M)
 	var/datum/reagents/holder = M.reagents

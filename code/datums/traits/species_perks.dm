@@ -101,8 +101,8 @@ GLOBAL_LIST_INIT(quirk_species_blacklist, build_quirk_species_blacklist())
 
 ///Whether a species may take the given quirk typepath. Species-exclusive perks list their species, everything else is open unless blacklisted above
 /proc/quirk_allowed_for_species(datum/quirk/quirk_path, species_id)
-	var/list/whitelist = initial(quirk_path.species_whitelist)
-	if(whitelist && !(species_id in whitelist))
+	var/whitelist = initial(quirk_path.species_whitelist)
+	if(whitelist && whitelist != species_id)
 		return FALSE
 	var/list/banned = GLOB.quirk_species_blacklist[species_id]
 	if(banned && (quirk_path in banned))
@@ -118,7 +118,7 @@ GLOBAL_LIST_INIT(quirk_species_blacklist, build_quirk_species_blacklist())
 	required_special_stat = "special_e"
 	required_special_name = "Endurance"
 	required_special_value = 5
-	species_whitelist = list("ghoul")
+	species_whitelist = "ghoul"
 	gain_text = span_notice("Your skin feels tougher than old boot leather.")
 	lose_text = span_danger("Your hide feels thinner than it used to.")
 	locked = TRUE
@@ -141,7 +141,7 @@ GLOBAL_LIST_INIT(quirk_species_blacklist, build_quirk_species_blacklist())
 	required_special_stat = "special_e"
 	required_special_name = "Endurance"
 	required_special_value = 6
-	species_whitelist = list("ghoul")
+	species_whitelist = "ghoul"
 	gain_text = span_notice("Your flesh crawls as it starts to knit itself together.")
 	lose_text = span_danger("Your flesh stops mending itself.")
 	locked = TRUE
@@ -161,7 +161,7 @@ GLOBAL_LIST_INIT(quirk_species_blacklist, build_quirk_species_blacklist())
 	required_special_stat = "special_s"
 	required_special_name = "Strength"
 	required_special_value = 6
-	species_whitelist = list("smutant")
+	species_whitelist = "smutant"
 	gain_text = span_notice("You flex, and every muscle answers.")
 	lose_text = span_danger("Your frame feels smaller than it did.")
 	locked = TRUE
@@ -186,7 +186,7 @@ GLOBAL_LIST_INIT(quirk_species_blacklist, build_quirk_species_blacklist())
 	required_special_stat = "special_e"
 	required_special_name = "Endurance"
 	required_special_value = 6
-	species_whitelist = list("smutant")
+	species_whitelist = "smutant"
 	gain_text = span_notice("You feel like you could brawl for a week.")
 	lose_text = span_danger("You tire more easily than you remember.")
 	locked = TRUE
@@ -209,7 +209,7 @@ GLOBAL_LIST_INIT(quirk_species_blacklist, build_quirk_species_blacklist())
 	required_special_stat = "special_e"
 	required_special_name = "Endurance"
 	required_special_value = 5
-	species_whitelist = list("c27")
+	species_whitelist = "c27"
 	gain_text = span_notice("Your chassis settles under a fresh layer of plating.")
 	lose_text = span_danger("Your extra plating has been stripped away.")
 	locked = TRUE
@@ -230,7 +230,7 @@ GLOBAL_LIST_INIT(quirk_species_blacklist, build_quirk_species_blacklist())
 	required_special_stat = "special_i"
 	required_special_name = "Intelligence"
 	required_special_value = 5
-	species_whitelist = list("c27")
+	species_whitelist = "c27"
 	gain_text = span_notice("Your repair routines come online.")
 	lose_text = span_danger("Your repair routines have been wiped.")
 	locked = TRUE
@@ -248,7 +248,7 @@ GLOBAL_LIST_INIT(quirk_species_blacklist, build_quirk_species_blacklist())
 	name = "Withered Frame"
 	desc = "Your flesh has rotted thin over the years. You take 10% more brute damage. Ghouls only."
 	value = -2
-	species_whitelist = list("ghoul")
+	species_whitelist = "ghoul"
 	physio_mult = list("brute_mod" = 1.1)
 	gain_text = span_danger("Your wasted body feels like paper.")
 	lose_text = span_notice("Your body feels sturdier.")
@@ -257,7 +257,7 @@ GLOBAL_LIST_INIT(quirk_species_blacklist, build_quirk_species_blacklist())
 	name = "Stiff Joints"
 	desc = "Your joints have set like old leather. -1 Agility. Ghouls only."
 	value = -1
-	species_whitelist = list("ghoul")
+	species_whitelist = "ghoul"
 	special_mods = list("a" = -1)
 	gain_text = span_danger("Your joints creak and grind.")
 	lose_text = span_notice("Your joints loosen up.")
@@ -266,7 +266,7 @@ GLOBAL_LIST_INIT(quirk_species_blacklist, build_quirk_species_blacklist())
 	name = "Mutant Appetite"
 	desc = "All that muscle has to be fed. You get hungry 30% faster. Super Mutants only."
 	value = -1
-	species_whitelist = list("smutant")
+	species_whitelist = "smutant"
 	physio_mult = list("hunger_mod" = 1.3)
 	gain_text = span_danger("Your stomach growls like a deathclaw.")
 	lose_text = span_notice("Your appetite settles down.")
@@ -275,7 +275,7 @@ GLOBAL_LIST_INIT(quirk_species_blacklist, build_quirk_species_blacklist())
 	name = "Crude Mind"
 	desc = "FEV took more from your head than it gave your body. -2 Intelligence. Super Mutants only."
 	value = -2
-	species_whitelist = list("smutant")
+	species_whitelist = "smutant"
 	special_mods = list("i" = -2)
 	gain_text = span_danger("Big thoughts slip away from you.")
 	lose_text = span_notice("Your head feels clearer.")
@@ -284,7 +284,7 @@ GLOBAL_LIST_INIT(quirk_species_blacklist, build_quirk_species_blacklist())
 	name = "Brittle Plating"
 	desc = "Your chassis plating is worn and cracked. You take 10% more brute damage. C-27s only."
 	value = -2
-	species_whitelist = list("c27")
+	species_whitelist = "c27"
 	physio_mult = list("brute_mod" = 1.1)
 	gain_text = span_danger("Your plating rattles loose.")
 	lose_text = span_notice("Your plating has been patched up.")
@@ -293,7 +293,7 @@ GLOBAL_LIST_INIT(quirk_species_blacklist, build_quirk_species_blacklist())
 	name = "Glitchy Optics"
 	desc = "Your optical sensors flicker and drift. -1 Perception. C-27s only."
 	value = -1
-	species_whitelist = list("c27")
+	species_whitelist = "c27"
 	special_mods = list("p" = -1)
 	gain_text = span_danger("Your vision flickers with static.")
 	lose_text = span_notice("Your optics settle down.")
@@ -319,7 +319,7 @@ GLOBAL_LIST_INIT(quirk_species_blacklist, build_quirk_species_blacklist())
 	required_special_name = "Endurance"
 	required_special_value = 7
 	requires_quirk = "Leathery Hide"
-	species_whitelist = list("ghoul")
+	species_whitelist = "ghoul"
 	gain_text = span_notice("Your skin has gone as hard as tire rubber.")
 	lose_text = span_danger("Your hide softens.")
 	locked = TRUE
@@ -343,7 +343,7 @@ GLOBAL_LIST_INIT(quirk_species_blacklist, build_quirk_species_blacklist())
 	required_special_name = "Endurance"
 	required_special_value = 8
 	requires_quirk = "Necrotic Mending"
-	species_whitelist = list("ghoul")
+	species_whitelist = "ghoul"
 	gain_text = span_notice("Your flesh knits itself together in earnest.")
 	lose_text = span_danger("Your flesh mends more slowly again.")
 	locked = TRUE
@@ -362,7 +362,7 @@ GLOBAL_LIST_INIT(quirk_species_blacklist, build_quirk_species_blacklist())
 	required_special_name = "Strength"
 	required_special_value = 8
 	requires_quirk = "Hulking Frame"
-	species_whitelist = list("smutant")
+	species_whitelist = "smutant"
 	gain_text = span_notice("You feel like nothing could knock you down.")
 	lose_text = span_danger("Your frame shrinks back down.")
 	locked = TRUE
@@ -388,7 +388,7 @@ GLOBAL_LIST_INIT(quirk_species_blacklist, build_quirk_species_blacklist())
 	required_special_name = "Endurance"
 	required_special_value = 8
 	requires_quirk = "FEV Vigor"
-	species_whitelist = list("smutant")
+	species_whitelist = "smutant"
 	gain_text = span_notice("You could brawl for a month.")
 	lose_text = span_danger("You tire more easily again.")
 	locked = TRUE
@@ -410,7 +410,7 @@ GLOBAL_LIST_INIT(quirk_species_blacklist, build_quirk_species_blacklist())
 	required_special_name = "Endurance"
 	required_special_value = 7
 	requires_quirk = "Reinforced Chassis"
-	species_whitelist = list("c27")
+	species_whitelist = "c27"
 	gain_text = span_notice("Heavy plating locks into place over your chassis.")
 	lose_text = span_danger("Your heavy plating has been stripped away.")
 	locked = TRUE
@@ -432,7 +432,7 @@ GLOBAL_LIST_INIT(quirk_species_blacklist, build_quirk_species_blacklist())
 	required_special_name = "Intelligence"
 	required_special_value = 7
 	requires_quirk = "Self-Repair Routines"
-	species_whitelist = list("c27")
+	species_whitelist = "c27"
 	gain_text = span_notice("Your repair routines are upgraded.")
 	lose_text = span_danger("Your repair routines revert to the old version.")
 	locked = TRUE
@@ -449,7 +449,7 @@ GLOBAL_LIST_INIT(quirk_species_blacklist, build_quirk_species_blacklist())
 	name = "Parched Husk"
 	desc = "Your dried-out body drinks water like a sponge. You get thirsty 30% faster. Ghouls only."
 	value = -1
-	species_whitelist = list("ghoul")
+	species_whitelist = "ghoul"
 	gain_text = span_danger("Your throat feels like sandpaper.")
 	lose_text = span_notice("Your throat finally feels moist again.")
 
@@ -468,7 +468,7 @@ GLOBAL_LIST_INIT(quirk_species_blacklist, build_quirk_species_blacklist())
 	name = "Shunned"
 	desc = "Smooth-skins flinch at the sight of you. -1 Charisma. Ghouls only."
 	value = -1
-	species_whitelist = list("ghoul")
+	species_whitelist = "ghoul"
 	special_mods = list("c" = -1)
 	gain_text = span_danger("People look away when you walk past.")
 	lose_text = span_notice("People seem a little more willing to look at you.")
@@ -477,7 +477,7 @@ GLOBAL_LIST_INIT(quirk_species_blacklist, build_quirk_species_blacklist())
 	name = "Brittle Limbs"
 	desc = "Your rotted body is easy to knock off its feet. You are stunned and knocked down 20% longer. Ghouls only."
 	value = -1
-	species_whitelist = list("ghoul")
+	species_whitelist = "ghoul"
 	physio_mult = list("stun_mod" = 1.2)
 	gain_text = span_danger("Your body feels like it could crumble.")
 	lose_text = span_notice("Your body feels a little sturdier.")
@@ -486,7 +486,7 @@ GLOBAL_LIST_INIT(quirk_species_blacklist, build_quirk_species_blacklist())
 	name = "Thick Fingers"
 	desc = "Your huge hands fumble with small things. Tasks that take time, like crafting and repairs, take 20% longer. Super Mutants only."
 	value = -1
-	species_whitelist = list("smutant")
+	species_whitelist = "smutant"
 	physio_mult = list("do_after_speed" = 1.2)
 	gain_text = span_danger("Everything small feels like a toy in your hands.")
 	lose_text = span_notice("Your hands feel a little more nimble.")
@@ -495,7 +495,7 @@ GLOBAL_LIST_INIT(quirk_species_blacklist, build_quirk_species_blacklist())
 	name = "Short Fuse"
 	desc = "Your rage burns through your stamina. You take 15% more stamina damage. Super Mutants only."
 	value = -1
-	species_whitelist = list("smutant")
+	species_whitelist = "smutant"
 	physio_mult = list("stamina_mod" = 1.15)
 	gain_text = span_danger("You feel one bad day away from smashing something.")
 	lose_text = span_notice("Your temper cools down.")
@@ -504,7 +504,7 @@ GLOBAL_LIST_INIT(quirk_species_blacklist, build_quirk_species_blacklist())
 	name = "Frightening Visage"
 	desc = "Folks run screaming at the sight of you. -2 Charisma. Super Mutants only."
 	value = -2
-	species_whitelist = list("smutant")
+	species_whitelist = "smutant"
 	special_mods = list("c" = -2)
 	gain_text = span_danger("You look like something out of a nightmare.")
 	lose_text = span_notice("Your face looks a little less monstrous.")
@@ -513,7 +513,7 @@ GLOBAL_LIST_INIT(quirk_species_blacklist, build_quirk_species_blacklist())
 	name = "Overheating Core"
 	desc = "Your cooling system is failing. You take 40% more heat damage. C-27s only."
 	value = -1
-	species_whitelist = list("c27")
+	species_whitelist = "c27"
 	physio_mult = list("heat_mod" = 1.4)
 	gain_text = span_danger("Your core runs hot.")
 	lose_text = span_notice("Your cooling system holds steady.")
@@ -522,7 +522,7 @@ GLOBAL_LIST_INIT(quirk_species_blacklist, build_quirk_species_blacklist())
 	name = "Corroded Wiring"
 	desc = "Frayed wiring leaves you wide open to shocks. You take 50% more damage from electricity. C-27s only."
 	value = -1
-	species_whitelist = list("c27")
+	species_whitelist = "c27"
 	physio_mult = list("siemens_coeff" = 1.5)
 	gain_text = span_danger("Sparks crawl along your frayed wiring.")
 	lose_text = span_notice("Your wiring has been re-sheathed.")
@@ -531,32 +531,32 @@ GLOBAL_LIST_INIT(quirk_species_blacklist, build_quirk_species_blacklist())
 	name = "Outdated Software"
 	desc = "Your programming is decades old and hard to update. -1 Intelligence. C-27s only."
 	value = -1
-	species_whitelist = list("c27")
+	species_whitelist = "c27"
 	special_mods = list("i" = -1)
 	gain_text = span_danger("Your processes lag behind.")
 	lose_text = span_notice("Your software feels up to date.")
 
 /* ------------------- Perks that replace the flesh-and-blood ones ------------------- */
-//C-27s can't take the body-chemistry perks, so these give the same kind of benefit in machine terms.
+//C-27s can't take the body-chemistry perks, and chems do nothing for a machine, so these give the same kind of benefit in machine terms.
 
 /datum/quirk/modular/c27_hardened_chassis
-	name = "Hardened Chassis"
-	desc = "Your repair systems are efficient: mending costs you half the usual resources, hunger and thirst slow repairs half as much, healer side effects wear off twice as fast, and repeated repairs lose only half as much strength. C-27s only."
+	name = "Heat-Sink Plating"
+	desc = "Heat-sink plating carries fire and heat away from your vital systems. You take 10% less burn damage and 15% less heat damage. C-27s only."
 	value = 2
-	species_whitelist = list("c27")
-	trait_flags = list(TRAIT_HARDY_METABOLISM, TRAIT_SEASONED_USER)
+	species_whitelist = "c27"
+	physio_mult = list("burn_mod" = 0.9, "heat_mod" = 0.85)
 	required_special_stat = "special_e"
 	required_special_name = "Endurance"
 	required_special_value = 6
-	gain_text = span_notice("Your repair routines trim every wasted cycle.")
-	lose_text = span_danger("Your repair routines go back to wasting power.")
+	gain_text = span_notice("Heat-sink plating bolts onto your chassis.")
+	lose_text = span_danger("Your heat-sink plating has been stripped off.")
 
 /datum/quirk/modular/c27_shielded_circuits
 	name = "Shielded Circuits"
-	desc = "Your internals are well insulated: mixing chems rarely hurts you, and detox treatments leave you with far milder side effects. C-27s only."
+	desc = "Your internals are well insulated. You take half as much damage from electric shocks and are stunned 10% less. C-27s only."
 	value = 2
-	species_whitelist = list("c27")
-	trait_flags = list(TRAIT_CAST_IRON_CONSTITUTION, TRAIT_DETOX_SPECIALIST)
+	species_whitelist = "c27"
+	physio_mult = list("siemens_coeff" = 0.5, "stun_mod" = 0.9)
 	required_special_stat = "special_e"
 	required_special_name = "Endurance"
 	required_special_value = 7
@@ -565,15 +565,27 @@ GLOBAL_LIST_INIT(quirk_species_blacklist, build_quirk_species_blacklist())
 
 /datum/quirk/modular/c27_power_governor
 	name = "Power Governor"
-	desc = "A governor keeps your systems inside safe limits: combat chems build 40% less adrenal debt, the crash is half as long, and you can take 25% more of any chem before it overdoses you. C-27s only."
+	desc = "A governor keeps your power draw inside safe limits. Stamina damage is reduced by 15%. C-27s only."
 	value = 2
-	species_whitelist = list("c27")
-	trait_flags = list(TRAIT_ADRENALINE_MANAGEMENT, TRAIT_CAREFUL_DOSING)
+	species_whitelist = "c27"
+	physio_mult = list("stamina_mod" = 0.85)
 	required_special_stat = "special_i"
 	required_special_name = "Intelligence"
 	required_special_value = 6
 	gain_text = span_notice("A power governor clicks into place.")
 	lose_text = span_danger("Your power governor has been removed.")
+
+/datum/quirk/modular/c27_servo_tuning
+	name = "Servo Tuning"
+	desc = "Your servos are tuned for fast, precise work. Timed actions such as crafting and repairs finish 10% quicker. C-27s only."
+	value = 2
+	species_whitelist = "c27"
+	physio_mult = list("do_after_speed" = 0.9)
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 7
+	gain_text = span_notice("Your servos hum with fresh calibration.")
+	lose_text = span_danger("Your servos drift out of tune.")
 
 /datum/quirk/ghoul_radiation_feeder
 	name = "Radiation Feeder"
@@ -582,7 +594,7 @@ GLOBAL_LIST_INIT(quirk_species_blacklist, build_quirk_species_blacklist())
 	required_special_stat = "special_e"
 	required_special_name = "Endurance"
 	required_special_value = 7
-	species_whitelist = list("ghoul")
+	species_whitelist = "ghoul"
 	gain_text = span_notice("The radiation in you stops hurting and starts feeding you.")
 	lose_text = span_danger("The radiation in you is just poison again.")
 

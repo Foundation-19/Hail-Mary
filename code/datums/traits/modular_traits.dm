@@ -1084,7 +1084,7 @@
 
 /datum/quirk/modular/robotics_expert_rank1
 	name = "Robotics Expert I"
-	desc = "Salvaging machinery has a 20% chance of an extra drop."
+	desc = "Salvaging machinery has a 20% chance of an extra drop, and welder and cable repairs mend 25% more."
 	value = 3
 	trait_flags = list(TRAIT_ROBOTICS_EXPERT_RANK1)
 	required_special_stat = "special_i"
@@ -1095,7 +1095,7 @@
 
 /datum/quirk/modular/robotics_expert_rank2
 	name = "Robotics Expert II"
-	desc = "Salvaging machinery has a 40% chance of an extra drop. Requires Robotics Expert I."
+	desc = "Salvaging machinery has a 40% chance of an extra drop, and welder and cable repairs mend 50% more. Requires Robotics Expert I."
 	value = 4
 	requires_quirk = "Robotics Expert I"
 	trait_flags = list(TRAIT_ROBOTICS_EXPERT_RANK2)
