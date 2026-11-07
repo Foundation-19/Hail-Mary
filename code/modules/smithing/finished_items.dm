@@ -92,10 +92,14 @@
 	slot_flags = ITEM_SLOT_BELT
 	wound_bonus = WOUNDING_BONUS_SMALL
 	var/smithing_speed = 0
+	var/smithing_quality_bonus = 0 //Extra work score added per hit at the anvil
+	var/smithing_stress_modifier = 1 //Multiplier on stress gained per hit at the anvil
 
 /obj/item/melee/smith/hammer/premade
 	quality = 3
 	smithing_speed = 1
+	smithing_quality_bonus = 0.2
+	smithing_stress_modifier = 0.9
 	custom_materials = list(/datum/material/iron = 1000)
 
 // Debugging Hammer
