@@ -29,6 +29,8 @@ GLOBAL_LIST_INIT(chemwhiz_recipes_advanced, list(
 	/datum/crafting_recipe/stimpak5/chemistry,
 	/datum/crafting_recipe/superstimpak,
 	/datum/crafting_recipe/superstimpak5,
+	/datum/crafting_recipe/superstimpak/chemistry,
+	/datum/crafting_recipe/superstimpak5/chemistry,
 	/datum/crafting_recipe/ultrajet,
 	/datum/crafting_recipe/jet_stream,
 	/datum/crafting_recipe/jet_antidote,

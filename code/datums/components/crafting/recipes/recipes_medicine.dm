@@ -296,6 +296,30 @@
 	category = CAT_MEDICAL
 	always_available = FALSE
 
+/datum/crafting_recipe/superstimpak/chemistry // Pen filled from super stimpak fluid brewed in the chem lab
+	name = "Super Stimpak (from chems)"
+	result = /obj/item/reagent_containers/hypospray/medipen/stimpak/super
+	reqs = list(/datum/reagent/medicine/super_stimpak = 10,
+				/obj/item/stack/sheet/leather = 1,
+				/obj/item/reagent_containers/syringe = 1)
+	blacklist = list()
+	tools = list(TOOL_CHEMMASTER)
+	time = 10
+	category = CAT_MEDICAL
+	always_available = FALSE
+
+/datum/crafting_recipe/superstimpak5/chemistry
+	name = "Super Stimpak x5 (from chems)"
+	result = /obj/item/storage/box/medicine/stimpaks/superstimpaks5
+	reqs = list(/datum/reagent/medicine/super_stimpak = 50,
+				/obj/item/stack/sheet/leather = 5,
+				/obj/item/reagent_containers/syringe = 5)
+	blacklist = list()
+	tools = list(TOOL_CHEMMASTER)
+	time = 20
+	category = CAT_MEDICAL
+	always_available = FALSE
+
 /datum/crafting_recipe/salvage_stimpak
 	name = "Salvage injector"
 	result = /obj/item/reagent_containers/syringe
