@@ -1234,7 +1234,7 @@ span.independent { display: inline-block; position: absolute; width: 20%; right:
 	user << browse(get_terminal_page(dat.Join(), "&#9654; FAMILY HEIRLOOM &#9664;"), "window=mob_occupation;size=900x600;can_close=0;can_minimize=1;can_maximize=0;can_resize=1;titlebar=1;")
 	return
 
-GLOBAL_LIST_INIT(perk_stat_tabs, list("special_s" = "STR", "special_p" = "PER", "special_e" = "END", "special_c" = "CHA", "special_i" = "INT", "special_a" = "AGI", "special_l" = "LCK", "other" = "OTHER"))
+GLOBAL_LIST_INIT(perk_stat_tabs, list("species" = "SPECIES", "special_s" = "STR", "special_p" = "PER", "special_e" = "END", "special_c" = "CHA", "special_i" = "INT", "special_a" = "AGI", "special_l" = "LCK", "other" = "OTHER"))
 
 /datum/preferences/proc/PerkChainFor(datum/quirk/root)
 	. = list(root)
@@ -1343,7 +1343,7 @@ GLOBAL_LIST_INIT(perk_stat_tabs, list("special_s" = "STR", "special_p" = "PER", 
 		var/list/chain = PerkChainFor(T)
 		if(PerkChainOwned(chain)) //already taken: shown in the selections area instead
 			continue
-		var/key = initial(T.required_special_stat)
+		var/key = initial(T.species_whitelist) ? "species" : initial(T.required_special_stat)
 		if(!(key in by_stat))
 			key = "other"
 		var/list/L = by_stat[key]
@@ -1351,7 +1351,7 @@ GLOBAL_LIST_INIT(perk_stat_tabs, list("special_s" = "STR", "special_p" = "PER", 
 	. = "<center>"
 	for(var/k in GLOB.perk_stat_tabs)
 		var/list/L = by_stat[k]
-		. += " <a href='?_src_=prefs;perk_stat=[k]' [perk_stat_tab == k ? "class='linkOn'" : ""]>[GLOB.perk_stat_tabs[k]][k == "other" ? "" : " [vars[k]]"] ([L.len])</a> "
+		. += " <a href='?_src_=prefs;perk_stat=[k]' [perk_stat_tab == k ? "class='linkOn'" : ""]>[GLOB.perk_stat_tabs[k]][(k == "other" || k == "species") ? "" : " [vars[k]]"] ([L.len])</a> "
 	. += "</center><br>"
 	var/list/shown = by_stat[perk_stat_tab]
 	if(!shown)

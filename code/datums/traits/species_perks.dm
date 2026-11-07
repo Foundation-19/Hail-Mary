@@ -80,10 +80,23 @@ GLOBAL_LIST_INIT(quirk_species_blacklist, build_quirk_species_blacklist())
 		/datum/quirk/trait_small_frame,
 		/datum/quirk/trait_night_owl,
 	)
+	//how a living body takes chems and healing; a robot has no metabolism, tolerance or veins to react
+	var/list/body_chemistry = list(
+		/datum/quirk/modular/hardy_metabolism,
+		/datum/quirk/modular/seasoned_user,
+		/datum/quirk/modular/cast_iron_constitution,
+		/datum/quirk/modular/frail_constitution,
+		/datum/quirk/modular/needle_phobia,
+		/datum/quirk/modular/clean_living,
+		/datum/quirk/modular/careful_dosing,
+		/datum/quirk/modular/detox_specialist,
+		/datum/quirk/modular/adrenaline_management,
+		/datum/quirk/modular/slow_healer,
+	)
 	return list(
 		"ghoul" = radiation + blood + breathing + eating,
 		"smutant" = radiation + frailty,
-		"c27" = radiation + blood + breathing + eating + machine_body + robot_liabilities,
+		"c27" = radiation + blood + breathing + eating + machine_body + robot_liabilities + body_chemistry,
 	)
 
 ///Whether a species may take the given quirk typepath. Species-exclusive perks list their species, everything else is open unless blacklisted above
@@ -522,3 +535,59 @@ GLOBAL_LIST_INIT(quirk_species_blacklist, build_quirk_species_blacklist())
 	special_mods = list("i" = -1)
 	gain_text = span_danger("Your processes lag behind.")
 	lose_text = span_notice("Your software feels up to date.")
+
+/* ------------------- Perks that replace the flesh-and-blood ones ------------------- */
+//C-27s can't take the body-chemistry perks, so these give the same kind of benefit in machine terms.
+
+/datum/quirk/modular/c27_hardened_chassis
+	name = "Hardened Chassis"
+	desc = "Your repair systems are efficient: mending costs you half the usual resources, hunger and thirst slow repairs half as much, healer side effects wear off twice as fast, and repeated repairs lose only half as much strength. C-27s only."
+	value = 2
+	species_whitelist = list("c27")
+	trait_flags = list(TRAIT_HARDY_METABOLISM, TRAIT_SEASONED_USER)
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 6
+	gain_text = span_notice("Your repair routines trim every wasted cycle.")
+	lose_text = span_danger("Your repair routines go back to wasting power.")
+
+/datum/quirk/modular/c27_shielded_circuits
+	name = "Shielded Circuits"
+	desc = "Your internals are well insulated: mixing chems rarely hurts you, and detox treatments leave you with far milder side effects. C-27s only."
+	value = 2
+	species_whitelist = list("c27")
+	trait_flags = list(TRAIT_CAST_IRON_CONSTITUTION, TRAIT_DETOX_SPECIALIST)
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 7
+	gain_text = span_notice("Fresh shielding wraps your circuits.")
+	lose_text = span_danger("Your shielding has worn thin.")
+
+/datum/quirk/modular/c27_power_governor
+	name = "Power Governor"
+	desc = "A governor keeps your systems inside safe limits: combat chems build 40% less adrenal debt, the crash is half as long, and you can take 25% more of any chem before it overdoses you. C-27s only."
+	value = 2
+	species_whitelist = list("c27")
+	trait_flags = list(TRAIT_ADRENALINE_MANAGEMENT, TRAIT_CAREFUL_DOSING)
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 6
+	gain_text = span_notice("A power governor clicks into place.")
+	lose_text = span_danger("Your power governor has been removed.")
+
+/datum/quirk/ghoul_radiation_feeder
+	name = "Radiation Feeder"
+	desc = "Your ruined body feeds on the radiation inside it, slowly mending cuts and burns while you are heavily irradiated. Ghouls only."
+	value = 3
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 7
+	species_whitelist = list("ghoul")
+	gain_text = span_notice("The radiation in you stops hurting and starts feeding you.")
+	lose_text = span_danger("The radiation in you is just poison again.")
+
+/datum/quirk/ghoul_radiation_feeder/on_process()
+	var/mob/living/carbon/human/H = quirk_holder
+	if(H.stat == DEAD || H.health >= H.maxHealth || H.radiation < 100)
+		return
+	H.heal_overall_damage(0.2, 0.2, updating_health = TRUE)
