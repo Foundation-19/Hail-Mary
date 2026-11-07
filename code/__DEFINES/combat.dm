@@ -124,6 +124,10 @@
 #define POWER_ATTACK_STRENGTH_10_SLOWDOWN_REDUCTION 0.25
 #define POWER_ATTACK_IRON_GRIP_DAMAGE_THRESHOLD 10
 #define POWER_ATTACK_IRON_GRIP_COOLDOWN 30 SECONDS
+/// Light hits one charge can grit through before the next one breaks it.
+#define POWER_ATTACK_MAX_SHRUGS 3
+/// Fraction of the stamina cost refunded when a released Power Attack hits nothing.
+#define POWER_ATTACK_WHIFF_REFUND 0.5
 #define CLICK_CD_RANGE 5
 #define CLICK_CD_RAPID 2
 #define CLICK_CD_CLICK_ABILITY 6

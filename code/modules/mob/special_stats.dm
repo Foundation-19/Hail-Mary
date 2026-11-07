@@ -559,6 +559,10 @@ proc/get_top_level_mob(mob/S)
 /mob/living/proc/get_power_attack_interrupt_stagger_duration()
 	return CLAMP(3 SECONDS - ((special_e - SPECIAL_DEFAULT_ATTR_VALUE) * 0.3 SECONDS), 1 SECONDS, 5 SECONDS)
 
+/// Damage (after armor) a hit must exceed to break a Power Attack windup. Endurance mostly, Strength a little.
+/mob/living/proc/get_power_attack_flinch_threshold()
+	return 3 + (2 * special_e) + (0.5 * max(0, special_s - SPECIAL_DEFAULT_ATTR_VALUE))
+
 /// LUCK
 
 /// Currently affects only money from trashpiles
@@ -767,11 +771,11 @@ proc/get_top_level_mob(mob/S)
 /mob/living/proc/get_power_attack_fumble_chance()
 	switch(special_l)
 		if(1)
-			return 15
-		if(2)
 			return 8
+		if(2)
+			return 4
 		if(3)
-			return 3
+			return 2
 	return 0
 
 /// How much heat/condition-driven gun jam & cook-off chance gets scaled by luck - bad luck makes malfunctions more likely, good luck less
