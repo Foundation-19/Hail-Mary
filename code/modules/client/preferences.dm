@@ -1338,6 +1338,8 @@ GLOBAL_LIST_INIT(perk_stat_tabs, list("special_s" = "STR", "special_p" = "PER", 
 			continue
 		if(initial(T.mood_quirk) && CONFIG_GET(flag/disable_human_mood))
 			continue
+		if(!MeetsQuirkSpecies(T))
+			continue
 		var/list/chain = PerkChainFor(T)
 		if(PerkChainOwned(chain)) //already taken: shown in the selections area instead
 			continue
@@ -1386,13 +1388,13 @@ GLOBAL_LIST_INIT(perk_stat_tabs, list("special_s" = "STR", "special_p" = "PER", 
 			dat += "<div class='perk-section'>WASTELAND TRAITS - free, every one bundles a boon with a burden &nbsp; ([GetTraitCount()] / [GetMaxTraits()] recorded)</div>"
 			for(var/V in SSquirks.quirks)
 				var/datum/quirk/T = SSquirks.quirks[V]
-				if(!initial(T.is_trait) || (initial(T.name) in all_quirks))
+				if(!initial(T.is_trait) || (initial(T.name) in all_quirks) || !MeetsQuirkSpecies(T))
 					continue
 				dat += RenderQuirkRow(T, is_trait_row = TRUE)
 			dat += "<div class='perk-section'>COSMETIC - free flavor picks, no Perk Point cost, no slot limit</div>"
 			for(var/V in SSquirks.quirks)
 				var/datum/quirk/T = SSquirks.quirks[V]
-				if(initial(T.is_trait) || initial(T.value) != 0 || (initial(T.name) in all_quirks))
+				if(initial(T.is_trait) || initial(T.value) != 0 || (initial(T.name) in all_quirks) || !MeetsQuirkSpecies(T))
 					continue
 				dat += RenderQuirkRow(T)
 		else if(quirk_category == QUIRK_POSITIVE)
@@ -1400,7 +1402,7 @@ GLOBAL_LIST_INIT(perk_stat_tabs, list("special_s" = "STR", "special_p" = "PER", 
 		else
 			for(var/V in SSquirks.quirks)
 				var/datum/quirk/T = SSquirks.quirks[V]
-				if(initial(T.is_trait) || initial(T.value) >= 0 || (initial(T.name) in all_quirks))
+				if(initial(T.is_trait) || initial(T.value) >= 0 || (initial(T.name) in all_quirks) || !MeetsQuirkSpecies(T))
 					continue
 				dat += RenderQuirkRow(T)
 		dat += "<br><center><a href='?_src_=prefs;preference=trait;task=reset'>Reset All</a></center>"
@@ -1455,6 +1457,10 @@ GLOBAL_LIST_INIT(perk_stat_tabs, list("special_s" = "STR", "special_p" = "PER", 
 /datum/preferences/proc/GetBonusQuirkPoints()
 	return (special_i >= SPECIAL_POINT_BONUS_THRESHOLD || special_l >= SPECIAL_POINT_BONUS_THRESHOLD) ? 1 : 0
 
+//Returns TRUE if our species may take the given quirk typepath (see code/datums/traits/species_perks.dm)
+/datum/preferences/proc/MeetsQuirkSpecies(datum/quirk/T)
+	return quirk_allowed_for_species(T, pref_species.id)
+
 //Returns TRUE if our SPECIAL meets the lock of the given quirk typepath
 /datum/preferences/proc/MeetsQuirkSpecial(datum/quirk/T)
 	var/stat_name = initial(T.required_special_stat)
@@ -1473,6 +1479,11 @@ GLOBAL_LIST_INIT(perk_stat_tabs, list("special_s" = "STR", "special_p" = "PER", 
 
 //Drops every quirk whose SPECIAL lock is unmet (e.g. after SPECIAL was lowered), then any picks beyond the SPECIAL-scaled caps
 /datum/preferences/proc/EnforceQuirkLimits()
+	//perks that don't fit our species are dropped outright, whatever rank they are
+	for(var/V in all_quirks.Copy())
+		var/datum/quirk/T = SSquirks.quirks[V]
+		if(T && !MeetsQuirkSpecies(T))
+			all_quirks -= V
 	for(var/V in all_quirks.Copy())
 		var/datum/quirk/T = SSquirks.quirks[V]
 		if(!T || MeetsQuirkSpecial(T))
@@ -1504,6 +1515,16 @@ GLOBAL_LIST_INIT(perk_stat_tabs, list("special_s" = "STR", "special_p" = "PER", 
 			if(SSquirks.quirk_points[all_quirks[i]] > 0)
 				all_quirks.Cut(i, i + 1)
 				break
+	//dropping a liability refunds nothing, so a species swap can leave the point budget overspent
+	while(GetQuirkBalance() < 0)
+		var/dropped = FALSE
+		for(var/i in length(all_quirks) to 1 step -1)
+			if(SSquirks.quirk_points[all_quirks[i]] > 0 && !SSquirks.quirk_is_trait_by_name(all_quirks[i]))
+				all_quirks.Cut(i, i + 1)
+				dropped = TRUE
+				break
+		if(!dropped)
+			break
 
 /datum/preferences/proc/GetQuirkBalance()
 	var/bal = CONFIG_GET(number/quirk_points) + GetBonusQuirkPoints() //server-configurable base Trait Point budget (SPECIAL can add one)
@@ -1610,6 +1631,9 @@ GLOBAL_LIST_INIT(perk_stat_tabs, list("special_s" = "STR", "special_p" = "PER", 
 							to_chat(user, span_danger("[quirk] is incompatible with [Q]."))
 							return
 				var/datum/quirk/lock_path = SSquirks.quirks[quirk]
+				if(!(quirk in all_quirks) && !MeetsQuirkSpecies(lock_path))
+					to_chat(user, span_warning("[quirk] isn't available to a [pref_species.name]."))
+					return
 				if(!(quirk in all_quirks) && !MeetsQuirkSpecial(lock_path))
 					to_chat(user, span_warning("You don't meet the S.P.E.C.I.A.L. requirement for [quirk]: [QuirkSpecialReqText(lock_path)]."))
 					return
@@ -2025,6 +2049,7 @@ GLOBAL_LIST_INIT(perk_stat_tabs, list("special_s" = "STR", "special_p" = "PER", 
 					if(result)
 						var/newtype = GLOB.species_list[GLOB.roundstart_race_names[result]]
 						pref_species = new newtype()
+						EnforceQuirkLimits() //perks that don't suit the new species are dropped
 						//let's ensure that no weird shit happens on species swapping.
 						custom_species = null
 						if(!parent.can_have_part("mam_body_markings"))

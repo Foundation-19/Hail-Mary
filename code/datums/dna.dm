@@ -350,6 +350,8 @@
 
 /mob/living/carbon/human/set_species(datum/species/mrace, icon_update = TRUE, pref_load = FALSE)
 	..()
+	if(!pref_load)
+		drop_unsuitable_quirks()
 	if(icon_update)
 		update_body()
 		update_hair()

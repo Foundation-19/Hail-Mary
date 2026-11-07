@@ -21,6 +21,8 @@
 	var/required_special_stat_2 //optional second S.P.E.C.I.A.L. gate, same format as required_special_stat
 	var/required_special_name_2
 	var/required_special_value_2 = 0
+	var/list/species_whitelist //species ids (e.g. "ghoul") that may take this quirk; null means any species. Species-exclusive perks set this
+	var/list/species_mults //species id -> multiplier for this quirk's numeric benefit (see species_mult()); unlisted species get 1
 	var/mob/living/quirk_holder
 
 /datum/quirk/New(mob/living/quirk_mob, spawn_effects)
@@ -51,6 +53,14 @@
 		quirk_holder = null
 	SSquirks.quirk_objects -= src
 	return ..()
+
+///Multiplier for this quirk's numeric benefit based on what its holder is, e.g. a super mutant's frame gets more out of Life Giver
+/datum/quirk/proc/species_mult()
+	var/mob/living/carbon/human/H = quirk_holder
+	if(!species_mults || !istype(H) || !H.dna?.species)
+		return 1
+	var/mult = species_mults[H.dna.species.id]
+	return isnull(mult) ? 1 : mult
 
 /datum/quirk/proc/transfer_mob(mob/living/to_mob)
 	quirk_holder.roundstart_quirks -= src

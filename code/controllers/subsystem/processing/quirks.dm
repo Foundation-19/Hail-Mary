@@ -93,6 +93,11 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 	for(var/V in my_quirks)
 		if(V in quirks)
 			var/datum/quirk/Q = quirks[V]
+			var/mob/living/carbon/human/species_holder = user
+			var/species_id = istype(species_holder) ? species_holder.dna?.species?.id : null
+			if(species_id && !quirk_allowed_for_species(Q, species_id))
+				to_chat(to_chat_target || user, span_warning("Your perk '[V]' doesn't suit your body, so it has been skipped."))
+				continue
 			user.add_quirk(Q, spawn_effects)
 		else
 			log_admin("Invalid quirk \"[V]\" in client [cli.ckey] preferences")

@@ -716,8 +716,8 @@ is also still granted for free by the paired Wasteland Trait "Heavy Handed" (cod
 
 /datum/quirk/iron_fist/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.dna.species.punchdamagelow = IRON_FIST_PUNCH_DAMAGE_LOW
-	H.dna.species.punchdamagehigh = IRON_FIST_PUNCH_DAMAGE_MAX
+	H.dna.species.punchdamagelow = max(H.dna.species.punchdamagelow, IRON_FIST_PUNCH_DAMAGE_LOW)
+	H.dna.species.punchdamagehigh = max(H.dna.species.punchdamagehigh, IRON_FIST_PUNCH_DAMAGE_MAX)
 */
 /*
 Merged into ranked Wasteland Perk "Iron Fist" Rank 2 (code/datums/traits/ranked_perks.dm)
@@ -732,8 +732,8 @@ Merged into ranked Wasteland Perk "Iron Fist" Rank 2 (code/datums/traits/ranked_
 
 /datum/quirk/steel_fist/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.dna.species.punchdamagelow = STEEL_FIST_PUNCH_DAMAGE_LOW
-	H.dna.species.punchdamagehigh = STEEL_FIST_PUNCH_DAMAGE_MAX
+	H.dna.species.punchdamagelow = max(H.dna.species.punchdamagelow, STEEL_FIST_PUNCH_DAMAGE_LOW)
+	H.dna.species.punchdamagehigh = max(H.dna.species.punchdamagehigh, STEEL_FIST_PUNCH_DAMAGE_MAX)
 */
 
 /datum/quirk/light_step
