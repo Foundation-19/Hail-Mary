@@ -3,6 +3,9 @@
 #define COMBAT_MODE_RANGED 2  // Pure ranged, never voluntarily enter melee
 #define COMBAT_MODE_MIXED 3   // Ranged but will melee if target gets close (like reaver)
 
+/// When TRUE, hostile mobs log target acquire/loss and search transitions to the game log. Toggle via VV.
+GLOBAL_VAR_INIT(debug_ai, FALSE)
+
 /mob/living/simple_animal/hostile
 	faction = list("hostile")
 	stop_automated_movement_when_pulled = 0
@@ -525,7 +528,7 @@
 	if(AIStatus == AI_OFF)
 		return 0
 
-	var/list/possible_targets = ListTargets()
+	var/list/possible_targets = GetCachedTargets()
 	
 	// Safety check: ensure possible_targets is a proper list, not nested
 	if(!possible_targets)
@@ -1397,6 +1400,20 @@
 	
 	return detection_range
 
+/// Per-tick cache of ListTargets(); subtype overrides of ListTargets() are still honoured.
+/mob/living/simple_animal/hostile/var/list/cached_targets
+/mob/living/simple_animal/hostile/var/cached_targets_time = -1
+/mob/living/simple_animal/hostile/var/cached_targets_from
+
+/mob/living/simple_animal/hostile/proc/GetCachedTargets()
+	if(cached_targets_time == world.time && cached_targets_from == targets_from && cached_targets)
+		return cached_targets.Copy()
+	var/list/result = ListTargets()
+	cached_targets = islist(result) ? result.Copy() : list()
+	cached_targets_time = world.time
+	cached_targets_from = targets_from
+	return result
+
 /mob/living/simple_animal/hostile/proc/ListTargets()//Step 1, find out what we can see
 	if(stat == DEAD) // Dead mobs can't detect targets
 		return list()
@@ -1557,7 +1574,7 @@
 
 	if(peaceful == FALSE)
 		if(!HasTargetsList)
-			possible_targets = ListTargets()
+			possible_targets = GetCachedTargets()
 
 		// SEARCH MODE: If searching and target reappears in LOS, re-acquire
 		if(searching && target && (target in possible_targets) && can_see(src, target, get_effective_vision_range(target)))
@@ -1600,7 +1617,7 @@
 
 /mob/living/simple_animal/hostile/proc/PossibleThreats()
 	. = list()
-	for(var/pos_targ in ListTargets())
+	for(var/pos_targ in GetCachedTargets())
 		var/atom/A = pos_targ
 		if(Found(A))
 			. = list(A)
@@ -1760,9 +1777,11 @@
 	// Still building up - not detected yet
 	return FALSE
 
-/mob/living/simple_animal/hostile/proc/GiveTarget(new_target)
+/mob/living/simple_animal/hostile/proc/GiveTarget(new_target, reason)
 	if(stat == DEAD) // Dead mobs can't acquire targets
 		return
+	if(GLOB.debug_ai && new_target && new_target != target)
+		ai_debug_log("target_acquired [new_target] reason=[reason || "unspecified"]")
 	add_target(new_target)
 	LosePatience()
 	if(target != null)
@@ -1781,7 +1800,7 @@
 	if(target && isliving(target))
 		var/mob/living/LT = target
 		if(LT.stat != CONSCIOUS)
-			LoseTarget()
+			LoseTarget("melee_target_incapacitated")
 			return
 
 	if(rapid_melee > 1)
@@ -1824,7 +1843,7 @@
 				break
 
 	if(peaceful == TRUE)
-		LoseTarget()
+		LoseTarget("peaceful")
 		return 0
 	
 	// DOOR KITING CHECK: Track if target is exploiting door kiting
@@ -1899,7 +1918,7 @@
 				if(!searching)
 					enter_search_mode()
 				return 1
-		LoseTarget()
+		LoseTarget("no_target_no_memory")
 		return 0
 
 	if(!CanAttack(target))
@@ -1917,7 +1936,7 @@
 					if(!searching)
 						enter_search_mode()
 					return 1
-				LoseTarget()
+				LoseTarget("cannot_attack")
 				return 0
 
 	// TRACKING LOS: Use plain BYOND view() without vision-cone restrictions.
@@ -2028,7 +2047,7 @@
 			Goto(target, move_to_delay, minimum_distance)
 			return 1
 
-		LoseTarget()
+		LoseTarget("z_pursuit_failed")
 		return 0
 
 	// DOOR OPENING toward target
@@ -2178,7 +2197,7 @@
 				Goto(target, move_to_delay, minimum_distance)
 				return 1
 
-	LoseTarget()
+				LoseTarget("los_lost")
 	return 0
 
 /mob/living/simple_animal/hostile/proc/Goto(target, delay, minimum_distance)
@@ -2201,7 +2220,7 @@
 		if(searching)
 			exit_search_mode(FALSE, found_target = TRUE)
 			visible_message(span_danger("[src] snaps to attention!"))
-			var/list/possible_targets = ListTargets()
+			var/list/possible_targets = GetCachedTargets()
 			var/new_target = null
 			// FIXED: Only acquire target we can actually see
 			for(var/atom/T in possible_targets)
@@ -2222,7 +2241,7 @@
 			rallying = FALSE
 			rally_point = null
 			visible_message(span_danger("[src] cancels retreat and fights back!"))
-			var/list/possible_targets = ListTargets()
+			var/list/possible_targets = GetCachedTargets()
 			var/new_target = null
 			// FIXED: LOS check here too
 			for(var/atom/T in possible_targets)
@@ -2238,7 +2257,7 @@
 				FindTarget()
 
 		else if(search_objects)
-			LoseTarget()
+			LoseTarget("search_objects_no_target")
 			LoseSearchObjects()
 
 		if(AIStatus != AI_ON && AIStatus != AI_OFF)
@@ -2803,7 +2822,15 @@
 	vision_range = initial(vision_range)
 	taunt_chance = initial(taunt_chance)
 
-/mob/living/simple_animal/hostile/proc/LoseTarget()
+/// Logs an AI decision to the game log when GLOB.debug_ai is enabled.
+/mob/living/simple_animal/hostile/proc/ai_debug_log(message)
+	if(!GLOB.debug_ai)
+		return
+	log_game("AI [type] [REF(src)] at [AREACOORD(src)]: [message]")
+
+/mob/living/simple_animal/hostile/proc/LoseTarget(reason)
+	if(GLOB.debug_ai && (target || remembered_target))
+		ai_debug_log("target_lost target=[target || "none"] remembered=[remembered_target || "none"] searching=[searching] reason=[reason || "unspecified"]")
 	// Check if we should clear memory due to target being crit/dead
 	if(remembered_target && !QDELETED(remembered_target) && isliving(remembered_target))
 		var/mob/living/L = remembered_target
@@ -3119,6 +3146,7 @@
 			return
 
 	searching = TRUE
+	ai_debug_log("search_enter target=[target] remembered=[remembered_target]")
 
 	if(target)
 		last_known_location = get_turf(target)
@@ -3151,6 +3179,7 @@
 		return
 
 	searching = FALSE
+	ai_debug_log("search_exit found_target=[found_target] gave_up_msg=[give_up_message]")
 	last_search_exit_time = world.time
 
 	searched_turfs = list()
@@ -3168,7 +3197,7 @@
 		last_target_sighting = 0
 		if(give_up_message)
 			visible_message(span_notice("[src] gives up the search."))
-		LoseTarget()
+		LoseTarget("search_gave_up")
 	else
 		if(COOLDOWN_FINISHED(src, search_chatter_cooldown))
 			COOLDOWN_START(src, search_chatter_cooldown, search_chatter_delay)
@@ -3196,7 +3225,7 @@
 				return
 
 	// HARD CHECK: Valid, visible, ATTACKABLE target right now?
-	var/list/immediate_targets = ListTargets()
+	var/list/immediate_targets = GetCachedTargets()
 	if(immediate_targets && immediate_targets.len > 0)
 		for(var/atom/possible_target in immediate_targets)
 			// BUG 1 FIX: CanAttack() gates faction member targeting
@@ -3403,7 +3432,7 @@
 	// Special case: Very close to last_known_location - do thorough immediate area check
 	// This catches targets standing right at/near the door or last known position
 	if(dist_to_last_known <= 1)
-		var/list/close_range_targets = ListTargets()
+		var/list/close_range_targets = GetCachedTargets()
 		if(close_range_targets && close_range_targets.len > 0)
 			for(var/atom/possible_target in close_range_targets)
 				if(isliving(possible_target))
@@ -3932,7 +3961,7 @@
 		sleep(5)
 		
 		// Look for targets on the other side
-		var/list/check_targets = ListTargets()
+		var/list/check_targets = GetCachedTargets()
 		if(check_targets && check_targets.len > 0)
 			for(var/atom/possible_target in check_targets)
 				if(isliving(possible_target))
@@ -4024,7 +4053,7 @@
 	sleep(5)
 	
 	// Check if anyone visible nearby now (they might have stepped out)
-	var/list/check_targets = ListTargets()
+	var/list/check_targets = GetCachedTargets()
 	if(check_targets && check_targets.len > 0)
 		for(var/atom/possible_target in check_targets)
 			if(isliving(possible_target))
@@ -4432,7 +4461,7 @@
 //////////////END HOSTILE MOB TARGETTING AND AGGRESSION////////////
 
 /mob/living/simple_animal/hostile/death(gibbed)
-	LoseTarget()
+	LoseTarget("death")
 	affix_death()
 	..(gibbed)
 
@@ -5007,7 +5036,7 @@
 		searching = FALSE
 		remembered_target = null
 		last_target_sighting = 0
-		LoseTarget()
+		LoseTarget("path_exhausted_give_up")
 		return
 	
 	// PRIORITY 3: Only smash if we can't open doors AND we're REALLY stuck
@@ -5021,7 +5050,7 @@
 			searching = FALSE
 			remembered_target = null
 			last_target_sighting = 0
-			LoseTarget()
+			LoseTarget("path_exhausted_cannot_smash")
 		return
 	
 	// Check if we have direct line of sight to target
@@ -5180,7 +5209,7 @@ mob/living/simple_animal/hostile/proc/DestroySurroundings() // for use with mega
 	SIGNAL_HANDLER
 	UnregisterSignal(target, COMSIG_PARENT_QDELETING)
 	target = null
-	INVOKE_ASYNC(src, PROC_REF(LoseTarget)) // LoseTarget() can chain into door Open()/Close(), which can sleep; signal handlers must not
+	INVOKE_ASYNC(src, PROC_REF(LoseTarget), "target_qdeleted") // LoseTarget() can chain into door Open()/Close(), which can sleep; signal handlers must not
 
 // Ensure add_target properly cleans up old references
 /mob/living/simple_animal/hostile/proc/add_target(new_target)
@@ -5253,13 +5282,13 @@ mob/living/simple_animal/hostile/proc/DestroySurroundings() // for use with mega
 		return FALSE
 	active_emp_flags |= MOB_EMP_STUN
 	visible_message(span_green("[src] shudders as the EMP overloads its servos!"))
-	LoseTarget()
+	LoseTarget("emp_stun")
 	toggle_ai(AI_OFF)
 	addtimer(CALLBACK(src, PROC_REF(un_emp_stun)), min(intensity, 3 SECONDS), TIMER_DELETE_ME)
 
 /mob/living/simple_animal/hostile/proc/un_emp_stun()
 	active_emp_flags -= MOB_EMP_STUN
-	LoseTarget()
+	LoseTarget("emp_stun_end")
 	toggle_ai(AI_ON)
 
 /mob/living/simple_animal/hostile/proc/do_emp_berserk(intensity)
@@ -5268,7 +5297,7 @@ mob/living/simple_animal/hostile/proc/DestroySurroundings() // for use with mega
 	if(MOB_EMP_BERSERK in active_emp_flags)
 		return FALSE
 	active_emp_flags |= MOB_EMP_BERSERK
-	LoseTarget()
+	LoseTarget("emp_berserk")
 	visible_message(span_green("[src] lets out a burst of static and whips its gun around wildly!"))
 	var/list/old_faction = faction
 	faction = null
@@ -5277,7 +5306,7 @@ mob/living/simple_animal/hostile/proc/DestroySurroundings() // for use with mega
 /mob/living/simple_animal/hostile/proc/un_emp_berserk(list/unberserk)
 	active_emp_flags -= MOB_EMP_BERSERK
 	faction = unberserk
-	LoseTarget()
+	LoseTarget("emp_berserk_end")
 
 /mob/living/simple_animal/hostile/proc/do_emp_damage(intensity)
 	if(!intensity)
@@ -5297,5 +5326,5 @@ mob/living/simple_animal/hostile/proc/DestroySurroundings() // for use with mega
 	ranged_cooldown_time = rand(ranged_cooldown_time * 0.5, ranged_cooldown_time * 2)
 	retreat_distance = rand(0, 10)
 	minimum_distance = rand(0, 10)
-	LoseTarget()
+	LoseTarget("emp_scramble")
 	visible_message(span_notice("[src] jerks around wildly and starts acting strange!"))
