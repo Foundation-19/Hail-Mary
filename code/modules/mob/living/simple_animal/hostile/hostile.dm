@@ -1453,6 +1453,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 						if(CONE_REAR)
 							cone_name = "REAR (blind)"
 					to_chat(L, span_notice("[src] detected you via VISION in [cone_name] cone at [actual_distance] tiles (max: [effective_range])"))
+					ai_debug_log("detected [key_name(L)] via VISION in [cone_name] cone at [actual_distance] tiles (max: [effective_range])")
 				continue
 			
 			// SOUND-BASED DETECTION (for targets behind us)
@@ -1482,6 +1483,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 					if(debug_vision && isliving(A))
 						var/mob/living/L = A
 						to_chat(L, span_warning("[src] heard you but can't see you (stealth: [effective_range] tiles) - searching!"))
+						ai_debug_log("heard [key_name(L)] but can't see them (range [effective_range]) - searching")
 						var/sound_cone = get_sound_cone(L)
 						var/cone_name = "UNKNOWN"
 						switch(sound_cone)
@@ -1504,6 +1506,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 						if(SOUND_REAR_PERIPHERAL)
 							cone_name = "REAR PERIPHERAL (45°)"
 					to_chat(L, span_notice("[src] detected you via SOUND in [cone_name] cone at [actual_distance] tiles (max: [sound_range])"))
+					ai_debug_log("detected [key_name(L)] via SOUND in [cone_name] cone at [actual_distance] tiles (max: [sound_range])")
 		
 		// Check for targets one Z-level ABOVE through openspace
 		var/turf/our_turf = get_turf(targets_from)
@@ -2824,7 +2827,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 
 /// Logs an AI decision to the game log when GLOB.debug_ai is enabled.
 /mob/living/simple_animal/hostile/proc/ai_debug_log(message)
-	if(!GLOB.debug_ai)
+	if(!GLOB.debug_ai && !debug_vision)
 		return
 	log_game("AI [type] [REF(src)] at [AREACOORD(src)]: [message]")
 
