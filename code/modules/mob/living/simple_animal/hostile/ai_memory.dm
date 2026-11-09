@@ -138,6 +138,7 @@
 /mob/living/simple_animal/hostile/proc/hear_ally_death(turf/where, mob/living/simple_animal/hostile/dead_ally)
 	if(stat == DEAD || ckey || !where)
 		return
+	adjust_ai_morale(-AI_MORALE_ALLY_DEATH, "ally_death")
 	remember_fact(AI_FACT_ALLY_DEAD, where, AI_CONF_ALERT, dead_ally, "ally_death")
 	if(target)
 		return

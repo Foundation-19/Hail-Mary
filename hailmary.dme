@@ -2916,6 +2916,7 @@
 #include "code\modules\mob\living\simple_animal\guardian\types\standard.dm"
 #include "code\modules\mob\living\simple_animal\guardian\types\support.dm"
 #include "code\modules\mob\living\simple_animal\hostile\abilities_common.dm"
+#include "code\modules\mob\living\simple_animal\hostile\ai_decision.dm"
 #include "code\modules\mob\living\simple_animal\hostile\ai_memory.dm"
 #include "code\modules\mob\living\simple_animal\hostile\ai_fault.dm"
 #include "code\modules\mob\living\simple_animal\hostile\alien.dm"

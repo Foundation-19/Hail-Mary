@@ -146,6 +146,10 @@ GLOBAL_VAR_INIT(ai_shots_blocked, 0)
 		return
 	ai_last_observed_lane = lane
 	ai_last_observed_time = world.time
+	if(isliving(impacted))
+		var/mob/living/hit_mob = impacted
+		if(!faction_check_mob(hit_mob))
+			ai_note_hit_landed()
 	var/blocked = FALSE
 	if(!isliving(impacted) && hit_turf != goal && get_dist(origin, hit_turf) <= AI_LANE_BLOCK_NEAR_DIST)
 		if(isturf(impacted) || impacted.density)

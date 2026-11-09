@@ -431,6 +431,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 /mob/living/simple_animal/hostile/Initialize()
 	. = ..()
 	roll_affix()
+	roll_ai_personality()
 
 	if(!targets_from)
 		targets_from = src
@@ -1418,6 +1419,9 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 /mob/living/simple_animal/hostile/var/list/cached_targets
 /mob/living/simple_animal/hostile/var/cached_targets_time = -1
 /mob/living/simple_animal/hostile/var/cached_targets_from
+/// vision_reject log throttle
+/mob/living/simple_animal/hostile/var/vision_reject_next = 0
+/mob/living/simple_animal/hostile/var/vision_reject_last_reason
 
 /mob/living/simple_animal/hostile/proc/GetCachedTargets()
 	// islist, not truthiness: an empty result is the common case and must be cached too
@@ -1458,6 +1462,35 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 		nested_target_list_reported = TRUE
 		log_runtime("HOSTILE MOB: [type] returned a nested list from ListTargets() at [AREACOORD(src)]; flattened. Check the ListTargets() override for this type.")
 	return clean
+
+/// Logs why a player inside vision_range was not seen: rear cone, too dark or too far for the cone, or no line of sight.
+/// Throttled per mob, so a mob that keeps missing someone logs one line every two seconds.
+/mob/living/simple_animal/hostile/proc/log_vision_reject(atom/A, actual_distance, effective_range)
+	if(!ismob(A))
+		return
+	var/mob/M = A
+	if(!M.ckey)
+		return
+	var/reason
+	if(effective_range <= 0)
+		reason = "rear_cone"
+	else if(actual_distance > effective_range)
+		reason = "out_of_range"
+	else
+		reason = "no_los"
+	if(reason == vision_reject_last_reason && world.time < vision_reject_next)
+		return
+	vision_reject_last_reason = reason
+	vision_reject_next = world.time + 20
+	var/cone_name = "front"
+	switch(get_vision_cone(A))
+		if(CONE_PERIPHERAL)
+			cone_name = "peripheral"
+		if(CONE_REAR)
+			cone_name = "rear"
+	var/turf/their_turf = get_turf(A)
+	var/light_amount = their_turf ? round(their_turf.get_lumcount(), 0.01) : -1
+	ai_debug_log("vision_reject target=[M] reason=[reason] dist=[actual_distance] eff_range=[effective_range] cone=[cone_name] facing=[dir] light=[light_amount] searching=[searching]")
 
 /mob/living/simple_animal/hostile/proc/ListTargets()//Step 1, find out what we can see
 	if(stat == DEAD) // Dead mobs can't detect targets
@@ -1501,6 +1534,10 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 					ai_debug_log("detected [key_name(L)] via VISION in [cone_name] cone at [actual_distance] tiles (max: [effective_range])")
 				continue
 			
+			// Not seen. Players only, and throttled, so the log says why a mob missed someone it should have noticed.
+			if(GLOB.debug_ai || debug_vision)
+				log_vision_reject(A, actual_distance, effective_range)
+
 			// SOUND-BASED DETECTION (for targets behind us)
 			var/sound_range = detect_rear_movement(A)
 			if(sound_range > 0 && actual_distance <= sound_range)
@@ -1700,14 +1737,18 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	if(target != null)
 		var/target_dist = get_dist(targets_from, target)
 		if(target in Targets)
-			// Already tracking a valid target: stick with it unless something is clearly closer (no coin-flip switching)
-			var/list/clearly_closer = list()
-			for(var/atom/A in Targets)
-				if(A != target && (get_dist(targets_from, A) + TARGET_SWITCH_MARGIN) <= target_dist)
-					clearly_closer += A
-			if(!clearly_closer.len)
+			// A fresh target is held for a moment so a mob can't flip between candidates
+			if(world.time < ai_target_lock_until)
 				return target
-			return pick(clearly_closer)
+			// Switch only when a candidate is clearly closer, and then to the closest one
+			var/atom/closest_better
+			var/closest_better_dist = INFINITY
+			for(var/atom/A in Targets)
+				var/candidate_dist = get_dist(targets_from, A)
+				if(A != target && (candidate_dist + TARGET_SWITCH_MARGIN) <= target_dist && candidate_dist < closest_better_dist)
+					closest_better = A
+					closest_better_dist = candidate_dist
+			return closest_better || target
 		// Held target not visible: only consider candidates no farther than where it was last seen
 		var/list/not_farther = list()
 		for(var/atom/A in Targets)
@@ -1879,12 +1920,15 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 /mob/living/simple_animal/hostile/proc/GiveTarget(new_target, reason)
 	if(stat == DEAD) // Dead mobs can't acquire targets
 		return
+	var/atom/old_target = target
+	var/fresh_threat = !old_target && new_target && (world.time - last_target_sighting) > AI_FRESH_THREAT_GAP
 	if((GLOB.debug_ai || debug_vision) && new_target && new_target != target)
 		ai_debug_log("target_acquired [new_target] reason=[reason || "unspecified"]")
 	add_target(new_target)
 	LosePatience()
 	if(target != null)
 		cancel_curiosity()
+		ai_on_target_acquired(old_target, fresh_threat)
 		remembered_target = target
 		last_target_sighting = world.time
 		is_alpha_alerter = TRUE  // We personally have a confirmed target
@@ -1922,8 +1966,6 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 				return
 		AttackingTarget()
 
-#define RETREAT_MOVE_AWAY 1
-#define RETREAT_MOVE_CLOSE 2
 /// Tiles of slack above retreat_distance before a kiting mob closes in again
 #define RETREAT_DEADZONE 2
 /// Direction flips inside RETREAT_FLIP_WINDOW that mark a kiter as cornered
@@ -1962,6 +2004,37 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 		ai_debug_log("retreat_cornered hold=[RETREAT_HOLD_DURATION / 10]s")
 		return TRUE
 	return FALSE
+
+/// The adjacent tile that opens the most distance from the threat while keeping a clear shot at it, or null.
+/// A kiting mob that backs off any other way walks out of the room it just fought its way into, loses sight of
+/// the target and has to start over.
+/mob/living/simple_animal/hostile/proc/find_kite_step(atom/threat)
+	var/turf/my_turf = get_turf(src)
+	var/turf/threat_turf = get_turf(threat)
+	if(!my_turf || !threat_turf || my_turf.z != threat_turf.z)
+		return null
+	var/current_dist = get_dist(my_turf, threat_turf)
+	var/turf/best
+	var/best_dist = current_dist
+	for(var/direction in GLOB.alldirs)
+		var/turf/T = get_step(my_turf, direction)
+		if(!T || T.density)
+			continue
+		var/blocked = FALSE
+		for(var/atom/movable/AM in T)
+			if(AM.density || istype(AM, /obj/structure/simple_door) || istype(AM, /obj/machinery/door))
+				blocked = TRUE
+				break
+		if(blocked)
+			continue
+		var/new_dist = get_dist(T, threat_turf)
+		if(new_dist <= best_dist)
+			continue
+		if(!shot_is_clear(T, threat_turf) || action_suppressed(AI_ACTION_SHOT, lane_key(T, threat_turf), probe = FALSE))
+			continue
+		best = T
+		best_dist = new_dist
+	return best
 
 /mob/living/simple_animal/hostile/proc/MoveToTarget(list/possible_targets)
 	stop_automated_movement = 1
@@ -2203,6 +2276,8 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 
 	// TARGET IN LOS - normal combat path
 	if(has_los)
+		var/intent = ai_decide_intent(target_distance)
+
 		// RANGED ATTACK
 		// Allow shooting even when adjacent if we can't maintain proper distance (tight spaces)
 		var/can_shoot = FALSE
@@ -2232,7 +2307,8 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 						return 1
 
 		// MOVEMENT
-		if(retreat_distance != null)
+		var/intent_moved = ai_run_intent_movement(intent)
+		if(!intent_moved && retreat_distance != null)
 			if(world.time < retreat_hold_until)
 				// Cornered: stop flip-flopping and fight from here (shooting happens above)
 				walk(src, 0)
@@ -2245,14 +2321,21 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 				if(note_retreat_step(RETREAT_MOVE_AWAY))
 					walk(src, 0)
 				else
-					set_glide_size(DELAY_TO_GLIDE_SIZE(move_to_delay))
-					walk_away(src, target, retreat_distance, move_to_delay)
+					var/turf/kite_step = find_kite_step(target)
+					if(kite_step)
+						Goto(kite_step, move_to_delay, 0)
+					else
+						// Backing off would break the shot (doorway, wall): stand and fight from here
+						walk(src, 0)
+						var/kite_hold_dir = get_dir(src, target)
+						if(kite_hold_dir)
+							setDir(kite_hold_dir)
 			else if(target_distance > retreat_distance + RETREAT_DEADZONE)
 				note_retreat_step(RETREAT_MOVE_CLOSE)
 				Goto(target, move_to_delay, retreat_distance + 1)
 			else
 				walk(src, 0)
-		else {
+		else if(!intent_moved) {
 			// Stop moving once adjacent don't push into the target tile (causes oscillation)
 			if(target.Adjacent(src))
 				walk(src, 0)
@@ -2312,6 +2395,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	// TARGET NOT IN LOS but we know roughly where they are (within grace period)
 	// Move toward last known position - this is the "searching while in combat" path
 	// ranged_ignores_vision mobs can still shoot
+	ai_note_investigating()
 	if(target && (environment_smash || can_open_doors || ranged_ignores_vision))
 		if(target.loc != null && get_dist(targets_from, target.loc) <= vision_range)
 			if(ranged_ignores_vision && ranged_cooldown <= world.time)
@@ -2360,6 +2444,8 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 
 /mob/living/simple_animal/hostile/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
 	. = ..()
+	if(. > 0)
+		ai_note_damage(.)
 	if(!ckey && !stat && search_objects < 3 && . > 0)
 		if(searching)
 			exit_search_mode(FALSE, found_target = TRUE)
@@ -2938,7 +3024,10 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	in_melee = TRUE
 	if(prob(alternate_attack_prob) && AlternateAttackingTarget(target))
 		return FALSE
-	return target.attack_animal(src)
+	var/attack_result = target.attack_animal(src)
+	if(attack_result && isliving(target))
+		ai_note_hit_landed()
+	return attack_result
 
 /// Does an extra *thing* when attacking. Return TRUE to not do the standard attack
 /mob/living/simple_animal/hostile/proc/AlternateAttackingTarget(atom/the_target)
@@ -3464,6 +3553,13 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 				ai_debug_log("search_blocked_opened_door door=[door] goal=[goal]")
 				Goto(goal, move_to_delay, 0)
 				return
+	else if(environment_smash)
+		// Mobs that cannot open doors break them instead
+		for(var/atom/door in get_closed_doors(src, 1))
+			ai_debug_log("search_blocked_smash_door door=[door] goal=[goal]")
+			door.attack_animal(src)
+			Goto(goal, move_to_delay, 0)
+			return
 	ai_debug_log("search_goal_burned goal=[goal] dist=[get_dist(src, goal)]")
 	if(isturf(goal))
 		searched_turfs += goal
@@ -3488,6 +3584,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	// Default re-run; branches below override it with a shorter or longer delay
 	schedule_search_tick(3 SECONDS)
 	// Branches that walk set a new goal; any other outcome leaves the mob standing
+	var/was_walking = search_move_goal && get_dist(src, search_move_goal) > 1
 	search_move_goal = null
 
 	if(search_look_message)
@@ -3517,6 +3614,14 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	// HARD CHECK: Valid, visible, ATTACKABLE target right now?
 	if(search_acquire_target(GetCachedTargets(), "[src] spots $TARGET!", "search_hard_check"))
 		return
+
+	// A mob that stopped walking turns to look: toward the last known position half the time, otherwise sideways or
+	// behind, so a target in its rear cone is not missed just because of the way it happened to stop.
+	if(!was_walking && CHECK_BITFIELD(mobility_flags, MOBILITY_MOVE))
+		if(last_known_location && last_known_location.z == z && get_dist(src, last_known_location) > 0 && prob(50))
+			setDir(get_dir(src, last_known_location))
+		else
+			setDir(turn(dir, pick(90, -90, 180)))
 
 	// TIME-BASED TIMEOUT
 	if(search_start_time > 0)
@@ -4336,6 +4441,8 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 		return
 	
 	last_combat_sound = world.time
+	if(distance <= 2)
+		ai_note_near_miss(sound_source)
 	
 	// Impacts are often on walls; resolve to a nearby reachable turf instead of pathing into the wall
 	var/turf/investigation_spot = get_sound_investigation_spot(impact_location, 1)
