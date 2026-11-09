@@ -195,6 +195,8 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	/// MoveToTarget re-issues the walk every AI tick until the mob arrives.
 	var/atom/search_move_goal = null
 	var/turf/search_move_last_pos = null
+	/// SMART SEARCH: Consecutive tick checks where the re-issued walk made no progress
+	var/search_move_stalls = 0
 	/// SMART SEARCH: Set after opening a door or container; the next search tick looks for targets before anything else
 	var/search_look_message = null
 	var/atom/search_look_near = null
@@ -2188,6 +2190,11 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	if(!target)
 		return 0
 
+	// The target hid inside a container we can see. The aggro-range rule below counts them as visible, so the
+	// mob would otherwise walk up to the container and stand there without ever opening it.
+	if(dig_out_hidden_target())
+		return 1
+
 	if(!Process_Spacemove())
 		walk(src, 0)
 		return 1
@@ -2788,24 +2795,26 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 		// First or second throw - investigate the ITEM, not the thrower
 		var/turf/item_location = get_turf(thrown_item)
 		
-		if(item_location && !searching)
-			visible_message(span_notice("[src] looks toward [thrown_item]..."))
-			
-			// End light patrol if active
-			if(light_patrolling)
-				end_light_patrol()
-			
-			// Wake up
-			if(AIStatus == AI_IDLE || AIStatus == AI_Z_OFF)
-				toggle_ai(AI_ON)
-			
-			// Set investigation state to prevent LoseTarget() from stopping movement
+		if(item_location)
+			if(!searching)
+				visible_message(span_notice("[src] looks toward [thrown_item]..."))
+
+				// End light patrol if active
+				if(light_patrolling)
+					end_light_patrol()
+
+				// Wake up
+				if(AIStatus == AI_IDLE || AIStatus == AI_Z_OFF)
+					toggle_ai(AI_ON)
+
+			// A searching mob ranks the lead against what it is already chasing, and walks to it if it wins
 			update_search_destination(item_location, "thrown_item", AI_CONF_LIGHT)
 			remembered_target = thrower  // Remember who threw it
 			last_target_sighting = world.time  // Mark as recent
-			
-			// Move toward the item to investigate (adjacent)
-			Goto(item_location, move_to_delay, 0)
+
+			// Idle mobs head for the item (adjacent)
+			if(!searching)
+				Goto(item_location, move_to_delay, 0)
 
 // ========================================
 // LIGHT DESTRUCTION DETECTION SYSTEM
@@ -3409,6 +3418,9 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 /mob/living/simple_animal/hostile/proc/schedule_search_tick(delay)
 	search_next_tick = world.time + delay
 
+/// Consecutive stalled tick checks before a search walk is considered blocked
+#define SEARCH_STALL_LIMIT 2
+
 /// Called every AI tick while searching. A search step (decisions) runs only once it is due; between steps the walk
 /// toward the current goal is re-issued whenever the mob has stalled, so a finished or blocked walk never idles
 /// until the next slow step.
@@ -3423,15 +3435,45 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 		return
 	var/turf/here = get_turf(src)
 	if(here == search_move_last_pos && get_dist(src, search_move_goal) > 1)
-		ai_debug_log("search_move_reissue goal=[search_move_goal] dist=[get_dist(src, search_move_goal)]")
+		search_move_stalls++
+		if(search_move_stalls >= SEARCH_STALL_LIMIT)
+			search_handle_blocked_walk()
+			return
+		ai_debug_log("search_move_reissue goal=[search_move_goal] dist=[get_dist(src, search_move_goal)] stalls=[search_move_stalls]")
 		Goto(search_move_goal, move_to_delay, 0)
+	else
+		search_move_stalls = 0
 	search_move_last_pos = here
 
 /// Sets where the search walk is heading and starts walking; search_tick keeps it going between decision steps.
 /mob/living/simple_animal/hostile/proc/set_search_goal(atom/goal)
 	search_move_goal = goal
 	search_move_last_pos = null
+	search_move_stalls = 0
 	Goto(goal, move_to_delay, 0)
+
+/// The search walk is making no progress, so the goal is probably unreachable (a closed door or wall in the way).
+/// Open any closed door within reach; otherwise write the goal off and let the next step pick another one.
+/mob/living/simple_animal/hostile/proc/search_handle_blocked_walk()
+	var/atom/goal = search_move_goal
+	search_move_stalls = 0
+	search_move_last_pos = null
+	if(can_open_doors)
+		for(var/atom/door in get_closed_doors(src, 1))
+			if(try_open_door(door))
+				ai_debug_log("search_blocked_opened_door door=[door] goal=[goal]")
+				Goto(goal, move_to_delay, 0)
+				return
+	ai_debug_log("search_goal_burned goal=[goal] dist=[get_dist(src, goal)]")
+	if(isturf(goal))
+		searched_turfs += goal
+	else if(istype(goal, /obj/structure/closet))
+		searched_containers += goal
+	else if(istype(goal, /obj/structure/simple_door) || istype(goal, /obj/machinery/door))
+		mark_door_searched(goal)
+	search_move_goal = null
+	walk(src, 0)
+	search_next_tick = world.time
 
 /// Non-blocking replacement for sleeping after opening a door or container: the next search step looks for targets
 /// first, once the animation is done.
@@ -3561,8 +3603,9 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 				visible_message(span_notice("[src] heads toward the commotion..."))
 				set_search_goal(nearest)
 				return
-	// This ensures we search where the player was last seen, not random areas
-	if(dist_to_last_known > 3)
+	// This ensures we search where the player was last seen, not random areas. Walk there whenever we are not
+	// already on top of it, so a target lost two or three tiles away behind a door is still followed.
+	if(dist_to_last_known > 1)
 		if(current_pos == search_last_pos)
 			search_stuck_ticks++
 		else
@@ -3628,11 +3671,12 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 				if(!(C in searched_containers) && !C.opened && !C.welded && !C.locked)
 					hiding_spots += C
 
-			// Investigate the CLOSEST hiding spot, door or container
+			// Investigate the best hiding spot, door or container. Score by the trip src -> spot -> last known position,
+			// so a door on the way to where the target was lost beats one that merely sits close to us.
 			var/atom/closest_spot = null
 			var/closest_dist = 999
 			for(var/atom/spot in hiding_spots)
-				var/dist = get_dist(src, spot)
+				var/dist = get_dist(src, spot) + get_dist(spot, last_known_location)
 				if(dist < closest_dist)
 					closest_dist = dist
 					closest_spot = spot
@@ -3667,53 +3711,53 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	
 	// PRIORITY 2: Explore unsearched tiles around last_known_location
 	var/list/unexplored_turfs = list()
-	
+	// Tiles next to a door we have not opened, or next to the door we just opened, are worth checking first
+	var/list/priority_turfs = list()
+	var/list/unopened_doors = get_closed_doors(last_known_location, current_radius + 1) - searched_doors
+	var/turf/opened_door_turf = recently_opened_door ? get_turf(recently_opened_door) : null
+
 	// Search around last_known_location, not our current position
 	for(var/turf/T in range(current_radius, last_known_location))
 		if(T in searched_turfs)
 			continue
 		if(!istype(T, /turf/open))
 			continue
-		
-		// Prioritize tiles near recently opened doors
-		if(recently_opened_door)
-			var/turf/door_turf = get_turf(recently_opened_door)
-			if(get_dist(T, door_turf) <= 2)
-				unexplored_turfs.Insert(1, T)
-				continue
-		
-		var/near_unopened_door = FALSE
-		for(var/atom/door in get_closed_doors(T, 1))
-			if(!(door in searched_doors))
-				near_unopened_door = TRUE
+		unexplored_turfs += T
+		if(opened_door_turf && get_dist(T, opened_door_turf) <= 2)
+			priority_turfs[T] = TRUE
+			continue
+		for(var/atom/door in unopened_doors)
+			if(get_dist(T, door) <= 1)
+				priority_turfs[T] = TRUE
 				break
-		if(near_unopened_door)
-			unexplored_turfs.Insert(1, T)
-		else
-			unexplored_turfs += T
-	
+
 	// Move to unexplored area
 	if(unexplored_turfs.len)
 		var/turf/search_target = null
-		
-		// Pick from top candidates, preferring ones closer to last_known_location
-		var/candidates_count = min(5, unexplored_turfs.len)
-		var/list/candidate_turfs = unexplored_turfs.Copy(1, candidates_count + 1)
-		
+
+		// Tiles we can see are reachable without a door in the way, so they beat tiles in other rooms
+		var/list/in_view = list()
+		for(var/turf/V in view(7, src))
+			in_view[V] = TRUE
+
 		// Score by distance to last_known_location (closer = better)
 		var/best_score = 999
-		for(var/turf/T in candidate_turfs)
+		for(var/turf/T in unexplored_turfs)
 			var/score = get_dist(T, last_known_location)
-			
+			if(priority_turfs[T])
+				score -= 3
+			if(!in_view[T])
+				score += 6
+
 			// Small randomization to avoid perfectly synchronized movement
 			score += rand(-2, 2)
-			
+
 			if(score < best_score)
 				best_score = score
 				search_target = T
-		
+
 		if(!search_target)
-			search_target = pick(candidate_turfs)
+			search_target = pick(unexplored_turfs)
 		
 		// Clear recently_opened_door if we've moved past it
 		if(recently_opened_door)
@@ -4185,7 +4229,10 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	search_dest_time = world.time
 	if(searching)
 		search_start_time = world.time
-		if(different_area && !target && new_location.z == z)
+		// Even a lead inside the same area is worth walking to when it is not where we are already heading
+		var/new_goal = different_area || !search_move_goal || get_dist(search_move_goal, new_location) > 1
+		if(new_goal && !target && new_location.z == z && get_dist(src, new_location) > 1)
+			ai_debug_log("search_redirect source=[source] to=[new_location.x],[new_location.y]")
 			set_search_goal(new_location)
 	return TRUE
 
@@ -5179,6 +5226,35 @@ mob/living/simple_animal/hostile/proc/DestroySurroundings() // for use with mega
 		A.attack_animal(src)//Bang on it till we get out
 
 
+/// Walks to the closet or crate the target is hiding in and opens it (or smashes it, for mobs that cannot open things).
+/// Returns TRUE while this is handling the turn.
+/mob/living/simple_animal/hostile/proc/dig_out_hidden_target()
+	if(!target || !istype(target.loc, /obj/structure/closet))
+		return FALSE
+	if(!can_open_doors && !environment_smash)
+		return FALSE
+	var/obj/structure/closet/C = target.loc
+	if(C.z != z)
+		return FALSE
+	if(!C.Adjacent(targets_from))
+		ai_debug_log("hidden_target_approach container=[C]")
+		Goto(C, move_to_delay, 0)
+		return TRUE
+	walk(src, 0)
+	var/face_dir = get_dir(src, C)
+	if(face_dir)
+		setDir(face_dir)
+	if(can_open_doors && !C.welded && !C.locked)
+		if(COOLDOWN_FINISHED(src, door_open_cooldown))
+			COOLDOWN_START(src, door_open_cooldown, door_open_delay)
+			ai_debug_log("hidden_target_opened container=[C]")
+			visible_message(span_danger("[src] yanks open [C]!"))
+			C.open(src)
+	else if(environment_smash)
+		ai_debug_log("hidden_target_smash container=[C]")
+		C.attack_animal(src)
+	return TRUE
+
 /mob/living/simple_animal/hostile/proc/FindHidden()
 	if(istype(target.loc, /obj/structure/closet) || istype(target.loc, /obj/machinery/disposal) || istype(target.loc, /obj/machinery/sleeper))
 		var/atom/A = target.loc
@@ -5219,7 +5295,7 @@ mob/living/simple_animal/hostile/proc/DestroySurroundings() // for use with mega
 	
 	if(lose_patience_timeout)
 		LosePatience()
-		lose_patience_timer_id = addtimer(CALLBACK(src, PROC_REF(LoseTarget)), lose_patience_timeout, TIMER_STOPPABLE)
+		lose_patience_timer_id = addtimer(CALLBACK(src, PROC_REF(LoseTarget), "patience_timeout"), lose_patience_timeout, TIMER_STOPPABLE)
 
 
 /mob/living/simple_animal/hostile/proc/LosePatience()
