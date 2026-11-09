@@ -1592,6 +1592,13 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 					to_chat(L, span_notice("[src] detected you via SOUND in [cone_name] cone at [actual_distance] tiles (max: [sound_range])"))
 					ai_debug_log("detected [key_name(L)] via SOUND in [cone_name] cone at [actual_distance] tiles (max: [sound_range])")
 		
+		// hearers() does not include mobs inside containers, so a target that just hid in a closet or bin would drop
+		// out of the candidate list and be cleared. Keep the held target while it is in a container we can see.
+		if(isliving(target) && !QDELETED(target) && !(target in .) && istype(target.loc, /obj/structure/closet))
+			var/obj/structure/closet/hide_container = target.loc
+			if(hide_container.z == z && get_dist(src, hide_container) <= get_effective_vision_range(target) && can_see(targets_from, hide_container, vision_range))
+				. += target
+
 		// Check for targets one Z-level ABOVE through openspace
 		var/turf/our_turf = get_turf(targets_from)
 		var/turf/above_us = get_step_multiz(our_turf, UP)
@@ -5339,6 +5346,7 @@ mob/living/simple_animal/hostile/proc/DestroySurroundings() // for use with mega
 	if(!target || !istype(target.loc, /obj/structure/closet))
 		return FALSE
 	if(!can_open_doors && !environment_smash)
+		ai_debug_log("hidden_target_unreachable target=[target] container=[target.loc] reason=cannot_open_or_smash")
 		return FALSE
 	var/obj/structure/closet/C = target.loc
 	if(C.z != z)
