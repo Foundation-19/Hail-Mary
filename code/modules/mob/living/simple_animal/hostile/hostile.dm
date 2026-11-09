@@ -191,6 +191,10 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	/// SMART SEARCH: Earliest world.time search_for_target may run again. Search is driven by the AI tick
 	/// (handle_automated_action), not by self-rescheduling timers, so there is no callback chain to go stale.
 	var/search_next_tick = 0
+	/// SMART SEARCH: Where the search walk is heading. search_for_target decides it on a slow cadence;
+	/// MoveToTarget re-issues the walk every AI tick until the mob arrives.
+	var/atom/search_move_goal = null
+	var/turf/search_move_last_pos = null
 	/// SMART SEARCH: Set after opening a door or container; the next search tick looks for targets before anything else
 	var/search_look_message = null
 	var/atom/search_look_near = null
@@ -2206,14 +2210,17 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 				can_shoot = TRUE
 		
 		if(can_shoot)
+			ai_shot_declined = FALSE
 			var/fired = OpenFire(target)
 			// OpenFire can sleep while an attack runs, allowing the target to be lost.
 			if(QDELETED(src) || QDELETED(target))
 				return 0
 			if(!fired || is_shot_blocked(target))
-				if(retreat_distance != null && abs(target_distance - retreat_distance) <= 2)
+				// A declined shot sidesteps to an angle that works, whatever the mob's usual kiting range
+				if(ai_shot_declined || (retreat_distance != null && abs(target_distance - retreat_distance) <= 2))
 					var/turf/better_position = find_firing_position(target)
 					if(better_position)
+						ai_debug_log("sidestep declined=[ai_shot_declined] to=[better_position.x],[better_position.y]")
 						Move(better_position, get_dir(src, better_position))
 						return 1
 
@@ -3336,6 +3343,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	investigating_container = null
 	search_start_time = 0
 	search_next_tick = 0
+	search_move_goal = null
 	search_look_message = null
 	search_look_near = null
 
@@ -3401,13 +3409,29 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 /mob/living/simple_animal/hostile/proc/schedule_search_tick(delay)
 	search_next_tick = world.time + delay
 
-/// Called every AI tick while searching; runs a search step only once it is due.
+/// Called every AI tick while searching. A search step (decisions) runs only once it is due; between steps the walk
+/// toward the current goal is re-issued whenever the mob has stalled, so a finished or blocked walk never idles
+/// until the next slow step.
 /mob/living/simple_animal/hostile/proc/search_tick()
 	if(!searching || QDELETED(src) || stat == DEAD)
 		return
-	if(world.time < search_next_tick)
+	if(world.time >= search_next_tick)
+		search_for_target()
+		search_move_last_pos = get_turf(src)
 		return
-	search_for_target()
+	if(!search_move_goal || QDELETED(search_move_goal) || pursuing_z_target)
+		return
+	var/turf/here = get_turf(src)
+	if(here == search_move_last_pos && get_dist(src, search_move_goal) > 1)
+		ai_debug_log("search_move_reissue goal=[search_move_goal] dist=[get_dist(src, search_move_goal)]")
+		Goto(search_move_goal, move_to_delay, 0)
+	search_move_last_pos = here
+
+/// Sets where the search walk is heading and starts walking; search_tick keeps it going between decision steps.
+/mob/living/simple_animal/hostile/proc/set_search_goal(atom/goal)
+	search_move_goal = goal
+	search_move_last_pos = null
+	Goto(goal, move_to_delay, 0)
 
 /// Non-blocking replacement for sleeping after opening a door or container: the next search step looks for targets
 /// first, once the animation is done.
@@ -3421,6 +3445,8 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 		return
 	// Default re-run; branches below override it with a shorter or longer delay
 	schedule_search_tick(3 SECONDS)
+	// Branches that walk set a new goal; any other outcome leaves the mob standing
+	search_move_goal = null
 
 	if(search_look_message)
 		var/look_message = search_look_message
@@ -3533,7 +3559,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 					return
 				// Not there yet - navigate to the staircase/ladder
 				visible_message(span_notice("[src] heads toward the commotion..."))
-				Goto(nearest, move_to_delay, 0)
+				set_search_goal(nearest)
 				return
 	// This ensures we search where the player was last seen, not random areas
 	if(dist_to_last_known > 3)
@@ -3573,7 +3599,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 					is_alpha_alerter = FALSE
 					attempt_z_pursuit()
 				return
-			Goto(last_known_location, move_to_delay, 0)
+			set_search_goal(last_known_location)
 			schedule_search_tick(1 SECONDS)
 			return
 
@@ -3613,7 +3639,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 
 			if(closest_spot)
 				if(get_dist(src, closest_spot) > 1) // Not adjacent - move toward it
-					Goto(closest_spot, move_to_delay, 0)
+					set_search_goal(closest_spot)
 					schedule_search_tick(1.5 SECONDS)
 					return
 
@@ -3697,7 +3723,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 		
 		// Move to target
 		searched_turfs += search_target
-		Goto(search_target, move_to_delay, 0)
+		set_search_goal(search_target)
 	else
 		// Exhausted current radius - expand search
 		search_expansion++
@@ -4160,7 +4186,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	if(searching)
 		search_start_time = world.time
 		if(different_area && !target && new_location.z == z)
-			Goto(new_location, move_to_delay, 0)
+			set_search_goal(new_location)
 	return TRUE
 
 /mob/living/simple_animal/hostile/proc/hear_combat_sound(turf/sound_location, atom/sound_source)
@@ -4581,28 +4607,11 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 		if(blocked)
 			continue
 		
-		// Check if this position has clear shot line (not just vision)
-		var/has_clear_shot = TRUE
+		// Check if this position has a clear shot line (not just vision) that hasn't already failed us
 		var/turf/target_turf = get_turf(target)
-		var/list/shot_check = getline(T, target_turf)
-		
-		for(var/turf/check_turf in shot_check)
-			if(check_turf == T || check_turf == target_turf)
-				continue
-			
-			if(check_turf.density)
-				has_clear_shot = FALSE
-				break
-			
-			for(var/atom/A in check_turf)
-				if(A.density && !ismob(A))
-					has_clear_shot = FALSE
-					break
-			
-			if(!has_clear_shot)
-				break
-		
-		if(!has_clear_shot)
+		if(!shot_is_clear(T, target_turf))
+			continue
+		if(action_suppressed(AI_ACTION_SHOT, lane_key(T, target_turf), probe = FALSE))
 			continue
 		
 		// Check distance - prefer positions at similar distance
@@ -4694,6 +4703,20 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	
 	if(CheckFriendlyFire(A))
 		return
+
+	// PREVENTION: the target being visible does not mean the projectile can reach it
+	ai_shot_declined = FALSE
+	if(!ckey && A.z == z)
+		var/turf/shot_origin = get_turf(targets_from)
+		var/turf/shot_goal = get_turf(A)
+		if(!shot_is_clear(shot_origin, shot_goal))
+			ai_shot_declined = TRUE
+			ai_debug_log("shot_declined reason=geometry to=[shot_goal.x],[shot_goal.y]")
+			return FALSE
+		if(action_suppressed(AI_ACTION_SHOT, lane_key(shot_origin, shot_goal)))
+			ai_shot_declined = TRUE
+			ai_debug_log("shot_declined reason=blocked_lane to=[shot_goal.x],[shot_goal.y]")
+			return FALSE
 	
 	visible_message("<span class='danger'><b>[src]</b> [islist(ranged_message) ? pick(ranged_message) : ranged_message] at [A]!</span>")
 	if(rapid > 1)
@@ -4720,6 +4743,8 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	if( QDELETED(targeted_atom) || targeted_atom == targets_from.loc || targeted_atom == targets_from )
 		return
 	var/turf/startloc = get_turf(targets_from)
+	if(!ckey)
+		note_shot_fired()
 	if(casingtype)
 		var/obj/item/ammo_casing/casing = new casingtype(startloc)
 		if(casing.BB)
@@ -4772,40 +4797,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 /mob/living/simple_animal/hostile/proc/is_shot_blocked(atom/target)
 	if(!target)
 		return TRUE
-	
-	// Get the shot line from us to target
-	var/turf/source_turf = get_turf(src)
-	var/turf/target_turf = get_turf(target)
-	
-	if(!source_turf || !target_turf)
-		return TRUE
-	
-	// Use getline to get the actual path a projectile would take
-	var/list/shot_line = getline(source_turf, target_turf)
-	
-	// Check each turf in the shot path
-	for(var/turf/T in shot_line)
-		if(T == source_turf || T == target_turf)
-			continue // Skip source and destination
-		
-		// Check if turf itself is dense
-		if(T.density)
-			return TRUE // Wall or dense turf blocks shot
-		
-		// Check for dense atoms (walls, windows, etc)
-		for(var/atom/A in T)
-			if(A.density)
-				// Ignore mobs - we can shoot over/past them
-				if(ismob(A))
-					continue
-				// Ignore simple animals - can shoot over them
-				if(istype(A, /mob/living/simple_animal))
-					continue
-				// Dense structure/obj blocks shot
-				return TRUE
-	
-	// Shot line is clear
-	return FALSE
+	return !shot_is_clear(get_turf(src), get_turf(target))
 
 
 /mob/living/simple_animal/hostile/Move(atom/newloc, dir, step_x, step_y)
