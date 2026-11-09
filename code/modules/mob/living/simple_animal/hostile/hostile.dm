@@ -188,6 +188,12 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	var/last_search_exit_time = 0
 	/// SMART SEARCH: Cooldown before re-entering search (prevents spam loop)
 	var/search_entry_cooldown = 10 // 1 second
+	/// SMART SEARCH: world.time of the last search_for_target run; 0 once the timer chain has ended
+	var/search_last_tick = 0
+	/// SMART SEARCH: Position at the previous tick, used to detect a stuck path
+	var/turf/search_last_pos = null
+	/// SMART SEARCH: Consecutive ticks spent far from the destination without moving
+	var/search_stuck_ticks = 0
 
 	/// How far to call for backup when finding a target (tiles)
 	var/backup_call_range = 2
@@ -258,12 +264,12 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	var/can_detect_light = TRUE
 
 	// DETECTION DELAY SYSTEM - Sneaking players have detection buildup time
-	/// Detection progress toward player (0 to detection_time_required)
-	var/detection_progress = 0
 	/// How long to fully detect player (deciseconds) - 0 = instant, 30 = 3 seconds for sneaking
 	var/detection_time_required = 0
-	/// Who are we currently building detection progress toward?
-	var/atom/detecting_target = null
+	/// Per-candidate sneak detection: candidate atom -> list(start_time, last_checked_time)
+	var/list/detection_timers
+	/// Set once a nested ListTargets() result has been reported, so the log isn't spammed every tick
+	var/nested_target_list_reported = FALSE
 	/// Cooldown for detection tick updates
 	COOLDOWN_DECLARE(detection_tick_cooldown)
 	/// How far can we detect light sources? (tiles)
@@ -528,34 +534,9 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	if(AIStatus == AI_OFF)
 		return 0
 
+	// GetCachedTargets() already returns a flat list of live atoms
 	var/list/possible_targets = GetCachedTargets()
-	
-	// Safety check: ensure possible_targets is a proper list, not nested
-	if(!possible_targets)
-		possible_targets = list()
-	else if(!islist(possible_targets))
-		possible_targets = list(possible_targets)
-	else if(islist(possible_targets))
-		// Check for nested lists and flatten them
-		var/has_nested = FALSE
-		for(var/item in possible_targets)
-			if(islist(item))
-				has_nested = TRUE
-				break
-		
-		if(has_nested)
-			var/list/flattened = list()
-			var/original_len = possible_targets.len
-			for(var/entry in possible_targets)
-				if(islist(entry))
-					for(var/subitem in entry)
-						flattened += subitem
-				else
-					flattened += entry
-			possible_targets = flattened
-			
-			// Debug logging to track down the source
-			log_runtime("HOSTILE MOB: [src] ([type]) had nested list from ListTargets() at [get_turf(src)]. Original list: [original_len] entries, flattened to [flattened.len] entries.")
+	prune_detection_timers(possible_targets)
 
 	// IMMEDIATE TARGET RESPONSE: Fast acquisition for both search mode and initial detection
 	// When idle or searching, quickly grab first valid target without waiting for next cycle
@@ -580,6 +561,10 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 			
 			// Faction check
 			if(!CanAttack(possible_target))
+				continue
+
+			// Sneaking candidates still need their detection buildup
+			if(!check_detection_delay(possible_target))
 				continue
 			
 			// All checks passed - acquire target
@@ -809,7 +794,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	if (peaceful == TRUE)
 		peaceful = FALSE
 	if(stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client && user)
-		FindTarget(list(user), 1)
+		FindTarget(list(user), 1, bypass_detection = TRUE)
 		COOLDOWN_RESET(src, sight_shoot_delay) // Let them shoot back immediately when attacked
 		
 		// CHAIN REACTION: This mob just woke up, alert nearby allies
@@ -852,7 +837,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 			if(should_retarget)
 				if(searching)
 					exit_search_mode(found_target = TRUE) // Found shooter
-				FindTarget(list(P.firer), 1)
+				FindTarget(list(P.firer), 1, bypass_detection = TRUE)
 				COOLDOWN_RESET(src, sight_shoot_delay)
 				trigger_chain_alert(P.firer)
 				visible_message(span_danger("[src] turns its attention to [P.firer]!"))
@@ -1406,13 +1391,44 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 /mob/living/simple_animal/hostile/var/cached_targets_from
 
 /mob/living/simple_animal/hostile/proc/GetCachedTargets()
-	if(cached_targets_time == world.time && cached_targets_from == targets_from && cached_targets)
+	// islist, not truthiness: an empty result is the common case and must be cached too
+	if(cached_targets_time == world.time && cached_targets_from == targets_from && islist(cached_targets))
 		return cached_targets.Copy()
-	var/list/result = ListTargets()
-	cached_targets = islist(result) ? result.Copy() : list()
+	var/list/result = sanitize_target_list(ListTargets())
+	cached_targets = result.Copy()
 	cached_targets_time = world.time
 	cached_targets_from = targets_from
 	return result
+
+/// Single normalisation point for ListTargets() output: flat list of live atoms, whatever a subtype override returned.
+/mob/living/simple_animal/hostile/proc/sanitize_target_list(raw)
+	var/list/clean = list()
+	if(isnull(raw))
+		return clean
+	if(!islist(raw))
+		if(isatom(raw))
+			var/atom/single = raw
+			if(!QDELETED(single))
+				clean += single
+		return clean
+	var/had_nested = FALSE
+	for(var/entry in raw)
+		if(islist(entry))
+			had_nested = TRUE
+			for(var/sub_entry in entry)
+				if(!isatom(sub_entry))
+					continue
+				var/atom/nested_atom = sub_entry
+				if(!QDELETED(nested_atom))
+					clean += nested_atom
+		else if(isatom(entry))
+			var/atom/flat_atom = entry
+			if(!QDELETED(flat_atom))
+				clean += flat_atom
+	if(had_nested && !nested_target_list_reported)
+		nested_target_list_reported = TRUE
+		log_runtime("HOSTILE MOB: [type] returned a nested list from ListTargets() at [AREACOORD(src)]; flattened. Check the ListTargets() override for this type.")
+	return clean
 
 /mob/living/simple_animal/hostile/proc/ListTargets()//Step 1, find out what we can see
 	if(stat == DEAD) // Dead mobs can't detect targets
@@ -1572,7 +1588,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 						continue // No detection through walls, regardless of sneak mode
 				. += A
 
-/mob/living/simple_animal/hostile/proc/FindTarget(list/possible_targets, HasTargetsList = 0)
+/mob/living/simple_animal/hostile/proc/FindTarget(list/possible_targets, HasTargetsList = 0, bypass_detection = FALSE)
 	. = list()
 
 	if(peaceful == FALSE)
@@ -1584,7 +1600,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 			exit_search_mode(found_target = TRUE)
 			last_target_sighting = world.time
 			remembered_target = target
-			GiveTarget(target)
+			GiveTarget(target, "search_reacquire")
 			COOLDOWN_START(src, sight_shoot_delay, sight_shoot_delay_time)
 			call_for_backup(target, "found")
 			return target
@@ -1599,13 +1615,25 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 				. += A
 				continue
 
+		// Sneak detection is tracked per candidate, so a picked-over sneaker keeps its progress.
+		// Being attacked or shot (bypass_detection) reveals the attacker immediately.
+		if(!bypass_detection)
+			var/list/detected = list()
+			for(var/atom/candidate in .)
+				if(check_detection_delay(candidate))
+					detected += candidate
+			. = detected
+
 		var/Target = PickTarget(.)
-		
-		// Check detection delay for sneaking targets
-		if(Target && !check_detection_delay(Target))
-			return // Still building detection, don't acquire yet
-		
-		GiveTarget(Target)
+
+		if(!Target && target)
+			// A held target that is merely out of the candidate list is not lost here;
+			// MoveToTarget()'s LOS grace and LoseTarget(reason) own that decision.
+			if(!HasTargetsList)
+				return null
+			ai_debug_log("target_cleared target=[target] reason=find_target_no_candidates")
+
+		GiveTarget(Target, "find_target")
 		COOLDOWN_START(src, sight_shoot_delay, sight_shoot_delay_time)
 
 		if(Target)
@@ -1632,18 +1660,32 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 /mob/living/simple_animal/hostile/proc/Found(atom/A)//This is here as a potential override to pick a specific target if available
 	return
 
+/// Clearly-closer margin (tiles) another candidate needs before we drop a held target for it
+#define TARGET_SWITCH_MARGIN 2
+
 /mob/living/simple_animal/hostile/proc/PickTarget(list/Targets)//Step 3, pick amongst the possible, attackable targets
-	if(target != null)//If we already have a target, but are told to pick again, calculate the lowest distance between all possible, and pick from the lowest distance targets
-		for(var/pos_targ in Targets)
-			var/atom/A = pos_targ
-			var/target_dist = get_dist(targets_from, target)
-			var/possible_target_distance = get_dist(targets_from, A)
-			if(target_dist < possible_target_distance)
-				Targets -= A
-	if(!Targets.len)//We didnt find nothin!
+	if(!Targets || !Targets.len)//We didnt find nothin!
 		return
-	var/chosen_target = pick(Targets)//Pick the remaining targets (if any) at random
-	return chosen_target
+	if(target != null)
+		var/target_dist = get_dist(targets_from, target)
+		if(target in Targets)
+			// Already tracking a valid target: stick with it unless something is clearly closer (no coin-flip switching)
+			var/list/clearly_closer = list()
+			for(var/atom/A in Targets)
+				if(A != target && (get_dist(targets_from, A) + TARGET_SWITCH_MARGIN) <= target_dist)
+					clearly_closer += A
+			if(!clearly_closer.len)
+				return target
+			return pick(clearly_closer)
+		// Held target not visible: only consider candidates no farther than where it was last seen
+		var/list/not_farther = list()
+		for(var/atom/A in Targets)
+			if(get_dist(targets_from, A) <= target_dist)
+				not_farther += A
+		Targets = not_farther
+		if(!Targets.len)
+			return
+	return pick(Targets)
 
 // Please do not add one-off mob AIs here, but override this function for your mob
 /mob/living/simple_animal/hostile/CanAttack(atom/the_target)
@@ -1753,37 +1795,46 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 
 	// Not sneaking = instant detection
 	if(!target_sneaking)
-		detection_progress = 0
-		detecting_target = null
+		if(LAZYLEN(detection_timers))
+			detection_timers -= candidate_target
 		return TRUE
 
-	// Sneaking = 3 second buildup (30 deciseconds)
+	// Sneaking = 3 second buildup (30 deciseconds), tracked separately for every candidate
 	var/required_time = 30
+	// A gap this long in observation restarts the buildup (deciseconds)
+	var/observation_gap = 20
 
-	// Reset if we switched targets
-	if(detecting_target != candidate_target)
-		detection_progress = 0
-		detecting_target = candidate_target
-
-	// Start detection timer
-	if(!detection_progress)
-		detection_progress = world.time // store start time
+	LAZYINITLIST(detection_timers)
+	var/list/entry = detection_timers[candidate_target]
+	if(!entry || (world.time - entry[2]) > observation_gap)
+		detection_timers[candidate_target] = list(world.time, world.time)
+		ai_debug_log("sneak_detect_start candidate=[candidate_target] required=[required_time]")
 		return FALSE
 
-	var/elapsed = world.time - detection_progress
-	if(elapsed >= required_time)
+	entry[2] = world.time
+	if((world.time - entry[1]) >= required_time)
 		// Fully detected!
-		detection_progress = 0
-		detecting_target = null
+		detection_timers -= candidate_target
+		ai_debug_log("sneak_detect_complete candidate=[candidate_target]")
 		return TRUE
 
 	// Still building up - not detected yet
 	return FALSE
 
+/// Drop sneak-detection progress for candidates that are gone or no longer perceived
+/mob/living/simple_animal/hostile/proc/prune_detection_timers(list/visible_targets)
+	if(!LAZYLEN(detection_timers))
+		return
+	for(var/atom/candidate in detection_timers)
+		if(QDELETED(candidate) || !(candidate in visible_targets))
+			detection_timers -= candidate
+	if(!detection_timers.len)
+		detection_timers = null
+
 /mob/living/simple_animal/hostile/proc/GiveTarget(new_target, reason)
 	if(stat == DEAD) // Dead mobs can't acquire targets
 		return
-	if(GLOB.debug_ai && new_target && new_target != target)
+	if((GLOB.debug_ai || debug_vision) && new_target && new_target != target)
 		ai_debug_log("target_acquired [new_target] reason=[reason || "unspecified"]")
 	add_target(new_target)
 	LosePatience()
@@ -1968,7 +2019,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 		var/time_since_seen = world.time - last_target_sighting
 		// Use a longer timeout when target is on a different Z level so the mob can
 		// wait out the z_move_success_cooldown (30 ds) and still initiate pursuit.
-		// Same-Z timeout is 60 ds (6 s) — long enough to survive dense-melee occlusion
+		// Same-Z timeout is 60 ds (6 s) long enough to survive dense-melee occlusion
 		// without being so long it prevents real LOS loss from registering.
 		var/los_timeout = (can_z_move && target && target.z != z) ? 80 : 60
 		// Never enter search mode while actively climbing - the mob KNOWS where the target went
@@ -2120,7 +2171,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 			else
 				walk(src, 0)
 		else {
-			// Stop moving once adjacent — don't push into the target tile (causes oscillation)
+			// Stop moving once adjacent don't push into the target tile (causes oscillation)
 			if(target.Adjacent(src))
 				walk(src, 0)
 				// Face the target now that we've stopped to attack
@@ -2832,7 +2883,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	log_game("AI [type] [REF(src)] at [AREACOORD(src)]: [message]")
 
 /mob/living/simple_animal/hostile/proc/LoseTarget(reason)
-	if(GLOB.debug_ai && (target || remembered_target))
+	if((GLOB.debug_ai || debug_vision) && (target || remembered_target))
 		ai_debug_log("target_lost target=[target || "none"] remembered=[remembered_target || "none"] searching=[searching] reason=[reason || "unspecified"]")
 	// Check if we should clear memory due to target being crit/dead
 	if(remembered_target && !QDELETED(remembered_target) && isliving(remembered_target))
@@ -3174,8 +3225,14 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 		else if(remembered_target && !QDELETED(remembered_target))
 			call_for_backup(remembered_target, "lost")
 
-	// Schedule search asynchronously to avoid blocking call in signal handlers
-	addtimer(CALLBACK(src, PROC_REF(search_for_target)), 0.5 SECONDS, TIMER_DELETE_ME)
+	search_last_pos = null
+	search_stuck_ticks = 0
+
+	// Only start a new timer chain if the previous one has ended; a live chain just resumes
+	// (search_last_tick is zeroed when a chain ends, and goes stale if a runtime kills it).
+	if(!search_last_tick || (world.time - search_last_tick) > 4 SECONDS)
+		search_last_tick = world.time
+		addtimer(CALLBACK(src, PROC_REF(search_for_target)), 0.5 SECONDS, TIMER_DELETE_ME)
 
 /mob/living/simple_animal/hostile/proc/exit_search_mode(give_up_message = TRUE, found_target = FALSE)
 	if(!searching)
@@ -3209,7 +3266,9 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 
 /mob/living/simple_animal/hostile/proc/search_for_target()
 	if(!searching || QDELETED(src))
+		search_last_tick = 0
 		return
+	search_last_tick = world.time
 
 	// Check if remembered_target is dead/invalid - if so, give up search
 	if(remembered_target)
@@ -3274,7 +3333,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	var/dist_to_last_known = get_dist(current_pos, last_known_location)
 
 	// CROSS-Z CHECK: If we need to change Z levels, do it now before any same-Z navigation.
-	// get_dist() is 2D-only, so a Z4 last_known_location looks "distance 0" to a Z3 mob —
+	// get_dist() is 2D-only, so a Z4 last_known_location looks "distance 0" to a Z3 mob
 	// without this check, the mob thinks it's already there and searches the wrong floor.
 	if(!pursuing_z_target && can_z_move)
 		// Case 1: Remembered target is currently on a different Z level (followed stairs)
@@ -3342,6 +3401,12 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 				return
 	// This ensures we search where the player was last seen, not random areas
 	if(dist_to_last_known > 3)
+		if(current_pos == search_last_pos)
+			search_stuck_ticks++
+		else
+			search_stuck_ticks = 0
+			search_last_pos = current_pos
+		ai_debug_log("search_tick dist=[dist_to_last_known] stuck=[search_stuck_ticks] elapsed=[world.time - search_start_time]")
 		// Check for doors blocking the path to last_known_location
 		if(can_open_doors)
 			var/dir_to_target = get_dir(src, last_known_location)
@@ -3356,7 +3421,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 							
 							// Check if target is now visible after opening door
 							sleep(5)
-							var/list/check_targets = ListTargets()
+							var/list/check_targets = GetCachedTargets()
 							if(check_targets && check_targets.len > 0)
 								for(var/atom/possible_target in check_targets)
 									if(isliving(possible_target))
@@ -3388,7 +3453,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 							
 							// Check if target is now visible after opening door
 							sleep(5)
-							var/list/check_targets = ListTargets()
+							var/list/check_targets = GetCachedTargets()
 							if(check_targets && check_targets.len > 0)
 								for(var/atom/possible_target in check_targets)
 									if(isliving(possible_target))
@@ -3414,8 +3479,14 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 							return
 		
 		// We're too far from where we last saw them - move closer first
-		if(!(last_known_location in searched_turfs))
-			searched_turfs += last_known_location
+		// Re-issue the Goto every tick so blocked or interrupted paths are retried. If we are stuck
+		// for several ticks, fall through to the systematic search (doors/containers) instead.
+		if(search_stuck_ticks < 3)
+			if(!(last_known_location in searched_turfs))
+				searched_turfs += last_known_location
+				if(COOLDOWN_FINISHED(src, search_chatter_cooldown))
+					COOLDOWN_START(src, search_chatter_cooldown, search_chatter_delay)
+					visible_message(span_warning("[src] moves to investigate the last known position..."))
 			// If the last known location is on a different Z level, don't Goto across Z -
 			// use Z-pursuit to find a staircase/ladder instead.
 			if(last_known_location.z != z && can_z_move)
@@ -3425,9 +3496,6 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 					attempt_z_pursuit()
 				addtimer(CALLBACK(src, PROC_REF(search_for_target)), 3 SECONDS, TIMER_DELETE_ME)
 				return
-			if(COOLDOWN_FINISHED(src, search_chatter_cooldown))
-				COOLDOWN_START(src, search_chatter_cooldown, search_chatter_delay)
-				visible_message(span_warning("[src] moves to investigate the last known position..."))
 			Goto(last_known_location, move_to_delay, 0)
 			addtimer(CALLBACK(src, PROC_REF(search_for_target)), 3 SECONDS, TIMER_DELETE_ME)
 			return
@@ -3445,7 +3513,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 				
 				// More lenient check when very close - check actual distance
 				var/dist_to_target = get_dist(src, possible_target)
-				if(dist_to_target <= 3) // Within close range
+				if(dist_to_target <= 3 && can_see(src, possible_target, dist_to_target)) // Within close range, with line of sight
 					if(CanAttack(possible_target))
 						visible_message(span_danger("[src] spots [possible_target] nearby!"))
 						exit_search_mode(FALSE, found_target = TRUE)
@@ -3529,7 +3597,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 							C.open(src)
 							sleep(5)
 							
-							var/list/check_targets = ListTargets()
+							var/list/check_targets = GetCachedTargets()
 							if(check_targets && check_targets.len > 0)
 								for(var/atom/possible_target in check_targets)
 									if(isliving(possible_target))
@@ -3566,7 +3634,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 								recently_opened_door = closest_spot
 								sleep(5)
 								
-								var/list/check_targets = ListTargets()
+								var/list/check_targets = GetCachedTargets()
 								if(check_targets && check_targets.len > 0)
 									for(var/atom/possible_target in check_targets)
 										if(isliving(possible_target))
@@ -4109,6 +4177,34 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	last_successful_z_move = world.time
 
 // SOUND DETECTION - hear gunfire and move toward it (WITH MUFFLING)
+/// Picks a reachable (open, non-dense) turf near a sound so we never path into a wall and hearing stays imprecise.
+/mob/living/simple_animal/hostile/proc/get_sound_investigation_spot(turf/sound_location, radius = 3)
+	var/list/candidates = list()
+	for(var/turf/open/T in range(radius, sound_location))
+		if(!T.density)
+			candidates += T
+	if(!candidates.len)
+		for(var/turf/open/T in range(radius + 2, sound_location))
+			if(!T.density)
+				candidates += T
+	if(!candidates.len)
+		return sound_location
+	return pick(candidates)
+
+/// Retargets the search to a new heard location. A big jump resets the explored area, and fresh noise refreshes the timeout.
+/mob/living/simple_animal/hostile/proc/update_search_destination(turf/new_location, source = "sound")
+	if(!new_location)
+		return
+	var/jumped = !last_known_location || last_known_location.z != new_location.z || get_dist(last_known_location, new_location) > 3
+	if(jumped)
+		searched_turfs = list()
+		search_expansion = 0
+		search_stuck_ticks = 0
+		ai_debug_log("search_destination source=[source] from=[last_known_location ? "[last_known_location.x],[last_known_location.y],[last_known_location.z]" : "none"] to=[new_location.x],[new_location.y],[new_location.z]")
+	last_known_location = new_location
+	if(searching)
+		search_start_time = world.time
+
 /mob/living/simple_animal/hostile/proc/hear_combat_sound(turf/sound_location, atom/sound_source)
 	if(!can_hear_combat)
 		return
@@ -4132,14 +4228,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	last_combat_sound = world.time
 	
 	// Don't give exact location - pick a random spot near the sound (simulates hearing direction)
-	var/list/investigation_turfs = list()
-	for(var/turf/T in range(3, sound_location)) // Smaller radius for more accurate investigation
-		if(istype(T, /turf/open))
-			investigation_turfs += T
-	
-	var/turf/investigation_spot = sound_location
-	if(investigation_turfs.len)
-		investigation_spot = pick(investigation_turfs)
+	var/turf/investigation_spot = get_sound_investigation_spot(sound_location, 3)
 	
 	// WAKE UP if idle - sounds should always wake mobs
 	if(AIStatus == AI_IDLE || AIStatus == AI_Z_OFF)
@@ -4186,7 +4275,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 				attempt_z_pursuit()
 				return
 		// Same-Z or no usable attacker source: investigate the sound location normally
-		last_known_location = investigation_spot
+		update_search_destination(investigation_spot, "combat_sound")
 		if(!searching)
 			enter_search_mode()
 			visible_message(span_notice("[src] starts investigating the commotion..."))
@@ -4195,7 +4284,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 			visible_message(span_notice("[src] adjusts their search toward the gunfire..."))
 	else if(searching)
 		// We have a remembered target but are searching - update search location
-		last_known_location = investigation_spot
+		update_search_destination(investigation_spot, "combat_sound")
 		visible_message(span_notice("[src] adjusts their search toward the gunfire..."))
 
 // Hear impact sounds (bullet hitting wall/target) - smaller radius
@@ -4221,8 +4310,8 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	
 	last_combat_sound = world.time
 	
-	// Use impact location directly for CPU efficiency (no random picking)
-	var/turf/investigation_spot = impact_location
+	// Impacts are often on walls; resolve to a nearby reachable turf instead of pathing into the wall
+	var/turf/investigation_spot = get_sound_investigation_spot(impact_location, 1)
 	
 	// ALWAYS WAKE UP - impacts should alert idle mobs
 	if(AIStatus == AI_IDLE || AIStatus == AI_Z_OFF)
@@ -4252,16 +4341,14 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	
 	// INVESTIGATE - move toward the impact
 	if(!target)
-		last_known_location = investigation_spot
+		update_search_destination(investigation_spot, "impact_sound")
 		
 		if(!searching)
 			enter_search_mode()
 			visible_message(span_notice("[src] goes to investigate the noise..."))
-		else
-			last_known_location = investigation_spot
 	else if(searching)
 		// Update search location to be closer to impact
-		last_known_location = investigation_spot
+		update_search_destination(investigation_spot, "impact_sound")
 
 /mob/living/simple_animal/hostile/proc/hear_gunshot(turf/shot_location, atom/shooter)
 	if(!can_hear_combat)
@@ -4290,11 +4377,12 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	if(AIStatus == AI_IDLE || AIStatus == AI_Z_OFF)
 		toggle_ai(AI_ON)
 	
-	// If we don't have a target, investigate the sound
-	if(!target && !searching)
-		last_known_location = shot_location
-		enter_search_mode()
-		visible_message(span_warning("[src] perks up at the sound of gunfire!"))
+	// If we don't have a target, investigate the sound (fuzzed so walls and exact shooter position aren't leaked)
+	if(!target)
+		update_search_destination(get_sound_investigation_spot(shot_location, 2), "gunshot")
+		if(!searching)
+			enter_search_mode()
+			visible_message(span_warning("[src] perks up at the sound of gunfire!"))
 
 // LIGHT DETECTION - detect and investigate light sources in darkness
 /mob/living/simple_animal/hostile/proc/detect_light_source()
@@ -4947,7 +5035,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 
 	if(!candidates.len) return null
 
-	// Prefer the tile that matches our approach direction — stable as we move toward target
+	// Prefer the tile that matches our approach direction stable as we move toward target
 	var/approach_dir = get_dir(target_turf, my_turf)
 	for(var/turf/T in candidates)
 		if(get_dir(target_turf, T) == approach_dir)
@@ -4959,7 +5047,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 /mob/living/simple_animal/hostile/proc/DestroyPathToTarget()
 	// This should only be called when we're REALLY stuck (after 15 seconds of trying)
 
-	// PRIORITY 0: Ally flanking — if friendly mobs are the obstacle, find a side angle
+	// PRIORITY 0: Ally flanking if friendly mobs are the obstacle, find a side angle
 	// rather than trying to open doors or smash through walls.
 	if(target && !searching)
 		var/turf/my_turf = get_turf(src)
