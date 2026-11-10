@@ -462,7 +462,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 
 /mob/living/simple_animal/hostile/gc_failure_context()
 	. = ..()
-	return "[.] stat=[stat] ai_status=[AIStatus] ai_facts=[length(ai_facts)] faults=[length(ai_faults)] friends=[length(friends)] foes=[length(foes)] searching=[searching] has_target=[!!target]"
+	return "[.] stat=[stat] ai_status=[AIStatus] ai_facts=[length(ai_facts)] faults=[length(ai_faults)] friends=[length(friends)] foes=[length(foes)] searching=[searching] has_target=[!!target] actions=[length(actions)] abilities=[length(abilities)] do_afters=[length(do_afters)] targeted_by=[length(targeted_by)] buckled=[!!buckled] pulledby=[!!pulledby] client=[!!client]"
 
 /mob/living/simple_animal/hostile/Destroy()
 	// Clear target reference with signal cleanup
