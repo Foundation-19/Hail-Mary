@@ -539,6 +539,19 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	search_move_goal = null
 	search_look_near = null
 
+	// Hostile mobs of opposing factions cache and key each other in these, which pins both in a ref cycle
+	cached_targets = null
+	cached_targets_from = null
+	detection_timers = null
+	recent_thrown_items = null
+	recent_light_shots = null
+	patrol_door_visits = null
+	searched_containers = null
+	recently_opened_door = null
+	investigating_container = null
+	target_last_door = null
+	patrol_target_door = null
+
 	// Unqueue from idle NPC pool
 	SSidlenpcpool.remove_from_culling(src)
 	
