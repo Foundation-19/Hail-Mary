@@ -1637,7 +1637,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	var/datum/tgs_version/version = world.TgsVersion()
 	if(config_setting == "" || version.suite == 3)
-		world.TgsTargetedChatBroadcast(message, FALSE)
+		world.TgsTargetedChatBroadcast(new /datum/tgs_message_content(message), FALSE)
 		return
 
 	var/list/channels_to_use = list()
@@ -1647,7 +1647,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			channels_to_use += channel
 
 	if(length(channels_to_use))
-		world.TgsChatBroadcast(message, channels_to_use)
+		world.TgsChatBroadcast(new /datum/tgs_message_content(message), channels_to_use)
 
 /**
  * Sends a message to TGS admin chat channels.
@@ -1660,7 +1660,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	message = replacetext(replacetext(message, "\proper", ""), "\improper", "")
 	if(!embed_links)
 		message = GLOB.has_discord_embeddable_links.Replace(replacetext(message, "`", ""), " ```$1``` ")
-	world.TgsTargetedChatBroadcast("[category] | [message]", TRUE)
+	world.TgsTargetedChatBroadcast(new /datum/tgs_message_content("[category] | [message]"), TRUE)
 
 /// Handles text formatting for item use hints in examine text
 #define EXAMINE_HINT(text) ("<b>" + text + "</b>")

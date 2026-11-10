@@ -217,7 +217,8 @@ SUBSYSTEM_DEF(garbage)
 				// garbage collected. Skip the warning to avoid cluttering TESTING logs. Other objects
 				// unable to be GC'd should be investigated for reference leaks.
 				if(type != /datum/controller && type != /datum/controller/master)
-					log_world("## TESTING: GC: -- \ref[D] | [type] was unable to be GC'd --")
+					var/gc_context = D.gc_failure_context()
+					log_world("## TESTING: GC: -- \ref[D] | [type] was unable to be GC'd --[gc_context ? " ([gc_context])" : ""]")
 				var/detail = D.dump_harddel_info()
 				if(detail)
 					LAZYADD(I.extra_details, detail)

@@ -282,3 +282,7 @@
 /// Can be called more then once per object, use harddel_deets_dumped to avoid duplicate calls (I am so sorry)
 /datum/proc/dump_harddel_info()
 	return
+
+/// Short text appended to the "unable to be GC'd" log line, to help find what is holding the object
+/datum/proc/gc_failure_context()
+	return null

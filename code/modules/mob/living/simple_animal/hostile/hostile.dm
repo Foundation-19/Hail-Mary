@@ -448,6 +448,10 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 		smoke = new /datum/effect_system/smoke_spread/bad
 		smoke.attach(src)
 
+/mob/living/simple_animal/hostile/gc_failure_context()
+	. = ..()
+	return "[.] stat=[stat] ai_status=[AIStatus] ai_facts=[length(ai_facts)] faults=[length(ai_faults)] friends=[length(friends)] foes=[length(foes)] searching=[searching] has_target=[!!target]"
+
 /mob/living/simple_animal/hostile/Destroy()
 	// Clear target reference with signal cleanup
 	GiveTarget(null)
@@ -522,6 +526,19 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 		deltimer(search_objects_timer_id)
 		search_objects_timer_id = null
 	
+	// Clear AI working memory, shot faults and decision/cover-push state
+	QDEL_LIST(ai_facts)
+	ai_facts = null
+	QDEL_LIST_ASSOC_VAL(ai_faults)
+	ai_faults = null
+	ai_switch_times = null
+	ai_intent_target = null
+	ai_flank_tile = null
+	ai_retreat_goal = null
+	ranged_push_goal = null
+	search_move_goal = null
+	search_look_near = null
+
 	// Unqueue from idle NPC pool
 	SSidlenpcpool.remove_from_culling(src)
 	
