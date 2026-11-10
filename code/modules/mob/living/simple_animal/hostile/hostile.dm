@@ -1831,9 +1831,10 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 		return FALSE
 	
 	// Allow attacking through Z-levels if there's openspace
-	if(the_target.z != z)
+	var/target_z = z_of(the_target)
+	if(target_z != z)
 		// Target is above us
-		if(the_target.z == z + 1)
+		if(target_z == z + 1)
 			var/turf/above_us = get_step_multiz(get_turf(src), UP)
 			if(!istype(above_us, /turf/open/transparent/openspace))
 				return FALSE
@@ -1841,7 +1842,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 			if(!istype(target_turf, /turf/open/transparent/openspace))
 				return FALSE
 		// Target is below us
-		else if(the_target.z == z - 1)
+		else if(target_z == z - 1)
 			var/turf/our_turf = get_turf(src)
 			if(!istype(our_turf, /turf/open/transparent/openspace))
 				// Check if we're near openspace
@@ -2140,9 +2141,9 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	if(searching)
 		// Tracking check: use plain view() (no vision cone) so the mob can recover its
 		// target regardless of which direction it's currently facing.
-		var/found_target_now = target && target.z == z && (target in view(vision_range, src))
+		var/found_target_now = target && z_of(target) == z && (target in view(vision_range, src))
 		// Within aggro range on same Z: always found (mirrors the has_los bypass above)
-		if(!found_target_now && target && target.z == z && get_dist(src, target) <= aggro_vision_range)
+		if(!found_target_now && target && z_of(target) == z && get_dist(src, target) <= aggro_vision_range)
 			found_target_now = TRUE
 		if(found_target_now)
 			exit_search_mode(found_target = TRUE)
@@ -2174,11 +2175,11 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	if(!CanAttack(target))
 		// If blocked only because the target is on a different Z level, skip search mode
 		// and fall through to the Z-pursuit section which handles cross-Z chasing.
-		if(!(can_z_move && target.z != z))
+		if(!(can_z_move && z_of(target) != z))
 			// If target is still within aggro range on the same Z AND conscious (e.g. fleeing),
 			// keep chasing instead of entering search mode.
 			var/target_is_close = FALSE
-			if(isliving(target) && target.z == z && get_dist(src, target) <= aggro_vision_range)
+			if(isliving(target) && z_of(target) == z && get_dist(src, target) <= aggro_vision_range)
 				var/mob/living/LT = target
 				target_is_close = (LT.stat == CONSCIOUS)
 			if(!target_is_close)
@@ -2192,7 +2193,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	// TRACKING LOS: Use plain BYOND view() without vision-cone restrictions.
 	// Vision cones are for initial detection (idle mob scanning for threats).
 	// An already-engaged mob tracks its target regardless of facing direction.
-	var/has_los = target && target.z == z && (target in view(vision_range, src))
+	var/has_los = target && z_of(target) == z && (target in view(vision_range, src))
 	// Stealth boy: drastically reduce tracking range for heavily cloaked targets
 	if(has_los && ishuman(target))
 		var/mob/living/carbon/human/H = target
@@ -2202,7 +2203,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	// Within aggro_vision_range on the same Z: also always treat as LOS.
 	// The mob can hear/sense the target even through doors/walls at close range.
 	// Only when the target escapes beyond aggro range does LOS tracking actually lapse.
-	if(!has_los && target && target.z == z)
+	if(!has_los && target && z_of(target) == z)
 		var/dist_now = get_dist(src, target)
 		if(dist_now <= aggro_vision_range)
 			has_los = TRUE
@@ -2217,7 +2218,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 		// wait out the z_move_success_cooldown (30 ds) and still initiate pursuit.
 		// Same-Z timeout is 60 ds (6 s) long enough to survive dense-melee occlusion
 		// without being so long it prevents real LOS loss from registering.
-		var/los_timeout = (can_z_move && target && target.z != z) ? 80 : 60
+		var/los_timeout = (can_z_move && target && z_of(target) != z) ? 80 : 60
 		// Never enter search mode while actively climbing - the mob KNOWS where the target went
 		if(time_since_seen > los_timeout && !pursuing_z_target)
 			if(!searching)
@@ -2233,14 +2234,14 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 
 	// Z-PURSUIT
 	if(pursuing_z_target)
-		if(target && target.z == z)
+		if(target && z_of(target) == z)
 			pursuing_z_target = FALSE
 			z_pursuit_structure = null
 		else if((world.time - z_pursuit_started) > z_pursuit_timeout)
 			pursuing_z_target = FALSE
 			z_pursuit_structure = null
 
-	if(pursuing_z_target && z_pursuit_structure && target && target.z != z)
+	if(pursuing_z_target && z_pursuit_structure && target && z_of(target) != z)
 		var/dist = get_dist(src, z_pursuit_structure)
 		if(dist == 0)
 			// Mob has ARRIVED at the structure - trigger the actual climb
@@ -2278,7 +2279,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 		return 1
 
 	// DIFFERENT Z LEVEL
-	if(target && target.z != z)
+	if(target && z_of(target) != z)
 		var/on_stairs = FALSE
 		for(var/obj/structure/stairs/S in loc)
 			on_stairs = TRUE
@@ -5531,6 +5532,15 @@ mob/living/simple_animal/hostile/proc/DestroySurroundings() // for use with mega
 		ai_debug_log("hidden_target_smash container=[C]")
 		C.attack_animal(src)
 	return TRUE
+
+/// Z level of an atom. Anything inside a container (closet, crate, bin) has z = 0, so this resolves its turf instead.
+/mob/living/simple_animal/hostile/proc/z_of(atom/A)
+	if(!A)
+		return 0
+	if(A.z)
+		return A.z
+	var/turf/T = get_turf(A)
+	return T ? T.z : 0
 
 /mob/living/simple_animal/hostile/proc/FindHidden()
 	if(istype(target.loc, /obj/structure/closet) || istype(target.loc, /obj/machinery/disposal) || istype(target.loc, /obj/machinery/sleeper))
