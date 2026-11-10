@@ -443,6 +443,8 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	var/chain_alert_delay = 30 // 3 seconds
 	/// Stops a mob flip-flopping between targets when gunfire keeps coming from a different shooter
 	COOLDOWN_DECLARE(gunfire_retarget_cooldown)
+	/// Throttles gunshot reactions during automatic fire
+	COOLDOWN_DECLARE(gunshot_react_cooldown)
 	/// How long between gunfire retargets (deciseconds)
 	var/gunfire_retarget_delay = 50
 
@@ -563,48 +565,66 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	patrol_target_door = null
 	door_route_turf = null
 
-	// Other hostiles remember, cache and key this mob in their own lists, which keeps it from being collected
-	for(var/list/status_list in GLOB.simple_animals)
-		for(var/mob/living/simple_animal/hostile/other in status_list)
-			if(other != src)
-				other.forget_reference(src)
+	// Other hostiles remember, cache and key this mob in their own lists, which keeps it from being collected.
+	// Cleared in one batched pass so a mass despawn does not sweep every mob once per deletion.
+	queue_ai_reference_purge(src)
 
 	// Unqueue from idle NPC pool
 	SSidlenpcpool.remove_from_culling(src)
 	
 	return ..()
 
-/// Drops every non-weak reference this mob holds to a deleted atom
-/mob/living/simple_animal/hostile/proc/forget_reference(atom/gone)
-	if(remembered_target == gone)
+GLOBAL_LIST_EMPTY(ai_purge_queue)
+GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
+
+/proc/queue_ai_reference_purge(atom/gone)
+	GLOB.ai_purge_queue += gone
+	if(GLOB.ai_purge_pending)
+		return
+	GLOB.ai_purge_pending = TRUE
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(run_ai_reference_purge)), 1 SECONDS)
+
+/proc/run_ai_reference_purge()
+	GLOB.ai_purge_pending = FALSE
+	var/list/gone = GLOB.ai_purge_queue
+	GLOB.ai_purge_queue = list()
+	if(!length(gone))
+		return
+	for(var/list/status_list in GLOB.simple_animals)
+		for(var/mob/living/simple_animal/hostile/other in status_list)
+			other.forget_references(gone)
+
+/// Drops every non-weak reference this mob holds to any of the deleted atoms
+/mob/living/simple_animal/hostile/proc/forget_references(list/gone)
+	if(remembered_target in gone)
 		remembered_target = null
-	if(search_move_goal == gone)
+	if(search_move_goal in gone)
 		search_move_goal = null
-	if(search_look_near == gone)
+	if(search_look_near in gone)
 		search_look_near = null
-	if(ai_intent_target == gone)
+	if(ai_intent_target in gone)
 		ai_intent_target = null
-	if(z_pursuit_structure == gone)
+	if(z_pursuit_structure in gone)
 		z_pursuit_structure = null
-	if(recently_opened_door == gone)
+	if(recently_opened_door in gone)
 		recently_opened_door = null
-	if(investigating_container == gone)
+	if(investigating_container in gone)
 		investigating_container = null
-	if(target_last_door == gone)
+	if(target_last_door in gone)
 		target_last_door = null
-	if(patrol_target_door == gone)
+	if(patrol_target_door in gone)
 		patrol_target_door = null
-	if(cached_targets)
+	if(length(cached_targets))
 		cached_targets -= gone
-	if(detection_timers)
+	if(length(detection_timers))
 		detection_timers -= gone
-	if(friends)
+	if(length(friends))
 		friends -= gone
-	if(foes)
+	if(length(foes))
 		foes -= gone
-	if(recent_thrown_items)
+	if(length(recent_thrown_items))
 		recent_thrown_items -= gone
-	if(recent_light_shots)
+	if(length(recent_light_shots))
 		recent_light_shots -= gone
 
 /mob/living/simple_animal/hostile/BiologicalLife(seconds, times_fired)
@@ -4635,6 +4655,11 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	// Check if shooter is an enemy
 	if(shooter && faction_check_mob(shooter))
 		return // Don't care about friendly fire
+
+	// Automatic fire hits this every shot; a mob only needs to react a couple of times a second
+	if(!COOLDOWN_FINISHED(src, gunshot_react_cooldown))
+		return
+	COOLDOWN_START(src, gunshot_react_cooldown, 5)
 	
 	// Calculate muffled range
 	var/effective_range = calculate_muffled_sound_range(shot_location, combat_hearing_range)
@@ -5351,14 +5376,15 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 /mob/living/simple_animal/hostile/proc/route_through_door()
 	if(!target || !can_open_doors || !COOLDOWN_FINISHED(src, door_route_cooldown))
 		return FALSE
-	COOLDOWN_START(src, door_route_cooldown, 20)
+	// Searching is not free, so a mob with no door on its route waits a good while before looking again
+	COOLDOWN_START(src, door_route_cooldown, 100)
 
 	var/turf/goal = get_turf(target)
 	var/turf/here = get_turf(src)
 	if(!goal || !here || goal.z != here.z)
 		return FALSE
 
-	var/list/route = AStar(src, goal, TYPE_PROC_REF(/turf, Distance_cardinal), 30, 30, 1, TYPE_PROC_REF(/turf, ai_door_reachable_test))
+	var/list/route = AStar(src, goal, TYPE_PROC_REF(/turf, Distance_cardinal), 15, 15, 1, TYPE_PROC_REF(/turf, ai_door_reachable_test))
 	if(!route || !route.len)
 		return FALSE
 
@@ -5368,6 +5394,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 			continue
 		door_route_turf = step_turf
 		door_route_until = world.time + 80
+		COOLDOWN_START(src, door_route_cooldown, 20)
 		ai_debug_log("door_route door=[door] at=[step_turf.x],[step_turf.y] dist=[get_dist(src, step_turf)]")
 		return follow_door_route()
 	return FALSE
