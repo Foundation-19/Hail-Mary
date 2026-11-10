@@ -407,6 +407,12 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	var/path_attempts = 0
 	/// Maximum path attempts before smashing
 	var/max_path_attempts = 3
+	/// Closed door (its turf) a blocked chase is currently being routed through
+	var/turf/door_route_turf = null
+	/// The door route is abandoned after this time
+	var/door_route_until = 0
+	/// Stops the door route search from running every tick
+	COOLDOWN_DECLARE(door_route_cooldown)
 	/// Last time we gave up chasing target due to being stuck
 	var/last_give_up_time = 0
 	/// Cooldown after giving up before we can re-acquire targets (deciseconds) - 15 seconds
@@ -435,6 +441,10 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	COOLDOWN_DECLARE(chain_alert_cooldown)
 	/// How long between chain alerts (deciseconds)
 	var/chain_alert_delay = 30 // 3 seconds
+	/// Stops a mob flip-flopping between targets when gunfire keeps coming from a different shooter
+	COOLDOWN_DECLARE(gunfire_retarget_cooldown)
+	/// How long between gunfire retargets (deciseconds)
+	var/gunfire_retarget_delay = 50
 
 /mob/living/simple_animal/hostile/Initialize()
 	. = ..()
@@ -551,6 +561,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	investigating_container = null
 	target_last_door = null
 	patrol_target_door = null
+	door_route_turf = null
 
 	// Unqueue from idle NPC pool
 	SSidlenpcpool.remove_from_culling(src)
@@ -2317,6 +2328,10 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	if(!target)
 		return 0
 
+	// Committed to a door found by route_through_door(): keep going until it is open, instead of
+	// walking back toward the target and getting stuck again
+	if(follow_door_route())
+		return 1
 	// The target hid inside a container we can see. The aggro-range rule below counts them as visible, so the
 	// mob would otherwise walk up to the container and stand there without ever opening it.
 	if(dig_out_hidden_target())
@@ -4598,12 +4613,53 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	if(AIStatus == AI_IDLE || AIStatus == AI_Z_OFF)
 		toggle_ai(AI_ON)
 	
+	last_combat_sound = world.time
+
+	// Already fighting something else: a visible shooter can still pull our attention away
+	if(target)
+		if(target != shooter)
+			consider_gunfire_retarget(shot_location, shooter)
+		return
+
+	// A shooter we can see is a target, not just a noise
+	if(isliving(shooter) && stat == CONSCIOUS && !QDELETED(shooter) && can_see(src, shooter, get_effective_vision_range(shooter)) && CanAttack(shooter))
+		if(searching)
+			exit_search_mode(found_target = TRUE)
+		FindTarget(list(shooter), 1, bypass_detection = TRUE)
+		COOLDOWN_RESET(src, sight_shoot_delay)
+		if(target)
+			trigger_chain_alert(shooter)
+			return
+
 	// If we don't have a target, investigate the sound (fuzzed so walls and exact shooter position aren't leaked)
 	if(!target)
 		update_search_destination(get_sound_investigation_spot(shot_location, 2), "gunshot", AI_CONF_GUNSHOT, shooter)
 		if(!searching)
 			enter_search_mode()
 			visible_message(span_warning("[src] perks up at the sound of gunfire!"))
+
+/// Gunfire from a shooter we can see overrides a held target that is another NPC and not yet in melee range
+/mob/living/simple_animal/hostile/proc/consider_gunfire_retarget(turf/shot_location, atom/shooter)
+	if(!isliving(shooter) || QDELETED(shooter) || stat != CONSCIOUS || AIStatus == AI_OFF || client)
+		return
+	remember_fact(AI_FACT_THREAT, shot_location, AI_CONF_GUNSHOT, shooter, "gunshot")
+	if(!COOLDOWN_FINISHED(src, gunfire_retarget_cooldown))
+		return
+	if(ismob(target))
+		var/mob/current_mob = target
+		if(current_mob.ckey)
+			return // already fighting a player
+	if(get_dist(src, target) <= 1)
+		return
+	if(!can_see(src, shooter, get_effective_vision_range(shooter)) || !CanAttack(shooter))
+		return
+	COOLDOWN_START(src, gunfire_retarget_cooldown, gunfire_retarget_delay)
+	ai_debug_log("gunfire_retarget from=[target] to=[shooter]")
+	if(searching)
+		exit_search_mode(found_target = TRUE)
+	GiveTarget(shooter, "gunfire_retarget")
+	COOLDOWN_RESET(src, sight_shoot_delay)
+	trigger_chain_alert(shooter)
 
 // LIGHT DETECTION - detect and investigate light sources in darkness
 /mob/living/simple_animal/hostile/proc/detect_light_source()
@@ -5226,6 +5282,102 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	if(known_doors.len > 20)
 		known_doors.Cut(1, known_doors.len - 20)
 
+/// Whether this mob could open the given door right now (locked and welded doors never open)
+/mob/living/simple_animal/hostile/proc/can_open_door_type(atom/D)
+	if(!can_open_doors)
+		return FALSE
+	if(istype(D, /obj/structure/simple_door))
+		var/obj/structure/simple_door/SD = D
+		return !(SD.padlock && SD.padlock.locked)
+	if(istype(D, /obj/machinery/door/airlock))
+		var/obj/machinery/door/airlock/A = D
+		return can_open_airlocks && !A.locked && !A.welded
+	return istype(D, /obj/machinery/door)
+
+/// The closed door on a turf that this mob could open, if any
+/mob/living/simple_animal/hostile/proc/get_openable_door_at(turf/T)
+	if(!T)
+		return null
+	for(var/obj/structure/simple_door/SD in T)
+		if(SD.density && can_open_door_type(SD))
+			return SD
+	for(var/obj/machinery/door/D in T)
+		if(D.density && can_open_door_type(D))
+			return D
+	return null
+
+/// Plans a route to the target that treats openable doors as passable, then heads for the first closed door on it.
+/// Walking straight at a target behind a table or counter never reaches the door, so the mob would just stand there.
+/// Returns TRUE if the mob is now heading for (or opening) a door.
+/mob/living/simple_animal/hostile/proc/route_through_door()
+	if(!target || !can_open_doors || !COOLDOWN_FINISHED(src, door_route_cooldown))
+		return FALSE
+	COOLDOWN_START(src, door_route_cooldown, 20)
+
+	var/turf/goal = get_turf(target)
+	var/turf/here = get_turf(src)
+	if(!goal || !here || goal.z != here.z)
+		return FALSE
+
+	var/list/route = AStar(src, goal, TYPE_PROC_REF(/turf, Distance_cardinal), 30, 30, 1, TYPE_PROC_REF(/turf, ai_door_reachable_test))
+	if(!route || !route.len)
+		return FALSE
+
+	for(var/turf/step_turf in route)
+		var/atom/door = get_openable_door_at(step_turf)
+		if(!door)
+			continue
+		door_route_turf = step_turf
+		door_route_until = world.time + 80
+		ai_debug_log("door_route door=[door] at=[step_turf.x],[step_turf.y] dist=[get_dist(src, step_turf)]")
+		return follow_door_route()
+	return FALSE
+
+/// Keeps walking to the door chosen by route_through_door() and opens it. Returns TRUE while it is handling the turn.
+/mob/living/simple_animal/hostile/proc/follow_door_route()
+	if(!door_route_turf)
+		return FALSE
+	if(world.time > door_route_until || !target)
+		door_route_turf = null
+		return FALSE
+	var/atom/door = get_openable_door_at(door_route_turf)
+	if(!door)
+		// Already open (or gone): carry on with the normal chase
+		door_route_turf = null
+		return FALSE
+	if(get_dist(src, door_route_turf) <= 1)
+		walk(src, 0)
+		var/door_dir = get_dir(src, door_route_turf)
+		if(door_dir)
+			setDir(door_dir)
+		try_open_door(door)
+		return TRUE
+	Goto(door_route_turf, move_to_delay, 1)
+	return TRUE
+
+/// A* adjacency test that lets a mob plan through closed doors it can open; any other dense object blocks
+/turf/proc/ai_door_reachable_test(caller, turf/T, ID, simulated_only)
+	if(!T || T.density)
+		return FALSE
+	if(simulated_only && SSpathfinder.space_type_cache[T.type])
+		return FALSE
+	var/mob/living/simple_animal/hostile/H = caller
+	var/adir = get_dir(src, T)
+	var/rdir = turn(adir, 180)
+	for(var/obj/structure/window/W in src)
+		if(!W.CanAStarPass(ID, adir))
+			return FALSE
+	for(var/obj/O in T)
+		if(!O.density)
+			continue
+		if(istype(O, /obj/structure/simple_door) || istype(O, /obj/machinery/door/airlock) || istype(O, /obj/machinery/door))
+			if(istype(H) && H.can_open_door_type(O))
+				continue
+			return FALSE
+		if(!O.CanAStarPass(ID, rdir, caller))
+			return FALSE
+	return TRUE
+
 // Try alternate paths using door memory
 /mob/living/simple_animal/hostile/proc/try_alternate_path()
 	if(!target || !can_open_doors)
@@ -5403,6 +5555,10 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 		
 		if(opened_something)
 			// Give the door time to open
+			return
+
+		// PRIORITY 1.5: A door further along the real route to the target (the straight line is blocked by a table, etc.)
+		if(route_through_door())
 			return
 	
 	// PRIORITY 2: Try alternate paths using door memory
