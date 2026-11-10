@@ -2409,7 +2409,12 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 			var/approach_distance = mixed_charge ? 1 : minimum_distance
 			// Stop moving once adjacent don't push into the target tile (causes oscillation)
 			if(target.Adjacent(src))
-				walk(src, 0)
+				// Keep tracking at melee range instead of cancelling the walk: walk_to idles inside approach_distance
+				// and resumes by itself when the target steps away, rather than waiting up to a full AI tick.
+				if(approach_distance >= 1 && CHECK_BITFIELD(mobility_flags, MOBILITY_MOVE))
+					Goto(target, move_to_delay, approach_distance)
+				else
+					walk(src, 0)
 				// Face the target now that we've stopped to attack
 				var/face_dir = get_dir(src, target)
 				if(face_dir)
@@ -5165,7 +5170,9 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	var/effective_combat_mode = combat_mode ? combat_mode : COMBAT_MODE_MELEE
 	if(effective_combat_mode != COMBAT_MODE_MELEE && effective_combat_mode != COMBAT_MODE_MIXED)
 		return
-	walk(src, 0)
+	// Keep the follow loop running when it idles at melee range; a minimum_distance of 0 would push into the target
+	if(combat_mode != COMBAT_MODE_MIXED && minimum_distance < 1)
+		walk(src, 0)
 	var/face_dir = get_dir(src, target)
 	if(face_dir)
 		setDir(face_dir)
