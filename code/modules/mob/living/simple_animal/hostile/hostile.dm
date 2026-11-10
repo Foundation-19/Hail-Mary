@@ -3169,7 +3169,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	// Z-pursuit check
 	if(target && can_z_move && isliving(target))
 		var/mob/living/L = target
-		if(L.z != z)
+		if(z_of(L) != z)
 			remembered_target = L
 			last_target_sighting = world.time
 			last_known_location = get_turf(L)
