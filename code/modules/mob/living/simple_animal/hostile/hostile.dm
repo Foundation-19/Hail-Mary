@@ -563,10 +563,49 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	patrol_target_door = null
 	door_route_turf = null
 
+	// Other hostiles remember, cache and key this mob in their own lists, which keeps it from being collected
+	for(var/list/status_list in GLOB.simple_animals)
+		for(var/mob/living/simple_animal/hostile/other in status_list)
+			if(other != src)
+				other.forget_reference(src)
+
 	// Unqueue from idle NPC pool
 	SSidlenpcpool.remove_from_culling(src)
 	
 	return ..()
+
+/// Drops every non-weak reference this mob holds to a deleted atom
+/mob/living/simple_animal/hostile/proc/forget_reference(atom/gone)
+	if(remembered_target == gone)
+		remembered_target = null
+	if(search_move_goal == gone)
+		search_move_goal = null
+	if(search_look_near == gone)
+		search_look_near = null
+	if(ai_intent_target == gone)
+		ai_intent_target = null
+	if(z_pursuit_structure == gone)
+		z_pursuit_structure = null
+	if(recently_opened_door == gone)
+		recently_opened_door = null
+	if(investigating_container == gone)
+		investigating_container = null
+	if(target_last_door == gone)
+		target_last_door = null
+	if(patrol_target_door == gone)
+		patrol_target_door = null
+	if(cached_targets)
+		cached_targets -= gone
+	if(detection_timers)
+		detection_timers -= gone
+	if(friends)
+		friends -= gone
+	if(foes)
+		foes -= gone
+	if(recent_thrown_items)
+		recent_thrown_items -= gone
+	if(recent_light_shots)
+		recent_light_shots -= gone
 
 /mob/living/simple_animal/hostile/BiologicalLife(seconds, times_fired)
 	if(!CHECK_BITFIELD(mobility_flags, MOBILITY_MOVE))

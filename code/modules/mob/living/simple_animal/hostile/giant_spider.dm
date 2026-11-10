@@ -80,8 +80,8 @@
 			if(ability.ranged_ability_user == src)
 				ability.ranged_ability_user = null
 			if(ability.action)
-				if(ability.action.owner == src)
-					ability.action.owner = null
+				// Remove() also drops the action from our action list and HUD, which would otherwise keep it and the ability alive
+				ability.action.Remove(src)
 			qdel(ability)
 
 	// Clear lay_web action (datum/action/innate - not in abilities list)
@@ -523,10 +523,6 @@
 	action_icon = 'icons/mob/actions/actions_animal.dmi'
 	action_icon_state = "wrap_0"
 	action_background_icon_state = "bg_alien"
-
-/obj/effect/proc_holder/wrap/Initialize()
-	. = ..()
-	action = new(src)
 
 /obj/effect/proc_holder/wrap/Destroy()
 	// action was created in Initialize() - qdel it explicitly to prevent leak
