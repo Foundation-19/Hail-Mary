@@ -395,6 +395,14 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	var/retreat_stalled_ticks = 0
 	/// While world.time is below this, a cornered retreater holds ground and fights instead of kiting
 	var/retreat_hold_until = 0
+	/// When this ranged mob's shot to its target first became blocked (0 while it has a shot)
+	var/ranged_stalled_since = 0
+	/// Last time the shot check ran, so a stale stall from an earlier fight is discarded
+	var/ranged_stalled_checked = 0
+	/// Tile a ranged mob is repositioning to because its current one has no shot
+	var/turf/ranged_push_goal = null
+	/// Earliest time the repositioning tile may be re-picked
+	var/ranged_push_next = 0
 	/// How many alternate path attempts have we made?
 	var/path_attempts = 0
 	/// Maximum path attempts before smashing
@@ -1982,6 +1990,14 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 #define RETREAT_STALL_LIMIT 3
 /// How long a cornered kiter holds ground and fights
 #define RETREAT_HOLD_DURATION 60
+/// A ranged mob with no shot this long repositions instead of holding its range
+#define RANGED_PUSH_DELAY 20
+/// How long a repositioning tile stays chosen before it is re-evaluated
+#define RANGED_PUSH_REPICK 15
+/// Radius searched for a tile with a shot at the target
+#define RANGED_PUSH_SCAN 5
+/// A shot check older than this means the stall belongs to an earlier fight
+#define RANGED_STALL_STALE 30
 
 /// Records a kiting decision. Returns TRUE if the mob is cornered and should hold ground instead.
 /mob/living/simple_animal/hostile/proc/note_retreat_step(mode)
@@ -2285,12 +2301,17 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	if(has_los)
 		var/intent = ai_decide_intent(target_distance)
 
+		// Mixed mobs shoot while closing the gap, then fight in melee. They never hold a standoff range.
+		var/mixed_charge = (combat_mode == COMBAT_MODE_MIXED)
+
 		// RANGED ATTACK
 		// Allow shooting even when adjacent if we can't maintain proper distance (tight spaces)
 		var/can_shoot = FALSE
 		if(ranged && ranged_cooldown <= world.time)
 			if(!target.Adjacent(targets_from))
 				can_shoot = TRUE // Normal case: not adjacent
+			else if(mixed_charge)
+				can_shoot = FALSE // Adjacent: swing instead of throwing
 			else if(retreat_distance != null && target_distance < retreat_distance)
 				// We want to retreat but target is adjacent - shoot anyway (cornered)
 				can_shoot = TRUE
@@ -2305,8 +2326,9 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 			if(QDELETED(src) || QDELETED(target))
 				return 0
 			if(!fired || is_shot_blocked(target))
-				// A declined shot sidesteps to an angle that works, whatever the mob's usual kiting range
-				if(ai_shot_declined || (retreat_distance != null && abs(target_distance - retreat_distance) <= 2))
+				// A declined shot sidesteps to an angle that works, whatever the mob's usual kiting range.
+				// A charging mixed mob just keeps closing in instead.
+				if(!mixed_charge && (ai_shot_declined || (retreat_distance != null && abs(target_distance - retreat_distance) <= 2)))
 					var/turf/better_position = find_firing_position(target)
 					if(better_position)
 						ai_debug_log("sidestep declined=[ai_shot_declined] to=[better_position.x],[better_position.y]")
@@ -2315,7 +2337,30 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 
 		// MOVEMENT
 		var/intent_moved = ai_run_intent_movement(intent)
-		if(!intent_moved && retreat_distance != null)
+
+		// COVER PUSH: range is a band to fight from, not a spot to hold. A ranged mob with no shot (target in cover)
+		// has to move to a tile that has one instead of standing at its kiting distance.
+		var/push_needed = FALSE
+		if(ranged && !ckey && !mixed_charge && !target.Adjacent(targets_from))
+			var/turf/shot_from = get_turf(targets_from)
+			var/turf/shot_to = get_turf(target)
+			var/has_shot = shot_from && shot_to && shot_is_clear(shot_from, shot_to) && (target_distance <= 2 || can_see(src, target, get_effective_vision_range(target)))
+			if(world.time - ranged_stalled_checked > RANGED_STALL_STALE)
+				ranged_stalled_since = 0
+			ranged_stalled_checked = world.time
+			if(has_shot)
+				ranged_stalled_since = 0
+				ranged_push_goal = null
+			else
+				if(!ranged_stalled_since)
+					ranged_stalled_since = world.time
+				push_needed = (world.time - ranged_stalled_since) >= RANGED_PUSH_DELAY
+		else
+			ranged_stalled_since = 0
+		if(!intent_moved && push_needed && CHECK_BITFIELD(mobility_flags, MOBILITY_MOVE))
+			intent_moved = ai_push_for_shot()
+
+		if(!intent_moved && retreat_distance != null && !mixed_charge)
 			if(world.time < retreat_hold_until)
 				// Cornered: stop flip-flopping and fight from here (shooting happens above)
 				walk(src, 0)
@@ -2343,6 +2388,8 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 			else
 				walk(src, 0)
 		else if(!intent_moved) {
+			// Charging mixed mobs close to melee range; minimum_distance would park them out of reach
+			var/approach_distance = mixed_charge ? 1 : minimum_distance
 			// Stop moving once adjacent don't push into the target tile (causes oscillation)
 			if(target.Adjacent(src))
 				walk(src, 0)
@@ -2350,7 +2397,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 				var/face_dir = get_dir(src, target)
 				if(face_dir)
 					setDir(face_dir)
-			else if(target_distance > minimum_distance)
+			else if(target_distance > approach_distance)
 				// ALLY FLANKING: if the next tile toward the target holds a dense ally,
 				// route around them instead of piling up.
 				var/turf/next_tile = get_step(get_turf(src), get_dir(src, target))
@@ -2365,9 +2412,9 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 					if(flank_tile)
 						Goto(flank_tile, move_to_delay, 0)
 					else
-						Goto(target, move_to_delay, minimum_distance)
+						Goto(target, move_to_delay, approach_distance)
 				else
-					Goto(target, move_to_delay, minimum_distance)
+					Goto(target, move_to_delay, approach_distance)
 			else
 				walk(src, 0)
 		}
@@ -4800,6 +4847,61 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	
 	return null
 
+/// Moves a ranged mob that has no shot toward a tile that does. Returns TRUE if it issued movement.
+/mob/living/simple_animal/hostile/proc/ai_push_for_shot()
+	if(!target)
+		return FALSE
+	var/turf/target_turf = get_turf(target)
+	var/turf/here = get_turf(src)
+	if(ranged_push_goal && (here == ranged_push_goal || world.time >= ranged_push_next || !shot_is_clear(ranged_push_goal, target_turf)))
+		ranged_push_goal = null
+	if(!ranged_push_goal)
+		ranged_push_goal = find_flank_firing_position(target)
+		ranged_push_next = world.time + RANGED_PUSH_REPICK
+		ai_debug_log("ranged_push goal=[ranged_push_goal ? "[ranged_push_goal.x],[ranged_push_goal.y]" : "none"] dist=[get_dist(src, target)]")
+	if(ranged_push_goal)
+		Goto(ranged_push_goal, move_to_delay, 0)
+		return TRUE
+	// Nothing nearby sees the target: close in and let pathing carry the mob around the cover
+	if(get_dist(src, target) > 2)
+		Goto(target, move_to_delay, 2)
+		return TRUE
+	return FALSE
+
+/// A reachable tile from which the target can be shot, preferring the mob's usual fighting band and the shortest trip.
+/// Candidates must be in a straight clear line from the mob, so the walk there never needs a detour through walls.
+/mob/living/simple_animal/hostile/proc/find_flank_firing_position(atom/threat)
+	var/turf/my_turf = get_turf(src)
+	var/turf/threat_turf = get_turf(threat)
+	if(!my_turf || !threat_turf || my_turf.z != threat_turf.z)
+		return null
+	var/preferred = isnull(retreat_distance) ? 3 : retreat_distance + 1
+	var/max_threat_dist = max(preferred + 3, 7)
+	var/turf/best
+	var/best_cost = INFINITY
+	for(var/turf/T in range(RANGED_PUSH_SCAN, my_turf))
+		if(T == my_turf || T.density)
+			continue
+		var/threat_dist = get_dist(T, threat_turf)
+		if(threat_dist < 2 || threat_dist > max_threat_dist)
+			continue
+		var/occupied = FALSE
+		for(var/atom/movable/A in T)
+			if(A.density)
+				occupied = TRUE
+				break
+		if(occupied)
+			continue
+		if(!shot_is_clear(T, threat_turf) || !shot_is_clear(my_turf, T))
+			continue
+		if(action_suppressed(AI_ACTION_SHOT, lane_key(T, threat_turf), probe = FALSE))
+			continue
+		var/cost = get_dist(my_turf, T) + abs(threat_dist - preferred) * 0.5
+		if(cost < best_cost)
+			best_cost = cost
+			best = T
+	return best
+
 /mob/living/simple_animal/hostile/proc/OpenFire(atom/A)
 	// CRITICAL: Check if we actually have line of sight before shooting
 	// Exception: Allow close-range shooting (within 2 tiles) even without perfect LOS
@@ -4999,7 +5101,10 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	
 	if(!.) // Move failed
 		return FALSE
-	
+
+	if(target && AIStatus == AI_ON && !client && get_dist(src, target) <= 1)
+		INVOKE_ASYNC(src, PROC_REF(melee_on_arrival))
+
 	// IMMEDIATE LADDER CLIMBING
 	if(can_climb_ladders && pursuing_z_target && target && target.z != z && !client)
 		if((world.time - last_successful_z_move) < z_move_success_cooldown)
@@ -5030,6 +5135,26 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 				record_z_level_change()
 				consecutive_stair_steps = 0
 				return TRUE
+
+/// The AI only decides once per SSnpcpool tick, so a melee mob that walks up between ticks would stand next to its
+/// target for up to a second before swinging. Strike on arrival instead; melee_cooldown keeps the attack rate unchanged.
+/mob/living/simple_animal/hostile/proc/melee_on_arrival()
+	if(QDELETED(src) || QDELETED(target) || stat != CONSCIOUS || AIStatus != AI_ON || searching || (retreat_distance != null && combat_mode != COMBAT_MODE_MIXED))
+		return
+	if(COOLDOWN_TIMELEFT(src, melee_cooldown) || !targets_from || !isturf(targets_from.loc) || target.z != z || !target.Adjacent(targets_from))
+		return
+	if(incapacitated() || !CHECK_BITFIELD(mobility_flags, MOBILITY_MOVE) || !CanAttack(target))
+		return
+	var/effective_combat_mode = combat_mode ? combat_mode : COMBAT_MODE_MELEE
+	if(effective_combat_mode != COMBAT_MODE_MELEE && effective_combat_mode != COMBAT_MODE_MIXED)
+		return
+	walk(src, 0)
+	var/face_dir = get_dir(src, target)
+	if(face_dir)
+		setDir(face_dir)
+	COOLDOWN_START(src, melee_cooldown, melee_attack_cooldown)
+	ai_debug_log("melee_on_arrival target=[target]")
+	MeleeAction()
 
 /mob/living/simple_animal/hostile/proc/dodge(moving_to,move_direction)
 	//Assuming we move towards the target we want to swerve toward them to get closer

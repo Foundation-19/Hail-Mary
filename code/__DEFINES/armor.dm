@@ -922,18 +922,18 @@
 
 /* Cazador armor
  * Flying insect - weak armor, relies on speed
- * Low protection overall
+ * Low protection overall, and extra vulnerable to fire
  * Very low DT
  * * * * * * * * * * * */
 #define ARMOR_VALUE_CAZADOR list(\
-		"melee" = 10, \
+		"melee" = 0, \
 		"bullet" = 5, \
 		"laser" = 5, \
 		"energy" = 5, \
 		"bomb" = 0, \
 		"bio" = 0, \
 		"rad" = 0, \
-		"fire" = 0, \
+		"fire" = -50, \
 		"acid" = 10, \
 		"wound" = 0, \
 		"damage_threshold" = 2)

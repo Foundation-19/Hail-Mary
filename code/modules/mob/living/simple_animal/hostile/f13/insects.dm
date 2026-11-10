@@ -495,6 +495,13 @@
 // CAZADOR //
 /////////////
 
+/// A single burn hit this strong crisps a cazador's wings
+#define CAZADOR_SINGE_THRESHOLD 8
+/// How long a cazador stays grounded after its wings are burned
+#define CAZADOR_SINGE_DURATION (6 SECONDS)
+/// Added to its speed var while grounded (higher is slower)
+#define CAZADOR_SINGE_SLOWDOWN 1
+
 // BASE CAZADOR - flying venomous terror
 /mob/living/simple_animal/hostile/cazador
 	name = "cazador"
@@ -577,6 +584,50 @@
 	retreat_distance = null
 	minimum_distance = 1
 
+	/// Burning a cazador's wings grounds it: it can't dodge shots and is slowed until it recovers
+	var/wings_singed = FALSE
+	var/wings_singed_timer_id
+
+/mob/living/simple_animal/hostile/cazador/examine(mob/user)
+	. = ..()
+	if(wings_singed)
+		. += span_warning("Its wings are scorched and it can't fly straight, buzzing furiously along the ground!")
+	// Experience gates the hints: this is wasteland folk knowledge, not a stat sheet
+	if(isliving(user))
+		var/mob/living/L = user
+		if(L.special_p >= 7)
+			. += span_notice("Its wings are paper-thin. A burst of fire or a laser would ground it, and it can't dodge anything on the ground.")
+		if(HAS_TRAIT(L, TRAIT_MEDICALEXPERT) || HAS_TRAIT(L, TRAIT_MEDICALGRADUATE) || HAS_TRAIT(L, TRAIT_CHEMWHIZ))
+			. += span_notice("You recognize the venom type. Each sting leaves more of it behind, and it turns lethal once enough builds up. Flush it out early.")
+
+/// Burn damage that crisps the wings. Ground-bound cazadors can't dodge and move slower
+/mob/living/simple_animal/hostile/cazador/adjustFireLoss(amount, updating_health = TRUE, forced = FALSE, include_roboparts = TRUE)
+	. = ..()
+	if(. && stat == CONSCIOUS && (. >= CAZADOR_SINGE_THRESHOLD || on_fire))
+		singe_wings()
+
+/mob/living/simple_animal/hostile/cazador/proc/singe_wings()
+	if(!wings_singed)
+		wings_singed = TRUE
+		setMovetype(movement_type & ~FLYING)
+		set_varspeed(initial(speed) + CAZADOR_SINGE_SLOWDOWN)
+		move_to_delay = initial(move_to_delay) * 1.5
+		visible_message(span_danger("[src]'s wings crisp and it drops to the ground, buzzing in a rage!"))
+	deltimer(wings_singed_timer_id)
+	wings_singed_timer_id = addtimer(CALLBACK(src, PROC_REF(recover_wings)), CAZADOR_SINGE_DURATION, TIMER_STOPPABLE)
+
+/mob/living/simple_animal/hostile/cazador/proc/recover_wings()
+	wings_singed_timer_id = null
+	if(!wings_singed || QDELETED(src))
+		return
+	wings_singed = FALSE
+	if(stat == DEAD)
+		return
+	setMovetype(initial(movement_type))
+	set_varspeed(initial(speed))
+	move_to_delay = initial(move_to_delay)
+	visible_message(span_warning("[src] shakes off the singe and takes to the air again!"))
+
 /mob/living/simple_animal/hostile/cazador/Aggro()
 	. = ..()
 	if(.)
@@ -603,7 +654,7 @@
 /mob/living/simple_animal/hostile/cazador/bullet_act(obj/item/projectile/Proj)
 	if(!Proj)
 		return
-	if(prob(50))
+	if(!wings_singed && prob(50))
 		visible_message(span_danger("[src] dodges [Proj]!"))
 		return BULLET_ACT_FORCE_PIERCE
 	return ..()
