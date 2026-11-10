@@ -3220,6 +3220,49 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	LoseAggro()
 
 // Z-LEVEL PURSUIT SYSTEM
+/// Stairs, ladders or openspace this mob can use to reach another level. Looks within sight first, then anywhere on the
+/// level, so a mob that wandered or fell far from the stairs can still find its way back.
+/mob/living/simple_animal/hostile/proc/find_z_transition_structures(went_up)
+	var/list/found = list()
+	if(went_up)
+		// Use range() instead of view() so walls don't hide interior stairs/ladders
+		if(can_climb_stairs)
+			for(var/obj/structure/stairs/S in range(vision_range, src))
+				if(S.isTerminator())
+					found += S
+		if(can_climb_ladders)
+			for(var/obj/structure/ladder/LD in range(vision_range, src))
+				if(LD.up)
+					found += LD
+	else
+		if(can_jump_down)
+			var/turf/our_turf = get_turf(src)
+			if(istype(our_turf, /turf/open/transparent/openspace))
+				found += our_turf
+			for(var/turf/open/transparent/openspace/OS in view(vision_range, src))
+				found += OS
+		if(can_climb_ladders)
+			for(var/obj/structure/ladder/LD in view(vision_range, src))
+				if(LD.down)
+					found += LD
+	if(found.len)
+		return found
+
+	if(went_up)
+		if(can_climb_stairs)
+			for(var/obj/structure/stairs/S as anything in GLOB.stairs)
+				if(S.z == z && S.isTerminator())
+					found += S
+		if(can_climb_ladders)
+			for(var/obj/structure/ladder/unbreakable/LD as anything in GLOB.ladders)
+				if(LD.z == z && LD.up)
+					found += LD
+	else if(can_climb_ladders)
+		for(var/obj/structure/ladder/unbreakable/LD as anything in GLOB.ladders)
+			if(LD.z == z && LD.down)
+				found += LD
+	return found
+
 // This proc handles mobs chasing targets up/down stairs and ladders
 // Called when target is on a different Z-level than the mob
 /mob/living/simple_animal/hostile/proc/attempt_z_pursuit()
@@ -3246,11 +3289,12 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 		z_pursuit_structure = null
 		return FALSE
 	
-	var/went_up = (L.z > z)
-	var/went_down = (L.z < z)
+	var/target_z_now = z_of(L)
+	var/went_up = (target_z_now > z)
+	var/went_down = (target_z_now < z)
 	
 	// Don't pursue if target is on same Z (prevents loop when they just climbed)
-	if(L.z == z)
+	if(target_z_now == z)
 		pursuing_z_target = FALSE
 		z_pursuit_structure = null
 		return FALSE
@@ -3299,45 +3343,15 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 			return pursuing_z_target  // Return current state
 	
 	last_z_move_attempt = world.time
-	target_last_z = L.z
+	target_last_z = target_z_now
 	
 	if(!went_up && !went_down)
 		pursuing_z_target = FALSE
 		z_pursuit_structure = null
 		return FALSE
 	
-	// STEP 4: Find Z-level transition structures (stairs, ladders, openspace)
-	// Only include structures we're actually allowed to use
-	var/list/z_structures = list()
-	
-	if(went_up)
-		// Target went UP - look for stairs and ladders going up
-		// Use range() instead of view() so walls don't hide interior stairs/ladders
-		if(can_climb_stairs)
-			for(var/obj/structure/stairs/S in range(vision_range, src))
-				if(S.isTerminator())
-					z_structures += S
-		
-		if(can_climb_ladders)
-			for(var/obj/structure/ladder/LD in range(vision_range, src))
-				if(LD.up)
-					z_structures += LD
-	
-	else if(went_down)
-		// Target went DOWN - look for openspace and ladders going down
-		if(can_jump_down)
-			var/turf/our_turf = get_turf(src)
-			
-			if(istype(our_turf, /turf/open/transparent/openspace))
-				z_structures += our_turf
-			
-			for(var/turf/open/transparent/openspace/OS in view(vision_range, src))
-				z_structures += OS
-		
-		if(can_climb_ladders)
-			for(var/obj/structure/ladder/LD in view(vision_range, src))
-				if(LD.down)
-					z_structures += LD
+	// STEP 4: Find Z-level transition structures (stairs, ladders, openspace) we are allowed to use
+	var/list/z_structures = find_z_transition_structures(went_up)
 	
 	if(!z_structures.len)
 		pursuing_z_target = FALSE
@@ -3739,7 +3753,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 		// Case 1: Remembered target is currently on a different Z level (followed stairs)
 		if(remembered_target && !QDELETED(remembered_target) && isliving(remembered_target))
 			var/mob/living/RT = remembered_target
-			if(RT.stat != DEAD && RT.z != z)
+			if(RT.stat != DEAD && z_of(RT) != z)
 				GiveTarget(RT)
 				is_alpha_alerter = FALSE
 				if(attempt_z_pursuit())
@@ -3749,24 +3763,7 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 		// (heard combat sounds from above/below).  Navigate directly to nearest staircase/ladder.
 		else if(!remembered_target && last_known_location && last_known_location.z != z)
 			var/went_up = (last_known_location.z > z)
-			var/list/z_structures = list()
-			if(went_up)
-				if(can_climb_stairs)
-					for(var/obj/structure/stairs/S in range(vision_range, src))
-						if(S.isTerminator())
-							z_structures += S
-				if(can_climb_ladders)
-					for(var/obj/structure/ladder/LD in range(vision_range, src))
-						if(LD.up)
-							z_structures += LD
-			else
-				if(can_jump_down)
-					for(var/turf/open/transparent/openspace/OS in view(vision_range, src))
-						z_structures += OS
-				if(can_climb_ladders)
-					for(var/obj/structure/ladder/LD in view(vision_range, src))
-						if(LD.down)
-							z_structures += LD
+			var/list/z_structures = find_z_transition_structures(went_up)
 			if(z_structures.len)
 				var/atom/nearest = get_closest_atom(/atom, z_structures, src)
 				var/dist_to_structure = get_dist(src, nearest)
