@@ -381,6 +381,8 @@
 #define AI_IDLE		2
 #define AI_OFF		3
 #define AI_Z_OFF	4
+/// When a client first enters a z-level, dormant hostiles farther than this wake straight to AI_IDLE instead of AI_ON
+#define HOSTILE_Z_ENTRY_WAKE_RANGE 14
 
 //determines if a mob can smash through it
 #define ENVIRONMENT_SMASH_NONE			0

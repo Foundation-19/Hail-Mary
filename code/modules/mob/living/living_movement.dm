@@ -155,7 +155,12 @@
 				for (var/I in length(SSidlenpcpool.idle_mobs_by_zlevel[new_z]) to 1 step -1) //Backwards loop because we're removing (guarantees optimal rather than worst-case performance), it's fine to use .len here but doesn't compile on 511
 					var/mob/living/simple_animal/SA = SSidlenpcpool.idle_mobs_by_zlevel[new_z][I]
 					if (SA)
-						SA.toggle_ai(AI_ON) // Guarantees responsiveness for when appearing right next to mobs
+						// Waking every dormant hostile on the z at once (1000+ on a fresh round) swamps the AI loop; only nearby ones need
+						// full AI right now, the rest go idle and wake through consider_wakeup() as the player approaches.
+						if (ishostile(SA) && get_dist(SA, src) > HOSTILE_Z_ENTRY_WAKE_RANGE)
+							SA.toggle_ai(AI_IDLE)
+						else
+							SA.toggle_ai(AI_ON) // Guarantees responsiveness for when appearing right next to mobs
 					else
 						SSidlenpcpool.idle_mobs_by_zlevel[new_z] -= SA
 
