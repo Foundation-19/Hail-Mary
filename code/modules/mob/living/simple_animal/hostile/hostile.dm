@@ -453,6 +453,12 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	roll_affix()
 	roll_ai_personality()
 
+	// Nobody is on this z yet (map load, pre-round): start dormant instead of making 1000+ mobs run their first AI pass at round start.
+	// update_z() wakes them when a player arrives.
+	var/turf/start_turf = get_turf(src)
+	if(AIStatus == AI_ON && !client && start_turf && !length(SSmobs.clients_by_zlevel[start_turf.z]))
+		toggle_ai(AI_Z_OFF)
+
 	if(!targets_from)
 		targets_from = src
 	wanted_objects = typecacheof(wanted_objects)
