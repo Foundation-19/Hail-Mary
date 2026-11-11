@@ -56,6 +56,14 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 	..()
 	return QDEL_HINT_HARDDEL_NOW
 
+/// Records who the MC was last running and which subsystems are costliest, so DEFCON drops can be attributed after the fact.
+/datum/controller/failsafe/proc/log_stall_context()
+	var/list/costly = list()
+	for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
+		if(SS.cost >= 20)
+			costly += "[SS.name]=[round(SS.cost, 1)]ms(tick_overrun=[round(SS.tick_overrun, 0.1)])"
+	log_game("FailSafe: MC stalled (DEFCON [defcon_pretty()], iteration [Master.iteration]). last_processed=[Master.last_type_processed || "none"] cpu=[round(world.cpu, 1)] tick_usage=[round(world.tick_usage, 1)] clients=[length(GLOB.clients)] ai_on=[length(GLOB.simple_animals[AI_ON])] ai_idle=[length(GLOB.simple_animals[AI_IDLE])] costly_ss=[costly.Join(", ")]")
+
 /datum/controller/failsafe/proc/Loop()
 	while(running)
 		lasttick = world.time
@@ -78,6 +86,7 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 						to_chat(GLOB.admins, span_boldannounce("ERROR: DEFCON [defcon_pretty()]. Could not restart MC, runtime encountered. I will silently keep retrying."))
 				// Check if processing is done yet.
 				if(Master.iteration == master_iteration)
+					log_stall_context()
 					switch(defcon)
 						if(4,5)
 							--defcon

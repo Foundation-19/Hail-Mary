@@ -29,6 +29,7 @@ SUBSYSTEM_DEF(garbage)
 	var/delslasttick = 0 // number of del()'s we've done this tick
 	var/gcedlasttick = 0 // number of things that gc'ed last tick
 	var/totaldels = 0
+	var/next_qdel_snapshot = 0
 	var/totalgcs = 0
 
 	var/highest_del_ms = 0
@@ -85,8 +86,12 @@ SUBSYSTEM_DEF(garbage)
 	return ..()
 
 /datum/controller/subsystem/garbage/Shutdown()
+	write_qdel_snapshot("shutdown")
+
+/// Dumps cumulative per-type qdel stats. Also called periodically, since a failsafe restart or crash skips Shutdown.
+/datum/controller/subsystem/garbage/proc/write_qdel_snapshot(reason)
 	//Adds the del() log to the qdel log file
-	var/list/dellog = list()
+	var/list/dellog = list("===== qdel snapshot ([reason]) at [time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")], world.time [world.time], totaldels [totaldels], totalgcs [totalgcs] =====")
 
 	//sort by how long it's wasted hard deleting
 	sortTim(items, cmp=/proc/cmp_qdel_item_time, associative = TRUE)
@@ -116,6 +121,9 @@ SUBSYSTEM_DEF(garbage)
 	log_qdel(dellog.Join("\n"))
 
 /datum/controller/subsystem/garbage/fire()
+	if(world.time >= next_qdel_snapshot)
+		next_qdel_snapshot = world.time + 5 MINUTES
+		write_qdel_snapshot("periodic")
 	//the fact that this resets its processing each fire (rather then resume where it left off) is intentional.
 	var/queue = GC_QUEUE_FILTER
 
