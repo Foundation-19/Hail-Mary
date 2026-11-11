@@ -32,6 +32,7 @@
 	// lookup and as the fog-of-war reveal granularity (see get_revealed_colors()). Never touched
 	// again after New(), unlike the old per-move icon registration this replaced.
 	var/list/chunk_to_color = list()
+	var/icon_samples = 0 //!How many throwaway /icon objects the bake allocated
 
 /datum/minimap/New(z, x1 = 1, y1 = 1, x2 = world.maxx, y2 = world.maxy, name = "minimap")
 	if(!z)
@@ -60,7 +61,7 @@
 	// of them) only ever sample one throwaway /icon instead of allocating one per tile --
 	// doing this per-turf across a whole map was enough new /icon objects to crash the server.
 	var/list/turf_color_cache = list()
-
+	var/bake_start = REALTIMEOFDAY
 	for(var/turf/T in block(locate(x1, y1, z_level), locate(x2, y2, z_level)))
 		CHECK_TICK // baking a whole z-level's worth of turfs in one go used to freeze the server at round start
 		var/area/A = T.loc
@@ -106,6 +107,7 @@
 
 	map_icon.Crop(minx, miny, maxx, maxy)
 	meta_icon.Crop(minx, miny, maxx, maxy)
+	log_world("Minimap '[name]' (z[z_level]) baked in [(REALTIMEOFDAY - bake_start) / 10]s using [icon_samples] sampled icons ([length(turf_color_cache)] cached appearances)")
 	overlay_icon = new(map_icon)
 	overlay_icon.Scale(16, 16)
 	//we're done baking, now we ship it.
@@ -124,23 +126,23 @@
 	if(!T.icon_state || T.icon_state == "unknown")
 		return null
 	var/cache_key = "[T.icon]-[T.icon_state]-[T.dir]"
-	. = cache[cache_key]
-	if(.)
-		return
+	if(cache_key in cache) // also covers cached misses, otherwise every blank-centered tile re-allocated an /icon
+		return cache[cache_key]
 	var/icon/I = new(T.icon, T.icon_state, T.dir)
+	icon_samples++
 	// Scaling straight down to 1x1 averages in transparent edge pixels (usually stored as
 	// black), which is what was making most floor tiles read as solid black. Sampling the
 	// center pixel of the unscaled sprite avoids that.
 	var/color = I.GetPixel(max(1, round(I.Width() / 2)), max(1, round(I.Height() / 2)))
-	qdel(I)
+	// Icons are freed by refcount; qdel() would push every one through the GC queue for nothing.
+	I = null
 	if(color)
 		var/r = hex2num(copytext(color, 2, 4))
 		var/g = hex2num(copytext(color, 4, 6))
 		var/b = hex2num(copytext(color, 6, 8))
 		if((r + g + b) < 30) // near-black sample, almost certainly a blank/transparent spot
 			color = null
-	if(color)
-		cache[cache_key] = color
+	cache[cache_key] = color
 	. = color
 
 ///Translates a turf into 0-indexed, north-up pixel coordinates on this minimap's image, or null if it's off this map.

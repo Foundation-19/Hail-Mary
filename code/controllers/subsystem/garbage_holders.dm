@@ -1,7 +1,7 @@
 /// Lightweight reference finder run when an object fails its GC check, so leaks are diagnosable without
 /// compiling in REFERENCE_TRACKING. It only looks at likely holders (global vars, mobs, timers) and is
 /// throttled to one scan per type every few minutes.
-GLOBAL_VAR_INIT(gc_holder_scan_enabled, FALSE)
+GLOBAL_VAR_INIT(gc_holder_scan_enabled, TRUE)
 GLOBAL_VAR_INIT(gc_holder_scan_busy, FALSE)
 GLOBAL_LIST_EMPTY(gc_holder_scan_types)
 
