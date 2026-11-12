@@ -1654,7 +1654,8 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 
 			// SOUND-BASED DETECTION (for targets behind us)
 			var/sound_range = detect_rear_movement(A)
-			if(sound_range > 0 && actual_distance <= sound_range)
+			// CanAttack last: same-faction mobs must not trigger a search, or a group of friendlies keeps hunting each other in circles
+			if(sound_range > 0 && actual_distance <= sound_range && CanAttack(A))
 				// Heard movement! Turn to face the sound source
 				var/face_dir = get_dir(src, A)
 				if(face_dir && face_dir != dir)
