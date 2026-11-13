@@ -2918,6 +2918,7 @@
 #include "code\modules\mob\living\simple_animal\guardian\types\support.dm"
 #include "code\modules\mob\living\simple_animal\hostile\abilities_common.dm"
 #include "code\modules\mob\living\simple_animal\hostile\ai_decision.dm"
+#include "code\modules\mob\living\simple_animal\hostile\ai_doctrine.dm"
 #include "code\modules\mob\living\simple_animal\hostile\ai_memory.dm"
 #include "code\modules\mob\living\simple_animal\hostile\ai_squad.dm"
 #include "code\modules\mob\living\simple_animal\hostile\ai_fault.dm"

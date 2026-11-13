@@ -198,6 +198,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, world.AVerbsDebug())
 	/client/proc/f13_toggle_magic_power,
 	/client/proc/f13_area_power_panel,
 	/client/proc/f13_trace_dump,
+	/client/proc/ai_doctrine_panel,
 	)
 GLOBAL_PROTECT(admin_verbs_debug)
 //GLOBAL_LIST_INIT(admin_verbs_possess, list(GLOBAL_PROC_REF(possess), GLOBAL_PROC_REF(release)))

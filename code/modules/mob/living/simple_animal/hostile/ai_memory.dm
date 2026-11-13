@@ -139,6 +139,7 @@
 	if(stat == DEAD || ckey || !where)
 		return
 	adjust_ai_morale(-AI_MORALE_ALLY_DEATH, "ally_death")
+	ai_seg_allies_lost++
 	remember_fact(AI_FACT_ALLY_DEAD, where, AI_CONF_ALERT, dead_ally, "ally_death")
 	if(target)
 		return

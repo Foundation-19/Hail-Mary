@@ -2077,6 +2077,7 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 		return 1
 	else
 		is_alpha_alerter = FALSE  // Lost target, no longer primary alerter
+		ai_close_segment("target_lost")
 
 /// Targets a mob that is out of sight, such as an event spawn. The last known position is set too, otherwise the
 /// mob stands still until the line of sight timeout runs out.
@@ -4986,6 +4987,7 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 //////////////END HOSTILE MOB TARGETTING AND AGGRESSION////////////
 
 /mob/living/simple_animal/hostile/death(gibbed)
+	ai_close_segment("death", TRUE)
 	LoseTarget("death")
 	broadcast_ally_death()
 	affix_death()

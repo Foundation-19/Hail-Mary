@@ -51,6 +51,39 @@
 #define AI_FLICKER_WINDOW 50
 #define AI_FLICKER_LIMIT 3
 
+// Phase 6a: fast learning (see ai_doctrine.dm)
+/// Intents a doctrine learns weights for: attack, flank, hold, retreat, backup
+#define AI_LEARN_INTENTS 5
+#define AI_CTX_SOLO 1
+#define AI_CTX_PACK 2
+#define AI_CTX_COUNT 2
+/// Segments scored before an intent's value counts toward its weight
+#define AI_DOCTRINE_MIN_SAMPLES 5
+/// How far learning can move a utility weight from 1, up or down
+#define AI_DOCTRINE_MAX_SHIFT 0.25
+/// Weight change per point of reward above the average intent
+#define AI_DOCTRINE_GAIN 0.5
+/// Share of each new result folded into the running value
+#define AI_DOCTRINE_RATE 0.2
+/// Each update fades the value slightly, so old results lose weight
+#define AI_DOCTRINE_DECAY 0.01
+/// Percent chance per decision to try a near-tied intent instead of the best one
+#define AI_EXPLORE_PERCENT 5
+/// An explored intent must score within this much of the best
+#define AI_EXPLORE_MARGIN 0.2
+/// Segments shorter than this many seconds say too little to score
+#define AI_LEARN_MIN_SEGMENT 3
+#define AI_REWARD_HIT 0.6
+/// Landed hits beyond this stop adding reward, so mobs are not trained into finishing fights as fast as possible
+#define AI_REWARD_HIT_CAP 6
+#define AI_REWARD_DAMAGE 1
+#define AI_REWARD_ALLY_LOSS 0.15
+#define AI_REWARD_ALLY_LOSS_CAP 3
+#define AI_REWARD_DEATH 0.5
+/// A segment with no hits dealt or taken costs this much per second, up to the cap
+#define AI_REWARD_STALL_RATE 0.02
+#define AI_REWARD_STALL_CAP 0.2
+
 GLOBAL_VAR_INIT(ai_target_switches, 0)
 GLOBAL_VAR_INIT(ai_target_flickers, 0)
 GLOBAL_LIST_INIT(ai_intent_names, list("attack", "flank", "hold", "retreat", "backup", "investigate"))
@@ -114,11 +147,13 @@ GLOBAL_LIST_INIT(ai_intent_names, list("attack", "flank", "hold", "retreat", "ba
 	if(ckey || stat == DEAD || !ai_decision_enabled)
 		return
 	ai_commit_damage += amount
+	ai_seg_taken += amount
 	ai_hesitate_until = 0
 	if(maxHealth > 0)
 		adjust_ai_morale(-CLAMP(amount / maxHealth, 0, 1) * AI_MORALE_DAMAGE_FACTOR, "damage")
 
 /mob/living/simple_animal/hostile/proc/ai_note_hit_landed()
+	ai_seg_hits++
 	adjust_ai_morale(AI_MORALE_HIT_LANDED, "hit_landed")
 
 /// An enemy projectile landed within a couple of tiles of us without hitting
@@ -141,6 +176,7 @@ GLOBAL_LIST_INIT(ai_intent_names, list("attack", "flank", "hold", "retreat", "ba
 	ai_target_lock_until = world.time + AI_TARGET_LOCK
 	if(old_target)
 		ai_note_target_switch(old_target)
+		ai_close_segment("target_switch")
 	if(fresh_threat)
 		ai_hesitate_until = world.time + round(rand(AI_HESITATE_MIN, AI_HESITATE_MAX) / ai_aggression)
 
@@ -159,9 +195,15 @@ GLOBAL_LIST_INIT(ai_intent_names, list("attack", "flank", "hold", "retreat", "ba
 	ai_debug_log("intent_interrupt intent=[GLOB.ai_intent_names[ai_intent]] reason=[reason]")
 	ai_intent_until = 0
 
-/mob/living/simple_animal/hostile/proc/ai_commit_intent(intent, reason, duration)
-	if(intent != ai_intent)
-		ai_debug_log("intent_chosen intent=[GLOB.ai_intent_names[intent]] was=[ai_intent ? GLOB.ai_intent_names[ai_intent] : "none"] [reason]")
+/mob/living/simple_animal/hostile/proc/ai_commit_intent(intent, reason, duration, learn = TRUE)
+	if(intent != ai_intent || ai_seg_intent == AI_INTENT_NONE)
+		if(intent != ai_intent)
+			ai_debug_log("intent_chosen intent=[GLOB.ai_intent_names[intent]] was=[ai_intent ? GLOB.ai_intent_names[ai_intent] : "none"] [reason]")
+		if(intent != ai_seg_intent)
+			ai_close_segment("intent_change")
+			ai_open_segment(intent, learn)
+	if(!learn)
+		ai_seg_learn = FALSE
 	ai_intent = intent
 	ai_intent_target = target ? WEAKREF(target) : null
 	ai_intent_until = world.time + (duration || rand(AI_COMMIT_MIN, AI_COMMIT_MAX))
@@ -186,7 +228,7 @@ GLOBAL_LIST_INIT(ai_intent_names, list("attack", "flank", "hold", "retreat", "ba
 	// so a stale commit is dropped and it attacks.
 	if(combat_mode == COMBAT_MODE_MIXED && target_distance <= AI_MIXED_ENGAGE_RANGE)
 		if(ai_intent != AI_INTENT_ATTACK || world.time >= ai_intent_until || RESOLVEWEAKREF(ai_intent_target) != target)
-			ai_commit_intent(AI_INTENT_ATTACK, "mixed_engaged dist=[target_distance]")
+			ai_commit_intent(AI_INTENT_ATTACK, "mixed_engaged dist=[target_distance]", learn = FALSE)
 		return AI_INTENT_ATTACK
 
 	if(ai_intent != AI_INTENT_NONE && world.time < ai_intent_until)
@@ -201,7 +243,7 @@ GLOBAL_LIST_INIT(ai_intent_names, list("attack", "flank", "hold", "retreat", "ba
 			return ai_intent
 
 	if(world.time < ai_hesitate_until && target_distance > 2)
-		ai_commit_intent(AI_INTENT_HOLD, "hesitate", ai_hesitate_until - world.time)
+		ai_commit_intent(AI_INTENT_HOLD, "hesitate", ai_hesitate_until - world.time, FALSE)
 		return AI_INTENT_HOLD
 
 	var/hp = maxHealth > 0 ? CLAMP(health / maxHealth, 0, 1) : 1
@@ -278,13 +320,33 @@ GLOBAL_LIST_INIT(ai_intent_names, list("attack", "flank", "hold", "retreat", "ba
 
 	var/list/intents = list(AI_INTENT_ATTACK, AI_INTENT_FLANK, AI_INTENT_HOLD, AI_INTENT_RETREAT, AI_INTENT_BACKUP)
 	var/list/utility = list(attack, flank, hold, retreat, backup)
+
+	// What the type has learned works scales each intent's score. The context keeps lone fights and pack fights apart.
+	ai_decision_ctx = allies_near >= 2 ? AI_CTX_PACK : AI_CTX_SOLO
+	var/datum/ai_doctrine/doctrine = ai_learning_active() ? get_ai_doctrine() : null
+	if(doctrine)
+		for(var/i in 1 to AI_LEARN_INTENTS)
+			utility[i] *= doctrine.get_weight(ai_decision_ctx, intents[i])
+
 	var/chosen = AI_INTENT_ATTACK
 	var/best = -INFINITY
+	var/best_raw = -INFINITY
 	for(var/i in 1 to intents.len)
 		var/u = utility[i] + (intents[i] == ai_intent ? AI_INTENT_STICKINESS : 0)
 		if(u > best)
 			best = u
+			best_raw = utility[i]
 			chosen = intents[i]
+
+	// Now and then try an intent that nearly tied for best, so a weight that drifted down can recover
+	if(doctrine && !GLOB.ai_learning_frozen && prob(AI_EXPLORE_PERCENT))
+		var/list/near = list()
+		for(var/i in 1 to intents.len)
+			if(intents[i] != chosen && utility[i] > 0 && best_raw - utility[i] <= AI_EXPLORE_MARGIN)
+				near += intents[i]
+		if(length(near))
+			chosen = pick(near)
+			ai_debug_log("doctrine_explore intent=[GLOB.ai_intent_names[chosen]]")
 
 	if(chosen == AI_INTENT_FLANK)
 		if(!squad.claim_flank(src, target, ai_flank_tile))
