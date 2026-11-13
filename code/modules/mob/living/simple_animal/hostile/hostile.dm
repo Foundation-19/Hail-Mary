@@ -5520,7 +5520,7 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 		return null
 
 	if(detour_waypoint)
-		if(world.time > detour_until || here == detour_waypoint || get_dist(goal_turf, detour_goal) > 3)
+		if(world.time > detour_until || here == detour_waypoint || get_dist(goal_turf, detour_goal) > 3 || get_dist(here, goal_turf) <= max(minimum_distance, 1))
 			detour_waypoint = null
 			detour_goal = null
 		else
@@ -6041,6 +6041,10 @@ mob/living/simple_animal/hostile/proc/DestroySurroundings() // for use with mega
 		move_to_delay = vary_from_list(variation_list[MOB_VARIED_SPEED])
 	if(LAZYLEN(variation_list[MOB_RETREAT_DISTANCE]))
 		retreat_distance = vary_from_list(variation_list[MOB_RETREAT_DISTANCE])
+		// A non-null retreat_distance makes the mob hold a standoff band (stops RETREAT_DEADZONE tiles out), which a
+		// melee mob rolling 0 or 1 would do 2-3 tiles from the player instead of closing in
+		if(!ranged && !isnull(retreat_distance) && retreat_distance < 2)
+			retreat_distance = null
 	if(LAZYLEN(variation_list[MOB_MINIMUM_DISTANCE]))
 		minimum_distance = vary_from_list(variation_list[MOB_MINIMUM_DISTANCE])
 

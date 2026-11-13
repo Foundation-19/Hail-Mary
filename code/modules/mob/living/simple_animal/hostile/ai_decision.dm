@@ -194,6 +194,9 @@ GLOBAL_LIST_INIT(ai_intent_names, list("attack", "flank", "hold", "retreat", "ba
 			ai_break_commit("target_changed")
 		else if(maxHealth > 0 && ai_commit_damage >= maxHealth * AI_INTERRUPT_DAMAGE)
 			ai_break_commit("heavy_damage")
+		else if(!ranged && target_distance <= 2 && (ai_intent == AI_INTENT_HOLD || ai_intent == AI_INTENT_FLANK))
+			// A melee mob standing still or circling while the target is already on top of it just freezes
+			ai_break_commit("target_close")
 		else
 			return ai_intent
 
