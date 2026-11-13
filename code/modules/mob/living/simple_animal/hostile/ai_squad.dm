@@ -16,6 +16,10 @@
 #define AI_SQUAD_DISPLACE_MARGIN 4
 /// Blackboard threats older than this (deciseconds) are no longer acted on
 #define AI_SQUAD_THREAT_FRESH 300
+/// A blackboard threat further than this many tiles from a mob is not a lead worth walking to
+#define AI_SQUAD_BOARD_RANGE 20
+/// Morale a squadmate loses when a nearby member breaks and falls back
+#define AI_MORALE_SQUAD_FALLBACK 0.05
 #define AI_FLANK_DENY 0
 #define AI_FLANK_FREE 1
 #define AI_FLANK_RENEW 2
@@ -103,6 +107,14 @@ GLOBAL_VAR_INIT(ai_squad_flanks_completed, 0)
 	last_active = world.time
 	if(reporter)
 		reporter.ai_squad_board_read = threat_time
+
+/// A member broke and fell back. Squadmates close enough to see it lose a little nerve, so a pack wavers together
+/// instead of every member deciding on its own.
+/datum/ai_squad/proc/note_fallback(mob/living/simple_animal/hostile/faller)
+	last_active = world.time
+	for(var/mob/living/simple_animal/hostile/M in live_members())
+		if(M != faller && get_dist(M, faller) <= AI_ALLY_RADIUS)
+			M.adjust_ai_morale(-AI_MORALE_SQUAD_FALLBACK, "ally_fell_back")
 
 /datum/ai_squad/proc/claim_is_live(datum/ai_flank_claim/C)
 	if(C.expires < world.time)
@@ -260,7 +272,7 @@ GLOBAL_VAR_INIT(ai_squad_flanks_completed, 0)
 	if(!S || !S.threat_turf || S.threat_time <= ai_squad_board_read)
 		return
 	ai_squad_board_read = S.threat_time
-	if(world.time - S.threat_time > AI_SQUAD_THREAT_FRESH || S.threat_turf.z != z)
+	if(world.time - S.threat_time > AI_SQUAD_THREAT_FRESH || S.threat_turf.z != z || get_dist(src, S.threat_turf) > AI_SQUAD_BOARD_RANGE)
 		return
 	update_search_destination(S.threat_turf, "squad_board", AI_CONF_ALERT)
 

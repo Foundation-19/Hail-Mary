@@ -233,6 +233,9 @@ GLOBAL_LIST_INIT(ai_intent_names, list("attack", "flank", "hold", "retreat", "ba
 		if(L.stat == CONSCIOUS)
 			threats++
 	threats = max(threats, 1)
+	// A mob that has wandered away from its pack stops counting toward the pack's flank slots and blackboard
+	if(ai_squad && !allies_near && length(ai_squad.members) > 1)
+		ai_squad_leave()
 	ai_squad_sync(nearby_squad)
 	var/datum/ai_squad/squad = ai_squad
 	var/outnumbered = CLAMP(threats - allies_near - 1, 0, 3)
@@ -290,6 +293,9 @@ GLOBAL_LIST_INIT(ai_intent_names, list("attack", "flank", "hold", "retreat", "ba
 		squad?.release_flank(src, "not_chosen")
 	if(chosen == AI_INTENT_HOLD && suppressing)
 		ai_debug_log("squad_suppress target=[target] dist=[target_distance]")
+
+	if(chosen == AI_INTENT_RETREAT && ai_intent != AI_INTENT_RETREAT)
+		squad?.note_fallback(src)
 
 	ai_commit_intent(chosen, "atk=[round(attack, 0.01)] flank=[round(flank, 0.01)] hold=[round(hold, 0.01)] retreat=[round(retreat, 0.01)] backup=[round(backup, 0.01)] morale=[round(morale, 0.01)] hp=[round(hp, 0.01)] allies=[allies_near] threats=[threats]")
 	return chosen
