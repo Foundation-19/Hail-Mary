@@ -317,31 +317,25 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 		pct = clamp(pct + delta, FIT_VIEWPORT_MIN_SPLIT, FIT_VIEWPORT_MAX_SPLIT)
 		winset(src, "mainwindow.split", "splitter=[pct]")
 
+/// Briefly opens and closes a tiny BYOND window. Some clients stop repainting the map control after
+/// browser controls (chat/statpanel) are swapped, and opening any other BYOND window makes them repaint it.
+/client/proc/force_map_redraw()
+	var/nudge_window = "map_redraw_nudge"
+	winclone(src, "popupwindow", nudge_window)
+	winset(src, nudge_window, "titlebar=false;can-resize=false;size=1x1")
+	winshow(src, nudge_window, TRUE)
+	sleep(2)
+	winshow(src, nudge_window, FALSE)
+	winset(src, nudge_window, "parent=")
+	winset(src, "mapwindow.map", "focus=true")
+
 /client/verb/fix_map_display()
 	set name = "Fix Map Display"
 	set category = "OOC"
 	set desc = "Use this if the game screen is black but chat and the stat panel still work"
 
-	to_chat(src, span_notice("Resetting your map display..."))
-	// Map zoom/letterbox/zoom-mode are saved client-side and can end up in a state that renders black.
-	// Reset them to the defaults the Icons menu uses, then hide/show the control to force a redraw.
-	winset(src, null, "mapwindow.map.icon-size=0;mapwindow.map.zoom-mode=distort;mapwindow.map.letterbox=true;mapwindow.map.is-visible=false")
-	winset(src, null, "mapwindow.map.is-visible=true;mapwindow.map.focus=true")
-
-	// The map/info splitter position is saved client-side too; restore a sane value before re-fitting.
-	winset(src, "mainwindow.split", "splitter=50")
-
-	// Re-send server-side view state in case the client lost it.
-	pixel_x = 0
-	pixel_y = 0
-	var/atom/old_eye = eye
-	eye = null
-	eye = old_eye || mob
-	change_view(view)
-	if(mob)
-		mob.reload_fullscreen()
-	fit_viewport()
-	to_chat(src, span_notice("Map display reset. If the screen is still black, try the Icons menu, disabling overlay software (Discord, Steam, GPU overlays), or toggling Direct3D in BYOND preferences."))
+	force_map_redraw()
+	to_chat(src, span_notice("Map display refreshed. If the screen is still black, opening any BYOND window (e.g. Game Preferences) also forces a repaint."))
 
 /client/verb/fix_stat_panel()
 	set name = "Fix Stat Panel"
