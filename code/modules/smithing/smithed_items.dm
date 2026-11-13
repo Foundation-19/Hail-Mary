@@ -219,7 +219,7 @@
 		finalitem.name = "[touch_name][qualname] [mat] [initial(finalitem.name)]"
 	if(pattern_welded)
 		finalitem.desc += " Its layered construction forms a distinctive pattern."
-	finalitem.AddComponent(/datum/component/smithing_maker_mark)
+	finalitem.AddComponent(/datum/component/smithing_maker_mark, quality)
 	finalitem.forceMove(get_turf(src))
 	if(forging_steps && final_forging_stress < SMITH_STRESS_REWARD_THRESHOLD && bright_forging_steps * 2 >= forging_steps)
 		record_mastery(user, "bright forging")
@@ -261,6 +261,20 @@
 
 /datum/component/smithing_maker_mark
 	var/marked = FALSE
+	/// Final quality of the piece, shown on examine
+	var/quality
+
+/datum/component/smithing_maker_mark/Initialize(_quality)
+	. = ..()
+	if(. == COMPONENT_INCOMPATIBLE || !isatom(parent))
+		return COMPONENT_INCOMPATIBLE
+	quality = _quality
+	if(!isnull(quality))
+		RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+
+/datum/component/smithing_maker_mark/proc/on_examine(datum/source, mob/user, list/examine_list)
+	SIGNAL_HANDLER
+	examine_list += span_notice("It was forged to a quality of <b>[round(quality, 0.1)]</b>.")
 
 /datum/component/smithing_maker_mark/proc/apply_mark(mob/user, mark_text)
 	if(marked)
