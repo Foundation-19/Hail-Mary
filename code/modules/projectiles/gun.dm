@@ -394,6 +394,9 @@ ATTACHMENTS
 	if(bayonet && user.a_intent == INTENT_HARM)
 		M.attackby(bayonet, user) // handles cooldown
 		return
+	// Only harm intent pistol-whips an adjacent mob; otherwise let afterattack() fire point blank. Skipping the melee here also skips its clickdelay, which would otherwise block the shot.
+	if(user.a_intent != INTENT_HARM)
+		return NO_AUTO_CLICKDELAY_HANDLING
 	. = ..()
 	if(!(. & DISCARD_LAST_ACTION))
 		user.DelayNextAction(attack_speed)
