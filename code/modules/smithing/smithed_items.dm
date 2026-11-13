@@ -259,6 +259,9 @@
 		to_chat(user, span_notice("You have begun mastering [technique]."))
 #undef SMITH_STRESS_REWARD_THRESHOLD
 
+/// Blacksmithing level needed to read the exact quality of a finished piece on examine
+#define SMITH_QUALITY_VISIBLE_LEVEL 3
+
 /datum/component/smithing_maker_mark
 	var/marked = FALSE
 	/// Final quality of the piece, shown on examine
@@ -274,7 +277,9 @@
 
 /datum/component/smithing_maker_mark/proc/on_examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
-	examine_list += span_notice("It was forged to a quality of <b>[round(quality, 0.1)]</b>.")
+	if(!user?.mind || user.mind.get_skill_level(/datum/skill/level/dwarfy/blacksmithing) < SMITH_QUALITY_VISIBLE_LEVEL)
+		return
+	examine_list += span_notice("Your trained eye puts its forged quality at <b>[round(quality, 0.1)]</b>.")
 
 /datum/component/smithing_maker_mark/proc/apply_mark(mob/user, mark_text)
 	if(marked)
