@@ -239,6 +239,8 @@
 			. = mind.martial_art.on_active_parry(src, object, damage, attack_text, attack_type, armour_penetration, attacker, def_zone, return_list, efficiency, get_parry_time())
 	if(!isnull(return_list[BLOCK_RETURN_OVERRIDE_PARRY_EFFICIENCY]))		// one of our procs overrode
 		efficiency = return_list[BLOCK_RETURN_OVERRIDE_PARRY_EFFICIENCY]
+	if(damage > data.parry_overpower_damage)		// a heavy hit shoves a light parry aside
+		efficiency -= (damage - data.parry_overpower_damage) * data.parry_overpower_falloff
 	if(efficiency <= 0)		// Do not allow automatically handled/standardized parries that increase damage for now.
 		return
 	. |= BLOCK_SHOULD_PARTIAL_MITIGATE

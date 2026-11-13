@@ -446,10 +446,14 @@
 	hitsound = 'code/modules/smithing/sound/hit_sword.ogg'
 
 /datum/block_parry_data/waki
-	parry_stamina_cost = 50
-	parry_time_windup = 0
-	parry_time_active = 15
-	parry_time_spindown = 0
+	parry_attack_types = ATTACK_TYPE_PHYSICAL
+	parry_max_attacks = 2
+	parry_overpower_damage = 30
+	parry_overpower_falloff = 1.2
+	parry_stamina_cost = 8
+	parry_time_windup = 1
+	parry_time_active = 10
+	parry_time_spindown = 1
 	parry_time_perfect = 2
 	parry_time_perfect_leeway = 0.75
 	parry_imperfect_falloff_percent = 7.5
@@ -535,14 +539,20 @@
 	sharpness = SHARP_EDGED
 
 /datum/block_parry_data/sword
-	parry_stamina_cost = 50
-	parry_time_windup = 0.5
-	parry_time_active = 4
-	parry_time_spindown = 1
-	parry_time_perfect = 0.75
-	parry_time_perfect_leeway = 0.75
-	parry_imperfect_falloff_percent = 30
-	parry_efficiency_perfect = 100
+	parry_attack_types = ATTACK_TYPE_PHYSICAL
+	parry_max_attacks = 1
+	parry_overpower_damage = 40
+	parry_overpower_falloff = 1
+	parry_stamina_cost = 12
+	parry_time_windup = 1
+	parry_time_active = 6
+	parry_time_spindown = 2
+	parry_time_perfect = 2
+	parry_time_perfect_leeway = 1
+	parry_imperfect_falloff_percent = 15
+	parry_efficiency_perfect = 105
+	parry_efficiency_considered_successful = 50
+	parry_efficiency_to_counterattack = 90
 	parry_failed_stagger_duration = 3 SECONDS
 	parry_failed_clickcd_duration = 2 SECONDS
 
@@ -572,18 +582,22 @@
 	block_parry_data = /datum/block_parry_data/smithsaber
 
 /datum/block_parry_data/smithsaber
-	parry_stamina_cost = 50
-	parry_time_active = 8
+	parry_attack_types = ATTACK_TYPE_PHYSICAL
+	parry_max_attacks = 1
+	parry_overpower_damage = 35
+	parry_overpower_falloff = 1
+	parry_stamina_cost = 8
+	parry_time_windup = 1
+	parry_time_active = 7
+	parry_time_spindown = 2
 	parry_time_perfect = 2
-	parry_time_perfect_leeway = 2
+	parry_time_perfect_leeway = 1
 	parry_failed_stagger_duration = 3 SECONDS
 	parry_failed_clickcd_duration = 3 SECONDS
-	parry_time_windup = 0
-	parry_time_spindown = 0
-	parry_imperfect_falloff_percent = 0
+	parry_imperfect_falloff_percent = 10
 	parry_efficiency_to_counterattack = 100
-	parry_efficiency_considered_successful = 100
-	parry_efficiency_perfect = 120
+	parry_efficiency_considered_successful = 60
+	parry_efficiency_perfect = 115
 	parry_data = list(PARRY_COUNTERATTACK_MELEE_ATTACK_CHAIN = 1)
 
 
@@ -613,18 +627,22 @@
 	hitsound = 'code/modules/smithing/sound/hit_sword.ogg'
 
 /datum/block_parry_data/smithkatana
-	parry_stamina_cost = 50
-	parry_time_active = 6
-	parry_time_perfect = 3
-	parry_time_perfect_leeway = 3
+	parry_attack_types = ATTACK_TYPE_PHYSICAL
+	parry_max_attacks = 1
+	parry_overpower_damage = 45
+	parry_overpower_falloff = 1
+	parry_stamina_cost = 12
+	parry_time_windup = 2
+	parry_time_active = 7
+	parry_time_spindown = 3
+	parry_time_perfect = 2.5
+	parry_time_perfect_leeway = 0.75
 	parry_failed_stagger_duration = 3 SECONDS
 	parry_failed_clickcd_duration = 3 SECONDS
-	parry_time_windup = 0
-	parry_time_spindown = 0
-	parry_imperfect_falloff_percent = 0
+	parry_imperfect_falloff_percent = 14
 	parry_efficiency_to_counterattack = 100
-	parry_efficiency_considered_successful = 120
-	parry_efficiency_perfect = 120
+	parry_efficiency_considered_successful = 60
+	parry_efficiency_perfect = 130
 	parry_data = list(PARRY_COUNTERATTACK_MELEE_ATTACK_CHAIN = 1)
 
 /obj/item/twohanded/smithed/katana/ComponentInitialize()
@@ -667,18 +685,22 @@
 	block_parry_data = /datum/block_parry_data/smithzweihander
 
 /datum/block_parry_data/smithzweihander
-	parry_stamina_cost = 50
-	parry_time_active = 10
+	parry_attack_types = ATTACK_TYPE_PHYSICAL
+	parry_max_attacks = 1
+	parry_overpower_damage = 70
+	parry_overpower_falloff = 0.8
+	parry_stamina_cost = 16
+	parry_time_windup = 3
+	parry_time_active = 9
+	parry_time_spindown = 4
 	parry_time_perfect = 3
-	parry_time_perfect_leeway = 3
+	parry_time_perfect_leeway = 1
 	parry_failed_stagger_duration = 4 SECONDS
 	parry_failed_clickcd_duration = 4 SECONDS
-	parry_time_windup = 1
-	parry_time_spindown = 1
-	parry_imperfect_falloff_percent = 0
+	parry_imperfect_falloff_percent = 12
 	parry_efficiency_to_counterattack = 100
-	parry_efficiency_considered_successful = 120
-	parry_efficiency_perfect = 120
+	parry_efficiency_considered_successful = 55
+	parry_efficiency_perfect = 125
 	parry_data = list(PARRY_COUNTERATTACK_MELEE_ATTACK_CHAIN = 1)
 
 

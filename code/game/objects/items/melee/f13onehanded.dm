@@ -28,6 +28,10 @@
 	return melee_dt_penetration
 
 /datum/block_parry_data/light_blade // fast, nimble one-handed blades - quick to bring up, quick to recover, but a weaker riposte
+	parry_attack_types = ATTACK_TYPE_PHYSICAL		// a knife doesn't stop a bullet
+	parry_max_attacks = 2
+	parry_overpower_damage = 35
+	parry_overpower_falloff = 1
 	parry_time_windup = 1
 	parry_time_active = 8
 	parry_time_spindown = 2

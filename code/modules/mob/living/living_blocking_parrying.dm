@@ -57,6 +57,8 @@ GLOBAL_LIST_EMPTY(block_parry_data)
 
 	/// The blocked variable of on_hit() on projectiles is impacted by this. Higher is better, 0 to 100, percentage.
 	var/block_projectile_mitigation = 50
+	/// Projectile armor flag ("bullet", "laser", "energy") to a multiplier on the damage taken through a block. Above 1 is worse (wood burning, plastic melting), below 1 is better.
+	var/list/block_projectile_flag_multiplier
 
 /*
  * NOTE: Overrides for attack types for most the block_stamina variables were removed,
@@ -138,6 +140,10 @@ GLOBAL_LIST_EMPTY(block_parry_data)
 	var/parry_efficiency_to_counterattack = 0.1
 	/// Maximum attacks to parry successfully or unsuccessfully (but not efficiency < 0) during active period, hitting this immediately ends the sequence.
 	var/parry_max_attacks = INFINITY
+	/// Hits above this much damage overpower the parry, costing [parry_overpower_falloff] efficiency per point over. INFINITY disables it.
+	var/parry_overpower_damage = INFINITY
+	/// Percent of parry efficiency lost per point of damage above [parry_overpower_damage].
+	var/parry_overpower_falloff = 1
 	/// Visual icon state override for parrying
 	var/parry_effect_icon_state = "parry_bm_hold"
 	/// Parrying cooldown, separate of clickdelay. It must be this much deciseconds since their last parry for them to parry with this object.
@@ -299,6 +305,8 @@ GLOBAL_LIST_EMPTY(block_parry_data)
 		RENDER_VARIABLE_SIMPLE(parry_efficiency_considered_successful, "Minimum parry efficiency to be considered a successful parry.")
 		RENDER_VARIABLE_SIMPLE(parry_efficiency_to_counterattack, "Minimum parry efficiency to trigger counterattack effects.")
 		RENDER_VARIABLE_SIMPLE(parry_max_attacks, "Max attacks parried per parry cycle.")
+		RENDER_VARIABLE_SIMPLE(parry_overpower_damage, "Hits above this damage lose parry efficiency.")
+		RENDER_VARIABLE_SIMPLE(parry_overpower_falloff, "Percent of parry efficiency lost per point of damage above the overpower damage.")
 		RENDER_VARIABLE_SIMPLE(parry_effect_icon_state, "Parry effect image name")
 		RENDER_VARIABLE_SIMPLE(parry_cooldown, "Deciseconds it has to be since the last time a parry sequence <b>ended</b> for you before you can parry again.")
 		RENDER_VARIABLE_SIMPLE(parry_failed_stagger_duration, "Deciseconds you are staggered for at the of the parry sequence if you do not successfully parry anything.")
@@ -394,6 +402,11 @@ GLOBAL_LIST_EMPTY(block_parry_data)
 			exceptions += "stamina efficiency [stamina_text]"
 		if(length(exceptions))
 			dat += "<tr><td><b>Exceptions</b></td><td>[capitalize(jointext(exceptions, "; "))]</td></tr>"
+		if(length(block_projectile_flag_multiplier))
+			var/list/flag_parts = list()
+			for(var/projectile_flag in block_projectile_flag_multiplier)
+				flag_parts += "[projectile_flag] [block_projectile_flag_multiplier[projectile_flag]]x"
+			dat += "<tr><td><b>Material vs projectiles</b></td><td>Damage taken is multiplied: [english_list(flag_parts)]</td></tr>"
 		dat += "</table>"
 		dat += "<br><b>Example hits</b> <i>(before armor, without the exceptions above)</i><table style='width:100%'><tr><th>Hit</th><th>You take</th><th>Stamina cost</th></tr>"
 		for(var/hit in list(10, 25, 50, 100))
@@ -409,6 +422,8 @@ GLOBAL_LIST_EMPTY(block_parry_data)
 		dat += "<tr><td><b>Counts as a parry</b></td><td>[parry_window_text(parry_efficiency_considered_successful)] into the active part (at least [parry_efficiency_considered_successful]%)</td></tr>"
 		dat += "<tr><td><b>Counterattack</b></td><td>[parry_window_text(parry_efficiency_to_counterattack)] into the active part (at least [parry_efficiency_to_counterattack]%)</td></tr>"
 		dat += "<tr><td><b>Attacks per parry</b></td><td>[parry_max_attacks >= 1e30 ? "Unlimited" : parry_max_attacks]</td></tr>"
+		if(parry_overpower_damage < 1e30)
+			dat += "<tr><td><b>Heavy hits</b></td><td>Hits over [parry_overpower_damage] damage overpower the parry, costing [parry_overpower_falloff]% efficiency per extra point of damage.</td></tr>"
 		dat += "<tr><td><b>Cost</b></td><td>[parry_stamina_cost] stamina[parry_cooldown ? ", [ds_text(parry_cooldown)] cooldown" : ""][parry_respect_clickdelay ? ", only usable when your attack delay is ready" : ""]</td></tr>"
 		dat += "<tr><td><b>If you whiff</b></td><td>Staggered for [ds_text(parry_failed_stagger_duration)] and unable to attack for [ds_text(parry_failed_clickcd_duration)]</td></tr>"
 		var/list/parry_exceptions = list()

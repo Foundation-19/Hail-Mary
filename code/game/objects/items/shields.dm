@@ -45,6 +45,13 @@
 	block_damage_absorption = 5
 	block_resting_stamina_penalty_multiplier = 2
 	block_projectile_mitigation = 75
+	// default shield is hide/wood/bronze - fine against bolts and arrows, poor against beams and plasma
+	block_projectile_flag_multiplier = list("laser" = 1.15, "energy" = 1.3)
+	// a shield turns aside blows, it doesn't swat bullets out of the air
+	parry_attack_types = ATTACK_TYPE_PHYSICAL
+	parry_max_attacks = 1
+	parry_overpower_damage = 50
+	parry_overpower_falloff = 1
 	// Shields get a real parry option to make up for losing "block and swing" - a forgiving, low-skill-ceiling
 	// deflect-and-shove rather than a sword's high-reward riposte. Wide perfect window, gentle falloff, but
 	// the payoff is a stagger/shove rather than a big damage counter.
@@ -243,6 +250,8 @@
 	block_stamina_efficiency = 5
 	block_stamina_cost_per_second = 1
 	block_damage_absorption = 7.5
+	// polycarbonate warps and melts under beams and plasma
+	block_projectile_flag_multiplier = list("laser" = 1.25, "energy" = 1.5)
 
 /obj/item/shield/riot/attackby(obj/item/W, mob/user, params)
 	if(istype(W, repair_material))
@@ -306,6 +315,7 @@
 	block_damage_absorption_override = list(ATTACK_TYPE_PROJECTILE_TEXT = 6)
 	block_resting_stamina_penalty_multiplier = 2
 	block_projectile_mitigation = 60
+	block_projectile_flag_multiplier = list("laser" = 1.25, "energy" = 1.5)
 	block_damage_limit = 65
 
 //Buckler. Cheapest shield, also the worst.
@@ -315,7 +325,7 @@
 	icon_state = "shield_buckler"
 	item_state = "shield_buckler"
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
-	block_parry_data = /datum/block_parry_data/shield/scrap
+	block_parry_data = /datum/block_parry_data/shield/buckler
 	max_integrity = -1
 	custom_materials = list(/datum/material/wood = 18000)
 	resistance_flags = FLAMMABLE
@@ -338,6 +348,7 @@
 	max_integrity = -1
 	slowdown = 0
 	resistance_flags = null
+	block_parry_data = /datum/block_parry_data/shield/scrap
 	repair_material = /obj/item/stack/sheet/metal
 
 
@@ -363,6 +374,8 @@
 	block_damage_multiplier = 0.3
 	block_damage_absorption = 7.5
 	block_damage_limit = 30
+	// iron plate over wood: sheds beams, but thin plate gives under a rifle round and melts under plasma
+	block_projectile_flag_multiplier = list("bullet" = 1.1, "laser" = 0.9, "energy" = 1.3)
 
 //Scrap shield. Somewhat cheaper, simpler and worse than Legion shield but basically similar.
 /obj/item/shield/riot/scrapshield
@@ -381,6 +394,13 @@
 /datum/block_parry_data/shield/scrap
 	block_damage_multiplier = 0.3
 	block_damage_limit = 22
+	block_projectile_flag_multiplier = list("bullet" = 1.15, "laser" = 0.9, "energy" = 1.3)
+
+/datum/block_parry_data/shield/buckler
+	block_damage_multiplier = 0.3
+	block_damage_limit = 22
+	// a plank of wood: splinters under bullets and burns under beams and plasma
+	block_projectile_flag_multiplier = list("bullet" = 1.2, "laser" = 1.4, "energy" = 1.6)
 
 //Energy shield. Placeholder for the experimental BoS shield concept that never got implemented I suppose.
 /obj/item/shield/energy
@@ -440,12 +460,15 @@
 
 /datum/block_parry_data/shield/tower
 	block_slowdown = 0.75
-	block_damage_multiplier = 0.7
+	// Full-body cover: the best raw damage reduction of any shield, paid for in slowdown and a slow raise.
+	block_damage_multiplier = 0.2
 	block_stamina_efficiency = 10
 	block_stamina_cost_per_second = 5
-	block_damage_absorption = 20
+	block_damage_absorption = 15
 	block_damage_limit = 160
 	block_start_delay = 10 //1 second to start blocking
+	block_projectile_flag_multiplier = list("laser" = 0.9, "energy" = 1.25)
+	parry_overpower_damage = 80
 
 /obj/item/shield/riot/tower/scrap
 	name = "scrap-tower shield"
@@ -459,9 +482,11 @@
 	max_integrity = 1500
 
 /datum/block_parry_data/shield/tower/scrap
-	block_damage_multiplier = 0.6
+	block_damage_multiplier = 0.3
 	block_stamina_efficiency = 7.5
-	block_damage_absorption = 15
+	block_damage_absorption = 12
+	block_damage_limit = 130
+	block_projectile_flag_multiplier = list("bullet" = 1.1, "laser" = 0.9, "energy" = 1.3)
 
 /obj/item/shield/riot/tele
 	name = "telescopic shield"
