@@ -1511,6 +1511,24 @@
 		"wound" = 10, \
 		"damage_threshold" = 6)
 
+/* Spore carrier armor
+ * Fungus-riddled corpse, tough and immune to the spores it carries
+ * Moderate melee and bullet resistance, burns easily
+ * Low DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_SPORECARRIER list(\
+		"melee" = 20, \
+		"bullet" = 15, \
+		"laser" = 0, \
+		"energy" = 0, \
+		"bomb" = 5, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = -25, \
+		"acid" = 10, \
+		"wound" = 10, \
+		"damage_threshold" = 3)
+
 /* Fog crawler
  * Thick mirelurk-style shell, a step above the standard mirelurk
  * Moderate DT so it is not a pure DPS race, plenty of melee and bullet resistance

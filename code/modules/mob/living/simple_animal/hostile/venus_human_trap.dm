@@ -50,7 +50,7 @@
 	SIGNAL_HANDLER
 	if(isliving(AM))
 		var/mob/living/L = AM
-		if(!isvineimmune(L))
+		if(!isvineimmune(L) && !("trog" in L.faction))
 			L.adjustBruteLoss(5)
 			to_chat(L, span_alert("You cut yourself on the thorny vines."))
 
@@ -73,8 +73,9 @@
 	icon_state = "venus_human_trap"
 	icon_dead = "venus_human_trap_d"
 
-	health = 50
-	maxHealth = 50
+	mob_armor = ARMOR_VALUE_TRIBAL
+	health = 110
+	maxHealth = 110
 	obj_damage = 60
 	melee_damage_lower = 25
 	melee_damage_upper = 25
@@ -87,7 +88,8 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 0
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	faction = list("hostile","vines","plants","jungle")
+	faction = list("hostile","vines","plants","jungle","trog")
+	stat_attack = CONSCIOUS
 	initial_language_holder = /datum/language_holder/venus
 	del_on_death = TRUE
 	/// A list of all the plant's vines
@@ -98,6 +100,51 @@
 	var/vine_grab_distance = 5
 	/// Whether or not this plant is ghost possessable
 	var/playable_plant = FALSE //Normal plants can **not** have players.
+	/// Paralyze duration in deciseconds when a vine latches on. 0 means the vine only pulls
+	var/vine_stun_ds = 20
+	/// Extra deciseconds after the stun ends during which no plant can stun the same target again
+	var/vine_lockout_ds = 60
+
+/// Shared by all jungle/plant crowd control so two plants can't chain stuns. Returns TRUE if the target may be stunned now, and starts the lockout
+/proc/plant_cc_try(mob/living/L, lockout_ds)
+	var/static/list/locked_until = list()
+	var/key = REF(L)
+	if(locked_until[key] > world.time)
+		return FALSE
+	locked_until[key] = world.time + lockout_ds
+	if(length(locked_until) > 30)
+		for(var/stale in locked_until)
+			if(locked_until[stale] <= world.time)
+				locked_until -= stale
+	return TRUE
+
+/// Weak, short ranged ambusher that only drags prey and never stuns
+/mob/living/simple_animal/hostile/venus_human_trap/sapling
+	name = "venus trap sapling"
+	desc = "A young man-eating plant. It can't hold much, but it will drag you toward its elders."
+	mob_armor = ARMOR_VALUE_ZERO
+	health = 45
+	maxHealth = 45
+	melee_damage_lower = 10
+	melee_damage_upper = 14
+	max_vines = 1
+	vine_grab_distance = 3
+	vine_stun_ds = 0
+
+/// Large, tough plant that holds several vines at once and stuns a little longer
+/mob/living/simple_animal/hostile/venus_human_trap/elder
+	name = "elder venus human trap"
+	desc = "An overgrown, thick-stemmed man-eater. Whatever it grabs does not get away easily."
+	health = 260
+	maxHealth = 260
+	mob_armor = ARMOR_VALUE_TUNNELER
+	mob_size = MOB_SIZE_LARGE
+	melee_damage_lower = 28
+	melee_damage_upper = 36
+	max_vines = 3
+	vine_grab_distance = 6
+	vine_stun_ds = 25
+	vine_lockout_ds = 80
 
 /mob/living/simple_animal/hostile/venus_human_trap/ghost_playable
 	playable_plant = TRUE //For admins that want to buss some harmless plants
@@ -128,14 +175,29 @@
 		for(var/obj/O in T)
 			if(O.density)
 				return
+	if(isliving(the_target))
+		var/mob/living/prey = the_target
+		// Agility check: nimble prey slip the lash entirely
+		if(!ckey && prob(clamp((prey.special_a - 4) * 7, 0, 60)))
+			prey.visible_message(span_warning("[prey] dodges the lashing vine!"), span_notice("You dodge the lashing vine!"))
+			ranged_cooldown = world.time + ranged_cooldown_time
+			return
 
 	var/datum/beam/newVine = Beam(the_target, "vine", time=INFINITY, maxdistance = vine_grab_distance, beam_type=/obj/effect/ebeam/vine)
 	RegisterSignal(newVine, COMSIG_PARENT_QDELETING, PROC_REF(remove_vine), newVine)
 	vines += newVine
 	if(isliving(the_target))
-		var/mob/living/L = the_target
-		L.Paralyze(20)
+		ensnare(the_target)
 	ranged_cooldown = world.time + ranged_cooldown_time
+
+/// Stuns a vined target. Endurance shortens the stun, and a target that was just stunned by any plant can't be stunned again until the lockout ends
+/mob/living/simple_animal/hostile/venus_human_trap/proc/ensnare(mob/living/L)
+	if(vine_stun_ds <= 0)
+		return
+	var/stun_time = clamp(vine_stun_ds - (L.special_e - 5) * 2, 6, vine_stun_ds + 10)
+	if(!plant_cc_try(L, stun_time + vine_lockout_ds))
+		return
+	L.Paralyze(stun_time)
 
 /mob/living/simple_animal/hostile/venus_human_trap/Login()
 	. = ..()
@@ -177,6 +239,13 @@
  */
 /mob/living/simple_animal/hostile/venus_human_trap/proc/pull_vines()
 	for(var/datum/beam/B in vines)
+		if(isliving(B.target))
+			var/mob/living/prey = B.target
+			// Strength check: strong prey rip the vine out
+			if(!prey.IsParalyzed() && prob(clamp((prey.special_s - 4) * 6, 0, 45)))
+				prey.visible_message(span_warning("[prey] tears free of the vine!"), span_notice("You tear free of the vine!"))
+				B.End()
+				continue
 		if(istype(B.target, /atom/movable))
 			var/atom/movable/AM = B.target
 			if(!AM.anchored)

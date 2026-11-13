@@ -11,8 +11,13 @@
 	icon_living = "leaper"
 	icon_dead = "leaper_dead"
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
+	mob_armor = ARMOR_VALUE_TUNNELER
+	faction = list("jungle", "trog")
 	maxHealth = 300
 	health = 300
+	vision_range = 8
+	aggro_vision_range = 10
+	check_friendly_fire = TRUE
 	ranged = TRUE
 	projectiletype = /obj/item/projectile/leaper
 	projectilesound = 'sound/weapons/pierce.ogg'
@@ -25,13 +30,21 @@
 	var/hopping = FALSE
 	var/hop_cooldown = 0 //Strictly for player controlled leapers
 	var/projectile_ready = FALSE //Stopping AI leapers from firing whenever they want, and only doing it after a hop has finished instead
+	var/crush_damage = 35
 
 	footstep_type = FOOTSTEP_MOB_HEAVY
+
+/// Endurance shortens the knockdown, and the shared plant stun lockout stops bubbles chaining with vines or other leapers
+/proc/leaper_knockdown(mob/living/L)
+	var/knock_time = clamp(50 - (L.special_e - 5) * 4, 20, 60)
+	if(!plant_cc_try(L, knock_time + 60))
+		return
+	L.DefaultCombatKnockdown(knock_time)
 
 /obj/item/projectile/leaper
 	name = "leaper bubble"
 	icon_state = "leaper"
-	knockdown = 50
+	knockdown = 0
 	damage = 0
 	range = 7
 	hitsound = 'sound/effects/snap.ogg'
@@ -42,10 +55,13 @@
 	..()
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
+		leaper_knockdown(C)
 		C.reagents.add_reagent(/datum/reagent/toxin/leaper_venom, 5)
 		return
 	if(isanimal(target))
 		var/mob/living/simple_animal/L = target
+		if(("trog" in L.faction) || ("jungle" in L.faction))
+			return
 		L.adjustHealth(25)
 
 /obj/item/projectile/leaper/on_range()
@@ -99,9 +115,9 @@
 	SIGNAL_HANDLER
 	if(isliving(AM))
 		var/mob/living/L = AM
-		if(!istype(L, /mob/living/simple_animal/hostile/jungle/leaper))
+		if(!("trog" in L.faction) && !("jungle" in L.faction))
 			playsound(src,'sound/effects/snap.ogg',50, 1, -1)
-			L.DefaultCombatKnockdown(50)
+			leaper_knockdown(L)
 			if(iscarbon(L))
 				var/mob/living/carbon/C = L
 				C.reagents.add_reagent(/datum/reagent/toxin/leaper_venom, 5)
@@ -241,7 +257,9 @@
 	mob_transforming = FALSE
 	playsound(src, 'sound/effects/meteorimpact.ogg', 200, 1)
 	for(var/mob/living/L in orange(1, src))
-		L.adjustBruteLoss(35)
+		if(!ckey && faction_check_mob(L))
+			continue
+		L.adjustBruteLoss(crush_damage)
 		if(!QDELETED(L)) // Some mobs are deleted on death
 			var/throw_dir = get_dir(src, L)
 			if(L.loc == loc)
@@ -253,8 +271,21 @@
 		ranged_cooldown = ranged_cooldown_time + world.time
 		update_icons()
 
-/mob/living/simple_animal/hostile/jungle/leaper/Goto()
-	return
+/mob/living/simple_animal/hostile/jungle/leaper/Goto(atom/destination, delay, minimum_distance)
+	// Leapers never walk: combat hops are driven by handle_automated_action, so only non-target movement (search, patrol) is converted to hops
+	if(ckey || hopping || !isatom(destination) || destination == target || !CHECK_BITFIELD(mobility_flags, MOBILITY_MOVE))
+		return
+	var/turf/dest_turf = get_turf(destination)
+	if(!dest_turf || dest_turf.z != z || get_dist(src, dest_turf) <= 1)
+		return
+	HopTo(dest_turf)
+
+/mob/living/simple_animal/hostile/jungle/leaper/proc/HopTo(turf/dest_turf)
+	hopping = TRUE
+	density = FALSE
+	pass_flags |= PASSMOB
+	mob_transforming = TRUE
+	throw_at(dest_turf, min(get_dist(src, dest_turf), 7), 1, src, FALSE, callback = CALLBACK(src, PROC_REF(FinishHop)))
 
 /mob/living/simple_animal/hostile/jungle/leaper/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	return
@@ -269,5 +300,26 @@
 			icon_state = "leaper_alert"
 			return
 	icon_state = "leaper"
+
+/// Small, fragile leaper that spits like an adult but crushes weakly
+/mob/living/simple_animal/hostile/jungle/leaper/young
+	name = "young leaper"
+	desc = "A half-grown Geron Toad. It spits the same venom as its parents, but it cannot crush anything yet."
+	mob_armor = ARMOR_VALUE_TRIBAL
+	maxHealth = 110
+	health = 110
+	crush_damage = 15
+	mob_size = MOB_SIZE_HUMAN
+
+/// Old bull leaper: faster spitting, a heavier crush, and a thick hide
+/mob/living/simple_animal/hostile/jungle/leaper/alpha
+	name = "alpha leaper"
+	desc = "A scarred, bloated Geron Toad. Anything that gets under it does not get back up."
+	mob_armor = ARMOR_VALUE_MIRELURK
+	maxHealth = 520
+	health = 520
+	ranged_cooldown_time = 22
+	crush_damage = 50
+	obj_damage = 60
 
 #undef PLAYER_HOP_DELAY

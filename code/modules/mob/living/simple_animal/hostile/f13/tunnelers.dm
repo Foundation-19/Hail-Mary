@@ -95,6 +95,7 @@
 	icon_living = "spore_carrier"
 	icon_dead = "spore_dead"
 	
+	mob_armor = ARMOR_VALUE_SPORECARRIER
 	maxHealth = 105 // bumped - TTK vs melee was too short
 	health = 105
 	
@@ -104,29 +105,80 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 0
 	
-	faction = list("plants")
+	faction = list("trog", "plants")
 	
 	guaranteed_butcher_results = list(/obj/item/stack/sheet/bone = 1)
 	
 	pop_required_to_jump_into = MED_MOB_MIN_PLAYERS
+	
+	/// Units of spore toxin injected per hit, reduced by the target's Endurance
+	var/toxin_per_hit = 2
+	/// Units of spore toxin released when it bursts on death
+	var/burst_amount = 30
+	/// Radius of the burst cloud
+	var/burst_range = 1
+
+/mob/living/simple_animal/hostile/trog/sporecarrier/examine(mob/user)
+	. = ..()
+	if(isliving(user))
+		var/mob/living/L = user
+		if(L.special_p >= 6)
+			. += span_notice("Its body is swollen with spores and will burst when it dies. Kill it at range, or fight it in the open and step back afterwards. Fire works well on fungus.")
 
 /mob/living/simple_animal/hostile/trog/sporecarrier/AttackingTarget()
 	. = ..()
 	if(. && ishuman(target))
 		var/mob/living/carbon/human/H = target
-		H.reagents.add_reagent(/datum/reagent/toxin/spore_toxin, 2)
+		H.reagents.add_reagent(/datum/reagent/toxin/spore_toxin, clamp(toxin_per_hit - (H.special_e - 5) * 0.2, 0.5, toxin_per_hit + 1))
 
 /mob/living/simple_animal/hostile/trog/sporecarrier/death(gibbed)
 	// Release spores on death
-	if(!gibbed)
+	if(!gibbed && burst_amount > 0)
 		visible_message(span_warning("[src]'s body ruptures, releasing a cloud of spores!"))
 		var/datum/effect_system/smoke_spread/chem/S = new
-		var/datum/reagents/spore_cloud = new(30)
-		spore_cloud.add_reagent(/datum/reagent/toxin/spore_toxin, 30)
-		S.set_up(spore_cloud, 1, get_turf(src))
+		var/datum/reagents/spore_cloud = new(burst_amount)
+		spore_cloud.add_reagent(/datum/reagent/toxin/spore_toxin, burst_amount)
+		S.set_up(spore_cloud, burst_range, get_turf(src))
 		S.start()
 		qdel(spore_cloud)
 	. = ..()
+
+// SPORELING - small, fast, fragile; swarms in numbers and only puffs on death
+/mob/living/simple_animal/hostile/trog/sporecarrier/sporeling
+	name = "sporeling"
+	desc = "A small, fungus-choked scavenger that scuttles at you on all fours. It does not look like much on its own."
+	mob_armor = ARMOR_VALUE_ZERO
+	maxHealth = 40
+	health = 40
+	speed = 1
+	move_to_delay = 2
+	melee_damage_lower = 5
+	melee_damage_upper = 10
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
+	toxin_per_hit = 1
+	burst_amount = 10
+	burst_range = 0
+	pop_required_to_jump_into = SMALL_MOB_MIN_PLAYERS
+
+// BLOATED CARRIER - slow, tanky, and a spore bomb
+/mob/living/simple_animal/hostile/trog/sporecarrier/bloated
+	name = "bloated spore carrier"
+	desc = "A corpse swollen to twice its size with fungus. It lumbers slowly, and it looks ready to burst."
+	mob_armor = ARMOR_VALUE_SPORECARRIER
+	maxHealth = 230
+	health = 230
+	speed = 3
+	move_to_delay = 5
+	melee_damage_lower = 12
+	melee_damage_upper = 22
+	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 3
+	toxin_per_hit = 3
+	burst_amount = 60
+	burst_range = 2
+	mob_size = MOB_SIZE_LARGE
+	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
 
 ///////////////
 // TUNNELERS //
@@ -159,7 +211,7 @@
 	
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = -1, CLONE = 0, STAMINA = 0, OXY = 0)  // Immune to toxins
 	
-	faction = list("tunneler")
+	faction = list("trog", "tunneler")
 	
 	guaranteed_butcher_results = list(
 		/obj/item/stack/sheet/bone = 1,
