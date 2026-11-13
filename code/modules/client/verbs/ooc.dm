@@ -255,6 +255,10 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 	SSticker.show_roundend_report(src, TRUE)
 
+/// Bounds (percent of the main window) for the map/info splitter so fitting can never collapse the map pane.
+#define FIT_VIEWPORT_MIN_SPLIT 20
+#define FIT_VIEWPORT_MAX_SPLIT 90
+
 /client/verb/fit_viewport()
 	set name = "Fit Viewport"
 	set category = "OOC"
@@ -270,6 +274,10 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	if(length(map_size) < 2)
 		return
 	var/height = text2num(map_size[2])
+	// A minimized/not-yet-laid-out window reports 0 sizes; fitting then would save a collapsed splitter
+	// (the splitter position is stored client-side) and leave the map pane unusable on every relog.
+	if(!height || height <= 0)
+		return
 	var/desired_width = round(height * aspect_ratio)
 	if (text2num(map_size[1]) == desired_width)
 		// Nothing to do
@@ -279,10 +287,12 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	if(length(split_size) < 1)
 		return
 	var/split_width = text2num(split_size[1])
+	if(!split_width || split_width <= 0)
+		return
 
 	// Calculate and apply a best estimate
 	// +4 pixels are for the width of the splitter's handle
-	var/pct = 100 * (desired_width + 4) / split_width
+	var/pct = clamp(100 * (desired_width + 4) / split_width, FIT_VIEWPORT_MIN_SPLIT, FIT_VIEWPORT_MAX_SPLIT)
 	winset(src, "mainwindow.split", "splitter=[pct]")
 
 	// Apply an ever-lowering offset until we finish or fail
@@ -304,7 +314,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 			// if we overshot, halve the delta and reverse direction
 			delta = -delta/2
 
-		pct += delta
+		pct = clamp(pct + delta, FIT_VIEWPORT_MIN_SPLIT, FIT_VIEWPORT_MAX_SPLIT)
 		winset(src, "mainwindow.split", "splitter=[pct]")
 
 /client/verb/fix_map_display()
@@ -317,6 +327,9 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	// Reset them to the defaults the Icons menu uses, then hide/show the control to force a redraw.
 	winset(src, null, "mapwindow.map.icon-size=0;mapwindow.map.zoom-mode=distort;mapwindow.map.letterbox=true;mapwindow.map.is-visible=false")
 	winset(src, null, "mapwindow.map.is-visible=true;mapwindow.map.focus=true")
+
+	// The map/info splitter position is saved client-side too; restore a sane value before re-fitting.
+	winset(src, "mainwindow.split", "splitter=50")
 
 	// Re-send server-side view state in case the client lost it.
 	pixel_x = 0
