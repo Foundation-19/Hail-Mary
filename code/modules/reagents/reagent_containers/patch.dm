@@ -141,7 +141,7 @@
 // ---------------------------------
 // BITTER DRINK
 
-/obj/item/reagent_containers/pill/bitterdrink // about 25hp over 17 seconds
+/obj/item/reagent_containers/pill/bitterdrink // about 36hp over 17 seconds
 	name = "Bitter drink"
 	desc = "A strong herbal healing concoction invented and created by the Twin Mothers tribe. Drunk, so take off any mask first."
 	icon = 'icons/obj/medicine/drugs.dmi'

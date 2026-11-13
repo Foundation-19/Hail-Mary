@@ -2538,12 +2538,12 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 	reagent_state = LIQUID
 	color ="#A9FBFB"
 	taste_description = "bitterness"
-	metabolization_rate = 1.5 * REAGENTS_METABOLISM //5u heals about 25 HP over ~17s shared among whichever of brute, burn and toxin the patient has, a minor remedy next to a stimpak. More for tribals and a little less for outsiders
+	metabolization_rate = 1.5 * REAGENTS_METABOLISM //5u heals about 36 HP over ~17s (2 HP/s for 18s in New Vegas, a bit more than a stimpak but slow) shared among whichever of brute, burn and toxin the patient has. More for tribals and a little less for outsiders
 	overdose_threshold = 31
 	overdose_ends_below_threshold = TRUE
-	var/heal_factor = -1.15
+	var/heal_factor = -1.65
 	ghoulfriendly = TRUE
-	heal_nominal = 3.5
+	heal_nominal = 5
 	heal_onset = 3
 	heal_origin = HEAL_ORIGIN_HERBAL
 
