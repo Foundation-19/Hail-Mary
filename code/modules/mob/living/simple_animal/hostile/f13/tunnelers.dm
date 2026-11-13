@@ -180,6 +180,35 @@
 		var/mob/living/carbon/human/H = target
 		H.reagents.add_reagent(/datum/reagent/toxin, 5)
 
+// TUNNELER MATRIARCH - pack leader between the tunneler and the Blind One
+/mob/living/simple_animal/hostile/trog/tunneler/matriarch
+	name = "tunneler matriarch"
+	desc = "A massive, scar-ridden tunneler. The rest of the pack moves to her screeches."
+
+	maxHealth = 300
+	health = 300
+	speed = 1
+
+	melee_damage_lower = 22
+	melee_damage_upper = 36
+	armour_penetration = 0.3
+	damage_threshold_penetration_mob = 7
+	obj_damage = 50
+
+	despawns_when_lonely = FALSE
+	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
+
+/mob/living/simple_animal/hostile/trog/tunneler/matriarch/Initialize()
+	. = ..()
+	resize = 1.2
+	update_transform()
+
+/mob/living/simple_animal/hostile/trog/tunneler/matriarch/Aggro()
+	. = ..()
+	if(.)
+		return
+	summon_backup(14)
+
 // BLIND ONE - boss tunneler
 /mob/living/simple_animal/hostile/trog/tunneler/blindone
 	name = "Blind One"

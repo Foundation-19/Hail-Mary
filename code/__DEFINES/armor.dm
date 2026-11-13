@@ -225,6 +225,42 @@
 		"wound" = 0, \
 		"damage_threshold" = 11)
 
+/* Armored glowing ghoul armor
+ * Glowing ghoul fused into scavenged reaver plating
+ * Sits between glowing and legendary glowing
+ * Medium DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_GHOUL_GLOWING_ARMORED list(\
+		"melee" = 0, \
+		"bullet" = 15, \
+		"laser" = 30, \
+		"energy" = 45, \
+		"bomb" = 0, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 5)
+
+/* Legendary glowing ghoul armor
+ * Overcharged by radiation, ranged glow-caster
+ * Strong against energy, still fairly soft to melee
+ * Medium DT, it is a caster rather than a bruiser
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_GHOUL_GLOWING_LEGEND list(\
+		"melee" = 10, \
+		"bullet" = 15, \
+		"laser" = 70, \
+		"energy" = 75, \
+		"bomb" = 0, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 8)
+
 /* Charred feral ghoul
  * Burnt skin - nothing protecting it
  * Resists laser and plasma like other ghouls
@@ -449,6 +485,24 @@
 		"acid" = 0, \
 		"wound" = 0, \
 		"damage_threshold" = 5)
+
+/* Robot damaged
+ * Scavenged, rusted chassis with failing plating
+ * Barely better than nothing against bullets, still soft to energy
+ * Very low DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_ROBOT_DAMAGED list(\
+		"melee" = 5, \
+		"bullet" = 5, \
+		"laser" = -10, \
+		"energy" = -10, \
+		"bomb" = 0, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 2)
 
 /* Robot Seccie
  * Lowish DR across the board
@@ -767,6 +821,25 @@
 		"wound" = 0, \
 		"damage_threshold" = 4)
 
+/* Renegade prospect gear
+ * Scavenged kit of a recently inducted raider
+ * Light melee resistance, barely stops bullets
+ *
+ * very low DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_RENEGADE_PROSPECT list(\
+		"melee" = 20, \
+		"bullet" = 15, \
+		"laser" = 10, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 1)
+
 /* Renegade combat armor
  * Resistant to bullet and laser
  * Less resistant to melee
@@ -806,6 +879,25 @@
 		"acid" = 0, \
 		"wound" = 0, \
 		"damage_threshold" = 4)
+
+/* Renegade captain armor
+ * Officer-grade plating, between the reinforced soldier kit and the super armor
+ * Good melee / bullet resistance, plasma still hurts
+ *
+ * medium-high DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_RENEGADE_CAPTAIN list(\
+		"melee" = 40, \
+		"bullet" = 42, \
+		"laser" = 30, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 7)
 
 /* Renegade super combat armor
  * HEAVY melee / bullet resistance
@@ -1078,6 +1170,23 @@
 		"wound" = 15, \
 		"damage_threshold" = 12)
 
+/* Mirelurk Razorclaw armor
+ * Barnacle-plated hunter, between the hunter and the king
+ * Heavier bullet resist than the king, weaker to energy
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_MIRELURK_RAZORCLAW list(\
+		"melee" = 50, \
+		"bullet" = 55, \
+		"laser" = 20, \
+		"energy" = 20, \
+		"bomb" = 25, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 15, \
+		"acid" = 65, \
+		"wound" = 18, \
+		"damage_threshold" = 14)
+
 /* Mirelurk Queen armor
  * Massive armored carapace
  * Very high DT
@@ -1242,6 +1351,23 @@
 		"acid" = 30, \
 		"wound" = 5, \
 		"damage_threshold" = 3)
+
+/* Centaur FEV-perfected armor
+ * Stabilized FEV strain, thick muscle and scar tissue
+ * Solid melee/bullet resist, still weak to energy
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_CENTAUR_PERFECTED list(\
+		"melee" = 40, \
+		"bullet" = 35, \
+		"laser" = 15, \
+		"energy" = 15, \
+		"bomb" = 15, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 10, \
+		"acid" = 40, \
+		"wound" = 10, \
+		"damage_threshold" = 8)
 
 /* Tunneler armor
  * Deadly swarm creature with tough hide
@@ -1627,6 +1753,24 @@
 		"acid" = 10, \
 		"wound" = 0, \
 		"damage_threshold" = 2)
+
+/* Chinese remnant heavy
+ * Ghoul gunner in scavenged plate carriers, slow but sturdy
+ * Better bullet resist than the line soldiers
+ * Medium DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_CHINESE_HEAVY list(\
+		"melee" = 5, \
+		"bullet" = 35, \
+		"laser" = 25, \
+		"energy" = 30, \
+		"bomb" = 5, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 10, \
+		"acid" = 10, \
+		"wound" = 0, \
+		"damage_threshold" = 5)
 
 /* Armor Subclass multipliers
  * Modifies base armor slots by these values

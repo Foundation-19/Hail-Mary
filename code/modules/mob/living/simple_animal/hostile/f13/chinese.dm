@@ -193,6 +193,46 @@
 		SP_DISTANT_RANGE(RIFLE_LIGHT_RANGE_DISTANT)
 	)
 
+// CHINESE REMNANT HEAVY - suppressive gunner, slow but sturdy
+/mob/living/simple_animal/hostile/chinese/ranged/heavy
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
+	name = "chinese remnant heavy gunner"
+	desc = "A Chinese remnant soldier hauling scavenged plate and a belt-fed rifle. It fires long, sustained bursts and does not hurry."
+
+	mob_armor = ARMOR_VALUE_CHINESE_HEAVY
+
+	maxHealth = 320
+	health = 320
+	speed = 1.6
+	extra_projectiles = 5
+	retreat_distance = 3
+	stat_attack = UNCONSCIOUS
+
+	ranged_cooldown_time = 30
+	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
+
+// CHINESE REMNANT OFFICER - rallies the squad, pistol-armed
+/mob/living/simple_animal/hostile/chinese/ranged/officer
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
+	name = "chinese remnant officer"
+	desc = "A Chinese remnant officer in a faded dress coat. The squad around it moves when it barks orders."
+
+	maxHealth = 230
+	health = 230
+	extra_projectiles = 1
+	retreat_distance = 6
+
+	despawns_when_lonely = FALSE
+	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
+
+/mob/living/simple_animal/hostile/chinese/ranged/officer/Aggro()
+	. = ..()
+	if(.)
+		return
+	summon_backup(16)
+
 // ============================================================
 // CHINESE REMNANT SNIPER - frail, patient, drops no gun
 // ============================================================

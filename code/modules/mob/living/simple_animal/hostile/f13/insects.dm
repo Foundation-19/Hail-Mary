@@ -101,6 +101,30 @@
 			return FALSE
 	return ..()
 
+// GIANT ANT WARRIOR - mid-tier between the workers and the queen
+/mob/living/simple_animal/hostile/giantant/warrior
+	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 3
+	name = "giant ant warrior"
+	desc = "A hulking ant with a thick, plated carapace and oversized mandibles. The colony's soldier caste, bred to shred whatever threatens the queen."
+
+	mob_armor = ARMOR_VALUE_ANTS_QUEEN
+
+	maxHealth = 260
+	health = 260
+	speed = 1.1
+
+	melee_damage_lower = 12
+	melee_damage_upper = 28
+	stat_attack = UNCONSCIOUS
+
+	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
+
+/mob/living/simple_animal/hostile/giantant/warrior/Initialize()
+	. = ..()
+	resize = 1.15
+	update_transform()
+
 // FIRE ANT - applies burning reagent
 /mob/living/simple_animal/hostile/fireant
 	affix_pool_type = "insect"
@@ -477,6 +501,28 @@
 	
 	melee_damage_lower = 10
 	melee_damage_upper = 28
+
+// EMPEROR RADSCORPION - apex of the family, above the black
+/mob/living/simple_animal/hostile/radscorpion/black/emperor
+	armour_penetration = 0.3
+	damage_threshold_penetration_mob = 8
+	name = "emperor radscorpion"
+	desc = "An enormous, ancient radscorpion. Its black carapace is scarred by decades of fights it has won, and its pincers could cut a man in half."
+
+	maxHealth = 340
+	health = 340
+	speed = 1.15
+
+	melee_damage_lower = 18
+	melee_damage_upper = 36
+	stat_attack = UNCONSCIOUS
+
+	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
+
+/mob/living/simple_animal/hostile/radscorpion/black/emperor/Initialize()
+	. = ..()
+	resize = 1.25
+	update_transform()
 
 // BLUE RADSCORPION - weaker, faster
 /mob/living/simple_animal/hostile/radscorpion/blue

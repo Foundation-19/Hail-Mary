@@ -455,6 +455,60 @@
 	armour_penetration = 0.1
 	damage_threshold_penetration_mob = 4
 
+// Armored glowing ghoul - T3 between glowing and strong glowing
+/mob/living/simple_animal/hostile/ghoul/glowing/armored
+	name = "armored glowing ghoul"
+	desc = "A glowing feral ghoul wearing salvaged reaver plating. The radiation has fused the metal into its skin."
+	mob_armor = ARMOR_VALUE_GHOUL_GLOWING_ARMORED
+	variation_list = list(
+		MOB_COLOR_VARIATION(150, 150, 150, 255, 255, 255),
+		MOB_SPEED_LIST(2.4, 2.5, 2.6, 2.7),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
+		MOB_HEALTH_LIST(170, 178, 185, 192),
+		MOB_RETREAT_DISTANCE_LIST(0, 2, 4),
+		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(50),
+		MOB_MINIMUM_DISTANCE_LIST(2, 3, 4),
+		MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE(50)
+	)
+	maxHealth = 185
+	health = 185
+	speed = 1.8
+	can_ghost_into = FALSE
+	melee_damage_lower = 16
+	melee_damage_upper = 26
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 3
+
+// Legendary glowing ghoul - overcharged caster, pairs with the melee legendary ghoul
+/mob/living/simple_animal/hostile/ghoul/glowing/legendary
+	name = "legendary glowing ghoul"
+	desc = "A feral ghoul so saturated with radiation that the air around it hums. It hangs back and burns everything that moves."
+	mob_armor = ARMOR_VALUE_GHOUL_GLOWING_LEGEND
+	affix_chance = 0
+	variation_list = list(
+		MOB_COLOR_VARIATION(150, 150, 150, 255, 255, 255),
+		MOB_SPEED_LIST(2.2, 2.3, 2.4, 2.5),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
+		MOB_HEALTH_LIST(300, 320, 335, 350),
+		MOB_RETREAT_DISTANCE_LIST(3, 4, 5),
+		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(50),
+		MOB_MINIMUM_DISTANCE_LIST(3, 4, 5),
+		MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE(50)
+	)
+	maxHealth = 335
+	health = 335
+	speed = 1.6
+	can_ghost_into = FALSE
+	melee_damage_lower = 25
+	melee_damage_upper = 35
+	armour_penetration = 0.15
+	damage_threshold_penetration_mob = 6
+	light_range = 4
+	ranged_cooldown_time = 1.5 SECONDS
+	loot = list(/obj/item/stack/f13Cash/random/med)
+	loot_drop_amount = 4
+	loot_amount_random = FALSE
+
 // ============================================================
 // SOLDIER GHOULS (living/allied)
 // ============================================================
