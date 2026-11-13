@@ -5733,11 +5733,6 @@
 	icon_state = "horizontalbottomborderbottom0"
 	},
 /area/f13/wasteland/cold)
-"cgb" = (
-/turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "verticaloutermain2"
-	},
-/area/f13/wasteland)
 "cgc" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/low,
@@ -15669,8 +15664,9 @@
 /turf/open/indestructible/ground/outside/snow,
 /area/f13/underground/mountain)
 "fTj" = (
-/turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "horizontalbottomborderbottomright"
+/obj/structure/car/rubbish4,
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "horizontalbottombordertopright"
 	},
 /area/f13/wasteland)
 "fTu" = (
@@ -58055,8 +58051,8 @@
 /area/f13/brotherhood/powered)
 "vMG" = (
 /obj/structure/closet/crate/trashcart,
-/turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "verticaloutermain2"
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "horizontalinnermain1"
 	},
 /area/f13/wasteland)
 "vMO" = (
@@ -60308,8 +60304,8 @@
 /area/f13/building/powered)
 "wFh" = (
 /obj/structure/closet/crate/trashcart,
-/turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "horizontaloutermainright"
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "horizontalbottombordertopright"
 	},
 /area/f13/wasteland)
 "wFj" = (
@@ -156316,8 +156312,8 @@ rHS
 rHS
 rHS
 rHS
-qgt
-cgb
+rHS
+rHS
 vMG
 uoC
 jkL
@@ -156574,7 +156570,7 @@ thn
 thn
 thn
 fTj
-rTj
+thn
 wFh
 uoC
 nuj
