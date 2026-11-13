@@ -67,6 +67,8 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	var/ranged_message = "fires" //Fluff text for ranged mobs
 	var/ranged_cooldown = 0 //What the current cooldown on ranged attacks is, generally world.time + ranged_cooldown_time
 	var/ranged_cooldown_time = 3 SECONDS //How long, in deciseconds, the cooldown of ranged attacks is
+	/// Low cover (sandbags, bars, tables) neither stops a ranged mob's shots nor makes it hold fire
+	var/shoot_over_cover = TRUE
 	var/ranged_ignores_vision = FALSE //if it'll fire ranged attacks even if it lacks vision on its target, only works with environment smash
 	var/check_friendly_fire = 0 // Should the ranged mob check for friendlies when shooting
 	/// If our mob runs from players when they're too close, set in tile distance. By default, mobs do not retreat.
@@ -414,6 +416,18 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	var/door_route_until = 0
 	/// Stops the door route search from running every tick
 	COOLDOWN_DECLARE(door_route_cooldown)
+	/// Waypoint on a short A* detour around something solid that Goto() ran into
+	var/turf/detour_waypoint = null
+	/// Goal the current detour was planned for; the detour is dropped if the goal moves on
+	var/turf/detour_goal = null
+	/// The detour is abandoned after this time
+	var/detour_until = 0
+	/// Where and when Goto() last sampled our position, used to notice we are not getting anywhere
+	var/turf/detour_sample_loc = null
+	var/detour_sample_time = 0
+	var/detour_blocked_ticks = 0
+	/// Stops detour A* searches from running back to back
+	COOLDOWN_DECLARE(detour_cooldown)
 	/// Last time we gave up chasing target due to being stuck
 	var/last_give_up_time = 0
 	/// Cooldown after giving up before we can re-acquire targets (deciseconds) - 15 seconds
@@ -2614,8 +2628,12 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 		approaching_target = FALSE
 	if(CHECK_BITFIELD(mobility_flags, MOBILITY_MOVE))
 		set_glide_size(DELAY_TO_GLIDE_SIZE(move_to_delay))
-		// Try pathfinding with walk_to - it handles basic pathing
-		walk_to(src, target, minimum_distance, delay)
+		// walk_to is greedy and stalls on solid objects, so a detour waypoint replaces the goal while one is active
+		var/turf/detour_step = obstruction_detour_waypoint(target, minimum_distance)
+		if(detour_step)
+			walk_to(src, detour_step, 0, delay)
+		else
+			walk_to(src, target, minimum_distance, delay)
 	if(variation_list[MOB_MINIMUM_DISTANCE_CHANCE] && LAZYLEN(variation_list[MOB_MINIMUM_DISTANCE]) && prob(variation_list[MOB_MINIMUM_DISTANCE_CHANCE]))
 		minimum_distance = vary_from_list(variation_list[MOB_MINIMUM_DISTANCE])
 	if(variation_list[MOB_VARIED_SPEED_CHANCE] && LAZYLEN(variation_list[MOB_VARIED_SPEED]) && prob(variation_list[MOB_VARIED_SPEED_CHANCE]))
@@ -2816,6 +2834,8 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 				if(istype(S, /obj/structure/simple_door))
 					continue
 				if(istype(S, /obj/machinery/door))
+					continue
+				if(shoot_over_cover && ranged && S.is_low_cover())
 					continue
 				
 				// Found a blocking structure!
@@ -5489,6 +5509,61 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 		return TRUE
 	Goto(door_route_turf, move_to_delay, 1)
 	return TRUE
+
+/// Called from Goto(). If the mob has not moved since the last sample while still far from its goal, it is wedged on
+/// something solid (walk_to just pushes into it), so plan a short cardinal A* route and return a waypoint a few steps
+/// along it. Returns null when the mob should simply walk at the goal.
+/mob/living/simple_animal/hostile/proc/obstruction_detour_waypoint(atom/goal, minimum_distance)
+	var/turf/here = get_turf(src)
+	var/turf/goal_turf = get_turf(goal)
+	if(!here || !goal_turf || goal_turf.z != here.z || !isturf(loc))
+		return null
+
+	if(detour_waypoint)
+		if(world.time > detour_until || here == detour_waypoint || get_dist(goal_turf, detour_goal) > 3)
+			detour_waypoint = null
+			detour_goal = null
+		else
+			return detour_waypoint
+
+	// Goto() is called several times a tick, so only sample once per tick
+	if(world.time - detour_sample_time < 5)
+		return null
+	var/sample_gap = world.time - detour_sample_time
+	detour_sample_time = world.time
+	if(detour_sample_loc == here && sample_gap <= 30 && get_dist(here, goal_turf) > max(minimum_distance, 1))
+		detour_blocked_ticks++
+	else
+		detour_blocked_ticks = 0
+	detour_sample_loc = here
+	if(detour_blocked_ticks < 1 || !COOLDOWN_FINISHED(src, detour_cooldown))
+		return null
+	COOLDOWN_START(src, detour_cooldown, 10)
+
+	var/list/route = AStar(src, goal_turf, TYPE_PROC_REF(/turf, Distance_cardinal), 40, 25, max(minimum_distance, 1), TYPE_PROC_REF(/turf, ai_door_reachable_test))
+	if(!route || !route.len)
+		ai_debug_log("path_detour none goal=[goal_turf.x],[goal_turf.y] blocked_ticks=[detour_blocked_ticks]")
+		return null
+
+	// Stop short of closed doors: opening those is the door routing's job
+	var/turf/waypoint = null
+	var/steps = 0
+	for(var/turf/step_turf in route)
+		if(get_openable_door_at(step_turf))
+			break
+		waypoint = step_turf
+		steps++
+		if(steps >= 4)
+			break
+	if(!waypoint)
+		return null
+
+	detour_waypoint = waypoint
+	detour_goal = goal_turf
+	detour_until = world.time + 20
+	detour_blocked_ticks = 0
+	ai_debug_log("path_detour waypoint=[waypoint.x],[waypoint.y] route_len=[route.len] goal=[goal_turf.x],[goal_turf.y]")
+	return waypoint
 
 /// A* adjacency test that lets a mob plan through closed doors it can open; any other dense object blocks
 /turf/proc/ai_door_reachable_test(caller, turf/T, ID, simulated_only)

@@ -2001,7 +2001,7 @@
 	// Only people count as enemies, not the other farm animals standing nearby.
 	for(var/mob/living/carbon/human/H in view(src, vision_range))
 		if(H.stat != DEAD)
-			enemies |= H
+			enemies |= WEAKREF(H)
 	return 0
 
 /mob/living/simple_animal/hostile/retaliate/radstag_buck/AttackingTarget()
@@ -2132,7 +2132,7 @@
 /mob/living/simple_animal/hostile/retaliate/brahmin_bull/Retaliate()
 	for(var/mob/living/carbon/human/H in view(src, vision_range))
 		if(H.stat != DEAD)
-			enemies |= H
+			enemies |= WEAKREF(H)
 	return 0
 
 /mob/living/simple_animal/hostile/retaliate/brahmin_bull/BiologicalLife(seconds, times_fired)

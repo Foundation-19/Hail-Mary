@@ -120,8 +120,13 @@ GLOBAL_VAR_INIT(ai_shots_blocked, 0)
 		if(T.density)
 			return FALSE
 		for(var/obj/O in T)
-			if(O.density)
-				return FALSE
+			if(!O.density)
+				continue
+			if(shoot_over_cover && ranged && istype(O, /obj/structure))
+				var/obj/structure/S = O
+				if(S.is_low_cover())
+					continue
+			return FALSE
 	return TRUE
 
 /// A shot from here to there was expected to arrive; counts it for the blocked/fired metric
