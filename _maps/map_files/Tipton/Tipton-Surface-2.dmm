@@ -14008,6 +14008,12 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/f13/wood,
 /area/f13/ambientlighting/building/z)
+"fme" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 8
+	},
+/turf/open/floor/plating/dirt,
+/area/f13/tunnel)
 "fmi" = (
 /mob/living/simple_animal/hostile/ghoul,
 /turf/open/indestructible/ground/outside/sidewalk,
@@ -122791,7 +122797,7 @@ aDy
 euX
 aDy
 euX
-euX
+fme
 dFo
 jRd
 cAJ
