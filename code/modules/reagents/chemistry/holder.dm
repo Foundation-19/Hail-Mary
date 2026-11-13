@@ -326,6 +326,11 @@
 							var/turf/CT = get_turf(C)
 							log_reagent("OVERDOSE START: [key_name(C)] at [AREACOORD(CT)] started overdosing on [R.volume] units of [R].")
 							need_mob_update += R.overdose_start(C)
+						else if(R.overdosed && R.overdose_ends_below_threshold && R.volume <= od_threshold)
+							R.overdosed = 0
+							var/turf/CT = get_turf(C)
+							log_reagent("OVERDOSE END: [key_name(C)] at [AREACOORD(CT)] is no longer overdosing on [R] with [R.volume] units left.")
+							need_mob_update += R.overdose_end(C)
 					if(R.addiction_threshold)
 						var/old_dependence = dependence[R.type] || 0
 						var/new_dependence = old_dependence + R.metabolization_rate / R.addiction_threshold * 						(HAS_TRAIT(C, TRAIT_CLEAN_LIVING) ? 0.6 : 1) * stack_mult

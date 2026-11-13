@@ -2238,6 +2238,7 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 	taste_description = "numbness"
 	metabolization_rate = 8 * REAGENTS_METABOLISM	// 20u at 3 brute/2.25 burn per tick is about 30 HP of healing, delivered in roughly 12 seconds
 	overdose_threshold = 60
+	overdose_ends_below_threshold = TRUE
 	value = REAGENT_VALUE_COMMON
 	ghoulfriendly = TRUE
 	var/damage_offset = 3	//Value to offset damage by
@@ -2333,6 +2334,7 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 	taste_description = "numbness"
 	metabolization_rate = 7.5 * REAGENTS_METABOLISM	// 10u at 11.5 brute and burn per tick is about 75 HP of healing in under 7 seconds
 	overdose_threshold = 40	// you can risk a second dose
+	overdose_ends_below_threshold = TRUE
 	ghoulfriendly = TRUE
 	var/damage_offset = 6.75	//How much damage will be offset in one tick
 	var/clot_rate = 0.45	
@@ -2447,6 +2449,7 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 	taste_description = "bitterness"
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM	// 10u at 2 per tick heals about 20 HP, the weakest of the herbal remedies
 	overdose_threshold = 30
+	overdose_ends_below_threshold = TRUE
 	ghoulfriendly = TRUE
 	heal_nominal = 2
 	heal_onset = 2
@@ -2537,6 +2540,7 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 	taste_description = "bitterness"
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM //5u heals about 37 HP over ~17s shared among whichever of brute, burn and toxin the patient has, slightly more than a stimpak but much slower. More for tribals and a little less for outsiders
 	overdose_threshold = 31
+	overdose_ends_below_threshold = TRUE
 	var/heal_factor = -1.5
 	ghoulfriendly = TRUE
 	heal_nominal = 4.5
@@ -2947,6 +2951,7 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 	color = "#7FC8F0"
 	metabolization_rate = 2 * REAGENTS_METABOLISM
 	overdose_threshold = 15
+	overdose_ends_below_threshold = TRUE
 	ghoulfriendly = TRUE
 
 /datum/reagent/medicine/rushing_water/on_mob_life(mob/living/carbon/M)

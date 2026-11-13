@@ -50,6 +50,8 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/addiction_stage3_end = 30
 	var/addiction_stage4_end = 40
 	var/overdosed = 0 // You fucked up and this is now triggering its overdose effects, purge that shit quick.
+	/// If TRUE the overdose ends once the body has worked the amount back under the threshold, instead of lasting until none of it is left
+	var/overdose_ends_below_threshold = FALSE
 	var/self_consuming = FALSE  //I think this uhhh, makes weird stuff happen when metabolising, but... doesn't seem to do what I think, so I'm gonna leave it.
 	//Fermichem vars:
 	var/purity 				= 1 		//How pure a chemical is from 0 - 1.
@@ -251,6 +253,11 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 /datum/reagent/proc/overdose_start(mob/living/M)
 	to_chat(M, span_userdanger("You feel like you took too much of [name]!"))
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/overdose, name)
+
+/// Called when the overdose lets go because the amount fell back under the threshold
+/datum/reagent/proc/overdose_end(mob/living/M)
+	to_chat(M, span_notice("The worst of taking too much [name] passes."))
+	SEND_SIGNAL(M, COMSIG_CLEAR_MOOD_EVENT, "[type]_overdose")
 
 /datum/reagent/proc/addiction_act_stage1(mob/living/M)
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/withdrawal_light, name)
