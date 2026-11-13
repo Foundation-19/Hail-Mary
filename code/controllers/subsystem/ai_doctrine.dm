@@ -39,6 +39,7 @@ SUBSYSTEM_DEF(ai_doctrine)
 	var/rounds_recorded = 0
 	/// What the last load, merge or save did, for the admin panel
 	var/status = "not loaded"
+	var/save_failures = 0
 
 /datum/controller/subsystem/ai_doctrine/Initialize()
 	if(GLOB.ai_learning_enabled)
@@ -143,6 +144,9 @@ SUBSYSTEM_DEF(ai_doctrine)
 		fdel(AI_DOCTRINE_TMP)
 		status = "save failed: could not write a valid file"
 		log_game("AI doctrine save failed: temp file did not validate.")
+		save_failures++
+		if(save_failures == 3)
+			message_admins("The hostile AI doctrine has failed to save [save_failures] times in a row. Check the data/ai_doctrine folder.")
 		return FALSE
 	if(rotate && read_file(AI_DOCTRINE_FILE))
 		for(var/i in AI_DOCTRINE_SNAPSHOTS to 2 step -1)
@@ -154,6 +158,7 @@ SUBSYSTEM_DEF(ai_doctrine)
 		fcopy(AI_DOCTRINE_FILE, "[AI_DOCTRINE_FILE].1")
 	fcopy(AI_DOCTRINE_TMP, AI_DOCTRINE_FILE)
 	fdel(AI_DOCTRINE_TMP)
+	save_failures = 0
 	return TRUE
 
 /// Loads priors from the first good file: the real one, then the snapshots. Merges a crashed round's pending section.

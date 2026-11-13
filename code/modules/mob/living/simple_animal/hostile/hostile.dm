@@ -2240,6 +2240,10 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 		var/dist_now = get_dist(src, target)
 		if(dist_now <= aggro_vision_range)
 			has_los = TRUE
+	// A mob waiting out a camper from cover keeps tracking it, or it would drop to a search and walk back into the fire.
+	// The wait is bounded by the patience, after which the normal sight rules apply again.
+	if(!has_los && target && ai_bhv_camp_waiting && z_of(target) == z && world.time - ai_bhv_camp_wait_start <= AI_BHV_CAMP_PATIENCE)
+		has_los = TRUE
 
 	if(has_los)
 		last_target_sighting = world.time
@@ -3495,6 +3499,7 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 		is_alpha_alerter = FALSE
 		remembered_target = null
 		last_target_sighting = 0
+		ai_bhv_reset() // The fight is over, so what was learned about this target goes with it
 		if(give_up_message)
 			visible_message(span_notice("[src] gives up the search."))
 		LoseTarget("search_gave_up")

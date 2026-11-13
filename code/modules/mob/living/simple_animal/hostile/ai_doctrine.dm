@@ -282,7 +282,10 @@ GLOBAL_VAR_INIT(ai_doctrine_updates, 0)
 	for(var/b in 1 to AI_BHV_COUNT)
 		var/prev = bhv_prevalence[b]
 		var/eff = bhv_effect[b]
-		bhv += "[GLOB.ai_behavior_names[b]] caught=[bhv_catches[b]] act=[bhv_act_n[b]] prev=[isnull(prev) ? "-" : round(prev, 0.01)] eff=[isnull(eff) ? "-" : round(eff, 0.01)] scale=[round(counter_scale(b), 0.01)]"
+		var/gain = "-"
+		if(bhv_act_n[b] && bhv_base_n)
+			gain = round(bhv_act_sum[b] / bhv_act_n[b] - bhv_base_sum / bhv_base_n, 0.01)
+		bhv += "[GLOB.ai_behavior_names[b]] caught=[bhv_catches[b]] act=[bhv_act_n[b]] gain=[gain] prev=[isnull(prev) ? "-" : round(prev, 0.01)] eff=[isnull(eff) ? "-" : round(eff, 0.01)] scale=[round(counter_scale(b), 0.01)]"
 	. += "  behaviors ([bhv_engagements] fights): [bhv.Join(", ")]"
 
 /mob/living/simple_animal/hostile
@@ -330,7 +333,8 @@ GLOBAL_VAR_INIT(ai_doctrine_updates, 0)
 	var/taken = maxHealth > 0 ? CLAMP(ai_seg_taken / maxHealth, 0, 1) : 0
 	reward -= AI_REWARD_DAMAGE * taken
 	reward -= AI_REWARD_ALLY_LOSS * min(ai_seg_allies_lost, AI_REWARD_ALLY_LOSS_CAP)
-	if(!ai_seg_hits && !ai_seg_taken)
+	// Waiting out a camper on purpose is not a stall
+	if(!ai_seg_hits && !ai_seg_taken && !ai_bhv_camp_waiting)
 		reward -= min(seconds * AI_REWARD_STALL_RATE, AI_REWARD_STALL_CAP)
 	if(died)
 		reward -= AI_REWARD_DEATH
