@@ -68,6 +68,12 @@
 		if(!is_type_in_list(get_area(L), GLOB.outdoor_areas))
 			healAmount += BED_HEAL_BONUS
 
+	// Resting repairs tissue like any other healing: it needs food and water, and a drunk body does it slower.
+	var/mob/living/carbon/C
+	if(iscarbon(L))
+		C = L
+		healAmount *= C.get_repair_resource_factor()
+
 	// Now pick a random element from the list, if it is BRUTE, OXY, TOX or BURN, apply the heal amount to one of them.
 	switch(pick(damagedParts))
 		if(BRUTE)
@@ -78,6 +84,10 @@
 			L.adjustToxLoss(-healAmount)
 		if(BURN)
 			L.adjustFireLoss(-healAmount)
+
+	// Same per-HP food and water cost as other healing, which only applies while there is brute or burn to repair
+	if(C)
+		C.pay_repair_cost(healAmount)
 	
 	// And that's it! We dont really need to add anything else, it will continue to call this function every tick.
 

@@ -296,6 +296,43 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 			to_chat(M, span_danger("The [name] knits your broken [W.limb.name] together before it was set. It heals crooked."))
 			return
 
+/// Spends a healing budget on the damage types the patient actually has. It is shared evenly, and what a lightly hurt type can't absorb goes to the rest, so none of it is wasted on damage the patient doesn't have
+/datum/reagent/medicine/proc/spend_heal_budget(mob/living/carbon/M, budget, heal_brute = TRUE, heal_burn = TRUE, heal_tox = FALSE)
+	var/list/damage = list()
+	var/list/healed = list()
+	if(heal_brute)
+		damage[BRUTE] = max(0, M.getBruteLoss())
+		healed[BRUTE] = 0
+	if(heal_burn)
+		damage[BURN] = max(0, M.getFireLoss())
+		healed[BURN] = 0
+	if(heal_tox)
+		damage[TOX] = max(0, M.getToxLoss())
+		healed[TOX] = 0
+	var/remaining = budget
+	for(var/pass in 1 to 3)
+		var/damaged = 0
+		for(var/dmg_type in damage)
+			if(damage[dmg_type] > 0)
+				damaged++
+		if(!damaged || remaining <= 0)
+			break
+		var/share = remaining / damaged
+		for(var/dmg_type in damage)
+			var/amount = min(damage[dmg_type], share)
+			if(amount <= 0)
+				continue
+			damage[dmg_type] -= amount
+			healed[dmg_type] += amount
+			remaining -= amount
+	if(healed[BRUTE])
+		M.adjustBruteLoss(-healed[BRUTE], FALSE)
+	if(healed[BURN])
+		M.adjustFireLoss(-healed[BURN], FALSE)
+	if(healed[TOX])
+		M.adjustToxLoss(-healed[TOX], FALSE)
+	return budget - remaining
+
 /// Herbal remedies work best for those raised on them, and modern chems are unfamiliar to tribals
 /datum/reagent/medicine/proc/get_cultural_factor(mob/living/carbon/M)
 	var/tribal = HAS_TRAIT(M, TRAIT_TRIBAL)
@@ -2191,8 +2228,7 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
  * Stimpak Juice
  * Initial insta-heal
  * Some lingering heal over time
- * Heals either brute or burn per tick, whichever's higher
- * Overdose makes you barf stunlock yourself
+ * Heals brute and burn from one shared pool, so none of it is wasted on damage the patient doesn't have
  */
 /datum/reagent/medicine/stimpak	// Supplemented by other chems within a stimpak
 	name = "Stimfluid"
@@ -2260,8 +2296,7 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 							iter_wound.blood_flow -= clot_rate
 
 		//Actual healing part starts here
-		M.adjustBruteLoss(-damage_offset * REAGENTS_EFFECT_MULTIPLIER * heal_mult, FALSE)	//100% of damage_offset (3)
-		M.adjustFireLoss(-damage_offset * 0.75 * REAGENTS_EFFECT_MULTIPLIER * heal_mult, FALSE)	//75% of damage_offset (2.25)
+		spend_heal_budget(M, damage_offset * 1.75 * REAGENTS_EFFECT_MULTIPLIER * heal_mult)	//the 3 brute + 2.25 burn budget goes to whichever the patient has
 		M.AdjustStun(-damage_offset * 0.66 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	//66% of damage_offset (2)
 		M.AdjustKnockdown(-damage_offset * 0.66 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	//66% of damage_offset (2)
 		M.adjustStaminaLoss(-damage_offset * 0.66 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	//66% of damage_offset (2)
@@ -2345,13 +2380,22 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 							iter_wound.blood_flow -= clot_rate
 
 		//Actual healing part starts here
-		M.adjustBruteLoss(-damage_offset * 1.7 * REAGENTS_EFFECT_MULTIPLIER * heal_mult, FALSE)	
-		M.adjustFireLoss(-damage_offset * 1.7 * REAGENTS_EFFECT_MULTIPLIER * heal_mult, FALSE)	
+		spend_heal_budget(M, damage_offset * 1.7 * 2 * REAGENTS_EFFECT_MULTIPLIER * heal_mult)	//the 11.5 brute + 11.5 burn budget goes to whichever the patient has
 		M.AdjustStun(-damage_offset * 0.90 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	
 		M.AdjustKnockdown(-damage_offset * 0.90 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	
 		M.adjustStaminaLoss(-damage_offset * 0.90 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	
 		M.heal_bodypart_damage(damage_offset * heal_mult, damage_offset * 3 * heal_mult, only_robotic = TRUE, only_organic = FALSE)	
 		. = TRUE
+
+/// Cramming that much stimulant chemistry into the bloodstream strains the heart
+/datum/reagent/medicine/super_stimpak/overdose_process(mob/living/carbon/M)
+	. = ..()
+	M.adjustOrganLoss(ORGAN_SLOT_HEART, 1.5)
+	M.adjustToxLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	M.Jitter(10)
+	if(prob(10))
+		to_chat(M, span_danger("Your heart hammers in your chest, struggling to keep up with the chems."))
+	. = TRUE
 
 // ---------------------------
 // LONGPORK STEW REAGENT
@@ -2409,6 +2453,10 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 	heal_origin = HEAL_ORIGIN_HERBAL
 	/// The SPECIAL stat this remedy dulls for a short time, as in New Vegas
 	var/debuff_stat = "p"
+	/// HP healed per tick at full strength
+	var/heal_rate = 2
+	/// Plain powder mends whichever of brute or burn is worse, poultice works on both at once
+	var/heal_both_types = FALSE
 
 /datum/reagent/medicine/healing_powder/on_mob_add(mob/living/L, amount)
 	. = ..()
@@ -2416,10 +2464,12 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 
 /datum/reagent/medicine/healing_powder/on_mob_life(mob/living/carbon/M)
 	var/heal_mult = get_heal_scale(M)
-	if(M.getBruteLoss() > M.getFireLoss())	//Less effective at healing mixed damage types.
-		M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER*heal_mult)
+	if(heal_both_types)
+		spend_heal_budget(M, heal_rate * REAGENTS_EFFECT_MULTIPLIER * heal_mult)
+	else if(M.getBruteLoss() > M.getFireLoss())	//Less effective at healing mixed damage types.
+		M.adjustBruteLoss(-heal_rate*REAGENTS_EFFECT_MULTIPLIER*heal_mult)
 	else
-		M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER*heal_mult)
+		M.adjustFireLoss(-heal_rate*REAGENTS_EFFECT_MULTIPLIER*heal_mult)
 	. = TRUE
 	..()
 
@@ -2441,7 +2491,9 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 	description = "Potent, stinging herbs that swiftly aid in the recovery of grevious wounds."
 	color = "#C8A5DC"
 	overdose_threshold = 12
-	heal_nominal = 6	// the powder's 2 plus 2 brute and 2 burn, about 60 HP from 10u
+	heal_nominal = 6	// 6 HP per tick shared across brute and burn, about 60 HP from 10u
+	heal_rate = 6
+	heal_both_types = TRUE
 	debuff_stat = "a"
 	heal_onset = 3
 	heal_rush = 3
@@ -2459,13 +2511,8 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 	to_chat(M, span_notice("The poultice's burning subsides."))
 
 /datum/reagent/medicine/healing_powder/poultice/on_mob_life(mob/living/carbon/M)
-	var/heal_mult = get_heal_scale(M)
-	. = ..()
-	M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER*heal_mult)
-	M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER*heal_mult)
 	clot_bleed_wounds(user = M, bleed_reduction_rate = clot_rate, coefficient_per_wound = clot_coeff_per_wound, single_wound_full_effect = FALSE)
-	. = TRUE
-	..()
+	return ..()
 
 
 /datum/reagent/medicine/healing_powder/poultice/overdose_process(mob/living/carbon/M)
@@ -2488,7 +2535,7 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 	reagent_state = LIQUID
 	color ="#A9FBFB"
 	taste_description = "bitterness"
-	metabolization_rate = 1.5 * REAGENTS_METABOLISM //5u heals about 37 HP over ~17s split across brute, burn and toxin, slightly more than a stimpak but much slower. More for tribals and a little less for outsiders
+	metabolization_rate = 1.5 * REAGENTS_METABOLISM //5u heals about 37 HP over ~17s shared among whichever of brute, burn and toxin the patient has, slightly more than a stimpak but much slower. More for tribals and a little less for outsiders
 	overdose_threshold = 31
 	var/heal_factor = -1.5
 	ghoulfriendly = TRUE
@@ -2498,19 +2545,21 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 
 /datum/reagent/medicine/bitter_drink/on_mob_life(mob/living/carbon/M)
 	var/heal_mult = get_heal_scale(M)
-	var/heal_rate = heal_factor * REAGENTS_EFFECT_MULTIPLIER * heal_mult
-	M.adjustFireLoss(heal_rate)
-	M.adjustBruteLoss(heal_rate)
-	M.adjustToxLoss(heal_rate)
+	spend_heal_budget(M, -heal_factor * 3 * REAGENTS_EFFECT_MULTIPLIER * heal_mult, heal_tox = TRUE)
 	if(!HAS_TRAIT(M, TRAIT_TRIBAL) && prob(HEAL_OUTSIDER_HERBAL_HALLUCINATE_PROB))
 		M.hallucination = max(M.hallucination, 5)
 	M.radiation -= min(M.radiation, 1)
 	. = TRUE
 	..()
 
+/// Too much of the herbal brew poisons and sickens you, but it doesn't suffocate you or undo the healing
 /datum/reagent/medicine/bitter_drink/overdose_process(mob/living/M)
 	M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER)
-	M.adjustOxyLoss(2*REAGENTS_EFFECT_MULTIPLIER)
+	M.dizziness = max(M.dizziness, 5)
+	if(iscarbon(M) && prob(5))
+		var/mob/living/carbon/C = M
+		to_chat(C, span_warning("The bitter brew sits heavy and sour in your gut."))
+		C.vomit(10, FALSE, FALSE)
 	..()
 	. = TRUE
 
@@ -2902,8 +2951,7 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 
 /datum/reagent/medicine/rushing_water/on_mob_life(mob/living/carbon/M)
 	var/heal_mult = get_heal_scale(M)
-	M.adjustBruteLoss(-1.5 * heal_mult, FALSE)
-	M.adjustFireLoss(-1.5 * heal_mult, FALSE)
+	spend_heal_budget(M, 3 * heal_mult)
 	pay_repair_cost(M, 3 * heal_mult)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
