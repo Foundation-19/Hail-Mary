@@ -208,11 +208,14 @@ GLOBAL_LIST_INIT(ai_intent_names, list("attack", "flank", "hold", "retreat", "ba
 	var/allies_on_target = 0
 	var/allies_idle = 0
 	var/closest_ally_dist = INFINITY
+	var/datum/ai_squad/nearby_squad
 	ai_retreat_goal = null
 	for(var/mob/living/simple_animal/hostile/M in range(AI_ALLY_RADIUS, src))
 		if(M == src || M.stat == DEAD || M.ckey || !faction_check_mob(M, TRUE))
 			continue
 		allies_near++
+		if(M.ai_squad && (!nearby_squad || length(M.ai_squad.members) > length(nearby_squad.members)))
+			nearby_squad = M.ai_squad
 		if(M.target == target)
 			allies_on_target++
 		else if(!M.target && !M.searching)
@@ -227,6 +230,8 @@ GLOBAL_LIST_INIT(ai_intent_names, list("attack", "flank", "hold", "retreat", "ba
 		if(L.stat == CONSCIOUS)
 			threats++
 	threats = max(threats, 1)
+	ai_squad_sync(nearby_squad)
+	var/datum/ai_squad/squad = ai_squad
 	var/outnumbered = CLAMP(threats - allies_near - 1, 0, 3)
 	if(outnumbered)
 		adjust_ai_morale(-AI_MORALE_OUTNUMBERED * outnumbered, "outnumbered")
@@ -240,16 +245,26 @@ GLOBAL_LIST_INIT(ai_intent_names, list("attack", "flank", "hold", "retreat", "ba
 		retreat = ((1 - morale) * 1.1 + (1 - hp) * 0.5) / ai_risk_tolerance
 
 	var/hold = 0
+	var/suppressing = FALSE
 	if(outnumbered && !ranged && target_distance >= 3)
 		hold = 0.35 + 0.5 * (1 - morale)
 
 	var/flank = 0
 	ai_flank_tile = null
-	if(!ranged && target_distance >= 3 && target_distance <= 10 && allies_on_target)
-		var/turf/flank_tile = find_open_flank(target)
-		if(flank_tile)
+	if(!ranged && target_distance >= 3 && target_distance <= 10 && allies_on_target && squad)
+		var/turf/flank_tile = find_open_flank(target, squad)
+		if(flank_tile && squad.can_flank(src, target, flank_tile))
 			ai_flank_tile = flank_tile
 			flank = 1 + 0.05 * min(allies_on_target, 3)
+
+	// Ranged mobs suppress while a squadmate works around the side: they stay put and keep the target pinned instead
+	// of kiting off, so the flank lands on a target that is busy facing them. Needs a clear shot and some nerve.
+	if(ranged && squad && target_distance >= 2 && squad.flank_active(target, src))
+		var/turf/shot_from = get_turf(src)
+		var/turf/shot_to = get_turf(target)
+		if(shot_from && shot_to && shot_is_clear(shot_from, shot_to))
+			hold = max(hold, 0.6 + 0.5 * morale)
+			suppressing = TRUE
 
 	var/backup = 0
 	if(allies_idle && COOLDOWN_FINISHED(src, backup_call_cooldown))
@@ -264,6 +279,14 @@ GLOBAL_LIST_INIT(ai_intent_names, list("attack", "flank", "hold", "retreat", "ba
 		if(u > best)
 			best = u
 			chosen = intents[i]
+
+	if(chosen == AI_INTENT_FLANK)
+		if(!squad.claim_flank(src, target, ai_flank_tile))
+			chosen = AI_INTENT_ATTACK
+	else
+		squad?.release_flank(src, "not_chosen")
+	if(chosen == AI_INTENT_HOLD && suppressing)
+		ai_debug_log("squad_suppress target=[target] dist=[target_distance]")
 
 	ai_commit_intent(chosen, "atk=[round(attack, 0.01)] flank=[round(flank, 0.01)] hold=[round(hold, 0.01)] retreat=[round(retreat, 0.01)] backup=[round(backup, 0.01)] morale=[round(morale, 0.01)] hp=[round(hp, 0.01)] allies=[allies_near] threats=[threats]")
 	return chosen
@@ -283,6 +306,9 @@ GLOBAL_LIST_INIT(ai_intent_names, list("attack", "flank", "hold", "retreat", "ba
 			return TRUE
 		if(AI_INTENT_FLANK)
 			if(!ai_flank_tile)
+				return FALSE
+			if(get_dist(src, ai_flank_tile) <= 1)
+				ai_squad?.complete_flank(src)
 				return FALSE
 			Goto(ai_flank_tile, move_to_delay, 0)
 			return TRUE

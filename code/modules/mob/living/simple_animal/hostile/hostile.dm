@@ -553,8 +553,8 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	ai_switch_times = null
 	ai_intent_target = null
 	ai_flank_tile = null
+	ai_squad_leave()
 	ai_retreat_goal = null
-	ranged_push_goal = null
 	search_move_goal = null
 	search_look_near = null
 
@@ -1131,8 +1131,9 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 /mob/living/simple_animal/hostile/proc/alert_allies_of_combat(turf/combat_location, atom/attacker)
 	if(!combat_location)
 		return
+	if(attacker)
+		ai_get_squad()?.note_threat(attacker, combat_location, src)
 	
-	// Find allies in hearing range across Z-levels
 	var/list/allies_in_range = list()
 	
 	// Same Z
@@ -3839,6 +3840,9 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 	if(search_acquire_target(GetCachedTargets(), "[src] spots $TARGET!", "search_hard_check"))
 		return
 
+	// Nothing in sight: take over a squadmate's fresher report of where the threat is
+	ai_read_squad_board()
+
 	// A mob that stopped walking turns to look: toward the last known position half the time, otherwise sideways or
 	// behind, so a target in its rear cone is not missed just because of the way it happened to stop.
 	if(!was_walking && CHECK_BITFIELD(mobility_flags, MOBILITY_MOVE))
@@ -4106,6 +4110,8 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 		return
 	
 	COOLDOWN_START(src, backup_call_cooldown, backup_call_delay)
+	if(alert_type == "found")
+		ai_get_squad()?.note_threat(found_target, get_turf(found_target), src)
 	
 	// Alert message
 	switch(alert_type)
@@ -5581,7 +5587,7 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 				return
 
 
-/mob/living/simple_animal/hostile/proc/find_open_flank(atom/flank_target)
+/mob/living/simple_animal/hostile/proc/find_open_flank(atom/flank_target, datum/ai_squad/squad)
 	var/turf/target_turf = get_turf(flank_target)
 	if(!target_turf) return null
 
@@ -5593,6 +5599,7 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 		var/turf/T = get_step(target_turf, dir)
 		if(!T || T == my_turf) continue
 		if(T.density) continue
+		if(squad && !squad.flank_tile_free(T, flank_target, src)) continue
 		var/clear = TRUE
 		for(var/atom/movable/AM in T)
 			if(AM.density)
