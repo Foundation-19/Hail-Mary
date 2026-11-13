@@ -201,6 +201,8 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	var/turf/search_last_pos = null
 	/// SMART SEARCH: Consecutive ticks spent far from the destination without moving
 	var/search_stuck_ticks = 0
+	/// SMART SEARCH: Last known position this mob has already reached; from then on it sweeps the area around it instead of walking back
+	var/turf/search_arrived_at = null
 	/// SMART SEARCH: Goal whose walk progress is being tracked, the closest we have been to it, and the search steps since that improved
 	var/atom/search_progress_goal = null
 	var/search_progress_best = 0
@@ -3606,6 +3608,7 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 
 	search_last_pos = null
 	search_stuck_ticks = 0
+	search_arrived_at = null
 	search_progress_goal = null
 
 	cancel_curiosity()
@@ -3912,9 +3915,19 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 				visible_message(span_notice("[src] heads toward the commotion..."))
 				set_search_goal(nearest)
 				return
+	var/current_radius = search_radius + (search_expansion * 2)
+	if(current_radius > 15)
+		current_radius = 15
+
+	// Once we have stood on the last known position, the sweep goals (tiles, doors, containers) lie around it. Walking
+	// back to it every step would undo each sweep walk and leave the mob pacing between the two forever.
+	if(dist_to_last_known <= 1)
+		search_arrived_at = last_known_location
+	var/sweeping = search_arrived_at == last_known_location && dist_to_last_known <= current_radius + 1
+
 	// This ensures we search where the player was last seen, not random areas. Walk there whenever we are not
 	// already on top of it, so a target lost two or three tiles away behind a door is still followed.
-	if(dist_to_last_known > 1)
+	if(dist_to_last_known > 1 && !sweeping)
 		if(current_pos == search_last_pos)
 			search_stuck_ticks++
 		else if(search_stuck_ticks < SEARCH_STUCK_LIMIT)
@@ -3967,10 +3980,6 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 			return
 
 	// Now we're close to last_known_location - search systematically around it
-	var/current_radius = search_radius + (search_expansion * 2)
-	if(current_radius > 15)
-		current_radius = 15
-
 	// PRIORITY 1: Check BOTH doors AND containers, investigate closest one
 	// This fixes the issue where mobs would check all doors before any containers
 	if(can_open_doors && last_known_location)
@@ -4536,6 +4545,7 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 		searched_turfs = list()
 		search_expansion = 0
 		search_stuck_ticks = 0
+		search_arrived_at = null
 		ai_debug_log("search_destination source=[source] confidence=[confidence] from=[last_known_location ? "[last_known_location.x],[last_known_location.y],[last_known_location.z]" : "none"] to=[new_location.x],[new_location.y],[new_location.z]")
 	last_known_location = new_location
 	search_dest_confidence = confidence
