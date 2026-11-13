@@ -997,6 +997,7 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 				COOLDOWN_RESET(src, sight_shoot_delay)
 				trigger_chain_alert(P.firer)
 				visible_message(span_danger("[src] turns its attention to [P.firer]!"))
+				ai_return_fire(target)
 				return
 				
 		if(!target) // Only run to projectile source if we have no target after all checks
@@ -2639,6 +2640,14 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 	if(variation_list[MOB_VARIED_SPEED_CHANCE] && LAZYLEN(variation_list[MOB_VARIED_SPEED]) && prob(variation_list[MOB_VARIED_SPEED_CHANCE]))
 		move_to_delay = vary_from_list(variation_list[MOB_VARIED_SPEED])
 
+/// A ranged mob that has just been hit and found its attacker shoots back now instead of waiting for the next AI tick
+/mob/living/simple_animal/hostile/proc/ai_return_fire(atom/shooter)
+	if(!ranged || ckey || stat != CONSCIOUS || QDELETED(shooter) || shooter != target)
+		return
+	COOLDOWN_RESET(src, sight_shoot_delay)
+	if(ranged_cooldown <= world.time)
+		INVOKE_ASYNC(src, PROC_REF(OpenFire), shooter)
+
 /mob/living/simple_animal/hostile/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
 	. = ..()
 	if(. > 0)
@@ -2659,6 +2668,7 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 				remembered_target = new_target
 				last_target_sighting = world.time
 				last_known_location = get_turf(new_target)
+				ai_return_fire(new_target)
 			else
 				// Was hurt but can't see attacker - keep searching, update memory
 				remembered_target = remembered_target // unchanged
