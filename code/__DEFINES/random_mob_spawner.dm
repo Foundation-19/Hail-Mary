@@ -585,17 +585,22 @@ GLOBAL_LIST_EMPTY(random_mob_nest_spawner_datums)
 	num_mobs_to_spawn_easy = 1
 	mob_respawn_time_easy = MOB_SPAWNER_TIME_LONGEST
 	mob_list_easy = list(
+		/mob/living/simple_animal/hostile/hellpig/runt = 3,
 		/mob/living/simple_animal/hostile/hellpig = 1
 		)
 	num_mobs_to_spawn_medium = 1
 	mob_respawn_time_medium = MOB_SPAWNER_TIME_LONGEST
 	mob_list_medium = list(
-		/mob/living/simple_animal/hostile/hellpig = 2
+		/mob/living/simple_animal/hostile/hellpig = 3,
+		/mob/living/simple_animal/hostile/hellpig/runt = 1
 		)
+	// Hard: the tusker and the sow live here only
 	num_mobs_to_spawn_hard = 2
 	mob_respawn_time_hard = MOB_SPAWNER_TIME_LONGEST
 	mob_list_hard = list(
-		/mob/living/simple_animal/hostile/hellpig = 3
+		/mob/living/simple_animal/hostile/hellpig = 4,
+		/mob/living/simple_animal/hostile/hellpig/tusker = 2,
+		/mob/living/simple_animal/hostile/hellpig/sow = 1
 		)
 
 /// Roachie~

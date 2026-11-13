@@ -1344,6 +1344,62 @@
 		"wound" = 10, \
 		"damage_threshold" = 10)
 
+/* Hellpig runt
+ * Half-grown boar, thin hide and little fat
+ * Barely stops anything, dies to a couple of rounds
+ * Very low DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_HELLPIG_RUNT list(\
+		"melee" = 5, \
+		"bullet" = 10, \
+		"laser" = 5, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 40, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 2)
+
+/* Hellpig
+ * Thick bristled hide over a heavy layer of fat
+ * Soaks small arms and blades, big rounds and lasers get through
+ * Half protected from radiation (it lives in it)
+ * Moderate DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_HELLPIG list(\
+		"melee" = 20, \
+		"bullet" = 30, \
+		"laser" = 10, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 50, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 6)
+
+/* Hellpig tusker
+ * Old boar with scarred, plate-thick hide
+ * Bullets mostly bounce, DT is what stops a rifle from being enough
+ * Lasers still cut it fine
+ * Moderate-high DT, a little under a scarred yao guai
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_HELLPIG_TUSKER list(\
+		"melee" = 30, \
+		"bullet" = 42, \
+		"laser" = 15, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 60, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 5, \
+		"damage_threshold" = 10)
+
 /* Catslug armor
  * Fairly low
  * Decent mob protection

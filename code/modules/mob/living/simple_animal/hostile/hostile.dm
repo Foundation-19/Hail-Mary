@@ -4901,15 +4901,21 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 	..(gibbed)
 
 /mob/living/simple_animal/hostile/proc/summon_backup(distance, exact_faction_match)
-	if(COOLDOWN_FINISHED(src, ding_spam_cooldown))
+	if(!COOLDOWN_FINISHED(src, ding_spam_cooldown))
 		return TRUE
 	COOLDOWN_START(src, ding_spam_cooldown, SIMPLE_MOB_DING_COOLDOWN)
 	do_alert_animation(src)
 	playsound(loc, 'sound/machines/chime.ogg', 50, 1, -1)
 	for(var/mob/living/simple_animal/hostile/M in oview(distance, targets_from))
-		if(faction_check_mob(M, TRUE))
-			if(M.AIStatus == AI_OFF || M.stat == DEAD || M.ckey)
-				return
+		if(!faction_check_mob(M, exact_faction_match))
+			continue
+		if(M.AIStatus != AI_ON || M.stat == DEAD || M.ckey || M.target)
+			continue
+		// Allies spend their own cooldown so one alert spreads a single hop instead of rippling across the whole map
+		COOLDOWN_START(M, ding_spam_cooldown, SIMPLE_MOB_DING_COOLDOWN)
+		if(target && !QDELETED(target))
+			M.GiveTarget(target, "backup_call")
+		else
 			M.Goto(src,M.move_to_delay,M.minimum_distance)
 
 /mob/living/simple_animal/hostile/proc/CheckFriendlyFire(atom/A)

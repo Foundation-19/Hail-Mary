@@ -2962,6 +2962,7 @@
 #include "code\modules\mob\living\simple_animal\hostile\f13\centaur.dm"
 #include "code\modules\mob\living\simple_animal\hostile\f13\chinese.dm"
 #include "code\modules\mob\living\simple_animal\hostile\f13\deathclaw.dm"
+#include "code\modules\mob\living\simple_animal\hostile\f13\hellpig.dm"
 #include "code\modules\mob\living\simple_animal\hostile\f13\eyebot.dm"
 #include "code\modules\mob\living\simple_animal\hostile\f13\fallout_NPC.dm"
 #include "code\modules\mob\living\simple_animal\hostile\f13\ghoul.dm"

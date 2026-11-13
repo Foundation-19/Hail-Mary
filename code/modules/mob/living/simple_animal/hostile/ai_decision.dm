@@ -173,9 +173,20 @@ GLOBAL_LIST_INIT(ai_intent_names, list("attack", "flank", "hold", "retreat", "ba
 	if(ai_intent != AI_INTENT_INVESTIGATE)
 		ai_commit_intent(AI_INTENT_INVESTIGATE, "no_los")
 
+/// Mixed mobs inside this many tiles of their target are in the fight and stay in it
+#define AI_MIXED_ENGAGE_RANGE 4
+
 /// Picks what a mob with a visible target does this moment. Returns the committed intent while its window is open.
 /mob/living/simple_animal/hostile/proc/ai_decide_intent(target_distance)
 	if(!ai_decision_enabled || ckey || !target)
+		return AI_INTENT_ATTACK
+
+	// A mixed mob is built to finish the job in melee once someone is on top of it. Falling back, holding or calling
+	// backup while a player rushes it just hands over free hits and makes it dither between shooting and swinging,
+	// so a stale commit is dropped and it attacks.
+	if(combat_mode == COMBAT_MODE_MIXED && target_distance <= AI_MIXED_ENGAGE_RANGE)
+		if(ai_intent != AI_INTENT_ATTACK || world.time >= ai_intent_until || RESOLVEWEAKREF(ai_intent_target) != target)
+			ai_commit_intent(AI_INTENT_ATTACK, "mixed_engaged dist=[target_distance]")
 		return AI_INTENT_ATTACK
 
 	if(ai_intent != AI_INTENT_NONE && world.time < ai_intent_until)

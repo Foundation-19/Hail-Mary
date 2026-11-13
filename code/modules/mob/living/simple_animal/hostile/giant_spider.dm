@@ -67,6 +67,12 @@
 	lay_web = new
 	lay_web.Grant(src)
 
+/mob/living/simple_animal/hostile/poison/giant_spider/Aggro()
+	. = ..()
+	if(.)
+		return
+	summon_backup(8)
+
 /mob/living/simple_animal/hostile/poison/giant_spider/Destroy()
 	GLOB.spidermobs -= src
 
