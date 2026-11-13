@@ -147,13 +147,19 @@
 			affix = null
 			return
 	var/label = get_affix_label(affix_id)
-	var/blurb = get_affix_blurb(affix_id)
 	var/affix_color = get_affix_color(affix_id)
 	name = "[label] [name]"
-	if(blurb)
-		desc = "[desc]<br><font color='[affix_color]'><b>[capitalize(label)]:</b> <i>[blurb]</i></font>"
 	if(affix_color)
 		add_filter("affix_glow", 2, list("type" = "outline", "color" = "[affix_color]a0", "size" = 1))
+
+// Built from the affix var instead of baked into desc, so nothing that rewrites desc or name can hide it.
+/mob/living/simple_animal/hostile/examine(mob/user)
+	. = ..()
+	if(!affix)
+		return
+	var/blurb = get_affix_blurb(affix)
+	if(blurb)
+		. += "<font color='[get_affix_color(affix)]'><b>[capitalize(get_affix_label(affix))]:</b> <i>[blurb]</i></font>"
 
 /mob/living/simple_animal/hostile/proc/affix_regen_tick()
 	if(QDELETED(src) || stat == DEAD)
