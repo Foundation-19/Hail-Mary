@@ -15,6 +15,17 @@
 #define AI_INTENT_BACKUP 5
 #define AI_INTENT_INVESTIGATE 6
 
+/// What a mob is doing at the top level. It is derived from `searching` and `target`, never stored by hand, so it
+/// cannot disagree with them. IDLE has no target and no search, ENGAGE has a target, HUNT is searching.
+#define AI_MODE_IDLE 0
+#define AI_MODE_ENGAGE 1
+#define AI_MODE_HUNT 2
+
+/// How well a mob perceives an atom, see ai_sight_of()
+#define AI_SIGHT_NONE 0
+#define AI_SIGHT_SENSED 1
+#define AI_SIGHT_CLEAR 2
+
 /// Kiting modes recorded by note_retreat_step()
 #define RETREAT_MOVE_AWAY 1
 #define RETREAT_MOVE_CLOSE 2
@@ -147,10 +158,13 @@
 GLOBAL_VAR_INIT(ai_target_switches, 0)
 GLOBAL_VAR_INIT(ai_target_flickers, 0)
 GLOBAL_LIST_INIT(ai_intent_names, list("attack", "flank", "hold", "retreat", "backup", "investigate"))
+GLOBAL_LIST_INIT(ai_mode_names, list("idle", "engage", "hunt"))
 
 /mob/living/simple_animal/hostile
 	/// Set to FALSE to bypass the decision layer entirely (the mob behaves as before phase 4)
 	var/ai_decision_enabled = TRUE
+	/// The mode the AI layers last saw, see ai_sync_mode()
+	var/ai_mode = AI_MODE_IDLE
 	/// Whether this mob may fall back toward allies or away from the target. Null means only ranged or kiting mobs may.
 	var/ai_can_retreat
 	var/ai_intent = AI_INTENT_NONE
@@ -280,6 +294,72 @@ GLOBAL_LIST_INIT(ai_intent_names, list("attack", "flank", "hold", "retreat", "ba
 	if(ai_intent != AI_INTENT_INVESTIGATE)
 		ai_commit_intent(AI_INTENT_INVESTIGATE, "no_los")
 
+// The mind. Every layer of the AI hangs off one of three modes, and each mode has one update that runs its layers in
+// a fixed order:
+//   ENGAGE: ai_engage_update  behavior counters (memory of how this fight went), then the intent decision
+//   HUNT:   ai_hunt_update    the squad's report of where the threat is, then a lead from how the target moved
+//   IDLE:   nothing runs; ai_stand_down wipes what the last fight left behind
+// All of them see the target through ai_sight_of, so no layer has its own idea of what "in sight" means.
+
+/// How well this mob perceives A: CLEAR when it is in view, SENSED when it is close enough to be heard or felt through
+/// walls, NONE otherwise. Engaged mobs track by plain view() with no vision cone, since the cone only matters for an
+/// idle mob scanning for threats.
+/mob/living/simple_animal/hostile/proc/ai_sight_of(atom/A)
+	if(!A || QDELETED(A) || z_of(A) != z)
+		return AI_SIGHT_NONE
+	var/dist = get_dist(src, A)
+	var/clear = (A in view(vision_range, src))
+	// A heavily cloaked target is only seen up close
+	if(clear && ishuman(A))
+		var/mob/living/carbon/human/H = A
+		if(H.alpha < 100)
+			clear = (dist <= max(round(vision_range * 0.2), 1))
+	if(clear)
+		return AI_SIGHT_CLEAR
+	if(dist <= aggro_vision_range)
+		return AI_SIGHT_SENSED
+	// A mob waiting out a camper from cover keeps tracking it, or it would drop to a search and walk back into the
+	// fire. The wait is bounded by the patience, after which the normal rules apply again.
+	if(A == target && ai_bhv_camp_waiting && world.time - ai_bhv_camp_wait_start <= AI_BHV_CAMP_PATIENCE)
+		return AI_SIGHT_SENSED
+	return AI_SIGHT_NONE
+
+/mob/living/simple_animal/hostile/proc/ai_current_mode()
+	if(searching)
+		return AI_MODE_HUNT
+	return target ? AI_MODE_ENGAGE : AI_MODE_IDLE
+
+/// The one place a change of mode is handled. Called every AI tick and after a search ends, so a mode never lingers
+/// after the state it comes from has changed.
+/mob/living/simple_animal/hostile/proc/ai_sync_mode()
+	var/new_mode = ai_current_mode()
+	if(new_mode == ai_mode)
+		return
+	var/old_mode = ai_mode
+	ai_mode = new_mode
+	ai_debug_log("mode_change [GLOB.ai_mode_names[old_mode + 1]]->[GLOB.ai_mode_names[new_mode + 1]]")
+	if(new_mode == AI_MODE_IDLE && !ckey && ai_decision_enabled)
+		ai_stand_down()
+
+/// The fight is over: score the open segment, then drop everything learned about this target and the plans built on it
+/mob/living/simple_animal/hostile/proc/ai_stand_down()
+	ai_close_segment("stand_down")
+	ai_bhv_reset()
+	ai_intent = AI_INTENT_NONE
+	ai_intent_until = 0
+	ai_intent_target = null
+	ai_squad?.release_flank(src, "stood_down")
+
+/// ENGAGE layers for a mob with a target it perceives. Returns the intent to act on.
+/mob/living/simple_animal/hostile/proc/ai_engage_update(target_distance)
+	ai_behavior_update(target_distance)
+	return ai_decide_intent(target_distance)
+
+/// HUNT layers for a searching mob, run before it picks its own search goal. TRUE when a lead already used the step.
+/mob/living/simple_animal/hostile/proc/ai_hunt_update()
+	ai_read_squad_board()
+	return ai_search_lead()
+
 /// Mixed mobs inside this many tiles of their target are in the fight and stay in it
 #define AI_MIXED_ENGAGE_RANGE 4
 
@@ -385,6 +465,7 @@ GLOBAL_LIST_INIT(ai_intent_names, list("attack", "flank", "hold", "retreat", "ba
 
 	var/list/intents = list(AI_INTENT_ATTACK, AI_INTENT_FLANK, AI_INTENT_HOLD, AI_INTENT_RETREAT, AI_INTENT_BACKUP)
 	var/list/utility = list(attack, flank, hold, retreat, backup)
+	var/list/utility_base = utility.Copy()
 
 	// What the type has learned works scales each intent's score. The context keeps lone fights and pack fights apart.
 	ai_decision_ctx = allies_near >= 2 ? AI_CTX_PACK : AI_CTX_SOLO
@@ -392,6 +473,7 @@ GLOBAL_LIST_INIT(ai_intent_names, list("attack", "flank", "hold", "retreat", "ba
 	if(doctrine)
 		for(var/i in 1 to AI_LEARN_INTENTS)
 			utility[i] *= doctrine.get_weight(ai_decision_ctx, intents[i])
+	var/list/utility_doctrine = utility.Copy()
 	ai_apply_behavior_counters(intents, utility, target_distance, doctrine, allies_near)
 
 	var/chosen = AI_INTENT_ATTACK
@@ -425,8 +507,19 @@ GLOBAL_LIST_INIT(ai_intent_names, list("attack", "flank", "hold", "retreat", "ba
 	if(chosen == AI_INTENT_RETREAT && ai_intent != AI_INTENT_RETREAT)
 		squad?.note_fallback(src)
 
-	ai_commit_intent(chosen, "atk=[round(attack, 0.01)] flank=[round(flank, 0.01)] hold=[round(hold, 0.01)] retreat=[round(retreat, 0.01)] backup=[round(backup, 0.01)] morale=[round(morale, 0.01)] hp=[round(hp, 0.01)] allies=[allies_near] threats=[threats]")
+	ai_commit_intent(chosen, "[ai_utility_trace(utility_base, utility_doctrine, utility)] morale=[round(morale, 0.01)] hp=[round(hp, 0.01)] allies=[allies_near] threats=[threats]")
 	return chosen
+
+/// One line showing how each layer moved the scores (attack/flank/hold/retreat/backup): the base from health, morale and
+/// numbers, then after the doctrine's weights, then after the behavior counters, which is what was picked from.
+/proc/ai_utility_trace(list/base, list/doctrine, list/final)
+	var/list/parts = list()
+	for(var/list/layer in list(base, doctrine, final))
+		var/list/shown = list()
+		for(var/value in layer)
+			shown += "[round(value, 0.01)]"
+		parts += shown.Join("/")
+	return "base=[parts[1]] doctrine=[parts[2]] final=[parts[3]]"
 
 /// Carries out the movement half of an intent. Returns TRUE if it issued movement, so the default movement is skipped.
 /mob/living/simple_animal/hostile/proc/ai_run_intent_movement(intent)

@@ -675,7 +675,7 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 				if(L.stat == DEAD || L.ckey && !L.client)
 					continue
 			
-			// CORE FIX: Check distance FIRST using effective range
+			// Check distance first using the effective range
 			var/effective_range = get_effective_vision_range(possible_target)
 			var/actual_distance = get_dist(src, possible_target)
 			
@@ -826,6 +826,7 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 			check_light_patrol()
 
 	// Searching is driven from the AI tick: one step per tick once due, no self-rescheduling timers
+	ai_sync_mode()
 	if(searching)
 		search_tick()
 
@@ -1007,7 +1008,7 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 	if(!threat)
 		return
 
-	// BUG 2 FIX: Only alpha mobs broadcast chain alerts
+	// Only alpha mobs broadcast chain alerts
 	if(!is_alpha_alerter)
 		return
 
@@ -1600,7 +1601,7 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 	if(stat == DEAD) // Dead mobs can't detect targets
 		return list()
 	if(!search_objects)
-		// CORE FIX: Filter by effective range BEFORE adding to list
+		// Filter by effective range before adding to the list
 		. = list()
 		
 		// Get all potential targets in max vision range
@@ -2172,13 +2173,8 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 		return 0
 	
 	if(searching)
-		// Tracking check: use plain view() (no vision cone) so the mob can recover its
-		// target regardless of which direction it's currently facing.
-		var/found_target_now = target && z_of(target) == z && (target in view(vision_range, src))
-		// Within aggro range on same Z: always found (mirrors the has_los bypass above)
-		if(!found_target_now && target && z_of(target) == z && get_dist(src, target) <= aggro_vision_range)
-			found_target_now = TRUE
-		if(found_target_now)
+		// Found again by the same sight rules the fight uses
+		if(ai_sight_of(target) != AI_SIGHT_NONE)
 			exit_search_mode(found_target = TRUE)
 			last_target_sighting = world.time
 			call_for_backup(target, "found")
@@ -2223,27 +2219,8 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 				LoseTarget("cannot_attack")
 				return 0
 
-	// TRACKING LOS: Use plain BYOND view() without vision-cone restrictions.
-	// Vision cones are for initial detection (idle mob scanning for threats).
-	// An already-engaged mob tracks its target regardless of facing direction.
-	var/has_los = target && z_of(target) == z && (target in view(vision_range, src))
-	// Stealth boy: drastically reduce tracking range for heavily cloaked targets
-	if(has_los && ishuman(target))
-		var/mob/living/carbon/human/H = target
-		if(H.alpha < 100)
-			has_los = (get_dist(src, target) <= max(round(vision_range * 0.2), 1))
-	// Adjacency (dist<=2) always counts as LOS.
-	// Within aggro_vision_range on the same Z: also always treat as LOS.
-	// The mob can hear/sense the target even through doors/walls at close range.
-	// Only when the target escapes beyond aggro range does LOS tracking actually lapse.
-	if(!has_los && target && z_of(target) == z)
-		var/dist_now = get_dist(src, target)
-		if(dist_now <= aggro_vision_range)
-			has_los = TRUE
-	// A mob waiting out a camper from cover keeps tracking it, or it would drop to a search and walk back into the fire.
-	// The wait is bounded by the patience, after which the normal sight rules apply again.
-	if(!has_los && target && ai_bhv_camp_waiting && z_of(target) == z && world.time - ai_bhv_camp_wait_start <= AI_BHV_CAMP_PATIENCE)
-		has_los = TRUE
+	// An engaged mob tracks its target by plain view() with no vision cone, and also senses it at close range
+	var/has_los = (ai_sight_of(target) != AI_SIGHT_NONE)
 
 	if(has_los)
 		last_target_sighting = world.time
@@ -2371,8 +2348,7 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 
 	// TARGET IN LOS - normal combat path
 	if(has_los)
-		ai_behavior_update(target_distance)
-		var/intent = ai_decide_intent(target_distance)
+		var/intent = ai_engage_update(target_distance)
 
 		// Mixed mobs shoot while closing the gap, then fight in melee. They never hold a standoff range.
 		var/mixed_charge = (combat_mode == COMBAT_MODE_MIXED)
@@ -2642,7 +2618,7 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 			FindTarget()
 
 
-/// BARRICADE FIX: Check if target is blocked by structure
+/// Whether a structure blocks the target
 /mob/living/simple_animal/hostile/proc/is_target_blocked_by_structure(atom/A)
 	if(!A)
 		return FALSE
@@ -3161,6 +3137,7 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 	in_melee = FALSE
 	walk(src, 0)
 	LoseAggro()
+	ai_sync_mode()
 
 // Z-LEVEL PURSUIT SYSTEM
 /// Stairs, ladders or openspace this mob can use to reach another level. Looks within sight first, then anywhere on the
@@ -3417,7 +3394,7 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 	// Don't start searching if the remembered target is dead OR CRIT
 	if(remembered_target && !QDELETED(remembered_target) && isliving(remembered_target))
 		var/mob/living/L = remembered_target
-		if(L.stat == DEAD || L.stat == UNCONSCIOUS) // FIX: Include UNCONSCIOUS (crit)
+		if(L.stat == DEAD || L.stat == UNCONSCIOUS) // Crit counts as down too
 			// Target is dead/crit, no point searching
 			remembered_target = null
 			last_target_sighting = 0
@@ -3499,7 +3476,6 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 		is_alpha_alerter = FALSE
 		remembered_target = null
 		last_target_sighting = 0
-		ai_bhv_reset() // The fight is over, so what was learned about this target goes with it
 		if(give_up_message)
 			visible_message(span_notice("[src] gives up the search."))
 		LoseTarget("search_gave_up")
@@ -3508,6 +3484,7 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 			COOLDOWN_START(src, search_chatter_cooldown, search_chatter_delay)
 			visible_message(span_danger("[src] resumes the hunt!"))
 		// is_alpha_alerter stays as-is - if we found the target we may now broadcast
+	ai_sync_mode()
 
 /// Closed doors (simple_door and machinery door) within radius of center; radius 0 is the center tile only
 /mob/living/simple_animal/hostile/proc/get_closed_doors(atom/center, radius = 0)
@@ -3695,11 +3672,8 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 	if(search_acquire_target(GetCachedTargets(), "[src] spots $TARGET!", "search_hard_check"))
 		return
 
-	// Nothing in sight: take over a squadmate's fresher report of where the threat is
-	ai_read_squad_board()
-
-	// A target that heals up in fights is followed along the way it was going, not given up on at its last sighting
-	if(ai_search_lead())
+	// Nothing in sight: the squad's report and the way the target was moving come before the mob's own search goal
+	if(ai_hunt_update())
 		return
 
 	// A mob that stopped walking turns to look: toward the last known position half the time, otherwise sideways or
@@ -4539,7 +4513,7 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 	if(can_open_doors)
 		var/list/path = getline(get_turf(src), impact_location)
 		for(var/turf/T in path)
-			// REALISM FIX: Only open doors within melee range (adjacent)
+			// Only open doors within melee range (adjacent)
 			var/door_distance = get_dist(src, T)
 			if(door_distance > 1)
 				continue // Too far to open
@@ -4670,7 +4644,7 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 	// ONLY check for living mobs with lights - not objects
 	var/list/potential_lights = list()
 	
-	// FIX: Use the INTEGRATED vision system instead of raw view()
+	// Use the integrated vision system instead of raw view()
 	// Check all mobs in range, but filter by effective vision range
 	for(var/mob/living/M in view(light_detection_range, src))
 		if(M == src)
@@ -4684,7 +4658,7 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 		if(M.light_range < light_detection_threshold)
 			continue
 		
-		// FIX: Apply the integrated vision system
+		// Apply the integrated vision system
 		// This checks BOTH lighting and direction
 		var/effective_range = get_effective_vision_range(M)
 		var/actual_distance = get_dist(src, M)
@@ -4994,7 +4968,7 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 	if(COOLDOWN_TIMELEFT(src, sight_shoot_delay))
 		return FALSE
 	
-	// BARRICADE FIX: Don't shoot at targets blocked by structures
+	// Don't shoot at targets blocked by structures
 	// Pathfinding will handle getting around obstacles
 	if(dist_to_target > 2 && is_target_blocked_by_structure(A))
 		return FALSE // Target behind barricade/table/window - path around instead
@@ -5006,7 +4980,7 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 			if(T == get_turf(src)) // Skip our own tile
 				continue
 			
-			// REALISM FIX: Only open doors within melee range (adjacent tiles)
+			// Only open doors within melee range (adjacent tiles)
 			var/door_distance = get_dist(src, T)
 			if(door_distance > 1)
 				continue // Too far to open, skip this door

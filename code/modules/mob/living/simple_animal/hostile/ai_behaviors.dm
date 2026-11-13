@@ -373,25 +373,16 @@ GLOBAL_LIST_EMPTY(ai_ally_deaths)
 		utility[i] = max(0, utility[i] + d)
 	ai_debug_log("behavior_counters applied=[ai_bhv_applied]")
 
-/// Whether a line from a to b is cut off. With sight_only, low cover that can be seen over does not count, so this
-/// is whether someone at one end could see the other. Without it, anything solid counts, which is whether the mob
-/// could walk it in a straight line.
-/mob/living/simple_animal/hostile/proc/ai_bhv_line_blocked(turf/a, turf/b, sight_only = FALSE)
+/// Whether something solid stands on the straight line from a to b, which is whether the mob could walk it
+/mob/living/simple_animal/hostile/proc/ai_bhv_line_blocked(turf/a, turf/b)
 	for(var/turf/T in getline(a, b))
 		if(T == a || T == b)
 			continue
-		if(T.density || (sight_only && T.opacity))
+		if(T.density)
 			return TRUE
 		for(var/obj/O in T)
-			if(sight_only && O.opacity)
+			if(O.density)
 				return TRUE
-			if(!O.density)
-				continue
-			if(sight_only && istype(O, /obj/structure))
-				var/obj/structure/S = O
-				if(S.is_low_cover())
-					continue
-			return TRUE
 	return FALSE
 
 /// Whether nothing solid stands on the tile
@@ -403,13 +394,15 @@ GLOBAL_LIST_EMPTY(ai_ally_deaths)
 			return FALSE
 	return TRUE
 
-/// Picks a tile near the mob that the threat cannot see. closing wants one nearer the threat (to move up between
-/// covered positions), otherwise one no nearer than here (to get out of the line of fire).
+/// Picks a tile near the mob that the threat cannot see, judged by the same view() the AI uses for its own sight.
+/// closing wants one nearer the threat (to move up between covered positions), otherwise one no nearer than here (to
+/// get out of the line of fire).
 /mob/living/simple_animal/hostile/proc/ai_find_cover_tile(turf/threat_turf, closing)
 	var/turf/here = get_turf(src)
 	if(!here || !threat_turf || here.z != threat_turf.z)
 		return null
 	var/cur = get_dist(here, threat_turf)
+	var/list/exposed = view(vision_range, threat_turf)
 	var/turf/best
 	var/best_cost = 1e9
 	for(var/turf/T in range(AI_BHV_COVER_SCAN, here))
@@ -418,7 +411,7 @@ GLOBAL_LIST_EMPTY(ai_ally_deaths)
 		var/d = get_dist(T, threat_turf)
 		if(d <= 2 || (closing ? d > cur - 2 : d < cur - 1))
 			continue
-		if(!ai_bhv_line_blocked(threat_turf, T, TRUE) || ai_bhv_line_blocked(here, T))
+		if((T in exposed) || ai_bhv_line_blocked(here, T))
 			continue
 		var/cost = closing ? d + get_dist(here, T) * 0.5 : get_dist(here, T)
 		if(cost < best_cost)
@@ -460,7 +453,7 @@ GLOBAL_LIST_EMPTY(ai_ally_deaths)
 	var/turf/there = target ? get_turf(target) : null
 	if(!here || !there || here.z != there.z)
 		return FALSE
-	if(ai_bhv_line_blocked(there, here, TRUE))
+	if(!(here in view(vision_range, there)))
 		walk(src, 0)
 		return TRUE
 	var/turf/goal = ai_find_cover_tile(there, FALSE)
