@@ -1583,6 +1583,19 @@ Discipline" below instead of being rebalanced/kept in any form.
 
 	return FALSE
 
+/// Dense turfs/objects (walls, windows, doors, tables) between attacker and target block the strike; mobs do not.
+/datum/action/cooldown/assassinate/proc/has_clear_path(mob/attacker, mob/target)
+	var/turf/attacker_turf = get_turf(attacker)
+	var/turf/target_turf = get_turf(target)
+	if(!attacker_turf || !target_turf || target_turf.density)
+		return FALSE
+	var/list/line = getline(attacker_turf, target_turf)
+	for(var/i in 2 to length(line) - 1)
+		var/turf/T = line[i]
+		if(is_blocked_turf(T, TRUE))
+			return FALSE
+	return TRUE
+
 /datum/action/cooldown/assassinate/IsAvailable(silent = FALSE)
 	if(!..())
 		return FALSE
@@ -1608,6 +1621,8 @@ Discipline" below instead of being rebalanced/kept in any form.
 		if(L.stat != CONSCIOUS)
 			continue
 		if(!is_behind_target(H, L))
+			continue
+		if(!has_clear_path(H, L))
 			continue
 		if(istype(L, /mob/living/simple_animal/hostile))
 			var/mob/living/simple_animal/hostile/enemy = L
@@ -1644,6 +1659,8 @@ Discipline" below instead of being rebalanced/kept in any form.
 		if(L.stat != CONSCIOUS)
 			continue
 		if(!is_behind_target(H, L))
+			continue
+		if(!has_clear_path(H, L))
 			continue
 
 		var/dist = get_dist(H, L)
