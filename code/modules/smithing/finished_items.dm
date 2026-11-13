@@ -939,6 +939,8 @@
 	mob_overlay_icon = 'icons/onmob/slot.dmi'
 	icon_state = "smithed_armor_metal"
 	item_state = "smithed_armor_metal"
+	// Properly worked plate beats salvaged scrap in melee, but it still has no answer to bullets.
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_DOWN_BULLET_T3, ARMOR_MODIFIER_DOWN_LASER_T1, ARMOR_MODIFIER_UP_ENV_T2, ARMOR_MODIFIER_UP_DT_T1)
 
 /obj/item/clothing/suit/armor/heavy/metal/smithed/legion
 	name = "smithed legion armor"
@@ -949,6 +951,9 @@
 	mob_overlay_icon = 'icons/onmob/onmob_legion.dmi'
 	icon_state = "armor_smithed"
 	item_state = "armor_smithed"
+	// Lighter than plain plate thanks to the leather and pads, but thinner against lasers. Built for melee, like the rest of the Legion kit.
+	slowdown = ARMOR_SLOWDOWN_MEDIUM * ARMOR_SLOWDOWN_GLOBAL_MULT
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_DOWN_BULLET_T3, ARMOR_MODIFIER_DOWN_LASER_T2, ARMOR_MODIFIER_UP_ENV_T2, ARMOR_MODIFIER_UP_DT_T1)
 
 /obj/item/clothing/suit/armor/heavy/metal/smithed/legion/Initialize()
 	. = ..()

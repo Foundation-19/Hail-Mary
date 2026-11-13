@@ -176,6 +176,11 @@
 	if(bonus_soft_threshold > 0 && force_modifier > bonus_soft_threshold)
 		force_modifier = bonus_soft_threshold * sqrt(force_modifier / bonus_soft_threshold)
 
+	// Final ceiling on the whole hit. Only the wielder's bonus is trimmed, an unmodified weapon always keeps its own force.
+	if(force_modifier > 0 && force + force_modifier > MELEE_TOTAL_FORCE_SOFT_CAP)
+		var/capped_total = MELEE_TOTAL_FORCE_SOFT_CAP * sqrt((force + force_modifier) / MELEE_TOTAL_FORCE_SOFT_CAP)
+		force_modifier = max(capped_total - force, 0)
+
 	return force_modifier
 
 /**

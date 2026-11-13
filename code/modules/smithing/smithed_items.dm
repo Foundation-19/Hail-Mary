@@ -352,7 +352,7 @@
 
 /obj/item/smithing/weapon/startfinish(mob/user)
 	finalitem = new finalitem(src)
-	finalitem.force += quality * quality_to_force_coeff
+	finalitem.force += QUALITY_MODIFIER * quality_to_force_coeff
 	finalitem.armour_penetration += quality * quality_to_pen_coeff
 	. = ..()
 
@@ -585,7 +585,7 @@
 
 /obj/item/smithing/prospectingpickhead/startfinish(mob/user)
 	var/obj/item/mining_scanner/prospector/finalforreal = new /obj/item/mining_scanner/prospector(src)
-	finalforreal.range = 2 + QUALITY_MODIFIER
+	finalforreal.range = 2 + quality
 	if(quality)
 		finalforreal.cooldown = 100/quality
 	finalforreal.force += QUALITY_MODIFIER
@@ -994,7 +994,7 @@
 
 /obj/item/smithing/bola/startfinish(mob/user)
 	var/obj/item/restraints/legcuffs/bola/smithed/finalforreal = new /obj/item/restraints/legcuffs/bola/smithed(src)
-	finalforreal.breakouttime += QUALITY_MODIFIER * 2
+	finalforreal.breakouttime += quality * 2
 	finalitem = finalforreal
 	..()
 

@@ -1130,6 +1130,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/brush)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/huntingshotgun)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/legionlance)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/blacksmith/smithed_armor_legion)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/concussion)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/strongrocket)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/empgrenade)
@@ -1195,6 +1196,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	ADD_TRAIT(H, TRAIT_TECHNOPHREAK, src)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/tailor/legionuniform)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/warpaint)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/blacksmith/smithed_armor_legion)
 	H.mind.auto_gain_experience(/datum/skill/level/dwarfy/blacksmithing, 600, 500000, silent = TRUE)
 
 /datum/outfit/loadout/auxassist

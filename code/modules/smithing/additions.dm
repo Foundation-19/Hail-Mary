@@ -8,7 +8,14 @@
 #define LEATHER_STRIP /obj/item/stack/sheet/leatherstrips
 #define CHAIN /obj/item/blacksmith/chain
 
-#define QUALITY_MODIFIER quality
+/// Quality counts in full up to this point, then gives diminishing returns. 12 is the reference quality the weapon force values are balanced around.
+#define SMITH_QUALITY_SOFT_THRESHOLD 12
+#define QUALITY_MODIFIER smith_quality_soft_cap(quality)
+
+/proc/smith_quality_soft_cap(quality)
+	if(quality <= SMITH_QUALITY_SOFT_THRESHOLD)
+		return quality
+	return SMITH_QUALITY_SOFT_THRESHOLD * sqrt(quality / SMITH_QUALITY_SOFT_THRESHOLD)
 
 #define SMITH_HEAT_COLD 1
 #define SMITH_HEAT_WARM 2
@@ -232,7 +239,7 @@ GLOBAL_LIST_INIT(smith_heat_durations, list(0, 30 SECONDS, 90 SECONDS, 50 SECOND
 
 				<li>Rings: (SSS) Tiny things, my fingers hurt when I try to work it, but if you youngsters want to make one just shrink the metal to shape. Might cheer you up.</li>
 				<li>Ball and chain: (PBU) Punch the metal, bend and upset it. Add a chain and then snap it on the slaves leg, and laugh while they hobble about. Silly slave.</li>
-				<li>Armor piece: (PUP) Punch the metal, upset and punch some more holes. Use the metal together with leather to make armoured gauntlets and such.</li>
+				<li>Armor piece: (PUP) Punch the metal, upset and punch some more holes. Use the metal together with leather to make armoured gauntlets and such. Forgemasters of the Legion know how to turn two of them into a full set of armor.</li>
 
 				<li>Bowie knife: (DFS) Draw fold and shrink it, add a sword handle and THIS is a knife. </li>
 				<li>Dagger: (DDS) Draw draw and shrink it, add a sword handle and you got a tiny little weapon. </li>
@@ -265,6 +272,7 @@ GLOBAL_LIST_INIT(smith_heat_durations, list(0, 30 SECONDS, 90 SECONDS, 50 SECOND
 				<li>Legion Lance: (DBDF) Draw the metal, bend it, draw it again and fold it. Add a rod, and enjoy a simple but effective weapon.</li>
 				<li>Legion Waraxe: (UDUP) Upset the hot metal, draw, upset, and punch it. Add a wooden rod, and behold the perfection of a Legion war axe. </li>
 				<li>Legion Gladius: (FBF) Fold the metal, bend it and ugh..yeah, fold it more. Add handle.</li>
+				<li>Legion Armor: Make two armor pieces (PUP), then take them and two leather strips to a forge and work them into a set of Legion plate. Built for fighting up close, so it turns blades better than bullets and lasers. It can be reinforced with armor plates.</li>
 
 				</ol>
 				<p>
