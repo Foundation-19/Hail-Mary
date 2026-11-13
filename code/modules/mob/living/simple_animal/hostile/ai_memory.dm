@@ -153,6 +153,7 @@
 	var/turf/where = get_turf(src)
 	if(!where)
 		return
+	ai_log_ally_death(where)
 	for(var/mob/living/simple_animal/hostile/M in range(backup_call_range, where))
 		if(M == src || M.stat == DEAD || M.ckey)
 			continue

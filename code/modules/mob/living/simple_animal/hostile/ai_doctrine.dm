@@ -39,6 +39,17 @@ GLOBAL_VAR_INIT(ai_doctrine_updates, 0)
 	var/list/samples
 	/// prior[context][intent]: value kept from earlier rounds, null where there is none
 	var/list/prior
+	/// Behavior library, saved between rounds: how common each behavior is for this type (0..1) and how much its
+	/// counter helped (-1..1). Null where there is nothing yet.
+	var/list/bhv_prevalence
+	var/list/bhv_effect
+	/// This round: fights started, counters switched on, scored segments with each counter applied and without any
+	var/bhv_engagements = 0
+	var/list/bhv_catches
+	var/list/bhv_act_n
+	var/list/bhv_act_sum
+	var/bhv_base_n = 0
+	var/bhv_base_sum = 0
 
 /datum/ai_doctrine/New(type_text)
 	. = ..()
@@ -53,6 +64,11 @@ GLOBAL_VAR_INIT(ai_doctrine_updates, 0)
 		for(var/i in 1 to AI_LEARN_INTENTS)
 			p += null
 		prior += list(p)
+	bhv_prevalence = list()
+	bhv_effect = list()
+	for(var/b in 1 to AI_BHV_COUNT)
+		bhv_prevalence += null
+		bhv_effect += null
 
 /datum/ai_doctrine/proc/has_prior()
 	for(var/list/p in prior)
@@ -61,12 +77,96 @@ GLOBAL_VAR_INIT(ai_doctrine_updates, 0)
 				return TRUE
 	return FALSE
 
+/datum/ai_doctrine/proc/has_bhv_prior()
+	for(var/x in bhv_prevalence)
+		if(!isnull(x))
+			return TRUE
+	for(var/x in bhv_effect)
+		if(!isnull(x))
+			return TRUE
+	return FALSE
+
 /datum/ai_doctrine/proc/has_samples()
+	if(bhv_engagements || bhv_base_n)
+		return TRUE
 	for(var/list/s in samples)
 		for(var/x in s)
 			if(x)
 				return TRUE
 	return FALSE
+
+/// How much quicker detectors for a behavior are for this type, from how common the behavior has been
+/datum/ai_doctrine/proc/sensitivity(behavior)
+	var/p = bhv_prevalence[behavior]
+	return 1 + min(isnull(p) ? 0 : p * 2, 0.5)
+
+/// How strongly a counter is applied: full until it has been shown not to help, never more than a quarter above that
+/datum/ai_doctrine/proc/counter_scale(behavior)
+	var/e = bhv_effect[behavior]
+	return isnull(e) ? 1 : CLAMP(1 + e * 2, 0.25, 1.25)
+
+/// A scored segment, either with some counter applied or with none
+/datum/ai_doctrine/proc/note_segment(reward, mask)
+	var/any = FALSE
+	for(var/b in 1 to AI_BHV_COUNT)
+		if(mask & AI_BHV_FLAG(b))
+			bhv_act_n[b]++
+			bhv_act_sum[b] += reward
+			any = TRUE
+	if(!any)
+		bhv_base_n++
+		bhv_base_sum += reward
+
+/// Takes saved behavior priors from file data
+/datum/ai_doctrine/proc/import_bhv(list/data)
+	if(!islist(data))
+		return
+	var/list/prev = data["prevalence"]
+	var/list/eff = data["effect"]
+	for(var/b in 1 to AI_BHV_COUNT)
+		if(islist(prev) && length(prev) >= b && isnum(prev[b]))
+			bhv_prevalence[b] = CLAMP(prev[b], 0, 1)
+		if(islist(eff) && length(eff) >= b && isnum(eff[b]))
+			bhv_effect[b] = CLAMP(eff[b], -1, 1)
+
+/datum/ai_doctrine/proc/export_bhv_prior()
+	return list("prevalence" = bhv_prevalence, "effect" = bhv_effect)
+
+/datum/ai_doctrine/proc/export_bhv_round()
+	return list("engagements" = bhv_engagements, "catches" = bhv_catches, "act_n" = bhv_act_n, "act_sum" = bhv_act_sum, "base_n" = bhv_base_n, "base_sum" = bhv_base_sum)
+
+/// Folds a round's behavior results into the saved ones, with the same limits as the intent priors: enough samples,
+/// a capped step toward the round's figure, clamping, and a little decay. Returns how many figures moved.
+/datum/ai_doctrine/proc/merge_behaviors(list/round, decay)
+	. = 0
+	if(!islist(round))
+		return
+	var/engagements = isnum(round["engagements"]) ? round["engagements"] : 0
+	var/base_n = isnum(round["base_n"]) ? round["base_n"] : 0
+	var/base_sum = isnum(round["base_sum"]) ? round["base_sum"] : 0
+	var/list/catches = round["catches"]
+	var/list/act_n = round["act_n"]
+	var/list/act_sum = round["act_sum"]
+	for(var/b in 1 to AI_BHV_COUNT)
+		if(engagements >= AI_PERSIST_MIN_SAMPLES)
+			var/c = islist(catches) && length(catches) >= b && isnum(catches[b]) ? catches[b] : 0
+			var/old = isnull(bhv_prevalence[b]) ? 0 : bhv_prevalence[b]
+			var/step = CLAMP((CLAMP(c / engagements, 0, 1) - old) * AI_PERSIST_ALPHA, -AI_PERSIST_MAX_STEP, AI_PERSIST_MAX_STEP)
+			bhv_prevalence[b] = CLAMP(old + step, 0, 1)
+			.++
+		var/n = islist(act_n) && length(act_n) >= b && isnum(act_n[b]) ? act_n[b] : 0
+		if(n >= AI_PERSIST_MIN_SAMPLES && base_n >= AI_PERSIST_MIN_SAMPLES)
+			var/sum = islist(act_sum) && length(act_sum) >= b && isnum(act_sum[b]) ? act_sum[b] : 0
+			var/old = isnull(bhv_effect[b]) ? 0 : bhv_effect[b]
+			var/gain = CLAMP(sum / n - base_sum / base_n, -1, 1)
+			var/step = CLAMP((gain - old) * AI_PERSIST_ALPHA, -AI_PERSIST_MAX_STEP, AI_PERSIST_MAX_STEP)
+			bhv_effect[b] = CLAMP(old + step, -1, 1)
+			.++
+		if(decay)
+			if(!isnull(bhv_prevalence[b]))
+				bhv_prevalence[b] *= (1 - AI_PERSIST_DECAY)
+			if(!isnull(bhv_effect[b]))
+				bhv_effect[b] *= (1 - AI_PERSIST_DECAY)
 
 /// Takes priors from file data, ignoring anything that is not a number and clamping the rest
 /datum/ai_doctrine/proc/import_prior(list/data)
@@ -83,7 +183,7 @@ GLOBAL_VAR_INIT(ai_doctrine_updates, 0)
 				p[i] = CLAMP(row[i], -1, 1)
 
 /datum/ai_doctrine/proc/export_pending()
-	return list("value" = value, "samples" = samples)
+	return list("value" = value, "samples" = samples, "bhv" = export_bhv_round())
 
 /// Folds one round's results into the priors. Only tactics with enough samples move, by a capped step toward the
 /// round's value, and with decay every prior then fades a little toward zero. Returns how many tactics moved.
@@ -126,6 +226,16 @@ GLOBAL_VAR_INIT(ai_doctrine_updates, 0)
 			s += 0
 		value += list(v)
 		samples += list(s)
+	bhv_engagements = 0
+	bhv_base_n = 0
+	bhv_base_sum = 0
+	bhv_catches = list()
+	bhv_act_n = list()
+	bhv_act_sum = list()
+	for(var/b in 1 to AI_BHV_COUNT)
+		bhv_catches += 0
+		bhv_act_n += 0
+		bhv_act_sum += 0
 
 /// Multiplier for one intent's utility: 1 until the doctrine has enough to compare (a saved prior or enough results
 /// this round), then the intent's value relative to the average of the intents it has a value for
@@ -168,6 +278,12 @@ GLOBAL_VAR_INIT(ai_doctrine_updates, 0)
 			var/p = prior[ctx][i]
 			parts += "[GLOB.ai_intent_names[i]] n=[s[i]] v=[round(v[i], 0.01)] p=[isnull(p) ? "-" : round(p, 0.01)] w=[round(get_weight(ctx, i), 0.01)]"
 		. += "  [ctx == AI_CTX_SOLO ? "solo" : "pack"]: [parts.Join(", ")]"
+	var/list/bhv = list()
+	for(var/b in 1 to AI_BHV_COUNT)
+		var/prev = bhv_prevalence[b]
+		var/eff = bhv_effect[b]
+		bhv += "[GLOB.ai_behavior_names[b]] caught=[bhv_catches[b]] act=[bhv_act_n[b]] prev=[isnull(prev) ? "-" : round(prev, 0.01)] eff=[isnull(eff) ? "-" : round(eff, 0.01)] scale=[round(counter_scale(b), 0.01)]"
+	. += "  behaviors ([bhv_engagements] fights): [bhv.Join(", ")]"
 
 /mob/living/simple_animal/hostile
 	/// Intent segment being scored for learning
@@ -222,6 +338,7 @@ GLOBAL_VAR_INIT(ai_doctrine_updates, 0)
 
 	var/datum/ai_doctrine/D = get_ai_doctrine()
 	D.record(ai_seg_ctx, intent, reward)
+	D.note_segment(reward, ai_bhv_applied)
 	ai_debug_log("doctrine_update intent=[GLOB.ai_intent_names[intent]] ctx=[ai_seg_ctx] reason=[reason] secs=[round(seconds, 0.1)] hits=[ai_seg_hits] taken=[round(taken, 0.01)] lost=[ai_seg_allies_lost] reward=[round(reward, 0.01)] weight=[round(D.get_weight(ai_seg_ctx, intent), 0.01)]")
 
 /// Admin panel for the learning system
@@ -231,8 +348,10 @@ GLOBAL_VAR_INIT(ai_doctrine_updates, 0)
 	set desc = "View, freeze, reset or switch off hostile mob learning."
 	if(!check_rights(R_DEBUG))
 		return
-	var/choice = input(usr, "Learning is [GLOB.ai_learning_enabled ? "ON" : "OFF"], [GLOB.ai_learning_frozen ? "FROZEN" : "updating"]. [length(GLOB.ai_doctrines)] doctrines, [GLOB.ai_doctrine_updates] updates. Persistence: [SSai_doctrine.status].", "AI Doctrine") as null|anything in list("View doctrines", "Toggle learning", "Toggle freeze", "Save now", "Roll back to snapshot", "Reset one doctrine", "Reset all")
+	var/choice = input(usr, "Learning is [GLOB.ai_learning_enabled ? "ON" : "OFF"], [GLOB.ai_learning_frozen ? "FROZEN" : "updating"]. [length(GLOB.ai_doctrines)] doctrines, [GLOB.ai_doctrine_updates] updates. Persistence: [SSai_doctrine.status].", "AI Doctrine") as null|anything in list("View doctrines", "Toggle learning", "Toggle freeze", 	"Save now", "Roll back to snapshot", "Reset one doctrine", "Reset all", "Behavior tuning")
 	switch(choice)
+		if("Behavior tuning")
+			ai_bhv_tuning_menu(usr)
 		if("View doctrines")
 			var/list/lines = list("<b>Hostile AI doctrines</b> (v = this round, p = saved prior, w = weight)")
 			if(!length(GLOB.ai_doctrines))

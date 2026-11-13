@@ -84,6 +84,66 @@
 #define AI_REWARD_STALL_RATE 0.02
 #define AI_REWARD_STALL_CAP 0.2
 
+// Phase 6c behavior library (ai_behaviors.dm)
+#define AI_BHV_DOOR 1
+#define AI_BHV_CORNER 2
+#define AI_BHV_KITE 3
+#define AI_BHV_HEAL 4
+#define AI_BHV_CAMP 5
+#define AI_BHV_COUNT 5
+#define AI_BHV_FLAG(b) (1 << ((b) - 1))
+// The numbers below can be changed while the game runs from the AI Doctrine admin verb (see ai_behaviors.dm)
+#define AI_BHV_TUNE(key) (GLOB.ai_bhv_tuning[key])
+/// A counter switches on above this score and off below the lower one, so it does not flicker
+#define AI_BHV_ON AI_BHV_TUNE("on")
+#define AI_BHV_OFF AI_BHV_TUNE("off")
+#define AI_BHV_EVIDENCE AI_BHV_TUNE("evidence")
+/// Deciseconds for a score to halve
+#define AI_BHV_HALFLIFE AI_BHV_TUNE("halflife")
+/// Least time between two pieces of evidence for the same behavior, so one move is not counted twice
+#define AI_BHV_EVENT_GAP AI_BHV_TUNE("event_gap")
+/// Door passes and peeks only count as repeats within this window
+#define AI_BHV_WINDOW AI_BHV_TUNE("window")
+/// The most a counter can move any one intent's utility
+#define AI_BHV_MAX_MOD AI_BHV_TUNE("max_mod")
+/// What hold is worth when a counter asks for it and nothing else did
+#define AI_BHV_HOLD_BASE AI_BHV_TUNE("hold_base")
+/// Multiplier on every counter's changes
+#define AI_BHV_STRENGTH AI_BHV_TUNE("strength")
+/// A counter that is still in the place it was needed fades at AI_BHV_SUSTAIN_FADE of the normal rate, for up to
+/// AI_BHV_SUSTAIN_TIME after the last evidence. Once the counter works the trick stops, so without this the counter
+/// would drop out in the middle of the fight it is winning.
+#define AI_BHV_SUSTAIN_TIME AI_BHV_TUNE("sustain_time")
+#define AI_BHV_SUSTAIN_FADE AI_BHV_TUNE("sustain_fade")
+/// Room camping: this many allies lost near a target that has not moved, and how long the target must hold still
+#define AI_BHV_CAMP_DEATHS AI_BHV_TUNE("camp_deaths")
+#define AI_BHV_CAMP_STILL AI_BHV_TUNE("camp_still")
+#define AI_BHV_CAMP_WINDOW AI_BHV_TUNE("camp_window")
+/// Fighters (the mob and the allies near it) needed before a camper is rushed, and the longest a mob waits for them
+#define AI_BHV_CAMP_MASS AI_BHV_TUNE("camp_mass")
+#define AI_BHV_CAMP_PATIENCE AI_BHV_TUNE("camp_patience")
+/// How many search leads past the last known position a mob follows along the target's heading
+#define AI_BHV_LEAD_HOPS AI_BHV_TUNE("lead_hops")
+/// How much longer a mob remembers a target that heals up during fights
+#define AI_BHV_MEMORY_SCALE AI_BHV_TUNE("memory_scale")
+/// Target moves of no more than this many tiles from the anchor count as holding still
+#define AI_BHV_CAMP_ROAM 3
+/// Allied deaths count when they lie this near the target, and when they are no further than AI_BHV_CAMP_SIGHT from us
+#define AI_BHV_CAMP_RANGE 9
+#define AI_BHV_CAMP_SIGHT 14
+#define AI_BHV_DEATH_LOG_MAX 24
+/// Search lead: how far one lead runs, the least that is worth walking, and how old the heading may be
+#define AI_BHV_LEAD_STEPS 7
+#define AI_BHV_LEAD_MIN 4
+#define AI_BHV_LEAD_FRESH 300
+/// Confidence of a search lead (about the same as a fresh sighting, defined here because ai_memory.dm comes later)
+#define AI_BHV_LEAD_CONF 0.9
+/// Cover bounding: tiles scanned around the mob, the range inside which it just rushes, pause under cover, repick time
+#define AI_BHV_COVER_SCAN 4
+#define AI_BHV_COVER_RUSH 3
+#define AI_BHV_COVER_PAUSE 8
+#define AI_BHV_COVER_REPICK 40
+
 GLOBAL_VAR_INIT(ai_target_switches, 0)
 GLOBAL_VAR_INIT(ai_target_flickers, 0)
 GLOBAL_LIST_INIT(ai_intent_names, list("attack", "flank", "hold", "retreat", "backup", "investigate"))
@@ -148,6 +208,7 @@ GLOBAL_LIST_INIT(ai_intent_names, list("attack", "flank", "hold", "retreat", "ba
 		return
 	ai_commit_damage += amount
 	ai_seg_taken += amount
+	ai_bhv_hurt_time = world.time
 	ai_hesitate_until = 0
 	if(maxHealth > 0)
 		adjust_ai_morale(-CLAMP(amount / maxHealth, 0, 1) * AI_MORALE_DAMAGE_FACTOR, "damage")
@@ -177,7 +238,9 @@ GLOBAL_LIST_INIT(ai_intent_names, list("attack", "flank", "hold", "retreat", "ba
 	if(old_target)
 		ai_note_target_switch(old_target)
 		ai_close_segment("target_switch")
+		ai_bhv_reset()
 	if(fresh_threat)
+		ai_note_engagement()
 		ai_hesitate_until = world.time + round(rand(AI_HESITATE_MIN, AI_HESITATE_MAX) / ai_aggression)
 
 /mob/living/simple_animal/hostile/proc/ai_note_target_switch(atom/old_target)
@@ -212,6 +275,8 @@ GLOBAL_LIST_INIT(ai_intent_names, list("attack", "flank", "hold", "retreat", "ba
 
 /// Records the intent for a mob that has no line of sight and is running down the last known position
 /mob/living/simple_animal/hostile/proc/ai_note_investigating()
+	if(!ai_bhv_los_lost)
+		ai_bhv_los_lost = world.time
 	if(ai_intent != AI_INTENT_INVESTIGATE)
 		ai_commit_intent(AI_INTENT_INVESTIGATE, "no_los")
 
@@ -327,6 +392,7 @@ GLOBAL_LIST_INIT(ai_intent_names, list("attack", "flank", "hold", "retreat", "ba
 	if(doctrine)
 		for(var/i in 1 to AI_LEARN_INTENTS)
 			utility[i] *= doctrine.get_weight(ai_decision_ctx, intents[i])
+	ai_apply_behavior_counters(intents, utility, target_distance, doctrine, allies_near)
 
 	var/chosen = AI_INTENT_ATTACK
 	var/best = -INFINITY
@@ -369,7 +435,15 @@ GLOBAL_LIST_INIT(ai_intent_names, list("attack", "flank", "hold", "retreat", "ba
 	if(!target)
 		return FALSE
 	switch(intent)
+		if(AI_INTENT_ATTACK)
+			// A kiter is closed on from cover to cover, not across open ground
+			if((ai_bhv_applied & AI_BHV_FLAG(AI_BHV_KITE)) && ai_cover_advance())
+				return TRUE
+			return FALSE
 		if(AI_INTENT_HOLD)
+			// A camper is waited out of its sight until the squad has gathered
+			if(ai_bhv_camp_waiting && ai_break_line_of_sight())
+				return TRUE
 			walk(src, 0)
 			var/hold_dir = get_dir(src, target)
 			if(hold_dir)
@@ -395,6 +469,9 @@ GLOBAL_LIST_INIT(ai_intent_names, list("attack", "flank", "hold", "retreat", "ba
 			if(fresh)
 				visible_message(span_warning("[src] falters and falls back!"))
 				call_for_backup(target, "found")
+			// Against a kiter the way back is out of its line of fire, not toward the pack
+			if((ai_bhv_applied & AI_BHV_FLAG(AI_BHV_KITE)) && ai_break_line_of_sight())
+				return TRUE
 			if(ai_retreat_goal)
 				if(get_dist(src, ai_retreat_goal) > 2)
 					Goto(ai_retreat_goal, move_to_delay, 1)

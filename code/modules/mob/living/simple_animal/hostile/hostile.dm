@@ -318,30 +318,6 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	/// How long to wait before smashing (deciseconds) - 15 seconds (stuck_timeout + smash_delay)
 	var/smash_delay = 150
 
-	/// DOOR KITING PREVENTION: Track TARGET's door passages to detect exploit
-	/// Last door the target passed through
-	var/atom/target_last_door = null
-	/// How many times has target passed through this door recently?
-	var/target_door_pass_count = 0
-	/// Last time target passed through a door
-	var/target_last_door_pass_time = 0
-	/// Have we committed to one side due to target kiting?
-	var/committed_to_door_side = FALSE
-	/// Which side of the door are we committed to?
-	var/turf/committed_door_location = null
-	/// Last known position of target (for tracking movement)
-	var/turf/target_last_position = null
-	
-	/// CORNER KITING PREVENTION: Track target peeking around corners
-	/// How many times has target peeked from same area?
-	var/corner_peek_count = 0
-	/// Last time target peeked
-	var/last_corner_peek_time = 0
-	/// Location where target keeps peeking from
-	var/turf/corner_peek_location = null
-	/// Have we committed to rushing a corner?
-	var/committed_to_corner = FALSE
-	
 	/// LIGHT PATROL SYSTEM: Idle mobs patrol to nearby doors when players are nearby
 	/// Are we on light patrol?
 	var/light_patrolling = FALSE
@@ -582,7 +558,6 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	searched_containers = null
 	recently_opened_door = null
 	investigating_container = null
-	target_last_door = null
 	patrol_target_door = null
 	door_route_turf = null
 
@@ -631,8 +606,6 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 		recently_opened_door = null
 	if(investigating_container in gone)
 		investigating_container = null
-	if(target_last_door in gone)
-		target_last_door = null
 	if(patrol_target_door in gone)
 		patrol_target_door = null
 	if(length(cached_targets))
@@ -2198,47 +2171,6 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 		LoseTarget("peaceful")
 		return 0
 	
-	// DOOR KITING CHECK: Track if target is exploiting door kiting
-	if(target)
-		check_target_door_kiting()
-		
-		// If target is kiting and we're committed, stay on our side
-		if(committed_to_door_side && committed_door_location)
-			var/dist_from_commitment = get_dist(src, committed_door_location)
-			
-			if(dist_from_commitment > 2)
-				// Moved too far from commitment point - return to it
-				Goto(committed_door_location, move_to_delay, 0)
-				return 1
-			else
-				// Stay here and wait for target to come to us
-				walk(src, 0)
-				
-				// If target gets far enough away, reset commitment
-				if(get_dist(src, target) > 7)
-					committed_to_door_side = FALSE
-					committed_door_location = null
-					target_door_pass_count = 0
-					target_last_door = null
-				
-				return 1
-		
-		// CORNER KITING CHECK: Track if target is exploiting corner peeks
-		check_corner_kiting()
-		
-		// If target is corner peeking, commit to rushing their position
-		if(committed_to_corner && corner_peek_location)
-			// Rush toward their last known peek location
-			Goto(corner_peek_location, move_to_delay, 0)
-			
-			// Reset if we reach the corner or target gets far away
-			if(get_dist(src, corner_peek_location) <= 1 || (target && get_dist(src, target) > 10))
-				committed_to_corner = FALSE
-				corner_peek_location = null
-				corner_peek_count = 0
-			
-			return 1
-
 	if(searching)
 		// Tracking check: use plain view() (no vision cone) so the mob can recover its
 		// target regardless of which direction it's currently facing.
@@ -2266,7 +2198,7 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 
 	if(!target)
 		if(remembered_target && !QDELETED(remembered_target) && last_known_location)
-			if((world.time - last_target_sighting) < target_memory_duration)
+			if((world.time - last_target_sighting) < get_memory_duration())
 				if(!searching)
 					enter_search_mode()
 				return 1
@@ -2284,7 +2216,7 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 				var/mob/living/LT = target
 				target_is_close = (LT.stat == CONSCIOUS)
 			if(!target_is_close)
-				if(remembered_target && (world.time - last_target_sighting) < target_memory_duration)
+				if(remembered_target && (world.time - last_target_sighting) < get_memory_duration())
 					if(!searching)
 						enter_search_mode()
 					return 1
@@ -2435,6 +2367,7 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 
 	// TARGET IN LOS - normal combat path
 	if(has_los)
+		ai_behavior_update(target_distance)
 		var/intent = ai_decide_intent(target_distance)
 
 		// Mixed mobs shoot while closing the gap, then fight in melee. They never hold a standoff range.
@@ -2704,120 +2637,6 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 		else if(target != null && prob(40))
 			FindTarget()
 
-
-/// DOOR KITING PREVENTION: Track if target is passing through same door repeatedly
-/mob/living/simple_animal/hostile/proc/check_target_door_kiting()
-	if(!target || !isliving(target))
-		return FALSE
-	
-	// Reset if it's been more than 5 seconds
-	if((world.time - target_last_door_pass_time) > 50)
-		target_door_pass_count = 0
-		target_last_door = null
-		committed_to_door_side = FALSE
-		committed_door_location = null
-		return FALSE
-	
-	// Get target's current position
-	var/turf/target_turf = get_turf(target)
-	if(!target_turf || !target_last_position)
-		target_last_position = target_turf
-		return FALSE
-	
-	// Check if target moved
-	if(target_turf == target_last_position)
-		return committed_to_door_side
-	
-	// Check if target passed through a door between last position and current position
-	var/atom/door_passed = null
-	
-	// Check for doors at old position
-	for(var/obj/structure/simple_door/SD in target_last_position)
-		if(!SD.density) // Door is open
-			door_passed = SD
-			break
-	if(!door_passed)
-		for(var/obj/machinery/door/D in target_last_position)
-			if(!D.density) // Door is open
-				door_passed = D
-				break
-	
-	// Check for doors at new position
-	if(!door_passed)
-		for(var/obj/structure/simple_door/SD in target_turf)
-			if(!SD.density)
-				door_passed = SD
-				break
-	if(!door_passed)
-		for(var/obj/machinery/door/D in target_turf)
-			if(!D.density)
-				door_passed = D
-				break
-	
-	// Track door passage
-	if(door_passed)
-		if(door_passed == target_last_door)
-			// Target passed through same door again
-			if((world.time - target_last_door_pass_time) < 50) // Within 5 seconds
-				target_door_pass_count++
-				if(target_door_pass_count >= 3)
-					// Target is kiting! Commit to this side
-					if(!committed_to_door_side)
-						committed_to_door_side = TRUE
-						committed_door_location = get_turf(src)
-						visible_message(span_warning("[src] stops chasing through the doorway!"))
-			else
-				target_door_pass_count = 1 // Reset if too much time passed
-		else
-			// Different door
-			target_last_door = door_passed
-			target_door_pass_count = 1
-		
-		target_last_door_pass_time = world.time
-	
-	// Update last position
-	target_last_position = target_turf
-	return committed_to_door_side
-
-/// CORNER KITING PREVENTION: Track if target is peeking around same corner repeatedly
-/mob/living/simple_animal/hostile/proc/check_corner_kiting()
-	if(!target || !isliving(target))
-		return FALSE
-	
-	// Reset if it's been more than 5 seconds
-	if((world.time - last_corner_peek_time) > 50)
-		corner_peek_count = 0
-		corner_peek_location = null
-		committed_to_corner = FALSE
-		return FALSE
-	
-	// Check if we lost sight of target
-	var/has_los = can_see(src, target, get_effective_vision_range(target))
-	
-	if(!has_los)
-		// Target disappeared - record as potential peek
-		var/turf/target_turf = get_turf(target)
-		if(target_turf)
-			// Check if this is same area as last peek
-			if(corner_peek_location && get_dist(corner_peek_location, target_turf) <= 2)
-				// Same corner area!
-				if((world.time - last_corner_peek_time) < 50) // Within 5 seconds
-					corner_peek_count++
-					if(corner_peek_count >= 3)
-						// Target is corner peeking! Commit to rushing
-						if(!committed_to_corner)
-							committed_to_corner = TRUE
-							visible_message(span_warning("[src] stops reacting to the corner peeks!"))
-				else
-					corner_peek_count = 1
-			else
-				// New corner location
-				corner_peek_location = target_turf
-				corner_peek_count = 1
-			
-			last_corner_peek_time = world.time
-	
-	return committed_to_corner
 
 /// BARRICADE FIX: Check if target is blocked by structure
 /mob/living/simple_animal/hostile/proc/is_target_blocked_by_structure(atom/A)
@@ -3301,11 +3120,11 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 				return
 
 	// Memory expired or no memory - truly give up
-	if(remembered_target && (world.time - last_target_sighting) > target_memory_duration && !searching)
+	if(remembered_target && (world.time - last_target_sighting) > get_memory_duration() && !searching)
 		remembered_target = null
 
 	// If memory still valid, enter search instead of fully giving up
-	if(remembered_target && (world.time - last_target_sighting) < target_memory_duration)
+	if(remembered_target && (world.time - last_target_sighting) < get_memory_duration())
 		if(!searching)
 			enter_search_mode()
 		// Still clear the combat target
@@ -3601,7 +3420,7 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 			return
 
 	if(last_search_exit_time > 0 && (world.time - last_search_exit_time) < search_entry_cooldown)
-		if(!remembered_target || (world.time - last_target_sighting) > target_memory_duration)
+		if(!remembered_target || (world.time - last_target_sighting) > get_memory_duration())
 			return
 
 	searching = TRUE
@@ -3874,6 +3693,10 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 	// Nothing in sight: take over a squadmate's fresher report of where the threat is
 	ai_read_squad_board()
 
+	// A target that heals up in fights is followed along the way it was going, not given up on at its last sighting
+	if(ai_search_lead())
+		return
+
 	// A mob that stopped walking turns to look: toward the last known position half the time, otherwise sideways or
 	// behind, so a target in its rear cone is not missed just because of the way it happened to stop.
 	if(!was_walking && CHECK_BITFIELD(mobility_flags, MOBILITY_MOVE))
@@ -3887,7 +3710,7 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 		var/elapsed_time = world.time - search_start_time
 		var/timeout_threshold = search_timeout_base
 
-		if(is_low_health || (last_target_sighting > 0 && (world.time - last_target_sighting) < 600))
+		if(is_low_health || ai_bhv_active(AI_BHV_HEAL) || (last_target_sighting > 0 && (world.time - last_target_sighting) < 600))
 			timeout_threshold = search_timeout_aggressive
 
 		if(elapsed_time > timeout_threshold)

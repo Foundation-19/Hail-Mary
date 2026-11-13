@@ -95,7 +95,7 @@ SUBSYSTEM_DEF(ai_doctrine)
 	. = 0
 	for(var/key in GLOB.ai_doctrines)
 		var/datum/ai_doctrine/D = GLOB.ai_doctrines[key]
-		. += D.merge_data(D.value, D.samples, decay)
+		. += D.merge_data(D.value, D.samples, decay) + D.merge_behaviors(D.export_bhv_round(), decay)
 
 /// Admin: merge what has been learned so far without the round checks or decay, and save
 /datum/controller/subsystem/ai_doctrine/proc/save_now()
@@ -112,8 +112,8 @@ SUBSYSTEM_DEF(ai_doctrine)
 	var/list/pending_doctrines = list()
 	for(var/key in GLOB.ai_doctrines)
 		var/datum/ai_doctrine/D = GLOB.ai_doctrines[key]
-		if(D.has_prior())
-			doctrines[key] = list("prior" = D.prior)
+		if(D.has_prior() || D.has_bhv_prior())
+			doctrines[key] = list("prior" = D.prior, "behaviors" = D.export_bhv_prior())
 		if(include_pending && D.has_samples())
 			pending_doctrines[key] = D.export_pending()
 	var/list/data = list("schema_version" = AI_DOCTRINE_SCHEMA, "rounds" = rounds_recorded, "saved_at" = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss"), "doctrines" = doctrines)
@@ -190,6 +190,7 @@ SUBSYSTEM_DEF(ai_doctrine)
 		var/list/entry = doctrines[key]
 		if(islist(entry))
 			D.import_prior(entry["prior"])
+			D.import_bhv(entry["behaviors"])
 	var/list/pending = data["pending"]
 	if(!check_pending || !islist(pending) || !merge_allowed())
 		return
@@ -205,7 +206,7 @@ SUBSYSTEM_DEF(ai_doctrine)
 		var/datum/ai_doctrine/D = ai_doctrine_for(key)
 		var/list/entry = pending_doctrines[key]
 		if(D && islist(entry))
-			merged += D.merge_data(entry["value"], entry["samples"], TRUE)
+			merged += D.merge_data(entry["value"], entry["samples"], TRUE) + D.merge_behaviors(entry["bhv"], TRUE)
 	rounds_recorded++
 	status = "recovered a crashed round, merged [merged] tactics"
 	save_file(TRUE, FALSE)
