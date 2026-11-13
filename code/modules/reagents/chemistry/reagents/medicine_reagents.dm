@@ -2332,13 +2332,13 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 	reagent_state = LIQUID
 	color = "#e50d0d"
 	taste_description = "numbness"
-	metabolization_rate = 7.5 * REAGENTS_METABOLISM	// 10u at 11.5 brute and burn per tick is about 75 HP of healing in under 7 seconds
+	metabolization_rate = 7.5 * REAGENTS_METABOLISM	// 10u at 18 brute and burn per tick is about 60 HP of healing in under 8 seconds
 	overdose_threshold = 40	// you can risk a second dose
 	overdose_ends_below_threshold = TRUE
 	ghoulfriendly = TRUE
 	var/damage_offset = 6.75	//How much damage will be offset in one tick
 	var/clot_rate = 0.45	
-	heal_nominal = 23	// 11.5 brute + 11.5 burn
+	heal_nominal = 18	// 18 HP per tick shared across brute and burn, about 60 HP from 10u, twice a stimpak like in New Vegas
 	heal_rush = 8
 	heal_origin = HEAL_ORIGIN_MODERN
 	heal_injected = TRUE
@@ -2382,7 +2382,7 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 							iter_wound.blood_flow -= clot_rate
 
 		//Actual healing part starts here
-		spend_heal_budget(M, damage_offset * 1.7 * 2 * REAGENTS_EFFECT_MULTIPLIER * heal_mult)	//the 11.5 brute + 11.5 burn budget goes to whichever the patient has
+		spend_heal_budget(M, 18 * REAGENTS_EFFECT_MULTIPLIER * heal_mult)	//shared across whichever of brute and burn the patient has
 		M.AdjustStun(-damage_offset * 0.90 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	
 		M.AdjustKnockdown(-damage_offset * 0.90 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	
 		M.adjustStaminaLoss(-damage_offset * 0.90 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	
@@ -2494,8 +2494,8 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 	description = "Potent, stinging herbs that swiftly aid in the recovery of grevious wounds."
 	color = "#C8A5DC"
 	overdose_threshold = 12
-	heal_nominal = 6	// 6 HP per tick shared across brute and burn, about 60 HP from 10u
-	heal_rate = 6
+	heal_nominal = 10	// 10 HP per tick shared across brute and burn, about 90 HP from 10u
+	heal_rate = 10
 	heal_both_types = TRUE
 	debuff_stat = "a"
 	heal_onset = 3
@@ -2538,12 +2538,12 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 	reagent_state = LIQUID
 	color ="#A9FBFB"
 	taste_description = "bitterness"
-	metabolization_rate = 1.5 * REAGENTS_METABOLISM //5u heals about 37 HP over ~17s shared among whichever of brute, burn and toxin the patient has, slightly more than a stimpak but much slower. More for tribals and a little less for outsiders
+	metabolization_rate = 1.5 * REAGENTS_METABOLISM //5u heals about 25 HP over ~17s shared among whichever of brute, burn and toxin the patient has, a minor remedy next to a stimpak. More for tribals and a little less for outsiders
 	overdose_threshold = 31
 	overdose_ends_below_threshold = TRUE
-	var/heal_factor = -1.5
+	var/heal_factor = -1.15
 	ghoulfriendly = TRUE
-	heal_nominal = 4.5
+	heal_nominal = 3.5
 	heal_onset = 3
 	heal_origin = HEAL_ORIGIN_HERBAL
 

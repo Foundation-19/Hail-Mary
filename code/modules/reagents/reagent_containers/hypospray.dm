@@ -238,7 +238,7 @@
 // ---------------------------------
 // SUPER STIMPAK
 
-/obj/item/reagent_containers/hypospray/medipen/stimpak/super // about 75hp in a few seconds.
+/obj/item/reagent_containers/hypospray/medipen/stimpak/super // about 60hp in a few seconds.
 	name = "super stimpak"
 	desc = "The super version comes in a hypodermic, but with an additional vial containing more powerful drugs than the basic model and a leather belt to strap the needle to the injured limb."
 	icon_state = "hypo_superstimpak"

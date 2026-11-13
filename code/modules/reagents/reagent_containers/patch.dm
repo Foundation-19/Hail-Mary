@@ -130,7 +130,7 @@
 // ---------------------------------
 // HEALING POULTICE
 
-/obj/item/reagent_containers/pill/patch/healpoultice // about 60hp over 20 seconds, stronger than plain powder.
+/obj/item/reagent_containers/pill/patch/healpoultice // about 90hp over 20 seconds, much stronger than plain powder.
 	name = "Healing poultice"
 	desc = "A concoction of broc flower, cave fungus, agrave fruit and xander root. Pressed onto the skin over a wound."
 	icon = 'icons/obj/medicine/drugs.dmi'
@@ -141,7 +141,7 @@
 // ---------------------------------
 // BITTER DRINK
 
-/obj/item/reagent_containers/pill/bitterdrink // about 25hp over 12 seconds
+/obj/item/reagent_containers/pill/bitterdrink // about 25hp over 17 seconds
 	name = "Bitter drink"
 	desc = "A strong herbal healing concoction invented and created by the Twin Mothers tribe. Drunk, so take off any mask first."
 	icon = 'icons/obj/medicine/drugs.dmi'
