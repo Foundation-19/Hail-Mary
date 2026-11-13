@@ -5,12 +5,16 @@
 
 // LIGHT MELEE VARIANT
 /mob/living/simple_animal/hostile/renegade
+	affix_pool_type = "human"
+	affix_chance = 5
 	name = "Renegade Prospect"
 	desc = "A raider recently inducted among the Renegades."
 	icon = 'icons/mob/renegades/renegade.dmi'
 	icon_state = "renegade_prospect"
 	icon_living = "renegade_prospect"
 	icon_dead = "renegade_prospect-dead"
+	rapid_melee = 2
+	melee_queue_distance = 5
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	turns_per_move = 5
 	mob_armor = ARMOR_VALUE_RENEGADE_PROSPECT
@@ -28,6 +32,11 @@
 	faction = list("raider")
 	check_friendly_fire = TRUE
 	can_open_doors = TRUE
+	can_open_airlocks = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
+	move_to_delay = 3
+	combat_mode = COMBAT_MODE_MELEE
+	minimum_distance = 1
 	status_flags = CANPUSH
 	del_on_death = FALSE
 	waddle_amount = 5
@@ -36,9 +45,21 @@
 	loot = list(/obj/item/stack/f13Cash/random/med)
 
 /mob/living/simple_animal/hostile/renegade/Aggro()
-	..()
+	. = ..()
+	if(.)
+		return
 	summon_backup(10)
 	say("Target spotted!")
+
+// Friendly fire resistance - renegades fight in squads
+/mob/living/simple_animal/hostile/renegade/bullet_act(obj/item/projectile/P)
+	if(P && P.firer && istype(P.firer, /mob/living/simple_animal/hostile/renegade))
+		var/original_damage = P.damage
+		P.damage *= 0.2
+		. = ..()
+		P.damage = original_damage
+		return
+	return ..()
 
 
 // LIGHT RANGED VARIANT
@@ -48,6 +69,7 @@
 	icon_state = "renegade_grunt"
 	icon_living = "renegade_grunt"
 	icon_dead = "renegade_grunt-dead"
+	combat_mode = COMBAT_MODE_RANGED
 	ranged = TRUE
 	mob_armor = ARMOR_VALUE_RENEGADE_COMBAT_ARMOR
 	maxHealth = 100
@@ -91,6 +113,7 @@
 	icon_state = "renegade_engie"
 	icon_living = "renegade_engie"
 	icon_dead = "renegade_engie-dead"
+	combat_mode = COMBAT_MODE_RANGED
 	mob_armor = ARMOR_VALUE_RENEGADE_COMBAT_ARMOR
 	maxHealth = 100
 	health = 100
@@ -138,6 +161,7 @@
 	icon_state = "renegade_soldier"
 	icon_living = "renegade_soldier"
 	icon_dead = "renegade_soldier-dead"
+	combat_mode = COMBAT_MODE_RANGED
 	ranged = TRUE
 	mob_armor = ARMOR_VALUE_RENEGADE_COMBAT_ARMOR_REINFORCED
 	maxHealth = 100
@@ -185,6 +209,7 @@
 	icon_state = "renegade_soldier"
 	icon_living = "renegade_soldier"
 	icon_dead = "renegade_soldier-dead"
+	combat_mode = COMBAT_MODE_RANGED
 	ranged = TRUE
 	mob_armor = ARMOR_VALUE_RENEGADE_CAPTAIN
 	maxHealth = 220
@@ -229,7 +254,9 @@
 	)
 
 /mob/living/simple_animal/hostile/renegade/captain/Aggro()
-	..()
+	. = ..()
+	if(.)
+		return
 	summon_backup(16)
 
 //MEDIUM MELEE VARIANT
@@ -239,6 +266,8 @@
 	icon_state = "renegade_defender"
 	icon_living = "renegade_defender"
 	icon_dead = "renegade_defender-dead"
+	rapid_melee = 2
+	melee_queue_distance = 5
 	mob_armor = ARMOR_VALUE_RENEGADE_COMBAT_ARMOR_SUPER
 	maxHealth = 130
 	health = 130
@@ -274,6 +303,7 @@
 	icon_state = "renegade_drifter"
 	icon_living = "renegade_drifter"
 	icon_dead = "renegade_drifter-dead"
+	combat_mode = COMBAT_MODE_RANGED
 	ranged = TRUE
 	mob_armor = ARMOR_VALUE_RENEGADE_SNIPER_ARMOR
 	maxHealth = 100
@@ -322,6 +352,7 @@
 	icon_state = "renegade_guardian"
 	icon_living = "renegade_guardian"
 	icon_dead = "renegade_guardian-dead"
+	combat_mode = COMBAT_MODE_RANGED
 	ranged = TRUE
 	mob_armor = ARMOR_VALUE_RENEGADE_COMBAT_ARMOR_SUPER
 	maxHealth = 150
@@ -368,6 +399,8 @@
 	icon_state = "renegade_meister"
 	icon_living = "renegade_meister"
 	icon_dead = "renegade_meister-dead"
+	combat_mode = COMBAT_MODE_MIXED
+	rapid_melee = 1
 	mob_armor = ARMOR_VALUE_RENEGADE_POWER_ARMOR
 	maxHealth = 150
 	health = 150
@@ -421,6 +454,7 @@
 	icon_state = "renegade_doc"
 	icon_living = "renegade_doc"
 	icon_dead = "renegade_doc-dead"
+	combat_mode = COMBAT_MODE_RANGED
 	ranged = TRUE
 	mob_armor = ARMOR_VALUE_RENEGADE_COMBAT_ARMOR
 	maxHealth = 150

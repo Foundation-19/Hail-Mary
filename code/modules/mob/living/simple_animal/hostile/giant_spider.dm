@@ -53,6 +53,11 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	footstep_type = FOOTSTEP_MOB_CLAW
 	has_field_of_vision = FALSE // 360° vision
+	mob_armor = ARMOR_VALUE_SPIDER
+	combat_mode = COMBAT_MODE_MELEE
+	minimum_distance = 1
+	affix_pool_type = "venomous"
+	affix_chance = 4
 	var/playable_spider = FALSE
 	var/datum/action/innate/spider/lay_web/lay_web
 	var/directive = "" // Message passed down to children to relay the creator's orders
@@ -162,6 +167,7 @@
 	melee_damage_lower = 5
 	melee_damage_upper = 10
 	poison_per_bite = 3
+	mob_armor = ARMOR_VALUE_SPIDER_SOFT
 	var/atom/movable/cocoon_target
 	var/fed = 0
 	var/obj/effect/proc_holder/wrap/wrap
@@ -354,6 +360,7 @@
 	melee_damage_upper = 20
 	poison_per_bite = 5
 	move_to_delay = 5
+	mob_armor = ARMOR_VALUE_SPIDER_HUNTER
 
 // Viper: glass cannon variant - almost no physical damage, lethal poison
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper
@@ -369,6 +376,7 @@
 	poison_per_bite = 12
 	move_to_delay = 4
 	poison_type = /datum/reagent/toxin/venom
+	mob_armor = ARMOR_VALUE_SPIDER_SOFT
 	speed = 1
 	gold_core_spawnable = NO_SPAWN
 
@@ -389,6 +397,7 @@
 	melee_damage_upper = 40
 	poison_per_bite = 0
 	move_to_delay = 8
+	mob_armor = ARMOR_VALUE_SPIDER_TARANTULA
 	speed = 7
 	status_flags = NONE
 	mob_size = MOB_SIZE_LARGE
@@ -419,6 +428,7 @@
 	maxHealth = 40
 	health = 40
 	sentience_type = SENTIENCE_BOSS
+	affix_chance = 0
 	var/datum/action/innate/spider/comm/letmetalkpls
 	gold_core_spawnable = NO_SPAWN
 

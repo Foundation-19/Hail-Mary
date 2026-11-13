@@ -437,7 +437,7 @@
 
 /obj/item/tool_upgrade/refinement/focusing_lens
 	name = "focusing lens"
-	desc = "A precision-ground lens that tightens an energy weapon's beam, letting more of each shot's energy punch through armor plating at the cost of a wider firing signature."
+	desc = "A precision-ground lens that tightens an energy weapon's beam, concentrating each shot so it cuts through thick armor plating (+5 damage threshold penetration, capped at 10) at the cost of 15% more charge per shot and a brighter muzzle flash. Does nothing against armor's percentage resistance."
 	icon_state = "compensatedbarrel"
 
 /obj/item/tool_upgrade/refinement/focusing_lens/New()

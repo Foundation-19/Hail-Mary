@@ -1,8 +1,3 @@
-// Combat mode defines
-#define COMBAT_MODE_MELEE 1   // Pure melee, always rush in
-#define COMBAT_MODE_RANGED 2  // Pure ranged, never voluntarily enter melee
-#define COMBAT_MODE_MIXED 3   // Ranged but will melee if target gets close (like reaver)
-
 /// When TRUE, hostile mobs log target acquire/loss and search transitions to the game log. Toggle via VV.
 GLOBAL_VAR_INIT(debug_ai, FALSE)
 

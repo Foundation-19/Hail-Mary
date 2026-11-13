@@ -213,7 +213,7 @@
  * Low DT
  * * * * * * * * * * * */
 #define ARMOR_VALUE_GHOUL_LEGEND list(\
-		"melee" = 25, \
+		"melee" = -20, \
 		"bullet" = 25, \
 		"laser" = 95, \
 		"energy" = 95, \
@@ -223,7 +223,7 @@
 		"fire" = 0, \
 		"acid" = 0, \
 		"wound" = 0, \
-		"damage_threshold" = 11)
+		"damage_threshold" = 4)
 
 /* Armored glowing ghoul armor
  * Glowing ghoul fused into scavenged reaver plating
@@ -606,9 +606,9 @@
  * Lot of DT
  * * * * * * * * * * * */
 #define ARMOR_VALUE_DEATHCLAW_ALPHA list(\
-		"melee" = 20, \
-		"bullet" = 62, \
-		"laser" = 30, \
+		"melee" = 32, \
+		"bullet" = 40, \
+		"laser" = 28, \
 		"energy" = 0, \
 		"bomb" = 0, \
 		"bio" = 0, \
@@ -644,7 +644,7 @@
  * * * * * * * * * * * */
 #define ARMOR_VALUE_DEATHCLAW_CHAMELEON list(\
 		"melee" = 10, \
-		"bullet" = 50, \
+		"bullet" = 30, \
 		"laser" = 15, \
 		"energy" = 0, \
 		"bomb" = 0, \
@@ -974,7 +974,7 @@
 		"fire" = 0, \
 		"acid" = 0, \
 		"wound" = 0, \
-		"damage_threshold" = 5)
+		"damage_threshold" = 6)
 
 /* Ant Queen armor
  * Boss variant - heavily armored matriarch
@@ -1065,6 +1065,74 @@
 		"acid" = 35, \
 		"wound" = 10, \
 		"damage_threshold" = 10)
+
+/* Radspider armor (guard / base)
+ * Chitinous hide - moderate melee protection, weaker to fire
+ * Low DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_SPIDER list(\
+		"melee" = 20, \
+		"bullet" = 15, \
+		"laser" = 10, \
+		"energy" = 10, \
+		"bomb" = 5, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = -20, \
+		"acid" = 10, \
+		"wound" = 0, \
+		"damage_threshold" = 3)
+
+/* Radspider nurse / viper / midwife armor
+ * Soft-bodied support and glass-cannon spiders - almost no protection
+ * Very low DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_SPIDER_SOFT list(\
+		"melee" = 5, \
+		"bullet" = 5, \
+		"laser" = 0, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = -30, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 1)
+
+/* Radspider hunter armor
+ * Lean, fast hunter - light chitin
+ * Low DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_SPIDER_HUNTER list(\
+		"melee" = 15, \
+		"bullet" = 10, \
+		"laser" = 5, \
+		"energy" = 5, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = -25, \
+		"acid" = 5, \
+		"wound" = 0, \
+		"damage_threshold" = 2)
+
+/* Radtarantula armor
+ * Massive, slow brute - thick hide, heavy resistance
+ * Medium DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_SPIDER_TARANTULA list(\
+		"melee" = 40, \
+		"bullet" = 35, \
+		"laser" = 15, \
+		"energy" = 15, \
+		"bomb" = 15, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = -10, \
+		"acid" = 20, \
+		"wound" = 10, \
+		"damage_threshold" = 8)
 
 /* Aradnid (East Coast)
  * Light chitin, immune to radiation (it feeds on it), some bio resistance
@@ -1700,7 +1768,7 @@
 /* Enclave Hellfire trooper
  * Above the APA armored infantry (95/100/DT 14): Hellfire plating, the best armor in the game for mobs
  * Plasma and energy still get through better than anything else (energy 55)
- * Bullet / laser / fire 100 matches ENCLAVE_APA, which already uses 100; whether the system caps mob DR at 95 is unverified
+ * DR is capped at ARMOR_CAP_DR (95), so bullet / laser / fire 100 behave like 95; the real edge over APA is melee, energy, DT and wound
  * * * * * * * * * * * */
 #define ARMOR_VALUE_ENCLAVE_HELLFIRE list(\
 		"melee" = 95, \
@@ -2120,6 +2188,8 @@ GLOBAL_LIST_INIT(armor_token_operation_legend, list(
 #define ARMOR_CAP_MAGIC 100
 #define ARMOR_CAP_WOUND 100
 #define ARMOR_CAP_DT 40
+/// Highest DT pen a gun attachment can bring a round up to
+#define GUN_DT_PEN_UPGRADE_CAP 10
 #define ARMOR_CAP_DR 95
 
 /// Armor stiffness - How much recoil we get while running and gunning!

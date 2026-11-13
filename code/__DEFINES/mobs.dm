@@ -384,6 +384,11 @@
 /// When a client first enters a z-level, dormant hostiles farther than this wake straight to AI_IDLE instead of AI_ON
 #define HOSTILE_Z_ENTRY_WAKE_RANGE 14
 
+// Hostile combat mode defines
+#define COMBAT_MODE_MELEE 1   // Pure melee, always rush in
+#define COMBAT_MODE_RANGED 2  // Pure ranged, never voluntarily enter melee
+#define COMBAT_MODE_MIXED 3   // Ranged but will melee if target gets close (like reaver)
+
 //determines if a mob can smash through it
 #define ENVIRONMENT_SMASH_NONE			0
 #define ENVIRONMENT_SMASH_STRUCTURES	(1<<0) 	//crates, lockers, ect

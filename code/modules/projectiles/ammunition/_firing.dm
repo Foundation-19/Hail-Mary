@@ -61,7 +61,8 @@
 	else
 		BB.def_zone = user.zone_selected
 	BB.suppressed = quiet
-	BB.damage_threshold_penetration = damage_threshold_penetration
+	//Casing value is a floor so DT pen defined on the projectile itself (plasma, tuned beams) isn't zeroed by the casing default
+	BB.damage_threshold_penetration = max(BB.damage_threshold_penetration, damage_threshold_penetration)
 	if(isliving(user))
 		var/mob/living/shooter = user
 		BB.damage *= shooter.get_shot_perk_damage_mult(target)
@@ -75,7 +76,12 @@
 		BB.damage *= G.damage_multiplier
 		BB.damage_mod = G.damage_multiplier
 		BB.armour_penetration *= G.penetration_multiplier
-		BB.damage_threshold_penetration += G.dt_penetration_bonus
+		if(G.dt_penetration_bonus > 0)
+			//Attachments can't stack already-tuned rounds past the cap, but never lower a round's own value
+			var/base_dt_pen = BB.damage_threshold_penetration
+			BB.damage_threshold_penetration = max(base_dt_pen, min(base_dt_pen + G.dt_penetration_bonus, GUN_DT_PEN_UPGRADE_CAP))
+		else
+			BB.damage_threshold_penetration += G.dt_penetration_bonus
 		BB.pixels_per_second *= G.projectile_speed_multiplier
 		BB.muzzle_flash_intensity *= G.muzzleflash_multiplier
 		BB.muzzle_flash_range *= G.muzzleflash_multiplier
