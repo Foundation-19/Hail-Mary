@@ -91,6 +91,20 @@
 		return robot_blurbs[affix_id]
 	return generic_blurbs[affix_id]
 
+/// Glow and examine color per affix, so a modified mob reads at a glance: cyan fast, red hits hard, silver tough,
+/// teal heals, crimson drains blood, purple poisons, orange explodes.
+/mob/living/simple_animal/hostile/proc/get_affix_color(affix_id)
+	var/static/list/colors = list(
+		"swift" = "#40c8ff",
+		"brutal" = "#ff2a2a",
+		"hardy" = "#c8c8dc",
+		"regenerating" = "#00e5a0",
+		"vampiric" = "#c00048",
+		"toxic" = "#b050ff",
+		"volatile" = "#ff8000"
+	)
+	return colors[affix_id]
+
 /mob/living/simple_animal/hostile/proc/roll_affix()
 	if(!affix_chance || affix || ckey || QDELETED(src))
 		return
@@ -134,9 +148,12 @@
 			return
 	var/label = get_affix_label(affix_id)
 	var/blurb = get_affix_blurb(affix_id)
+	var/affix_color = get_affix_color(affix_id)
 	name = "[label] [name]"
 	if(blurb)
-		desc = "[desc]<br><i>[blurb]</i>"
+		desc = "[desc]<br><font color='[affix_color]'><b>[capitalize(label)]:</b> <i>[blurb]</i></font>"
+	if(affix_color)
+		add_filter("affix_glow", 2, list("type" = "outline", "color" = "[affix_color]a0", "size" = 1))
 
 /mob/living/simple_animal/hostile/proc/affix_regen_tick()
 	if(QDELETED(src) || stat == DEAD)
@@ -165,6 +182,7 @@
 /// turn the affix off entirely.
 /mob/living/simple_animal/hostile/proc/affix_death()
 	if(affix != "volatile")
+		remove_filter("affix_glow")
 		return
 	var/turf/T = get_turf(src)
 	if(!T)
