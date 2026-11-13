@@ -201,6 +201,10 @@ GLOBAL_VAR_INIT(debug_ai, FALSE)
 	var/turf/search_last_pos = null
 	/// SMART SEARCH: Consecutive ticks spent far from the destination without moving
 	var/search_stuck_ticks = 0
+	/// SMART SEARCH: Goal whose walk progress is being tracked, the closest we have been to it, and the search steps since that improved
+	var/atom/search_progress_goal = null
+	var/search_progress_best = 0
+	var/search_progress_steps = 0
 
 	/// How far to call for backup when finding a target (tiles)
 	var/backup_call_range = 7
@@ -2056,6 +2060,12 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 	else
 		is_alpha_alerter = FALSE  // Lost target, no longer primary alerter
 
+/// Targets a mob that is out of sight, such as an event spawn. The last known position is set too, otherwise the
+/// mob stands still until the line of sight timeout runs out.
+/mob/living/simple_animal/hostile/proc/hunt(mob/living/prey, reason)
+	GiveTarget(prey, reason)
+	update_search_destination(get_turf(prey), reason, AI_CONF_SIGHT, prey)
+
 //What we do after closing in
 /mob/living/simple_animal/hostile/proc/MeleeAction(patience = TRUE)
 	// Stop immediately if target is dead or unconscious
@@ -3596,6 +3606,7 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 
 	search_last_pos = null
 	search_stuck_ticks = 0
+	search_progress_goal = null
 
 	cancel_curiosity()
 	search_look_message = null
@@ -3714,15 +3725,44 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 		search_move_stalls = 0
 	search_move_last_pos = here
 
+/// Search steps in a row that may pass without getting closer to the same goal before the walk counts as blocked
+#define SEARCH_NO_PROGRESS_LIMIT 6
+/// Consecutive stuck checks after which the last known position is written off as unreachable
+#define SEARCH_STUCK_LIMIT 3
+
+/// Tracks whether repeated walks to the same goal are getting anywhere. A mob pacing back and forth against an
+/// obstacle never stands on the same tile twice in a row, so only the distance to the goal shows it is stuck.
+/mob/living/simple_animal/hostile/proc/search_walk_stalled(atom/goal)
+	var/dist = get_dist(src, goal)
+	if(goal != search_progress_goal || z != goal.z)
+		search_progress_goal = goal
+		search_progress_best = dist
+		search_progress_steps = 0
+		return FALSE
+	if(dist < search_progress_best)
+		search_progress_best = dist
+		search_progress_steps = 0
+		return FALSE
+	search_progress_steps++
+	return search_progress_steps >= SEARCH_NO_PROGRESS_LIMIT
+
 /// Sets where the search walk is heading and starts walking; search_tick keeps it going between decision steps.
+/// Returns FALSE when the walk to this goal has made no progress and the goal was written off instead.
 /mob/living/simple_animal/hostile/proc/set_search_goal(atom/goal)
+	if(search_walk_stalled(goal))
+		ai_debug_log("search_no_progress goal=[goal] dist=[get_dist(src, goal)] steps=[search_progress_steps]")
+		search_progress_goal = null
+		search_move_goal = goal
+		return search_handle_blocked_walk()
 	search_move_goal = goal
 	search_move_last_pos = null
 	search_move_stalls = 0
 	Goto(goal, move_to_delay, 0)
+	return TRUE
 
 /// The search walk is making no progress, so the goal is probably unreachable (a closed door or wall in the way).
 /// Open any closed door within reach; otherwise write the goal off and let the next step pick another one.
+/// Returns TRUE if a door was dealt with and the walk was retried, FALSE if the goal was written off.
 /mob/living/simple_animal/hostile/proc/search_handle_blocked_walk()
 	var/atom/goal = search_move_goal
 	search_move_stalls = 0
@@ -3732,14 +3772,14 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 			if(try_open_door(door))
 				ai_debug_log("search_blocked_opened_door door=[door] goal=[goal]")
 				Goto(goal, move_to_delay, 0)
-				return
+				return TRUE
 	else if(environment_smash)
 		// Mobs that cannot open doors break them instead
 		for(var/atom/door in get_closed_doors(src, 1))
 			ai_debug_log("search_blocked_smash_door door=[door] goal=[goal]")
 			door.attack_animal(src)
 			Goto(goal, move_to_delay, 0)
-			return
+			return TRUE
 	ai_debug_log("search_goal_burned goal=[goal] dist=[get_dist(src, goal)]")
 	if(isturf(goal))
 		searched_turfs += goal
@@ -3750,6 +3790,7 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 	search_move_goal = null
 	walk(src, 0)
 	search_next_tick = world.time
+	return FALSE
 
 /// Non-blocking replacement for sleeping after opening a door or container: the next search step looks for targets
 /// first, once the animation is done.
@@ -3876,7 +3917,8 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 	if(dist_to_last_known > 1)
 		if(current_pos == search_last_pos)
 			search_stuck_ticks++
-		else
+		else if(search_stuck_ticks < SEARCH_STUCK_LIMIT)
+			// Once written off, the last known position stays written off until the destination changes
 			search_stuck_ticks = 0
 			search_last_pos = current_pos
 		ai_debug_log("search_tick dist=[dist_to_last_known] stuck=[search_stuck_ticks] elapsed=[world.time - search_start_time]")
@@ -3896,7 +3938,7 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 		// We're too far from where we last saw them - move closer first
 		// Re-issue the Goto every tick so blocked or interrupted paths are retried. If we are stuck
 		// for several ticks, fall through to the systematic search (doors/containers) instead.
-		if(search_stuck_ticks < 3)
+		if(search_stuck_ticks < SEARCH_STUCK_LIMIT)
 			if(!(last_known_location in searched_turfs))
 				searched_turfs += last_known_location
 				if(COOLDOWN_FINISHED(src, search_chatter_cooldown))
@@ -3910,7 +3952,10 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 					is_alpha_alerter = FALSE
 					attempt_z_pursuit()
 				return
-			set_search_goal(last_known_location)
+			if(!set_search_goal(last_known_location))
+				// The walk is going nowhere: stop retrying it and fall through to the systematic search next step
+				search_stuck_ticks = SEARCH_STUCK_LIMIT
+				return
 			schedule_search_tick(1 SECONDS)
 			return
 
