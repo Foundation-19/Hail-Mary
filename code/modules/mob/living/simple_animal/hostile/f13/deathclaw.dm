@@ -511,6 +511,8 @@
 	icon = 'icons/mob/monsters/deathclaw.dmi' 
 	icon_state = "inteligent"
 	icon_living = "inteligent"
+	// Shared with the Oak Mother so the dungeon's inflicted line never fights her
+	faction = list("deathclaw", "oakclaw_kin")
 
 /mob/living/simple_animal/hostile/deathclaw/inteligent/inflicted
 	speak = list("...run...", "Not... me...", "The sap... it burns...")
