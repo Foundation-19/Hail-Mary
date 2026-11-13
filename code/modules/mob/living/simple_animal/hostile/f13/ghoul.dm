@@ -236,7 +236,7 @@
 
 // ============================================================
 // COLD / FROZEN GHOULS
-// FIX: frozenreaver now inherits from coldferal to avoid duplication
+// frozenreaver inherits from coldferal to avoid duplication
 // NOTE: Neither has atmos_requirements override - they still need oxygen.
 //       Add vacuum-safe atmos list here if they're meant for cold/airless maps.
 // ============================================================
@@ -323,7 +323,7 @@
 	harm_intent_damage = 8
 	melee_damage_lower = 20
 	melee_damage_upper = 35
-	mob_size = MOB_SIZE_HUGE // FIX: was raw 5, use the defined constant
+	mob_size = MOB_SIZE_HUGE
 	wound_bonus = 0
 	bare_wound_bonus = 0
 	loot = list(/obj/item/stack/f13Cash/random/med)

@@ -349,8 +349,7 @@ GLOBAL_LIST_EMPTY(playmob_cooldowns)
 		SSnpcpool.currentrun -= src
 	sever_link_to_nest()
 
-	// CRITICAL FIX: Properly clean up ALL proc holders and abilities BEFORE calling parent
-	// This prevents circular references that block GC
+	// Clean up all proc holders and abilities before calling parent, which prevents circular references that block GC
 
 	// Clean up ALL abilities generically first (catches any we might have missed)
 	if(abilities && LAZYLEN(abilities))

@@ -94,16 +94,13 @@
 	retreat_distance = null
 	minimum_distance = 1
 
-// FIX: Consolidated death() icon swap here so all subtypes inherit it.
-// Previously every subtype copy-pasted: icon = dead_dmi, icon_state = icon_dead, anchored = FALSE.
-// Now they all inherit this single override.
+// The death() icon swap lives here (icon = dead_dmi, icon_state = icon_dead, anchored = FALSE) so all subtypes inherit it.
 /mob/living/simple_animal/hostile/supermutant/death(gibbed)
 	icon = 'icons/mob/supermutant_dead.dmi'
 	icon_state = icon_dead
 	. = ..()
 
-// FIX: Added if(.) return guard. Previously summon_backup fired unconditionally,
-// meaning player-controlled supermutants would also call for backup on aggro.
+// The if(.) guard keeps player-controlled supermutants from calling for backup on aggro.
 /mob/living/simple_animal/hostile/supermutant/Aggro()
 	. = ..()
 	if(is_low_health)
@@ -324,7 +321,7 @@
 	icon_dead = "hulk_113_s"
 	melee_damage_lower = 27
 	melee_damage_upper = 57
-	mob_size = MOB_SIZE_HUGE // FIX: was raw 5
+	mob_size = MOB_SIZE_HUGE
 
 // ============================================================
 // NIGHTKIN
@@ -444,7 +441,7 @@
 
 /mob/living/simple_animal/hostile/supermutant/nightkin/elitemutant/Aggro()
 	. = ..()
-	if(.) // FIX: same guard as nightkin/Aggro
+	if(.) // Same guard as nightkin/Aggro
 		return
 	summon_backup(10)
 	alpha = 255
@@ -639,7 +636,7 @@
 			to_chat(L, span_userdanger("You're hit by the nightkin's release of energy!"))
 			hit_things += L
 		previousturf = J
-		sleep(1) // FIX: was addtimer(1) with no callback - invalid call that would runtime
+		sleep(1)
 
 // Rain lord nightkin - most powerful, dual resistance, healing aura
 /mob/living/simple_animal/hostile/supermutant/nightkin/elitemutant/rain

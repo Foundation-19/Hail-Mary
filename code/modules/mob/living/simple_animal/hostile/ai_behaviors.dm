@@ -102,16 +102,29 @@ GLOBAL_LIST_EMPTY(ai_ally_deaths)
 	var/ai_bhv_anchor_time = 0
 	var/ai_bhv_camp_seen = 0
 	var/turf/ai_bhv_camp_spot
+	/// Plans: state that outlives a single decision. Each one expires by itself, and ai_plan_clear() drops them early
+	/// when the mob changes intent, leaves the fight or finishes it.
+	/// Camp wait: set while the mob holds out of a camper's sight, ends after AI_BHV_CAMP_PATIENCE
 	var/ai_bhv_camp_wait_start = 0
 	var/ai_bhv_camp_waiting = FALSE
 	/// Which way the target was last going, and when
 	var/ai_bhv_track_dir = 0
 	var/ai_bhv_track_time = 0
 	var/ai_bhv_lead_hops = 0
-	/// Cover bounding and staging
+	/// Cover advance: the tile being walked to, when to pick again, and the pause under cover
 	var/turf/ai_cover_goal
 	var/ai_cover_next = 0
 	var/ai_cover_pause_until = 0
+
+/// Drops the mob's multi-step plans. keep_camp leaves the camp wait alone, because its patience clock has to survive
+/// the hold and attack decisions around it.
+/mob/living/simple_animal/hostile/proc/ai_plan_clear(keep_camp = FALSE)
+	ai_cover_goal = null
+	ai_cover_next = 0
+	ai_cover_pause_until = 0
+	if(!keep_camp)
+		ai_bhv_camp_wait_start = 0
+		ai_bhv_camp_waiting = FALSE
 
 /// Whether a behavior's counter is on and allowed to act
 /mob/living/simple_animal/hostile/proc/ai_bhv_active(behavior)
@@ -151,14 +164,10 @@ GLOBAL_LIST_EMPTY(ai_ally_deaths)
 	ai_bhv_anchor_time = 0
 	ai_bhv_camp_seen = 0
 	ai_bhv_camp_spot = null
-	ai_bhv_camp_wait_start = 0
-	ai_bhv_camp_waiting = FALSE
 	ai_bhv_track_dir = 0
 	ai_bhv_track_time = 0
 	ai_bhv_lead_hops = 0
-	ai_cover_goal = null
-	ai_cover_next = 0
-	ai_cover_pause_until = 0
+	ai_plan_clear()
 
 /mob/living/simple_animal/hostile/proc/ai_bhv_open_door_at(turf/T)
 	for(var/obj/structure/simple_door/SD in T)

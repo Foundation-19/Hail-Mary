@@ -276,6 +276,7 @@ GLOBAL_LIST_INIT(ai_mode_names, list("idle", "engage", "hunt"))
 	if(intent != ai_intent || ai_seg_intent == AI_INTENT_NONE)
 		if(intent != ai_intent)
 			ai_debug_log("intent_chosen intent=[GLOB.ai_intent_names[intent]] was=[ai_intent ? GLOB.ai_intent_names[ai_intent] : "none"] [reason]")
+			ai_plan_clear(keep_camp = TRUE)
 		if(intent != ai_seg_intent)
 			ai_close_segment("intent_change")
 			ai_open_segment(intent, learn)
@@ -302,8 +303,10 @@ GLOBAL_LIST_INIT(ai_mode_names, list("idle", "engage", "hunt"))
 // All of them see the target through ai_sight_of, so no layer has its own idea of what "in sight" means.
 
 /// How well this mob perceives A: CLEAR when it is in view, SENSED when it is close enough to be heard or felt through
-/// walls, NONE otherwise. Engaged mobs track by plain view() with no vision cone, since the cone only matters for an
-/// idle mob scanning for threats.
+/// walls, NONE otherwise. This is tracking, for a mob already engaged: plain view() with no vision cone or lighting.
+/// Detection, which decides whether an idle mob notices someone at all, is a separate question answered by can_see()
+/// with get_effective_vision_range(), and so is whether a ranged mob can fire right now. Those keep the cone and the
+/// light, so they are not routed through here.
 /mob/living/simple_animal/hostile/proc/ai_sight_of(atom/A)
 	if(!A || QDELETED(A) || z_of(A) != z)
 		return AI_SIGHT_NONE
@@ -338,6 +341,9 @@ GLOBAL_LIST_INIT(ai_mode_names, list("idle", "engage", "hunt"))
 	var/old_mode = ai_mode
 	ai_mode = new_mode
 	ai_debug_log("mode_change [GLOB.ai_mode_names[old_mode + 1]]->[GLOB.ai_mode_names[new_mode + 1]]")
+	// Plans made for a fight in sight mean nothing once the mob loses the target and has to search
+	if(old_mode == AI_MODE_ENGAGE)
+		ai_plan_clear()
 	if(new_mode == AI_MODE_IDLE && !ckey && ai_decision_enabled)
 		ai_stand_down()
 

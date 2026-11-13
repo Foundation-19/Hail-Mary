@@ -270,7 +270,7 @@
 				stop_automated_movement = 1
 				Goto(O, move_to_delay)
 				GiveUp(O)
-				return 1 // BUG FIX: break after first target, don't overwrite with last obj in loop
+				return 1 // Stop after the first target so a later obj in the loop doesn't overwrite it
 
 	return 1
 
