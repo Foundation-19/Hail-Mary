@@ -184,14 +184,18 @@
 		if(!completed || !user_can_build() || !can_place(T, user))
 			placing = FALSE
 			return
+	// Using the last of the stack deletes it, which ends placement mode and clears our references mid-build
+	var/datum/buildable/to_build = buildable
+	var/build_facing = build_dir
 	if(!source.use(recipe.req_amount))
 		placing = FALSE
 		return
-	var/atom/movable/built = buildable.create(T, build_dir)
+	var/atom/movable/built = to_build.create(T, build_facing)
 	if(built)
 		log_craft("[built] crafted by [user] at [loc_name(built.loc)]")
 		built.add_fingerprint(user)
 	if(QDELETED(src))
+		to_chat(user, span_notice("You've run out of materials."))
 		return
 	placing = FALSE
 	if(QDELETED(source) || source.get_amount() < recipe.req_amount)

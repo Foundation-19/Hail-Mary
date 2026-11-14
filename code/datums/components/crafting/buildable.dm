@@ -91,11 +91,13 @@
 	setDir(new_dir)
 
 /datum/stack_recipe/proc/get_buildable()
+	RETURN_TYPE(/datum/buildable)
 	if(!buildable)
 		buildable = new /datum/buildable(title, result_type, one_per_turf, on_floor, window_checks, placement_checks)
 	return buildable
 
 /datum/crafting_recipe/proc/get_buildable()
+	RETURN_TYPE(/datum/buildable)
 	if(!buildable)
 		buildable = new /datum/buildable(name, result, one_per_turf, on_floor, window_checks, placement_checks)
 	return buildable
