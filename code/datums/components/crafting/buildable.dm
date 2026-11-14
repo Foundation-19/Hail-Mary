@@ -24,10 +24,12 @@
 	var/trait_modifier = 1
 	/// Whether the build direction matters even though this is not a window (chairs, benches)
 	var/rotatable = FALSE
+	/// Whether the result is made from the material of the stack that paid for it (carved blocks)
+	var/applies_mats = FALSE
 	/// The last reason check_placement() refused, kept so callers can show it without asking the user
 	var/last_failure
 
-/datum/buildable/New(name, result_type, one_per_turf = FALSE, on_floor = FALSE, window_checks = FALSE, placement_checks = FALSE, req_amount = 0, build_time = 0, trait_booster = null, trait_modifier = 1, rotatable = FALSE)
+/datum/buildable/New(name, result_type, one_per_turf = FALSE, on_floor = FALSE, window_checks = FALSE, placement_checks = FALSE, req_amount = 0, build_time = 0, trait_booster = null, trait_modifier = 1, rotatable = FALSE, applies_mats = FALSE)
 	src.name = name
 	src.result_type = result_type
 	src.one_per_turf = one_per_turf
@@ -39,6 +41,7 @@
 	src.trait_booster = trait_booster
 	src.trait_modifier = trait_modifier
 	src.rotatable = rotatable
+	src.applies_mats = applies_mats
 
 /// Whether any placement rule is set. Callers can skip validation entirely when this is false.
 /datum/buildable/proc/has_placement_rules()
@@ -135,6 +138,12 @@
 	if(isstructure(built))
 		var/obj/structure/owned = built
 		owned.set_build_owner(user)
+	if(applies_mats && length(source.custom_materials) && isobj(built))
+		var/obj/made = built
+		var/list/used_materials = list()
+		for(var/material in source.custom_materials)
+			used_materials[SSmaterials.GetMaterialRef(material)] = req_amount * (MINERAL_MATERIAL_AMOUNT / length(source.custom_materials))
+		made.set_custom_materials(used_materials)
 	source.use(req_amount)
 	return built
 
@@ -145,7 +154,7 @@
 /datum/stack_recipe/proc/get_buildable()
 	RETURN_TYPE(/datum/buildable)
 	if(!buildable)
-		buildable = new /datum/buildable(title, result_type, one_per_turf, on_floor, window_checks, placement_checks, req_amount, time, trait_booster, trait_modifier, rotatable)
+		buildable = new /datum/buildable(title, result_type, one_per_turf, on_floor, window_checks, placement_checks, req_amount, time, trait_booster, trait_modifier, rotatable, applies_mats)
 	return buildable
 
 /datum/crafting_recipe/proc/get_buildable()
@@ -153,3 +162,26 @@
 	if(!buildable)
 		buildable = new /datum/buildable(name, result, one_per_turf, on_floor, window_checks, placement_checks)
 	return buildable
+
+/// How long the user spends crafting this, after what their skills and perks save them.
+/datum/crafting_recipe/proc/get_craft_time(mob/user)
+	var/craft_time = time
+	if(ishuman(user))
+		var/mob/living/carbon/human/crafter = user
+		craft_time *= max(0.5, 1 - 0.15 * crafter.get_perk_rank("mad_scientist"))
+	if(user && is_builder_recipe() && HAS_TRAIT(user, TRAIT_QUICK_BUILD))
+		craft_time *= BUILD_QUICK_MODIFIER
+	return craft_time
+
+/// Whether this can be put down with placement mode instead of appearing at the crafter's feet.
+/datum/crafting_recipe/proc/is_placeable()
+	if(isnull(placeable))
+		placeable = is_builder_recipe() && (ispath(result, /obj/structure) || ispath(result, /obj/machinery))
+	return placeable
+
+/// The buildable used by placement mode. Unlike crafting at your feet, a chosen tile must be floor and not already taken.
+/datum/crafting_recipe/proc/get_place_buildable()
+	RETURN_TYPE(/datum/buildable)
+	if(!place_buildable)
+		place_buildable = new /datum/buildable(name, result, TRUE, TRUE, window_checks, placement_checks, 0, 0, null, 1, rotatable)
+	return place_buildable

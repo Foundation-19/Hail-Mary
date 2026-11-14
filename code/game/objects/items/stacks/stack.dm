@@ -204,10 +204,12 @@
 	if (R.time)
 		var/adjusted_time = 0
 		user.visible_message(span_notice("[user] starts building [R.title]."), span_notice("You start building [R.title]..."))
-		if(HAS_TRAIT(user, R.trait_booster))
+		if(R.trait_booster && HAS_TRAIT(user, R.trait_booster))
 			adjusted_time = (R.time * R.trait_modifier)
 		else
 			adjusted_time = R.time
+		// Building several at once takes as long as building each in turn
+		adjusted_time *= multiplier
 		if (!do_after(user, adjusted_time, target = user))
 			return
 		if(!building_checks(R, multiplier, user))
@@ -502,7 +504,6 @@
 	src.req_amount = req_amount
 	src.res_amount = res_amount
 	src.max_res_amount = max_res_amount
-	src.time = time
 	src.one_per_turf = one_per_turf
 	src.on_floor = on_floor
 	src.window_checks = window_checks
@@ -511,11 +512,18 @@
 	src.trait_booster = trait_booster
 	src.trait_modifier = trait_modifier
 	src.is_stack = is_stack
+	// Putting something up is never instant, so nobody can spam it, and builders are always quicker at it
+	if(ispath(result_type, /obj/structure) || ispath(result_type, /obj/machinery) || ispath(result_type, /turf))
+		time = max(time, clamp(10 + 5 * req_amount, BUILD_MIN_TIME, BUILD_MAX_MIN_TIME))
+		if(!src.trait_booster && trait_modifier == 1)
+			src.trait_booster = TRAIT_QUICK_BUILD
+			src.trait_modifier = BUILD_QUICK_MODIFIER
+	src.time = time
 	if(isnull(placeable))
-		placeable = ispath(result_type, /obj/structure) && res_amount == 1 && max_res_amount == 1 && !applies_mats && on_floor && (one_per_turf || window_checks)
+		placeable = (ispath(result_type, /obj/structure) || ispath(result_type, /obj/machinery)) && res_amount == 1 && max_res_amount == 1 && (on_floor || window_checks)
 	src.placeable = placeable
 	if(isnull(rotatable))
-		rotatable = placeable
+		rotatable = placeable && !ispath(result_type, /obj/machinery)
 	src.rotatable = rotatable
 /*
  * Recipe list datum
@@ -527,3 +535,23 @@
 /datum/stack_recipe_list/New(title, recipes)
 	src.title = title
 	src.recipes = recipes
+
+/**
+ * A list of recipes for a kind of tile and every kind of tile under it, so each look can be chosen.
+ * All cost the same. Tiles that share the base tile's name are told apart by where they sit in the type tree.
+ * extra: more tile types to list that aren't under base.
+ */
+/proc/tile_variant_recipes(obj/item/stack/tile/base, req_amount = 1, res_amount = 4, max_res_amount = 20, list/extra)
+	var/list/recipes = list()
+	var/base_name = initial(base.name)
+	var/base_text = "[base]"
+	for(var/obj/item/stack/tile/variant as anything in typesof(base) + extra)
+		if(!initial(variant.turf_type))
+			continue
+		var/variant_text = "[variant]"
+		var/variant_name = initial(variant.name)
+		if(variant_name == base_name && variant != base)
+			var/suffix = ispath(variant, base) ? copytext(variant_text, length(base_text) + 2) : copytext(variant_text, findlasttext(variant_text, "/") + 1)
+			variant_name = "[base_name] ([replacetext(replacetext(suffix, "/", " "), "_", " ")])"
+		recipes += new /datum/stack_recipe(variant_name, variant, req_amount, res_amount, max_res_amount)
+	return recipes

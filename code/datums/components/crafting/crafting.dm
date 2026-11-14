@@ -277,7 +277,6 @@
 
 /datum/component/personal_crafting/proc/construct_item(atom/a, datum/crafting_recipe/R)
 	var/list/contents = get_surroundings(a)
-	var/send_feedback = 1
 	var/datum/buildable/placement = R.get_buildable()
 	if(!placement.has_placement_rules())
 		placement = null
@@ -286,10 +285,7 @@
 	if(check_contents(a, R, contents))
 		if(check_tools(a, R, contents))
 			//If we're a mob we'll try a do_after; non mobs will instead instantly construct the item
-			var/craft_time = R.time
-			if(ishuman(a))
-				var/mob/living/carbon/human/crafter = a
-				craft_time *= max(0.5, 1 - 0.15 * crafter.get_perk_rank("mad_scientist"))
+			var/craft_time = R.get_craft_time(a)
 			if(ismob(a) && !do_after(a, craft_time, target = a))
 				return "."
 			contents = get_surroundings(a)
@@ -299,14 +295,45 @@
 				return ", missing tool."
 			if(placement && !placement.check_placement(ismob(a) ? a : null, get_turf(a), a.dir))
 				return "."
-			var/list/parts = del_reqs(R, a)
-			var/atom/movable/I = new R.result (get_turf(a.loc))
-			I.CheckParts(parts, R)
-			if(send_feedback)
-				SSblackbox.record_feedback("tally", "object_crafted", 1, I.type)
-			return I //Send the item back to whatever called this proc so it can handle whatever it wants to do with the new item
+			return spawn_crafted(a, R, get_turf(a.loc))
 		return ", missing tool."
 	return ", missing component."
+
+/// Spends R's ingredients from a's surroundings and makes the result on T. Everything must have been checked already.
+/datum/component/personal_crafting/proc/spawn_crafted(atom/a, datum/crafting_recipe/R, turf/T)
+	var/list/parts = del_reqs(R, a)
+	var/atom/movable/I = new R.result (T)
+	I.CheckParts(parts, R)
+	SSblackbox.record_feedback("tally", "object_crafted", 1, I.type)
+	return I //Send the item back to whatever called this proc so it can handle whatever it wants to do with the new item
+
+/// Why user can't craft R right now from what is around them, or null if they can.
+/datum/component/personal_crafting/proc/get_blocker(mob/user, datum/crafting_recipe/R)
+	var/list/surroundings = get_surroundings(user)
+	var/has_contents = check_contents(user, R, surroundings)
+	var/has_tools = check_tools(user, R, surroundings)
+	if(has_contents && has_tools)
+		return null
+	var/list/reasons = list()
+	if(!has_contents)
+		reasons += get_missing_text(R, surroundings)
+	if(!has_tools)
+		reasons += get_missing_tool_text(user, R, surroundings)
+	reasons -= ""
+	return length(reasons) ? reasons.Join(", ") : "requirements not met"
+
+/// Crafts R on T, for placement mode. Checks nothing: the caller has validated the tile and get_blocker() already.
+/datum/component/personal_crafting/proc/place_crafted(mob/user, datum/crafting_recipe/R, turf/T, build_dir)
+	var/atom/movable/made = spawn_crafted(user, R, T)
+	if(!made || QDELETED(made))
+		return null
+	made.set_build_dir(R.get_place_buildable().get_build_dir(build_dir))
+	made.add_fingerprint(user)
+	log_craft("[made] crafted by [user] at [loc_name(made.loc)]")
+	if(isstructure(made))
+		var/obj/structure/built = made
+		built.set_build_owner(user)
+	return made
 
 /*Del reqs works like this:
 

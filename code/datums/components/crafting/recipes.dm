@@ -16,8 +16,13 @@
 	var/on_floor = FALSE
 	var/window_checks = FALSE
 	var/placement_checks = FALSE
-	/// Lazily built by get_buildable()
+	/// Offers placement mode in the builder. Left null, any structure the builder lists can be placed; pass FALSE to keep it a craft at your feet.
+	var/placeable = null
+	/// Placement mode lets the builder turn the result
+	var/rotatable = FALSE
+	/// Lazily built by get_buildable() and get_place_buildable()
 	var/datum/buildable/buildable
+	var/datum/buildable/place_buildable
 
 /datum/crafting_recipe/New()
 	if(!(result in reqs))

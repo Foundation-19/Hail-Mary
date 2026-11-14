@@ -19,7 +19,9 @@
  */
 /datum/component/build_placement
 	var/datum/buildable/buildable
-	var/datum/stack_recipe/recipe
+	/// A /datum/stack_recipe (paid from source) or a /datum/crafting_recipe (paid from the builder's surroundings)
+	var/recipe
+	/// The stack paying for a stack recipe. Null for a crafting recipe.
 	var/obj/item/stack/source
 	var/build_dir = SOUTH
 	var/range = BUILD_PLACEMENT_RANGE
@@ -40,13 +42,25 @@
 	/// Reason => number of queued tiles skipped for it, reported once the queue empties
 	var/list/skipped = list()
 
-/datum/component/build_placement/Initialize(datum/stack_recipe/recipe, obj/item/stack/source)
-	if(!isliving(parent) || !istype(recipe) || !recipe.placeable || !istype(source))
+/datum/component/build_placement/Initialize(recipe, obj/item/stack/source)
+	if(!isliving(parent))
 		return COMPONENT_INCOMPATIBLE
 	var/mob/living/user = parent
+	if(istype(recipe, /datum/stack_recipe))
+		var/datum/stack_recipe/stack_recipe = recipe
+		if(!stack_recipe.placeable || !istype(source))
+			return COMPONENT_INCOMPATIBLE
+		buildable = stack_recipe.get_buildable()
+	else if(istype(recipe, /datum/crafting_recipe))
+		var/datum/crafting_recipe/craft_recipe = recipe
+		if(!craft_recipe.is_placeable() || !user.GetComponent(/datum/component/personal_crafting))
+			return COMPONENT_INCOMPATIBLE
+		buildable = craft_recipe.get_place_buildable()
+		source = null
+	else
+		return COMPONENT_INCOMPATIBLE
 	src.recipe = recipe
 	src.source = source
-	buildable = recipe.get_buildable()
 	build_dir = user.dir
 	var/obj/D = buildable.result_type
 	ghost = image(initial(D.icon), icon_state = initial(D.icon_state), layer = ABOVE_ALL_MOB_LAYER)
@@ -54,7 +68,7 @@
 	ghost.alpha = 150
 	ghost.dir = buildable.is_directional() ? build_dir : initial(D.dir)
 	attach_ghost(user.client)
-	to_chat(user, span_notice("Placing [recipe.title]: left click a tile to build, or hold and drag for a line[buildable.is_directional() ? ", scroll or ctrl-click to rotate" : ""]. Middle click to stop."))
+	to_chat(user, span_notice("Placing [buildable.name]: left click a tile to build, or hold and drag for a line[buildable.is_directional() ? ", scroll or ctrl-click to rotate" : ""]. Middle click to stop."))
 
 /datum/component/build_placement/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_MOB_CLICKON, PROC_REF(on_click))
@@ -65,8 +79,11 @@
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
 	RegisterSignal(parent, COMSIG_MOB_CLIENT_LOGIN, PROC_REF(on_login))
 	RegisterSignal(parent, COMSIG_MOB_CLIENT_LOGOUT, PROC_REF(on_logout))
-	RegisterSignal(parent, list(COMSIG_MOB_DEATH, COMSIG_MOB_SWAP_HANDS), PROC_REF(on_cancel))
-	RegisterSignal(source, list(COMSIG_ITEM_DROPPED, COMSIG_PARENT_QDELETING), PROC_REF(on_cancel))
+	// Crafts are built from the surroundings, so there is nothing held to put down or swap away
+	if(source)
+		RegisterSignal(parent, COMSIG_MOB_SWAP_HANDS, PROC_REF(on_cancel))
+		RegisterSignal(source, list(COMSIG_ITEM_DROPPED, COMSIG_PARENT_QDELETING), PROC_REF(on_cancel))
+	RegisterSignal(parent, COMSIG_MOB_DEATH, PROC_REF(on_cancel))
 
 /datum/component/build_placement/UnregisterFromParent()
 	UnregisterSignal(parent, list(COMSIG_MOB_CLICKON, COMSIG_MOB_CLIENT_MOUSEMOVE, COMSIG_MOB_CLIENT_MOUSEDRAG, COMSIG_MOB_CLIENT_MOUSEUP, COMSIG_MOB_MOUSEWHEEL, COMSIG_MOVABLE_MOVED, COMSIG_MOB_CLIENT_LOGIN, COMSIG_MOB_CLIENT_LOGOUT, COMSIG_MOB_DEATH, COMSIG_MOB_SWAP_HANDS))
@@ -134,10 +151,10 @@
 	if(modifiers["middle"])
 		// With tiles still queued, the first middle click only drops the queue and keeps placement mode
 		if(length(queue))
-			to_chat(parent, span_notice("You drop the [length(queue)] queued tile\s. Middle click again to stop placing [recipe.title]."))
+			to_chat(parent, span_notice("You drop the [length(queue)] queued tile\s. Middle click again to stop placing [buildable.name]."))
 			queue.Cut()
 			return COMSIG_MOB_CANCEL_CLICKON
-		to_chat(parent, span_notice("You stop placing [recipe.title]."))
+		to_chat(parent, span_notice("You stop placing [buildable.name]."))
 		qdel(src)
 		return COMSIG_MOB_CANCEL_CLICKON
 	if(modifiers["ctrl"])
@@ -259,18 +276,33 @@
 		to_chat(complain, span_warning(reason))
 	return FALSE
 
+/// Whether the user has what the crafting recipe needs right now. Tells complain what is missing.
+/datum/component/build_placement/proc/can_afford(mob/complain)
+	var/datum/component/personal_crafting/crafting = parent.GetComponent(/datum/component/personal_crafting)
+	if(!crafting)
+		return FALSE
+	var/blocker = crafting.get_blocker(parent, recipe)
+	if(!blocker)
+		return TRUE
+	if(complain)
+		to_chat(complain, span_warning("You can't build \the [buildable.name]: [blocker]."))
+	return FALSE
+
 /// Whether the user could build on T right now. Pass a complainer to tell them why not; block_reason is set either way.
 /datum/component/build_placement/proc/can_place(turf/T, mob/complain)
 	var/mob/living/user = parent
 	block_reason = null
 	if(!istype(T))
 		return refuse(null, "That isn't somewhere you can build.")
-	if(source.get_amount() < buildable.req_amount)
+	// Crafts are paid for from the surroundings, which is too much to search every time the mouse moves, so they are only checked when building
+	if(source && source.get_amount() < buildable.req_amount)
 		return refuse(complain, "You haven't got enough [source] to build \the [buildable.name]!")
 	if(T.z != user.z || get_dist(user, T) > range)
 		return refuse(complain, "That is too far away.")
 	if(!(T in view(range, user)))
 		return refuse(complain, "You can't see that spot.")
+	if(T.density)
+		return refuse(complain, "That spot is solid. You can't build there.")
 	buildable.last_failure = null
 	if(!buildable.check_placement(complain, T, build_dir))
 		block_reason = buildable.last_failure
@@ -280,7 +312,7 @@
 /// Whether the builder is still in a state to keep building. Ends placement mode if not.
 /datum/component/build_placement/proc/user_can_build()
 	var/mob/living/user = parent
-	if(QDELETED(source) || !user.is_holding(source) || user.incapacitated())
+	if(user.incapacitated() || (source && (QDELETED(source) || !user.is_holding(source))))
 		qdel(src)
 		return FALSE
 	return TRUE
@@ -294,10 +326,14 @@
 		if(quiet)
 			skipped[block_reason || "can't build there"]++
 		return
+	if(!source && !can_afford(user))
+		if(quiet)
+			skipped["missing materials"]++
+		return
 	placing = TRUE
 	user.face_atom(T)
-	if(buildable.build_time)
-		var/adjusted_time = buildable.get_build_time(user)
+	var/adjusted_time = source ? buildable.get_build_time(user) : craft_time(user)
+	if(adjusted_time)
 		user.visible_message(span_notice("[user] starts building [buildable.name]."), span_notice("You start building [buildable.name]..."))
 		var/completed = do_after(user, adjusted_time, target = T)
 		if(QDELETED(src))
@@ -309,11 +345,14 @@
 				to_chat(user, span_notice("You stop building, dropping the [length(queue)] queued tile\s."))
 				queue.Cut()
 			return
-		if(!can_place(T, quiet ? null : user))
+		if(!can_place(T, quiet ? null : user) || (!source && !can_afford(quiet ? null : user)))
 			placing = FALSE
 			if(quiet)
 				skipped[block_reason || "can't build there"]++
 			return
+	if(!source)
+		place_craft(user, T)
+		return
 	// Spending the last of the stack deletes it and so ends placement mode, so only the buildable does the building
 	var/needed = buildable.req_amount
 	if(!buildable.build_from_stack(user, source, T, build_dir))
@@ -330,6 +369,20 @@
 		return
 	update_ghost()
 
+/datum/component/build_placement/proc/craft_time(mob/living/user)
+	var/datum/crafting_recipe/craft_recipe = recipe
+	return craft_recipe.get_craft_time(user)
+
+/// Builds the crafting recipe on T, spending its ingredients from around the builder.
+/datum/component/build_placement/proc/place_craft(mob/living/user, turf/T)
+	var/datum/component/personal_crafting/crafting = user.GetComponent(/datum/component/personal_crafting)
+	var/atom/movable/made = crafting?.place_crafted(user, recipe, T, build_dir)
+	placing = FALSE
+	if(!made)
+		to_chat(user, span_warning("You couldn't build \the [buildable.name]."))
+		return
+	update_ghost()
+
 /// Starts placement mode for a recipe flagged placeable. Replaces any placement already in progress.
 /obj/item/stack/proc/start_placement(mob/living/user, datum/stack_recipe/R)
 	if(!R?.placeable || !istype(user))
@@ -338,3 +391,15 @@
 		to_chat(user, span_warning("You haven't got enough [src] to build \the [R.title]!"))
 		return FALSE
 	return !!user.AddComponent(/datum/component/build_placement, R, src)
+
+/// Starts placement mode for a crafting recipe the builder lists, if the user has what it takes right now.
+/datum/crafting_recipe/proc/start_placement(mob/living/user)
+	if(!is_placeable() || !istype(user))
+		return FALSE
+	var/datum/component/personal_crafting/crafting = user.GetComponent(/datum/component/personal_crafting)
+	var/blocker = crafting?.get_blocker(user, src)
+	if(blocker)
+		to_chat(user, span_warning("You can't build \the [name]: [blocker]."))
+		return FALSE
+	return !!user.AddComponent(/datum/component/build_placement, src)
+

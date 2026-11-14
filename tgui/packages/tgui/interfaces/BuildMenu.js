@@ -212,6 +212,15 @@ const RecipeRow = (props, context) => {
             tooltipPosition="left"
             disabled={disabled}
             onClick={() => act('craft', { ref: recipe.ref })} />
+          {!!recipe.placeable && (
+            <Button
+              icon="crosshairs"
+              content="Place"
+              tooltip="Choose where to build it"
+              tooltipPosition="left"
+              disabled={disabled}
+              onClick={() => act('place_craft', { ref: recipe.ref })} />
+          )}
         </Flex.Item>
       </Flex>
     );

@@ -359,7 +359,8 @@ GLOBAL_LIST_EMPTY(build_static_data)
 
 /datum/build_menu/ui_static_data(mob/user)
 	var/list/static_data = get_build_static_data()
-	var/list/recipes = static_data["recipes"].Copy()
+	var/list/recipes = list()
+	recipes += static_data["recipes"]
 	craft_recipes = get_craft_recipes()
 	var/datum/component/personal_crafting/crafting = user.GetComponent(/datum/component/personal_crafting)
 	var/datum/asset/spritesheet/build_menu/sheet = get_asset_datum(/datum/asset/spritesheet/build_menu)
@@ -379,7 +380,8 @@ GLOBAL_LIST_EMPTY(build_static_data)
 			"group" = group,
 			"req_text" = info["req_text"],
 			"tool_text" = info["tool_text"],
-			"time" = R.time,
+			"time" = R.get_craft_time(user),
+			"placeable" = !!R.is_placeable(),
 		))
 	return list(
 		"categories" = GLOB.build_menu_categories,
@@ -447,6 +449,8 @@ GLOBAL_LIST_EMPTY(build_static_data)
 				place_action(L, params)
 			if("craft")
 				craft_action(L, params)
+			if("place_craft")
+				place_craft_action(L, params)
 	catch(var/exception/e)
 		stack_trace("build menu [action] error: [e]")
 		to_chat(L, span_warning("Construction failed, something went wrong."))
@@ -486,7 +490,16 @@ GLOBAL_LIST_EMPTY(build_static_data)
 		to_chat(L, span_warning("You need a free hand to hold \the [primary] while you build."))
 		return
 	if(primary.start_placement(L, R))
-		SStgui.close_uis(src)
+		to_chat(L, span_notice("Placing [R.title]. The builder stays open, and the ghost follows your mouse."))
+
+/// Starts placement mode for a crafting recipe, so the user chooses where it goes.
+/datum/build_menu/proc/place_craft_action(mob/living/L, list/params)
+	var/datum/crafting_recipe/R = locate(params["ref"]) in GLOB.crafting_recipes
+	if(!R || !(R in get_craft_recipes()) || !R.is_placeable())
+		to_chat(L, span_warning("That recipe is no longer valid."))
+		return
+	if(R.start_placement(L))
+		to_chat(L, span_notice("Placing [R.name]. The builder stays open, and the ghost follows your mouse."))
 
 /// Crafts one of the structure crafting recipes the builder lists.
 /datum/build_menu/proc/craft_action(mob/living/L, list/params)
