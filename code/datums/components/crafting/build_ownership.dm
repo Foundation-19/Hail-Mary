@@ -20,7 +20,6 @@ GLOBAL_VAR(build_owner_timer)
  */
 /obj/structure
 	var/build_owner_ckey
-	var/build_owner_name
 	/// Map-placed structures of this type are protected base structures
 	var/build_ownable = FALSE
 	var/build_map_loaded = FALSE
@@ -63,7 +62,6 @@ GLOBAL_VAR(build_owner_timer)
 	if(!user?.ckey)
 		return
 	build_owner_ckey = user.ckey
-	build_owner_name = user.real_name
 	register_build_owner(user.ckey)
 
 /// Ownership carries over when a structure turns into another one and fingerprints are handed on (girder to reinforced girder, window assembly to window and so on)
@@ -72,7 +70,6 @@ GLOBAL_VAR(build_owner_timer)
 	var/obj/structure/target = A
 	if(build_owner_ckey && istype(target) && !target.build_owner_ckey)
 		target.build_owner_ckey = build_owner_ckey
-		target.build_owner_name = build_owner_name
 
 /// Returns the reason user may not take this apart with tool, or null if they may.
 /obj/structure/proc/deconstruct_blocked(mob/user, obj/item/tool)
@@ -92,7 +89,7 @@ GLOBAL_VAR(build_owner_timer)
 		return null
 	if(build_owner_absent_for(build_owner_ckey) >= BUILD_OWNER_ABSENT_TIME)
 		return null
-	return "[capitalize(src.name)] belongs to [build_owner_name]. You can't take it apart while they are around."
+	return "[capitalize(src.name)] belongs to someone else. You can't take it apart while its owner is around."
 
 /proc/register_build_owner(ckey)
 	if(isnull(GLOB.build_owner_away[ckey]))

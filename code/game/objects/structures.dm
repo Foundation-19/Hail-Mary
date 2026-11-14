@@ -97,8 +97,8 @@
 
 /obj/structure/examine(mob/user)
 	. = ..()
-	if(build_owner_name)
-		. += span_notice("It was built by [build_owner_name].")
+	if(build_owner_ckey)
+		. += span_notice("It looks like it belongs to someone.")
 	if(!(resistance_flags & INDESTRUCTIBLE))
 		if(resistance_flags & ON_FIRE)
 			. += span_warning("It's on fire!")
