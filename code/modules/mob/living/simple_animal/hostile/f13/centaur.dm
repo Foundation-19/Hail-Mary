@@ -1,5 +1,10 @@
 // In this document: Freaks - Centaur, Abomination, Horror
 
+/// Mutation flare states for the "failed experiment" (abomhorror) - see the HORROR section below.
+#define ABOM_FLARE_NORMAL 0
+#define ABOM_FLARE_FERAL 1
+#define ABOM_FLARE_RUPTURE 2
+
 //////////////
 // CENTAUR //
 //////////////
@@ -256,6 +261,14 @@
 	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
 	despawns_when_lonely = FALSE  // Too ANGRY to despawn
 	
+	// METASTASIS - the "successful" FEV strain actually taking hold. Unlike a deathclaw's rage (which calms back
+	// down once you break off), this is a one-way trip: cross the threshold once and it's permanent for the
+	// rest of the fight. Hits harder and keeps slowly knitting itself back together, so stalling it out or
+	// trying to outlast it just makes the problem worse - you need to finish it.
+	low_health_threshold = 0.4
+	var/metastasized = FALSE
+	var/metastasize_regen_next = 0
+	
 	// Z-movement
 	can_z_move = TRUE
 	can_climb_ladders = TRUE
@@ -312,6 +325,40 @@
 	if(prob(10))
 		var/chosen_sound = pick(abom_sounds)
 		playsound(src, chosen_sound, 70, TRUE)
+	// Metastasis keeps slowly knitting it back together even mid-fight - stalling just buys it more regen.
+	if(metastasized && health < maxHealth && world.time >= metastasize_regen_next)
+		metastasize_regen_next = world.time + 4 SECONDS
+		adjustBruteLoss(-(maxHealth * 0.015))
+
+// One-way trip past the health threshold - the "successful" FEV strain finally takes hold for good.
+/mob/living/simple_animal/hostile/abomination/make_low_health()
+	..()
+	if(metastasized)
+		return
+	metastasized = TRUE
+	visible_message(span_danger("[src]'s wounds burst and writhe - the mutation is finally taking hold!"), span_userdanger("Something inside you finally gives way - and gives in."))
+	if(length(abom_sounds))
+		playsound(src, pick(abom_sounds), 100, TRUE)
+	color = "#6b0000"  // deep bloody red - a visible, permanent tell that it's past the point of no return
+	melee_damage_lower = round(initial(melee_damage_lower) * 1.3)
+	melee_damage_upper = round(initial(melee_damage_upper) * 1.3)
+	armour_penetration = initial(armour_penetration) + 0.15
+	wound_bonus = initial(wound_bonus) + 15
+	bare_wound_bonus = initial(bare_wound_bonus) + 15
+
+// Metastasis does not reverse - once it takes hold, it's permanent for the rest of the fight.
+/mob/living/simple_animal/hostile/abomination/make_high_health()
+	return
+
+// A last violent thrash as it dies, true to its deathmessage - don't let your guard down on the kill.
+/mob/living/simple_animal/hostile/abomination/death(gibbed)
+	visible_message(span_danger("[src] thrashes violently in its death throes!"))
+	for(var/mob/living/L in range(1, src))
+		if(L == src || L.stat == DEAD)
+			continue
+		L.apply_damage(8, TOX)
+		L.Knockdown(10)
+	return ..()
 
 // WEAK ABOMINATION - for FEV mutation event
 /mob/living/simple_animal/hostile/abomination/weak
@@ -332,12 +379,12 @@
 // HORROR //
 ////////////
 
-// BASE HORROR - weaker FEV fusion
+// BASE HORROR - weaker FEV fusion, unstable instead of just a flat stat-stick
 /mob/living/simple_animal/hostile/abomhorror
 	armour_penetration = 0.15
 	damage_threshold_penetration_mob = 6
 	name = "failed experiment"
-	desc = "A terrible fusion of man, animal, and something else entirely. It looks to be in great pain."
+	desc = "A terrible fusion of man, animal, and something else entirely. It looks to be in great pain, its body twitching and spasming unpredictably."
 	icon = 'icons/mob/monsters/freaks.dmi'
 	icon_state = "horror"
 	icon_living = "horror"
@@ -346,8 +393,10 @@
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	mob_armor = ARMOR_VALUE_HORROR
 	
-	maxHealth = 875 // bumped - TTK vs melee was too short
-	health = 875
+	// Rebalanced down from 875 - this was tankier than an alpha deathclaw (850 HP) despite being a regular,
+	// non-unique spawn, not a boss. See player feedback: it was out-tanking content well above its weight class.
+	maxHealth = 550
+	health = 550
 	speed = -0.5  // Fast
 	stat_attack = UNCONSCIOUS
 	
@@ -385,6 +434,77 @@
 	minimum_distance = 1
 	
 	var/static/list/abom_sounds
+	
+	// MUTATION FLARE - unlike the full abomination (stable until wounded, then unstoppable) or a deathclaw
+	// (calm until low health), this thing's own failing biology is never stable: it flares unpredictably,
+	// all fight long, between frenzied surges and bouts where its ruined hide can't hold together.
+	var/flare_state = ABOM_FLARE_NORMAL
+	var/flare_timer_id
+	var/list/mob_armor_ruptured
+
+/mob/living/simple_animal/hostile/abomhorror/Initialize(mapload)
+	. = ..()
+	mob_armor_ruptured = list(
+		"melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0,
+		"bio" = 100, "rad" = 100, "fire" = 0, "acid" = 0, "wound" = 0,
+		"damage_threshold" = 0
+	)
+	schedule_next_flare()
+
+/mob/living/simple_animal/hostile/abomhorror/Destroy()
+	deltimer(flare_timer_id)
+	return ..()
+
+/mob/living/simple_animal/hostile/abomhorror/proc/schedule_next_flare()
+	flare_timer_id = addtimer(CALLBACK(src, PROC_REF(trigger_flare)), rand(8 SECONDS, 15 SECONDS), TIMER_STOPPABLE)
+
+/mob/living/simple_animal/hostile/abomhorror/proc/trigger_flare()
+	if(QDELETED(src) || stat == DEAD)
+		return
+	// Nothing to flare for - check back later instead of wasting the show on an empty room
+	if(!target || flare_state != ABOM_FLARE_NORMAL)
+		schedule_next_flare()
+		return
+	if(prob(50))
+		start_feral_surge()
+	else
+		start_rupture()
+
+/// Danger window - its muscles lock up with adrenaline. Hits much harder and faster for a few seconds.
+/mob/living/simple_animal/hostile/abomhorror/proc/start_feral_surge()
+	flare_state = ABOM_FLARE_FERAL
+	color = "#ff9933"
+	visible_message(span_danger("[src]'s muscles bulge and spasm - it's surging with feral strength!"), span_userdanger("Your muscles bulge and burn with sudden, unnatural strength!"))
+	playsound(src, pick('sound/voice/abomscream.ogg', 'sound/voice/abomscream2.ogg', 'sound/voice/abomscream3.ogg'), 100, TRUE)
+	melee_damage_lower = round(initial(melee_damage_lower) * 1.4)
+	melee_damage_upper = round(initial(melee_damage_upper) * 1.4)
+	armour_penetration = initial(armour_penetration) + 0.15
+	speed = initial(speed) - 0.5
+	addtimer(CALLBACK(src, PROC_REF(end_flare)), 4 SECONDS)
+
+/// Opportunity window - its failing body can't hold its shape together. Hits softer, but is wide open.
+/mob/living/simple_animal/hostile/abomhorror/proc/start_rupture()
+	flare_state = ABOM_FLARE_RUPTURE
+	color = "#88ffdd"
+	visible_message(span_warning("[src]'s hide splits and ruptures - its failing body is exposed!"), span_warning("Your hide splits open - you're exposed!"))
+	playsound(src, pick('sound/voice/abommoan.ogg', 'sound/voice/abomination1.ogg'), 100, TRUE)
+	mob_armor = mob_armor_ruptured
+	melee_damage_lower = round(initial(melee_damage_lower) * 0.7)
+	melee_damage_upper = round(initial(melee_damage_upper) * 0.7)
+	addtimer(CALLBACK(src, PROC_REF(end_flare)), 5 SECONDS)
+
+/mob/living/simple_animal/hostile/abomhorror/proc/end_flare()
+	if(QDELETED(src) || stat == DEAD)
+		return
+	color = initial(color)
+	mob_armor = initial(mob_armor)
+	melee_damage_lower = initial(melee_damage_lower)
+	melee_damage_upper = initial(melee_damage_upper)
+	armour_penetration = initial(armour_penetration)
+	speed = initial(speed)
+	flare_state = ABOM_FLARE_NORMAL
+	if(stat != DEAD)
+		schedule_next_flare()
 
 /mob/living/simple_animal/hostile/abomhorror/Aggro()
 	. = ..()
@@ -399,14 +519,33 @@
 			return FALSE
 	return ..()
 
-// NSB HORROR - bunker variant, bulletsponge
+// A diluted, failed dose compared to the full abomination's - still a mutation risk, just a smaller one.
+/mob/living/simple_animal/hostile/abomhorror/AttackingTarget()
+	. = ..()
+	if(. && ishuman(target))
+		var/mob/living/carbon/human/H = target
+		H.reagents.add_reagent(/datum/reagent/toxin/FEV_solution, 1)
+
+// True to its deathmessage - a last violent thrash as it dies.
+/mob/living/simple_animal/hostile/abomhorror/death(gibbed)
+	visible_message(span_danger("[src] convulses violently in its death throes!"))
+	for(var/mob/living/L in range(1, src))
+		if(L == src || L.stat == DEAD)
+			continue
+		L.apply_damage(5, TOX)
+		L.Knockdown(10)
+	return ..()
+
+// NSB HORROR - bunker variant, elite but no longer a mother-deathclaw-tier bulletsponge
 /mob/living/simple_animal/hostile/abomhorror/nsb
 	armour_penetration = 0.2
 	damage_threshold_penetration_mob = 8
 	desc = "A terrible fusion of man, animal, and something else entirely. It looks to be in great pain, constantly shuddering violently and seeming relatively docile to the robots and raiders of the bunker. Huh."
 	
-	maxHealth = 1000
-	health = 1000
+	// Rebalanced down from 1000 - that matched Mother Deathclaw's HP on a mob that appears as a repeatable
+	// dungeon elite across multiple maps, not a unique boss encounter.
+	maxHealth = 700
+	health = 700
 	speed = -1  // Even faster
 	
 	melee_damage_lower = 40
@@ -414,7 +553,10 @@
 	obj_damage = 300
 	wound_bonus = 20
 	
+	// Sharing the raiders' faction keeps them from shooting it on sight (it "seems docile" to them), but unlike
+	// the bunker's reprogrammed robots it isn't actually loyal to anyone - attack_same lets it turn on them too.
 	faction = list("raider")
+	attack_same = TRUE
 	
 	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
 	despawns_when_lonely = FALSE

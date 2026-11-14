@@ -767,8 +767,152 @@
 			user.Knockdown(50)
 		return
 
+// ENGINE TOOL - shared realism layer for gas-engine two-handed power tools (chainsaw, steel saw, auto axe).
+// They need fuel to actually run, and a neglected engine gets less reliable instead of swinging forever for
+// free - the "counterweight" to their high damage. Grafted onto /obj/item/twohanded via parent_type so the
+// existing chainsaw/steelsaw/autoaxe typepaths (crafting, loot tables, admin spawns) don't change.
+#define ENGINE_FUEL_IDLE_INTERVAL 10 //SSobj ticks between each background fuel burn while the engine idles unused
+#define ENGINE_CONDITION_MAX 100
+#define ENGINE_CONDITION_DEGRADED_THRESHOLD 50 //below this, stalls start rolling and get worse the lower it goes
+
+/obj/item/twohanded/engine_tool
+	/// Maximum fuel the tank can hold, see /datum/reagent/fuel
+	var/max_fuel = 40
+	/// Fuel burned per landed swing while the engine is running
+	var/fuel_per_swing = 1
+	/// Whether the engine is currently running and burning fuel
+	var/engine_running = FALSE
+	/// SSobj ticks since the last idle fuel burn
+	var/engine_idle_ticks = 0
+	/// 0-100 mechanical condition - degrades with use and stalls, repaired with a wrench
+	var/condition = ENGINE_CONDITION_MAX
+	/// Condition lost per landed swing while running
+	var/condition_loss_per_swing = 0.2
+	/// Condition lost whenever the engine stalls out (fuel starvation or neglect)
+	var/condition_loss_stall = 10
+	/// Condition restored by a wrench maintenance pass
+	var/condition_repair_amount = 20
+	/// % stall chance added per point of condition below ENGINE_CONDITION_DEGRADED_THRESHOLD
+	var/stall_chance_per_point = 0.6
+
+/obj/item/twohanded/engine_tool/Initialize(mapload)
+	. = ..()
+	create_reagents(max_fuel)
+	reagents.add_reagent(/datum/reagent/fuel, max_fuel)
+
+/obj/item/twohanded/engine_tool/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+/obj/item/twohanded/engine_tool/examine(mob/user)
+	. = ..()
+	. += span_notice("The fuel gauge reads [round(get_fuel())]/[max_fuel] units.")
+	if(condition >= ENGINE_CONDITION_DEGRADED_THRESHOLD)
+		. += span_notice("It's in good mechanical condition.")
+	else if(condition >= 20)
+		. += span_warning("It's running rough and is due for maintenance.")
+	else
+		. += span_danger("It sounds like it's about to seize up - this badly needs servicing!")
+
+/obj/item/twohanded/engine_tool/proc/get_fuel()
+	return reagents ? reagents.get_reagent_amount(/datum/reagent/fuel) : 0
+
+/obj/item/twohanded/engine_tool/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/reagent_containers) && I.reagents?.has_reagent(/datum/reagent/fuel))
+		refuel(I, user)
+		return TRUE
+	return ..()
+
+/obj/item/twohanded/engine_tool/proc/refuel(obj/item/reagent_containers/container, mob/user)
+	var/missing = max_fuel - get_fuel()
+	if(missing <= 0)
+		to_chat(user, span_warning("[src] is already full!"))
+		return
+	if(!container.reagents.has_reagent(/datum/reagent/fuel))
+		to_chat(user, span_warning("[container] doesn't have any fuel!"))
+		return
+	var/transferred = container.reagents.trans_to(src, missing, log = TRUE)
+	to_chat(user, span_notice("You pour [transferred] units of fuel into [src]'s tank."))
+	playsound(src, 'sound/effects/refill.ogg', 50, TRUE)
+
+/// Attempts to start the engine - fails (and tells the user why) if the tank is dry.
+/obj/item/twohanded/engine_tool/proc/start_engine(mob/user)
+	if(engine_running)
+		return TRUE
+	if(get_fuel() <= 0)
+		if(user)
+			to_chat(user, span_warning("[src] is out of fuel!"))
+		return FALSE
+	engine_running = TRUE
+	engine_idle_ticks = 0
+	START_PROCESSING(SSobj, src)
+	return TRUE
+
+/obj/item/twohanded/engine_tool/proc/stop_engine()
+	engine_running = FALSE
+	STOP_PROCESSING(SSobj, src)
+
+/obj/item/twohanded/engine_tool/process()
+	if(!engine_running)
+		STOP_PROCESSING(SSobj, src)
+		return
+	if(get_fuel() <= 0)
+		stall_out(null, "sputters and dies as the tank runs dry")
+		return
+	if(++engine_idle_ticks >= ENGINE_FUEL_IDLE_INTERVAL)
+		engine_idle_ticks = 0
+		reagents.remove_reagent(/datum/reagent/fuel, 1)
+
+/// Fuel and wear spent on a landed swing - subtypes call this from afterattack() while the engine is running.
+/obj/item/twohanded/engine_tool/proc/engine_swing(mob/user)
+	if(!engine_running)
+		return
+	if(get_fuel() < fuel_per_swing)
+		stall_out(user, "sputters and dies as the tank runs dry")
+		return
+	reagents.remove_reagent(/datum/reagent/fuel, fuel_per_swing)
+	condition = max(0, condition - condition_loss_per_swing)
+	if(condition < ENGINE_CONDITION_DEGRADED_THRESHOLD && prob((ENGINE_CONDITION_DEGRADED_THRESHOLD - condition) * stall_chance_per_point))
+		stall_out(user, "chokes and stalls out from neglect")
+
+/// The engine dies unexpectedly - subtypes override engine_shutdown() to reset their own force/icon/attack speed.
+/obj/item/twohanded/engine_tool/proc/stall_out(mob/user, message)
+	if(!engine_running)
+		return
+	if(user)
+		user.visible_message(span_warning("[src] [message]!"), span_warning("[src] [message]!"))
+	else
+		visible_message(span_warning("[src] [message]!"))
+	condition = max(0, condition - condition_loss_stall)
+	stop_engine()
+	engine_shutdown()
+
+/// Hook for subtypes to reset their own "on"/force/icon state when the engine cuts out unexpectedly.
+/obj/item/twohanded/engine_tool/proc/engine_shutdown()
+	return
+
+// Letting go of it (dropped, disarmed, thrown) has to kill the engine too - otherwise it keeps processing and
+// burning fuel forever lying on the ground, since nothing else is watching it once it leaves a mob's hand.
+/obj/item/twohanded/engine_tool/dropped(mob/user)
+	. = ..()
+	if(engine_running)
+		stop_engine()
+		engine_shutdown()
+
+/obj/item/twohanded/engine_tool/wrench_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(condition >= ENGINE_CONDITION_MAX)
+		to_chat(user, span_notice("[src] is already in good mechanical condition."))
+		return TRUE
+	if(!I.use_tool(src, user, 40, volume = 50))
+		return TRUE
+	condition = min(ENGINE_CONDITION_MAX, condition + condition_repair_amount)
+	to_chat(user, span_notice("You service [src], clearing the gunk out of the engine and tightening the chain."))
+	return TRUE
+
 // Chainsaw			Keywords: Damage 25/55, big bonus vs wooden barricades
 /obj/item/twohanded/chainsaw
+	parent_type = /obj/item/twohanded/engine_tool
 	name = "chainsaw"
 	desc = "A versatile power tool. Useful for limbing trees and delimbing humans."
 	icon = 'icons/obj/melee/twohanded.dmi'
@@ -789,15 +933,39 @@
 	wielded_icon = "chainsaw2"
 	force_unwielded = 8
 	force_wielded = 55
+	max_fuel = 30
+	fuel_per_swing = 1
 
 /obj/item/twohanded/chainsaw/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/butchering, 30, 100, 0, 'sound/weapons/chainsawhit.ogg', TRUE)
 
+// Wielding a chainsaw two-handed revs the engine - that's what the big force_wielded jump actually represents.
+/obj/item/twohanded/chainsaw/wield(mob/living/user)
+	if(!start_engine(user))
+		return
+	. = ..()
+
+/obj/item/twohanded/chainsaw/unwield(mob/living/user)
+	. = ..()
+	stop_engine()
+
+/obj/item/twohanded/chainsaw/engine_shutdown()
+	if(wielded)
+		unwield(ismob(loc) ? loc : null)
+
+// By the time dropped() runs, loc is already the ground - not the mob - so engine_shutdown()'s loc-based lookup
+// can't find a user to unwield through. Use the mob dropped() actually hands us instead.
+/obj/item/twohanded/chainsaw/dropped(mob/living/user)
+	. = ..()
+	if(wielded && user)
+		unwield(user)
+
 /obj/item/twohanded/chainsaw/afterattack(atom/A, mob/living/user, proximity)
 	. = ..()
 	if(!proximity || !wielded || IS_STAMCRIT(user))
 		return
+	engine_swing(user)
 	if(istype(A, /obj/structure/barricade/wooden)) //destroys windows and grilles in one hit (or more if it has a ton of health like plasmaglass)
 		var/obj/structure/barricade/wooden/K = A
 		K.take_damage(40, BRUTE, "melee", 0, attacked_by = user)
@@ -812,6 +980,7 @@
 
 //Steel Saw		Keywords: Damage 10/27, 2x attackspeed, Wound Bonus, Tool saw-off, structure bonus damage
 /obj/item/twohanded/steelsaw
+	parent_type = /obj/item/twohanded/engine_tool
 	name = "steel saw"
 	desc = "A long, heavy circular saw with reinforced blades, designed for cutting through I-beams."
 	icon = 'icons/obj/melee/melee.dmi'
@@ -841,8 +1010,11 @@
 	var/force_on = 29 //10 more dps than chainsaw, but less perhit
 	var/force_off = 10
 	var/on_sound = 'sound/weapons/chainsawhit.ogg'
+	var/attack_speed_off = CLICK_CD_MELEE * 1.2
 
 /obj/item/twohanded/steelsaw/attack_self(mob/user)
+	if(!on && !start_engine(user))
+		return
 	on = !on
 	if(on)
 		user.visible_message("<span class ='warning'>[user] pulls the cord, starting up the [src] with a roar and letting the blades spin up.</span>")
@@ -854,13 +1026,14 @@
 		attack_verb = list("sawed", "torn", "cut", "chopped", "diced")
 		playsound(loc, on_sound, 50, TRUE)
 	else
+		stop_engine()
 		user.visible_message("<span class ='notice'>[user] presses the off button, stopping the noise and the carnage.</span>")
 		icon_state = off_icon_state
 		item_state = off_item_state
 		w_class = WEIGHT_CLASS_BULKY
 		force = force_off
 		attack_verb = list("poked", "scraped")
-		attack_speed = CLICK_CD_MELEE * 1.2
+		attack_speed = attack_speed_off
 	add_fingerprint(user)
 
 /obj/item/twohanded/steelsaw/ComponentInitialize()
@@ -869,10 +1042,21 @@
 	AddComponent(/datum/component/two_handed, require_twohands=TRUE)
 	update_icon()
 
+// The engine stalling out (fuel starvation or neglect) cuts power the same as flicking it off manually.
+/obj/item/twohanded/steelsaw/engine_shutdown()
+	on = FALSE
+	icon_state = off_icon_state
+	item_state = off_item_state
+	w_class = WEIGHT_CLASS_BULKY
+	force = force_off
+	attack_verb = list("poked", "scraped")
+	attack_speed = attack_speed_off
+
 /obj/item/twohanded/steelsaw/afterattack(atom/A, mob/living/user, proximity)
 	. = ..()
-	if(!proximity || !wielded || IS_STAMCRIT(user))
+	if(!proximity || !on || IS_STAMCRIT(user))
 		return
+	engine_swing(user)
 	if(istype(A, /obj/structure)) //hurts structures more (it can cut through i-beams, it can ostensibly cut through weaker shit)
 		var/obj/structure/S = A
 		S.take_damage(structure_bonus_damage, BRUTE, "melee", 0, armour_penetration = src.armour_penetration, attacked_by = user)
@@ -909,8 +1093,17 @@
 	off_item_state = "autoaxe"
 	toolspeed = 2
 	structure_bonus_damage = 40
+	// A bigger, thirstier engine cobbled together from car parts - burns more fuel and wears out faster than
+	// the factory-made steel saw it was built from. This is the counterweight to its higher damage.
+	max_fuel = 50
+	fuel_per_swing = 1.5
+	condition_loss_per_swing = 0.3
+	stall_chance_per_point = 0.8
+	attack_speed_off = CLICK_CD_MELEE * 1.5
 
 /obj/item/twohanded/steelsaw/autoaxe/attack_self(mob/user)
+	if(!on && !start_engine(user))
+		return
 	on = !on
 	if(on)
 		user.visible_message("<span class ='warning'>[user] turns the starting crank on the [src], starting it up with a guttral roar.</span>")
@@ -922,13 +1115,14 @@
 		attack_verb = list("sawed", "torn", "cut", "chopped", "diced")
 		playsound(loc, on_sound, 50, TRUE)
 	else
+		stop_engine()
 		user.visible_message("<span class ='notice'>[user] cuts the throttle on the [src], letting the blades slowly spin down.</span>")
 		icon_state = off_icon_state
 		item_state = off_item_state
 		w_class = WEIGHT_CLASS_BULKY
 		force = force_off
 		attack_verb = list("poked", "scraped")
-		attack_speed = CLICK_CD_MELEE * 1.5
+		attack_speed = attack_speed_off
 	add_fingerprint(user)
 /*
 CODE ARCHIVE

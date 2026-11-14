@@ -183,7 +183,10 @@
 	icon_living = "floatingeye"
 	icon_dead = "floatingeye_d"
 	
-	faction = list("hostile", "bs")
+	// Was "bs" - that's the lowercase id used by the separate /datum/f13_faction reputation system, not a mob
+	// AI faction. Mob-vs-mob targeting elsewhere (fallout_NPC.dm, ghost_role_spawners.dm) uses "BOS" for actual
+	// Brotherhood troops, so this never recognized them as friendly despite the comment's intent.
+	faction = list("hostile", "BOS")
 	
 	// Pure ranged - closer engagement than standard eyebot
 	retreat_distance = 6
