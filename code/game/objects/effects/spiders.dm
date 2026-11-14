@@ -208,6 +208,7 @@
 
 	// CRITICAL: Stop processing IMMEDIATELY
 	STOP_PROCESSING(SSobj, src)
+	walk(src, 0)
 
 	// Remove component BEFORE clearing references
 	var/datum/component/swarming/swarm = GetComponent(/datum/component/swarming)
@@ -293,8 +294,10 @@
 	else if(prob(33))
 		var/list/nearby = oview(10, src)
 		if(nearby.len)
-			var/target_atom = pick(nearby)
-			walk_to(src, target_atom)
+			// Walk to the turf, not the atom: a walk target is held by BYOND internally and would pin another spiderling from GC
+			var/turf/walk_goal = get_turf(pick(nearby))
+			if(walk_goal)
+				walk_to(src, walk_goal)
 			if(prob(40))
 				src.visible_message(span_notice("\The [src] skitters[pick(" away"," around","")]."))
 	else if(prob(10))

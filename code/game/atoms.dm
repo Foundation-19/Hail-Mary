@@ -158,6 +158,10 @@
 /atom/proc/ComponentInitialize()
 	return
 
+/atom/gc_failure_context()
+	var/turf/T = get_turf(src)
+	return "name=[name][T ? " at=[T.x],[T.y],[T.z]" : " loc=null"]"
+
 /atom/Destroy()
 	if(alternate_appearances)
 		for(var/K in alternate_appearances)

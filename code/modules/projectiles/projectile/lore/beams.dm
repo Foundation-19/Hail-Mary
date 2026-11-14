@@ -308,6 +308,7 @@
 	icon_state = "plasma_clot"
 	damage_type = BURN
 	damage = 60
+	damage_threshold_penetration = 5 //heavy plasma caster slug
 	flag = "energy"
 	eyeblur = 0
 	is_reflectable = TRUE
@@ -657,6 +658,7 @@
 	name = "alien projectile"
 	icon_state = "ion"
 	damage = 90 //horrifyingly powerful, but very limited ammo
+	damage_threshold_penetration = 8 //alien tech, nothing human-made stops it cleanly
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_range = 2
 	light_color = LIGHT_COLOR_BLUE

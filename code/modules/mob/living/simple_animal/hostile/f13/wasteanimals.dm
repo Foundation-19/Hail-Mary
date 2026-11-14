@@ -415,6 +415,34 @@
 		var/mob/living/carbon/human/H = target
 		H.reagents.add_reagent(/datum/reagent/toxin/cazador_venom, 6)
 
+// NIGHTSTALKER ALPHA - pack leader, top of the nightstalker ladder
+/mob/living/simple_animal/hostile/stalker/alpha
+	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 3
+	name = "alpha nightstalker"
+	desc = "An oversized nightstalker with a scarred hide and a rattle that carries across the wasteland. The rest of the pack follows its lead."
+
+	maxHealth = 170
+	health = 170
+	speed = 0.95
+
+	melee_damage_lower = 10
+	melee_damage_upper = 20
+	stat_attack = UNCONSCIOUS
+
+	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
+
+/mob/living/simple_animal/hostile/stalker/alpha/Initialize()
+	. = ..()
+	resize = 1.15
+	update_transform()
+
+/mob/living/simple_animal/hostile/stalker/alpha/Aggro()
+	. = ..()
+	if(.)
+		return
+	summon_backup(14)
+
 // PLAYABLE NIGHTSTALKER
 /mob/living/simple_animal/hostile/stalker/playable
 	affix_chance = 0

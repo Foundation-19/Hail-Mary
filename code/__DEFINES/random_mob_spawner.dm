@@ -585,17 +585,22 @@ GLOBAL_LIST_EMPTY(random_mob_nest_spawner_datums)
 	num_mobs_to_spawn_easy = 1
 	mob_respawn_time_easy = MOB_SPAWNER_TIME_LONGEST
 	mob_list_easy = list(
+		/mob/living/simple_animal/hostile/hellpig/runt = 3,
 		/mob/living/simple_animal/hostile/hellpig = 1
 		)
 	num_mobs_to_spawn_medium = 1
 	mob_respawn_time_medium = MOB_SPAWNER_TIME_LONGEST
 	mob_list_medium = list(
-		/mob/living/simple_animal/hostile/hellpig = 2
+		/mob/living/simple_animal/hostile/hellpig = 3,
+		/mob/living/simple_animal/hostile/hellpig/runt = 1
 		)
+	// Hard: the tusker and the sow live here only
 	num_mobs_to_spawn_hard = 2
 	mob_respawn_time_hard = MOB_SPAWNER_TIME_LONGEST
 	mob_list_hard = list(
-		/mob/living/simple_animal/hostile/hellpig = 3
+		/mob/living/simple_animal/hostile/hellpig = 4,
+		/mob/living/simple_animal/hostile/hellpig/tusker = 2,
+		/mob/living/simple_animal/hostile/hellpig/sow = 1
 		)
 
 /// Roachie~
@@ -1145,13 +1150,17 @@ GLOBAL_LIST_EMPTY(random_mob_nest_spawner_datums)
 	num_mobs_to_spawn_medium = 2
 	mob_respawn_time_medium = MOB_SPAWNER_TIME_DEFAULT
 	mob_list_medium = list(
-		/mob/living/simple_animal/hostile/trog/tunneler = 5
+		/mob/living/simple_animal/hostile/trog/tunneler = 5,
+		/mob/living/simple_animal/hostile/jungle/leaper/young = 1
 		)
 	num_mobs_to_spawn_hard = 3
 	mob_respawn_time_hard = MOB_SPAWNER_TIME_DEFAULT
 	mob_list_hard = list(
-		/mob/living/simple_animal/hostile/trog/tunneler = 5,
-		/mob/living/simple_animal/hostile/trog/tunneler/blindone = 2
+		/mob/living/simple_animal/hostile/trog/tunneler = 10,
+		/mob/living/simple_animal/hostile/trog/tunneler/blindone = 4,
+		/mob/living/simple_animal/hostile/jungle/leaper/young = 2,
+		/mob/living/simple_animal/hostile/jungle/leaper = 2,
+		/mob/living/simple_animal/hostile/jungle/leaper/alpha = 1
 		)
 
 /// spore carriers
@@ -1165,17 +1174,26 @@ GLOBAL_LIST_EMPTY(random_mob_nest_spawner_datums)
 	num_mobs_to_spawn_easy = 1
 	mob_respawn_time_easy = MOB_SPAWNER_TIME_DEFAULT
 	mob_list_easy = list(
-		/mob/living/simple_animal/hostile/trog/sporecarrier = 5
+		/mob/living/simple_animal/hostile/trog/sporecarrier = 5,
+		/mob/living/simple_animal/hostile/trog/sporecarrier/sporeling = 3
 		)
 	num_mobs_to_spawn_medium = 2
 	mob_respawn_time_medium = MOB_SPAWNER_TIME_DEFAULT
 	mob_list_medium = list(
-		/mob/living/simple_animal/hostile/trog/sporecarrier = 7
+		/mob/living/simple_animal/hostile/trog/sporecarrier = 7,
+		/mob/living/simple_animal/hostile/trog/sporecarrier/sporeling = 4,
+		/mob/living/simple_animal/hostile/venus_human_trap/sapling = 3,
+		/mob/living/simple_animal/hostile/venus_human_trap = 1
 		)
 	num_mobs_to_spawn_hard = 3
 	mob_respawn_time_hard = MOB_SPAWNER_TIME_DEFAULT
 	mob_list_hard = list(
-		/mob/living/simple_animal/hostile/trog/sporecarrier = 9
+		/mob/living/simple_animal/hostile/trog/sporecarrier = 18,
+		/mob/living/simple_animal/hostile/trog/sporecarrier/sporeling = 8,
+		/mob/living/simple_animal/hostile/trog/sporecarrier/bloated = 4,
+		/mob/living/simple_animal/hostile/venus_human_trap/sapling = 6,
+		/mob/living/simple_animal/hostile/venus_human_trap = 4,
+		/mob/living/simple_animal/hostile/venus_human_trap/elder = 1
 		)
 
 /// yaoguai mcbeevis

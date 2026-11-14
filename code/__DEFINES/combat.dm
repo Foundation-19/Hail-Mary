@@ -116,6 +116,7 @@
 // Originally 8. Set to 7 so melee stays competitive without outpacing ranged DPS in PvE.
 #define CLICK_CD_MELEE 7
 #define MELEE_DAMAGE_BONUS_SOFT_THRESHOLD 0.5 // Bonuses above half the weapon's force keep growing with diminishing returns
+#define MELEE_TOTAL_FORCE_SOFT_CAP 90 // Weapon force plus every wielder bonus above this tapers off, so quality, perks and traits can't stack without limit
 #define MELEE_BLUNT_DT_PENETRATION 4 // Blunt weapons trade armor penetration for some DT bypass
 #define MELEE_BLUNT_MAX_ARMOUR_PENETRATION 0.1 // Dedicated high-AP weapons do not also receive blunt DT bypass
 #define MELEE_BREAKER_DT_PENETRATION 2

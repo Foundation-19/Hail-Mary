@@ -31,6 +31,8 @@
 	var/xo = null
 	var/atom/original = null // the original target clicked
 	var/turf/starting = null // the projectile's starting turf
+	/// Set once the firer has been told what this projectile hit, so a multi-hit projectile reports only its first impact
+	var/impact_reported = FALSE
 	var/list/permutated = list() // we've passed through these atoms, don't try to hit them again
 	var/p_x = 16
 	var/p_y = 16			// the pixel location of the tile that the player clicked. Default is the center
@@ -213,6 +215,11 @@
 	return TRUE
 
 /obj/item/projectile/proc/on_hit(atom/target, blocked = FALSE)
+	if(!impact_reported)
+		impact_reported = TRUE
+		if(istype(firer, /mob/living/simple_animal/hostile))
+			var/mob/living/simple_animal/hostile/shooter = firer
+			shooter.observe_shot(src, target)
 	if(fired_from)
 		SEND_SIGNAL(fired_from, COMSIG_PROJECTILE_ON_HIT, firer, target, Angle)
 

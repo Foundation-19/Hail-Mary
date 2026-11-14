@@ -119,11 +119,18 @@
 /obj/structure/rust_heretic_act()
 	take_damage(500, BRUTE, "melee", 1)
 
+/// Waist-high cover that things can be shot over (sandbags, bars, tables), as opposed to a full wall of material
+/obj/structure/proc/is_low_cover()
+	return barricade && (pass_flags_self & LETPASSTHROW)
+
 /obj/structure/CanAllowThrough(atom/movable/mover, border_dir)
 	..()//So bullets will fly over and stuff.
 	if(istype(mover, /obj/item/projectile)) // Treats especifically projectiles
 		var/obj/item/projectile/proj = mover
 		if(proj.firer && Adjacent(proj.firer))
+			return 1
+		var/mob/living/simple_animal/hostile/shooter = proj.firer
+		if(istype(shooter) && !shooter.ckey && shooter.ranged && shooter.shoot_over_cover && is_low_cover())
 			return 1
 		else if(prob(proj_pass_rate))
 			return 1

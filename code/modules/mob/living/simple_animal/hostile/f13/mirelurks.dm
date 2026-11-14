@@ -143,6 +143,33 @@
 		MOB_HEALTH_LIST(180, 195, 205, 220),
 	)
 
+// MIRELURK RAZORCLAW - armored tier between the hunter and the king
+/mob/living/simple_animal/hostile/mirelurk/hunter/razorclaw
+	armour_penetration = 0.2
+	damage_threshold_penetration_mob = 5
+	name = "mirelurk razorclaw"
+	desc = "A hunter that has grown past its kin. Its shell is thick with barnacle plating and its claws have been worn to wicked edges."
+
+	mob_armor = ARMOR_VALUE_MIRELURK_RAZORCLAW
+
+	maxHealth = 280
+	health = 280
+
+	melee_damage_lower = 18
+	melee_damage_upper = 32
+
+	variation_list = list(
+		MOB_COLOR_VARIATION(100, 100, 100, 255, 255, 255),
+		MOB_SPEED_LIST(3.0, 3.1, 3.2),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
+		MOB_HEALTH_LIST(250, 270, 280, 300),
+	)
+
+/mob/living/simple_animal/hostile/mirelurk/hunter/razorclaw/Initialize()
+	. = ..()
+	resize = 1.1
+	update_transform()
+
 // MIRELURK BABY - small, weak, calls for help
 /mob/living/simple_animal/hostile/mirelurk/baby
 	affix_chance = 0

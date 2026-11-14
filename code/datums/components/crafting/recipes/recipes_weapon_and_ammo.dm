@@ -1845,7 +1845,6 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_PARTS
 	always_available = FALSE
-	always_available = FALSE
 
 /datum/crafting_recipe/blender
 	name = "Makeshift \"Bullet Blender\" barrel"

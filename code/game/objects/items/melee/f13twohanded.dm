@@ -24,6 +24,10 @@
 	)
 
 /datum/block_parry_data/heavy_blade // slow, committal two-handed weapons - big windup/recovery, but a devastating riposte if you land it
+	parry_attack_types = ATTACK_TYPE_PHYSICAL
+	parry_max_attacks = 1
+	parry_overpower_damage = 70
+	parry_overpower_falloff = 0.8
 	parry_time_windup = 4
 	parry_time_active = 10
 	parry_time_spindown = 5

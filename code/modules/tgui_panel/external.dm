@@ -32,6 +32,7 @@
 		
 		// Set theme to fallout (RobCo terminal aesthetic)
 		src << output("fallout", "statbrowser:set_theme")
+		INVOKE_ASYNC(src, PROC_REF(force_map_redraw))
 
 /**
  * tgui panel / chat troubleshooting verb
@@ -73,3 +74,4 @@
 	// Force show the panel to see if there are any errors
 	winset(src, "output", "is-disabled=1;is-visible=0")
 	winset(src, "browseroutput", "is-disabled=0;is-visible=1")
+	INVOKE_ASYNC(src, PROC_REF(force_map_redraw))

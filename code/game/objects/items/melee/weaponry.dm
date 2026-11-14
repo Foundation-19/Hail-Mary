@@ -80,6 +80,10 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	block_parry_data = /datum/block_parry_data/katana
 
 /datum/block_parry_data/katana // a disciplined, precise blade - narrow window, unforgiving if missed, but the best riposte around if you land it
+	parry_attack_types = ATTACK_TYPE_PHYSICAL
+	parry_max_attacks = 1
+	parry_overpower_damage = 45
+	parry_overpower_falloff = 1
 	parry_time_windup = 2
 	parry_time_active = 9
 	parry_time_spindown = 3

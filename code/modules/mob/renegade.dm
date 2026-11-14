@@ -5,15 +5,19 @@
 
 // LIGHT MELEE VARIANT
 /mob/living/simple_animal/hostile/renegade
+	affix_pool_type = "human"
+	affix_chance = 5
 	name = "Renegade Prospect"
 	desc = "A raider recently inducted among the Renegades."
 	icon = 'icons/mob/renegades/renegade.dmi'
 	icon_state = "renegade_prospect"
 	icon_living = "renegade_prospect"
 	icon_dead = "renegade_prospect-dead"
+	rapid_melee = 2
+	melee_queue_distance = 5
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	turns_per_move = 5
-	mob_armor = ARMOR_VALUE_RENEGADE_COMBAT_ARMOR
+	mob_armor = ARMOR_VALUE_RENEGADE_PROSPECT
 	maxHealth = 100
 	health = 100
 	healable = 1
@@ -27,6 +31,12 @@
 	a_intent = INTENT_HARM
 	faction = list("raider")
 	check_friendly_fire = TRUE
+	can_open_doors = TRUE
+	can_open_airlocks = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
+	move_to_delay = 3
+	combat_mode = COMBAT_MODE_MELEE
+	minimum_distance = 1
 	status_flags = CANPUSH
 	del_on_death = FALSE
 	waddle_amount = 5
@@ -35,9 +45,21 @@
 	loot = list(/obj/item/stack/f13Cash/random/med)
 
 /mob/living/simple_animal/hostile/renegade/Aggro()
-	..()
+	. = ..()
+	if(.)
+		return
 	summon_backup(10)
 	say("Target spotted!")
+
+// Friendly fire resistance - renegades fight in squads
+/mob/living/simple_animal/hostile/renegade/bullet_act(obj/item/projectile/P)
+	if(P && P.firer && istype(P.firer, /mob/living/simple_animal/hostile/renegade))
+		var/original_damage = P.damage
+		P.damage *= 0.2
+		. = ..()
+		P.damage = original_damage
+		return
+	return ..()
 
 
 // LIGHT RANGED VARIANT
@@ -47,6 +69,7 @@
 	icon_state = "renegade_grunt"
 	icon_living = "renegade_grunt"
 	icon_dead = "renegade_grunt-dead"
+	combat_mode = COMBAT_MODE_RANGED
 	ranged = TRUE
 	mob_armor = ARMOR_VALUE_RENEGADE_COMBAT_ARMOR
 	maxHealth = 100
@@ -90,6 +113,7 @@
 	icon_state = "renegade_engie"
 	icon_living = "renegade_engie"
 	icon_dead = "renegade_engie-dead"
+	combat_mode = COMBAT_MODE_RANGED
 	mob_armor = ARMOR_VALUE_RENEGADE_COMBAT_ARMOR
 	maxHealth = 100
 	health = 100
@@ -137,6 +161,7 @@
 	icon_state = "renegade_soldier"
 	icon_living = "renegade_soldier"
 	icon_dead = "renegade_soldier-dead"
+	combat_mode = COMBAT_MODE_RANGED
 	ranged = TRUE
 	mob_armor = ARMOR_VALUE_RENEGADE_COMBAT_ARMOR_REINFORCED
 	maxHealth = 100
@@ -177,6 +202,63 @@
 		SP_DISTANT_RANGE(PISTOL_MEDIUM_RANGE_DISTANT)
 	)
 
+// OFFICER VARIANT
+/mob/living/simple_animal/hostile/renegade/captain
+	name = "Renegade Captain"
+	desc = "A Renegade officer in reinforced plating. The rest of the crew rallies when it starts shouting orders."
+	icon_state = "renegade_soldier"
+	icon_living = "renegade_soldier"
+	icon_dead = "renegade_soldier-dead"
+	combat_mode = COMBAT_MODE_RANGED
+	ranged = TRUE
+	mob_armor = ARMOR_VALUE_RENEGADE_CAPTAIN
+	maxHealth = 220
+	health = 220
+	healable = 1
+	speed = 1.1
+	check_friendly_fire = 1
+	retreat_distance = 6
+	minimum_distance = 3
+	extra_projectiles = 3
+	sight_shoot_delay_time = 0.2 SECONDS
+	ranged_cooldown_time = 2 SECONDS
+	auto_fire_delay = GUN_AUTOFIRE_DELAY_NORMAL
+	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 3
+	despawns_when_lonely = FALSE
+	projectiletype = /obj/item/projectile/bullet/a556/simple
+	projectilesound = 'sound/f13weapons/assaultrifle_fire.ogg'
+	loot = list(
+		/obj/item/stack/f13Cash/random/high,
+		/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier2
+		)
+	robust_searching = TRUE
+	speak = list(
+		"Form up, Renegades!",
+		"Keep it tight, I'm not paying for funerals!",
+		"Flank them!",
+		"Cover me, I'm reloading!",
+		"Renegades represent!"
+		)
+	speak_emote = list("says")
+	speak_chance = 1
+	projectile_sound_properties = list(
+		SP_VARY(FALSE),
+		SP_VOLUME(RIFLE_LIGHT_VOLUME),
+		SP_VOLUME_SILENCED(RIFLE_LIGHT_VOLUME * SILENCED_VOLUME_MULTIPLIER),
+		SP_NORMAL_RANGE(RIFLE_LIGHT_RANGE),
+		SP_NORMAL_RANGE_SILENCED(SILENCED_GUN_RANGE),
+		SP_IGNORE_WALLS(TRUE),
+		SP_DISTANT_SOUND(RIFLE_LIGHT_DISTANT_SOUND),
+		SP_DISTANT_RANGE(RIFLE_LIGHT_RANGE_DISTANT)
+	)
+
+/mob/living/simple_animal/hostile/renegade/captain/Aggro()
+	. = ..()
+	if(.)
+		return
+	summon_backup(16)
+
 //MEDIUM MELEE VARIANT
 /mob/living/simple_animal/hostile/renegade/defender
 	name = "Renegade Defender"
@@ -184,7 +266,8 @@
 	icon_state = "renegade_defender"
 	icon_living = "renegade_defender"
 	icon_dead = "renegade_defender-dead"
-	ranged = TRUE
+	rapid_melee = 2
+	melee_queue_distance = 5
 	mob_armor = ARMOR_VALUE_RENEGADE_COMBAT_ARMOR_SUPER
 	maxHealth = 130
 	health = 130
@@ -220,6 +303,7 @@
 	icon_state = "renegade_drifter"
 	icon_living = "renegade_drifter"
 	icon_dead = "renegade_drifter-dead"
+	combat_mode = COMBAT_MODE_RANGED
 	ranged = TRUE
 	mob_armor = ARMOR_VALUE_RENEGADE_SNIPER_ARMOR
 	maxHealth = 100
@@ -268,6 +352,7 @@
 	icon_state = "renegade_guardian"
 	icon_living = "renegade_guardian"
 	icon_dead = "renegade_guardian-dead"
+	combat_mode = COMBAT_MODE_RANGED
 	ranged = TRUE
 	mob_armor = ARMOR_VALUE_RENEGADE_COMBAT_ARMOR_SUPER
 	maxHealth = 150
@@ -314,6 +399,8 @@
 	icon_state = "renegade_meister"
 	icon_living = "renegade_meister"
 	icon_dead = "renegade_meister-dead"
+	combat_mode = COMBAT_MODE_MIXED
+	rapid_melee = 1
 	mob_armor = ARMOR_VALUE_RENEGADE_POWER_ARMOR
 	maxHealth = 150
 	health = 150
@@ -367,6 +454,7 @@
 	icon_state = "renegade_doc"
 	icon_living = "renegade_doc"
 	icon_dead = "renegade_doc-dead"
+	combat_mode = COMBAT_MODE_RANGED
 	ranged = TRUE
 	mob_armor = ARMOR_VALUE_RENEGADE_COMBAT_ARMOR
 	maxHealth = 150
@@ -374,7 +462,7 @@
 	healable = 1
 	check_friendly_fire = 1
 	retreat_distance = 6
-	minimum_distance = 8
+	minimum_distance = 5
 	sight_shoot_delay_time = 0.2 SECONDS
 	ranged_cooldown_time = 1 SECONDS
 	auto_fire_delay = GUN_AUTOFIRE_DELAY_NORMAL

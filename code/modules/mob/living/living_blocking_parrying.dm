@@ -57,6 +57,8 @@ GLOBAL_LIST_EMPTY(block_parry_data)
 
 	/// The blocked variable of on_hit() on projectiles is impacted by this. Higher is better, 0 to 100, percentage.
 	var/block_projectile_mitigation = 50
+	/// Projectile armor flag ("bullet", "laser", "energy") to a multiplier on the damage taken through a block. Above 1 is worse (wood burning, plastic melting), below 1 is better.
+	var/list/block_projectile_flag_multiplier
 
 /*
  * NOTE: Overrides for attack types for most the block_stamina variables were removed,
@@ -138,6 +140,10 @@ GLOBAL_LIST_EMPTY(block_parry_data)
 	var/parry_efficiency_to_counterattack = 0.1
 	/// Maximum attacks to parry successfully or unsuccessfully (but not efficiency < 0) during active period, hitting this immediately ends the sequence.
 	var/parry_max_attacks = INFINITY
+	/// Hits above this much damage overpower the parry, costing [parry_overpower_falloff] efficiency per point over. INFINITY disables it.
+	var/parry_overpower_damage = INFINITY
+	/// Percent of parry efficiency lost per point of damage above [parry_overpower_damage].
+	var/parry_overpower_falloff = 1
 	/// Visual icon state override for parrying
 	var/parry_effect_icon_state = "parry_bm_hold"
 	/// Parrying cooldown, separate of clickdelay. It must be this much deciseconds since their last parry for them to parry with this object.
@@ -227,16 +233,27 @@ GLOBAL_LIST_EMPTY(block_parry_data)
 	if(.)
 		return
 	if(href_list["render"])
-		var/datum/browser/B = new(usr, REF(src), href_list["name"], 800, 1000)
-		B.set_content(render_html_readout(href_list["block"], href_list["parry"]))
+		// The link carries raw item flag values (0 when unset), and "0" is a truthy string, so convert them
+		var/show_block = text2num(href_list["block"]) ? TRUE : FALSE
+		var/show_parry = text2num(href_list["parry"]) ? TRUE : FALSE
+		var/detailed = text2num(href_list["detail"]) ? TRUE : FALSE
+		var/datum/browser/B = new(usr, REF(src), href_list["name"], detailed ? 800 : 520, detailed ? 1000 : 700)
+		var/toggle_href = "?src=[REF(src)];name=[href_list["name"]];block=[show_block];parry=[show_parry];render=1;detail=[detailed ? 0 : 1]"
+		var/toggle = "<a href='[toggle_href]'>\[[detailed ? "Show summary" : "Show technical details"]\]</a>"
+		B.set_content("[toggle][render_html_readout(show_block, show_parry, detailed)]")
 		B.open()
 
 /**
- * Generates a HTML render of this datum for self-documentation
- * Maybe make this tgui-next someday haha god this is ugly as sin.
- * Does NOT include the popout or title or anything. Just the variables and explanations..
+ * Generates a HTML render of this datum for self-documentation.
+ * Defaults to a short plain-language summary, detailed = TRUE gives the raw variable dump for coders.
+ * Does NOT include the popout or title or anything.
  */
-/datum/block_parry_data/proc/render_html_readout(block_data = FALSE, parry_data = FALSE)
+/datum/block_parry_data/proc/render_html_readout(block_data = FALSE, parry_data = FALSE, detailed = FALSE)
+	if(!detailed)
+		return render_summary_readout(block_data, parry_data)
+	return render_technical_readout(block_data, parry_data)
+
+/datum/block_parry_data/proc/render_technical_readout(block_data = FALSE, parry_data = FALSE)
 	var/list/dat = list()
 	if(block_data)
 		dat += "<div class='statusDisplay'><h3>Block Stats</h3><table style='width:100%'><tr><th>Name/Description</th><th>Value</th></tr>"
@@ -261,7 +278,7 @@ GLOBAL_LIST_EMPTY(block_parry_data)
 		RENDER_ATTACK_TYPES(block_resting_attack_types_anydir, "The kinds of attacks you can block while resting/otherwise knocked to the floor from any direction. can_block_attack_types takes precedence.")
 		RENDER_ATTACK_TYPES(block_resting_attack_types_directional, "The kinds of attacks you can block wihle resting/otherwise knocked to the floor that are directional only. can_block_attack_types takes precedence.")
 		RENDER_VARIABLE_SIMPLE(block_resting_stamina_penalty_multiplier, "Multiplier to stamina damage incurred from blocking while downed. Lower is better.")
-		RENDER_OVERRIDE_LIST(block_resting_stamina_penalty_multiplier, "Overrides for the above for each attack type.")
+		RENDER_OVERRIDE_LIST(block_resting_stamina_penalty_multiplier_override, "Overrides for the above for each attack type.")
 		dat += "</div></table>"
 	if(parry_data)
 		dat += "<div class='statusDisplay'><h3>Parry Stats</h3><table style='width:100%'><tr><th>Name/Description</th><th>Value</th></tr>"
@@ -288,6 +305,8 @@ GLOBAL_LIST_EMPTY(block_parry_data)
 		RENDER_VARIABLE_SIMPLE(parry_efficiency_considered_successful, "Minimum parry efficiency to be considered a successful parry.")
 		RENDER_VARIABLE_SIMPLE(parry_efficiency_to_counterattack, "Minimum parry efficiency to trigger counterattack effects.")
 		RENDER_VARIABLE_SIMPLE(parry_max_attacks, "Max attacks parried per parry cycle.")
+		RENDER_VARIABLE_SIMPLE(parry_overpower_damage, "Hits above this damage lose parry efficiency.")
+		RENDER_VARIABLE_SIMPLE(parry_overpower_falloff, "Percent of parry efficiency lost per point of damage above the overpower damage.")
 		RENDER_VARIABLE_SIMPLE(parry_effect_icon_state, "Parry effect image name")
 		RENDER_VARIABLE_SIMPLE(parry_cooldown, "Deciseconds it has to be since the last time a parry sequence <b>ended</b> for you before you can parry again.")
 		RENDER_VARIABLE_SIMPLE(parry_failed_stagger_duration, "Deciseconds you are staggered for at the of the parry sequence if you do not successfully parry anything.")
@@ -298,6 +317,129 @@ GLOBAL_LIST_EMPTY(block_parry_data)
 #undef RENDER_OVERRIDE_LIST
 #undef RENDER_ATTACK_TYPES
 #undef RENDER_BLOCK_DIRECTIONS
+
+/// Deciseconds to a short seconds string, e.g. 5 -> "0.5s"
+/datum/block_parry_data/proc/ds_text(deciseconds)
+	return "[round(deciseconds / 10, 0.01)]s"
+
+/datum/block_parry_data/proc/attack_types_text(flags)
+	var/list/names = list()
+	for(var/bit in bitfield2list(flags))
+		var/name = GLOB.attack_type_names[num2text(bit)]
+		if(name)
+			names += name
+	return english_list(names, "nothing")
+
+/datum/block_parry_data/proc/block_directions_text(flags)
+	var/list/names = list()
+	for(var/bit in bitfield2list(flags))
+		var/name = GLOB.block_direction_names[num2text(bit)]
+		if(name)
+			names += name
+	return english_list(names, "nowhere")
+
+/// Per attack type overrides as "Projectile 6, Melee 2", an empty string if there are none
+/datum/block_parry_data/proc/override_text(list/overrides, suffix = "")
+	if(!length(overrides))
+		return ""
+	var/list/parts = list()
+	for(var/textbit in overrides)
+		parts += "[GLOB.attack_type_names[textbit]] [overrides[textbit]][suffix]"
+	return english_list(parts)
+
+/// Damage that gets through a block, using the same steps as obj/item/active_block_calculate_final_damage
+/datum/block_parry_data/proc/block_damage_taken(incoming, absorption, multiplier, limit)
+	var/overrun = 0
+	if(incoming > limit)
+		overrun = incoming - limit
+		incoming = limit
+	incoming -= min(absorption, incoming)
+	return overrun + incoming * multiplier
+
+/// Parry time range, in deciseconds into the active window, where the parry is at least min_efficiency percent
+/datum/block_parry_data/proc/parry_window_text(min_efficiency)
+	if(parry_efficiency_perfect < min_efficiency)
+		return "never"
+	var/reach = parry_time_active
+	if(parry_imperfect_falloff_percent > 0)
+		reach = min(reach, parry_time_perfect_leeway + (parry_efficiency_perfect - min_efficiency) / parry_imperfect_falloff_percent)
+	var/window_start = max(0, parry_time_perfect - reach)
+	var/window_end = min(parry_time_active, parry_time_perfect + reach)
+	return "[ds_text(window_start)] to [ds_text(window_end)]"
+
+/datum/block_parry_data/proc/render_summary_readout(block_data = FALSE, parry_data = FALSE)
+	var/list/dat = list()
+	if(block_data)
+		dat += "<div class='statusDisplay'><h3>Blocking</h3><table style='width:100%'>"
+		dat += "<tr><td><b>Blocks</b></td><td>[attack_types_text(can_block_attack_types)]</td></tr>"
+		dat += "<tr><td><b>From</b></td><td>[block_directions_text(can_block_directions)]</td></tr>"
+		dat += "<tr><td><b>Raise time</b></td><td>[ds_text(block_start_delay)]</td></tr>"
+		var/list/while_blocking = list()
+		if(block_slowdown)
+			while_blocking += "slows you by [block_slowdown]"
+		while_blocking += block_lock_attacking ? "you cannot attack" : "you can still attack"
+		if(block_lock_sprinting)
+			while_blocking += "you cannot sprint"
+		dat += "<tr><td><b>While blocking</b></td><td>[capitalize(english_list(while_blocking))]</td></tr>"
+		if(block_end_click_cd_add)
+			dat += "<tr><td><b>After lowering</b></td><td>[ds_text(block_end_click_cd_add)] attack delay</td></tr>"
+		dat += "<tr><td><b>Upkeep</b></td><td>[block_stamina_cost_per_second] stamina per second</td></tr>"
+		dat += "<tr><td><b>Absorbs</b></td><td>The first [block_damage_absorption] damage of a hit, then you take [round(block_damage_multiplier * 100)]% of the rest up to [block_damage_limit] damage. Anything past [block_damage_limit] goes straight through.</td></tr>"
+		dat += "<tr><td><b>Stamina</b></td><td>Each blocked hit costs [block_stamina_efficiency ? round(1 / block_stamina_efficiency, 0.01) : "a lot of"] stamina per damage stopped, at most [BLOCK_STAMINA_COST_CAP] per hit.</td></tr>"
+		dat += "<tr><td><b>While knocked down</b></td><td>Blocks [attack_types_text(block_resting_attack_types_anydir)] from any side and [attack_types_text(block_resting_attack_types_directional)] from the front, at [block_resting_stamina_penalty_multiplier]x the stamina cost.</td></tr>"
+		var/list/exceptions = list()
+		var/absorb_text = override_text(block_damage_absorption_override)
+		if(absorb_text)
+			exceptions += "absorbs [absorb_text]"
+		var/limit_text = override_text(block_damage_limit_override)
+		if(limit_text)
+			exceptions += "damage limit [limit_text]"
+		var/mult_text = override_text(block_damage_multiplier_override, "x")
+		if(mult_text)
+			exceptions += "damage taken [mult_text]"
+		var/stamina_text = override_text(block_stamina_efficiency_override)
+		if(stamina_text)
+			exceptions += "stamina efficiency [stamina_text]"
+		if(length(exceptions))
+			dat += "<tr><td><b>Exceptions</b></td><td>[capitalize(jointext(exceptions, "; "))]</td></tr>"
+		if(length(block_projectile_flag_multiplier))
+			var/list/flag_parts = list()
+			for(var/projectile_flag in block_projectile_flag_multiplier)
+				flag_parts += "[projectile_flag] [block_projectile_flag_multiplier[projectile_flag]]x"
+			dat += "<tr><td><b>Material vs projectiles</b></td><td>Damage taken is multiplied: [english_list(flag_parts)]</td></tr>"
+		dat += "</table>"
+		dat += "<br><b>Example hits</b> <i>(before armor, without the exceptions above)</i><table style='width:100%'><tr><th>Hit</th><th>You take</th><th>Stamina cost</th></tr>"
+		for(var/hit in list(10, 25, 50, 100))
+			var/taken = block_damage_taken(hit, block_damage_absorption, block_damage_multiplier, block_damage_limit)
+			var/stamina = block_stamina_efficiency ? min((hit - taken) / block_stamina_efficiency, BLOCK_STAMINA_COST_CAP) : BLOCK_STAMINA_COST_CAP
+			dat += "<tr><td>[hit]</td><td>[round(taken, 0.1)]</td><td>[round(stamina, 0.1)]</td></tr>"
+		dat += "</table></div>"
+	if(parry_data)
+		dat += "<div class='statusDisplay'><h3>Parrying</h3><table style='width:100%'>"
+		dat += "<tr><td><b>Parries</b></td><td>[attack_types_text(parry_attack_types)]</td></tr>"
+		dat += "<tr><td><b>Timing</b></td><td>[ds_text(parry_time_windup)] windup, then [ds_text(parry_time_active)] active, then [ds_text(parry_time_spindown)] recovery. Only the active part parries.</td></tr>"
+		dat += "<tr><td><b>Perfect parry</b></td><td>[parry_window_text(parry_efficiency_perfect)] into the active part, worth [parry_efficiency_perfect]%. It loses [parry_imperfect_falloff_percent]% for every 0.1s outside that.</td></tr>"
+		dat += "<tr><td><b>Counts as a parry</b></td><td>[parry_window_text(parry_efficiency_considered_successful)] into the active part (at least [parry_efficiency_considered_successful]%)</td></tr>"
+		dat += "<tr><td><b>Counterattack</b></td><td>[parry_window_text(parry_efficiency_to_counterattack)] into the active part (at least [parry_efficiency_to_counterattack]%)</td></tr>"
+		dat += "<tr><td><b>Attacks per parry</b></td><td>[parry_max_attacks >= 1e30 ? "Unlimited" : parry_max_attacks]</td></tr>"
+		if(parry_overpower_damage < 1e30)
+			dat += "<tr><td><b>Heavy hits</b></td><td>Hits over [parry_overpower_damage] damage overpower the parry, costing [parry_overpower_falloff]% efficiency per extra point of damage.</td></tr>"
+		dat += "<tr><td><b>Cost</b></td><td>[parry_stamina_cost] stamina[parry_cooldown ? ", [ds_text(parry_cooldown)] cooldown" : ""][parry_respect_clickdelay ? ", only usable when your attack delay is ready" : ""]</td></tr>"
+		dat += "<tr><td><b>If you whiff</b></td><td>Staggered for [ds_text(parry_failed_stagger_duration)] and unable to attack for [ds_text(parry_failed_clickcd_duration)]</td></tr>"
+		var/list/parry_exceptions = list()
+		var/leeway_text = override_text(parry_time_perfect_leeway_override, "ds")
+		if(leeway_text)
+			parry_exceptions += "perfect window leeway [leeway_text]"
+		var/falloff_text = override_text(parry_imperfect_falloff_percent_override, "%")
+		if(falloff_text)
+			parry_exceptions += "falloff [falloff_text]"
+		var/perfect_text = override_text(parry_efficiency_perfect_override, "%")
+		if(perfect_text)
+			parry_exceptions += "perfect efficiency [perfect_text]"
+		if(length(parry_exceptions))
+			dat += "<tr><td><b>Exceptions</b></td><td>[capitalize(jointext(parry_exceptions, "; "))]</td></tr>"
+		dat += "</table></div>"
+	return dat.Join("")
 
 // MOB PROCS
 

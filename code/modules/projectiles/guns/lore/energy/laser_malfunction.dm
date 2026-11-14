@@ -95,6 +95,17 @@
 /// Maintenance pass - recalibrating a laser weapon's optics/capacitor bank restores some condition
 /obj/item/gun/energy/laser/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
+	if(.)
+		return
+	// tool_act runs before attackby, so without this the upgrade removal component never sees the screwdriver
+	if(LAZYLEN(item_upgrades))
+		if(gun_condition >= GUN_CONDITION_MAX)
+			return FALSE
+		var/choice = input(user, "What would you like to do with [src]?", "Screwdriver") as null|anything in list("Recalibrate", "Remove attachment")
+		if(!choice || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+			return TRUE
+		if(choice == "Remove attachment")
+			return FALSE
 	if(gun_condition >= GUN_CONDITION_MAX)
 		to_chat(user, span_notice("[src] is already in good condition."))
 		return TRUE

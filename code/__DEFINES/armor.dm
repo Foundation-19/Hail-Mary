@@ -213,7 +213,7 @@
  * Low DT
  * * * * * * * * * * * */
 #define ARMOR_VALUE_GHOUL_LEGEND list(\
-		"melee" = 25, \
+		"melee" = -20, \
 		"bullet" = 25, \
 		"laser" = 95, \
 		"energy" = 95, \
@@ -223,7 +223,43 @@
 		"fire" = 0, \
 		"acid" = 0, \
 		"wound" = 0, \
-		"damage_threshold" = 11)
+		"damage_threshold" = 4)
+
+/* Armored glowing ghoul armor
+ * Glowing ghoul fused into scavenged reaver plating
+ * Sits between glowing and legendary glowing
+ * Medium DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_GHOUL_GLOWING_ARMORED list(\
+		"melee" = 0, \
+		"bullet" = 15, \
+		"laser" = 30, \
+		"energy" = 45, \
+		"bomb" = 0, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 5)
+
+/* Legendary glowing ghoul armor
+ * Overcharged by radiation, ranged glow-caster
+ * Strong against energy, still fairly soft to melee
+ * Medium DT, it is a caster rather than a bruiser
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_GHOUL_GLOWING_LEGEND list(\
+		"melee" = 10, \
+		"bullet" = 15, \
+		"laser" = 70, \
+		"energy" = 75, \
+		"bomb" = 0, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 8)
 
 /* Charred feral ghoul
  * Burnt skin - nothing protecting it
@@ -450,6 +486,24 @@
 		"wound" = 0, \
 		"damage_threshold" = 5)
 
+/* Robot damaged
+ * Scavenged, rusted chassis with failing plating
+ * Barely better than nothing against bullets, still soft to energy
+ * Very low DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_ROBOT_DAMAGED list(\
+		"melee" = 5, \
+		"bullet" = 5, \
+		"laser" = -10, \
+		"energy" = -10, \
+		"bomb" = 0, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 2)
+
 /* Robot Seccie
  * Lowish DR across the board
  * Kinda weak to lasers (sensors and shit)
@@ -552,9 +606,9 @@
  * Lot of DT
  * * * * * * * * * * * */
 #define ARMOR_VALUE_DEATHCLAW_ALPHA list(\
-		"melee" = 20, \
-		"bullet" = 62, \
-		"laser" = 30, \
+		"melee" = 32, \
+		"bullet" = 40, \
+		"laser" = 28, \
 		"energy" = 0, \
 		"bomb" = 0, \
 		"bio" = 0, \
@@ -590,7 +644,7 @@
  * * * * * * * * * * * */
 #define ARMOR_VALUE_DEATHCLAW_CHAMELEON list(\
 		"melee" = 10, \
-		"bullet" = 50, \
+		"bullet" = 30, \
 		"laser" = 15, \
 		"energy" = 0, \
 		"bomb" = 0, \
@@ -767,6 +821,25 @@
 		"wound" = 0, \
 		"damage_threshold" = 4)
 
+/* Renegade prospect gear
+ * Scavenged kit of a recently inducted raider
+ * Light melee resistance, barely stops bullets
+ *
+ * very low DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_RENEGADE_PROSPECT list(\
+		"melee" = 20, \
+		"bullet" = 15, \
+		"laser" = 10, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 1)
+
 /* Renegade combat armor
  * Resistant to bullet and laser
  * Less resistant to melee
@@ -806,6 +879,25 @@
 		"acid" = 0, \
 		"wound" = 0, \
 		"damage_threshold" = 4)
+
+/* Renegade captain armor
+ * Officer-grade plating, between the reinforced soldier kit and the super armor
+ * Good melee / bullet resistance, plasma still hurts
+ *
+ * medium-high DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_RENEGADE_CAPTAIN list(\
+		"melee" = 40, \
+		"bullet" = 42, \
+		"laser" = 30, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 7)
 
 /* Renegade super combat armor
  * HEAVY melee / bullet resistance
@@ -882,7 +974,7 @@
 		"fire" = 0, \
 		"acid" = 0, \
 		"wound" = 0, \
-		"damage_threshold" = 5)
+		"damage_threshold" = 6)
 
 /* Ant Queen armor
  * Boss variant - heavily armored matriarch
@@ -922,18 +1014,18 @@
 
 /* Cazador armor
  * Flying insect - weak armor, relies on speed
- * Low protection overall
+ * Low protection overall, and extra vulnerable to fire
  * Very low DT
  * * * * * * * * * * * */
 #define ARMOR_VALUE_CAZADOR list(\
-		"melee" = 10, \
+		"melee" = 0, \
 		"bullet" = 5, \
 		"laser" = 5, \
 		"energy" = 5, \
 		"bomb" = 0, \
 		"bio" = 0, \
 		"rad" = 0, \
-		"fire" = 0, \
+		"fire" = -50, \
 		"acid" = 10, \
 		"wound" = 0, \
 		"damage_threshold" = 2)
@@ -973,6 +1065,74 @@
 		"acid" = 35, \
 		"wound" = 10, \
 		"damage_threshold" = 10)
+
+/* Radspider armor (guard / base)
+ * Chitinous hide - moderate melee protection, weaker to fire
+ * Low DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_SPIDER list(\
+		"melee" = 20, \
+		"bullet" = 15, \
+		"laser" = 10, \
+		"energy" = 10, \
+		"bomb" = 5, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = -20, \
+		"acid" = 10, \
+		"wound" = 0, \
+		"damage_threshold" = 3)
+
+/* Radspider nurse / viper / midwife armor
+ * Soft-bodied support and glass-cannon spiders - almost no protection
+ * Very low DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_SPIDER_SOFT list(\
+		"melee" = 5, \
+		"bullet" = 5, \
+		"laser" = 0, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = -30, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 1)
+
+/* Radspider hunter armor
+ * Lean, fast hunter - light chitin
+ * Low DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_SPIDER_HUNTER list(\
+		"melee" = 15, \
+		"bullet" = 10, \
+		"laser" = 5, \
+		"energy" = 5, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = -25, \
+		"acid" = 5, \
+		"wound" = 0, \
+		"damage_threshold" = 2)
+
+/* Radtarantula armor
+ * Massive, slow brute - thick hide, heavy resistance
+ * Medium DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_SPIDER_TARANTULA list(\
+		"melee" = 40, \
+		"bullet" = 35, \
+		"laser" = 15, \
+		"energy" = 15, \
+		"bomb" = 15, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = -10, \
+		"acid" = 20, \
+		"wound" = 10, \
+		"damage_threshold" = 8)
 
 /* Aradnid (East Coast)
  * Light chitin, immune to radiation (it feeds on it), some bio resistance
@@ -1078,6 +1238,23 @@
 		"wound" = 15, \
 		"damage_threshold" = 12)
 
+/* Mirelurk Razorclaw armor
+ * Barnacle-plated hunter, between the hunter and the king
+ * Heavier bullet resist than the king, weaker to energy
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_MIRELURK_RAZORCLAW list(\
+		"melee" = 50, \
+		"bullet" = 55, \
+		"laser" = 20, \
+		"energy" = 20, \
+		"bomb" = 25, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 15, \
+		"acid" = 65, \
+		"wound" = 18, \
+		"damage_threshold" = 14)
+
 /* Mirelurk Queen armor
  * Massive armored carapace
  * Very high DT
@@ -1167,6 +1344,62 @@
 		"wound" = 10, \
 		"damage_threshold" = 10)
 
+/* Hellpig runt
+ * Half-grown boar, thin hide and little fat
+ * Barely stops anything, dies to a couple of rounds
+ * Very low DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_HELLPIG_RUNT list(\
+		"melee" = 5, \
+		"bullet" = 10, \
+		"laser" = 5, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 40, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 2)
+
+/* Hellpig
+ * Thick bristled hide over a heavy layer of fat
+ * Soaks small arms and blades, big rounds and lasers get through
+ * Half protected from radiation (it lives in it)
+ * Moderate DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_HELLPIG list(\
+		"melee" = 20, \
+		"bullet" = 30, \
+		"laser" = 10, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 50, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 6)
+
+/* Hellpig tusker
+ * Old boar with scarred, plate-thick hide
+ * Bullets mostly bounce, DT is what stops a rifle from being enough
+ * Lasers still cut it fine
+ * Moderate-high DT, a little under a scarred yao guai
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_HELLPIG_TUSKER list(\
+		"melee" = 30, \
+		"bullet" = 42, \
+		"laser" = 15, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 60, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 5, \
+		"damage_threshold" = 10)
+
 /* Catslug armor
  * Fairly low
  * Decent mob protection
@@ -1243,6 +1476,23 @@
 		"wound" = 5, \
 		"damage_threshold" = 3)
 
+/* Centaur FEV-perfected armor
+ * Stabilized FEV strain, thick muscle and scar tissue
+ * Solid melee/bullet resist, still weak to energy
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_CENTAUR_PERFECTED list(\
+		"melee" = 40, \
+		"bullet" = 35, \
+		"laser" = 15, \
+		"energy" = 15, \
+		"bomb" = 15, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 10, \
+		"acid" = 40, \
+		"wound" = 10, \
+		"damage_threshold" = 8)
+
 /* Tunneler armor
  * Deadly swarm creature with tough hide
  * Moderate melee/bullet resistance
@@ -1260,6 +1510,24 @@
 		"acid" = 20, \
 		"wound" = 10, \
 		"damage_threshold" = 6)
+
+/* Spore carrier armor
+ * Fungus-riddled corpse, tough and immune to the spores it carries
+ * Moderate melee and bullet resistance, burns easily
+ * Low DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_SPORECARRIER list(\
+		"melee" = 20, \
+		"bullet" = 15, \
+		"laser" = 0, \
+		"energy" = 0, \
+		"bomb" = 5, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = -25, \
+		"acid" = 10, \
+		"wound" = 10, \
+		"damage_threshold" = 3)
 
 /* Fog crawler
  * Thick mirelurk-style shell, a step above the standard mirelurk
@@ -1574,7 +1842,7 @@
 /* Enclave Hellfire trooper
  * Above the APA armored infantry (95/100/DT 14): Hellfire plating, the best armor in the game for mobs
  * Plasma and energy still get through better than anything else (energy 55)
- * Bullet / laser / fire 100 matches ENCLAVE_APA, which already uses 100; whether the system caps mob DR at 95 is unverified
+ * DR is capped at ARMOR_CAP_DR (95), so bullet / laser / fire 100 behave like 95; the real edge over APA is melee, energy, DT and wound
  * * * * * * * * * * * */
 #define ARMOR_VALUE_ENCLAVE_HELLFIRE list(\
 		"melee" = 95, \
@@ -1627,6 +1895,24 @@
 		"acid" = 10, \
 		"wound" = 0, \
 		"damage_threshold" = 2)
+
+/* Chinese remnant heavy
+ * Ghoul gunner in scavenged plate carriers, slow but sturdy
+ * Better bullet resist than the line soldiers
+ * Medium DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_CHINESE_HEAVY list(\
+		"melee" = 5, \
+		"bullet" = 35, \
+		"laser" = 25, \
+		"energy" = 30, \
+		"bomb" = 5, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 10, \
+		"acid" = 10, \
+		"wound" = 0, \
+		"damage_threshold" = 5)
 
 /* Armor Subclass multipliers
  * Modifies base armor slots by these values
@@ -1976,6 +2262,8 @@ GLOBAL_LIST_INIT(armor_token_operation_legend, list(
 #define ARMOR_CAP_MAGIC 100
 #define ARMOR_CAP_WOUND 100
 #define ARMOR_CAP_DT 40
+/// Highest DT pen a gun attachment can bring a round up to
+#define GUN_DT_PEN_UPGRADE_CAP 10
 #define ARMOR_CAP_DR 95
 
 /// Armor stiffness - How much recoil we get while running and gunning!

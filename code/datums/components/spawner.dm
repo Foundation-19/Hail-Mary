@@ -1,3 +1,5 @@
+#define SPAWNER_SPAWNS_PER_SECOND 6
+
 /datum/component/spawner
 	var/mob_types = list(/mob/living/simple_animal/hostile/carp)
 	/// List of 'special' mobs to spawn
@@ -109,7 +111,23 @@
 		return
 	if(!can_spawn_mob())
 		return
+	if(!claim_spawn_budget())
+		return
 	spawn_mob()
+
+/// Caps how many mobs all spawners together may create per second. Without it, every nest near a fresh arrival
+/// fires in the same tick (nothing is on cooldown yet) and the burst of new AI mobs stalls the MC.
+/datum/component/spawner/proc/claim_spawn_budget()
+	var/static/window_start = 0
+	var/static/spent = 0
+	if(world.time >= window_start + 1 SECONDS)
+		window_start = world.time
+		spent = 0
+	// A swarm larger than the budget is still allowed through when the window is empty
+	if(spent && spent + swarm_size > SPAWNER_SPAWNS_PER_SECOND)
+		return FALSE
+	spent += swarm_size
+	return TRUE
 
 /// Something told us to restart spawning
 /datum/component/spawner/proc/start_spawning()

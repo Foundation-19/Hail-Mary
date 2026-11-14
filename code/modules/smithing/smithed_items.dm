@@ -219,7 +219,7 @@
 		finalitem.name = "[touch_name][qualname] [mat] [initial(finalitem.name)]"
 	if(pattern_welded)
 		finalitem.desc += " Its layered construction forms a distinctive pattern."
-	finalitem.AddComponent(/datum/component/smithing_maker_mark)
+	finalitem.AddComponent(/datum/component/smithing_maker_mark, quality)
 	finalitem.forceMove(get_turf(src))
 	if(forging_steps && final_forging_stress < SMITH_STRESS_REWARD_THRESHOLD && bright_forging_steps * 2 >= forging_steps)
 		record_mastery(user, "bright forging")
@@ -259,8 +259,27 @@
 		to_chat(user, span_notice("You have begun mastering [technique]."))
 #undef SMITH_STRESS_REWARD_THRESHOLD
 
+/// Blacksmithing level needed to read the exact quality of a finished piece on examine
+#define SMITH_QUALITY_VISIBLE_LEVEL 3
+
 /datum/component/smithing_maker_mark
 	var/marked = FALSE
+	/// Final quality of the piece, shown on examine
+	var/quality
+
+/datum/component/smithing_maker_mark/Initialize(_quality)
+	. = ..()
+	if(. == COMPONENT_INCOMPATIBLE || !isatom(parent))
+		return COMPONENT_INCOMPATIBLE
+	quality = _quality
+	if(!isnull(quality))
+		RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+
+/datum/component/smithing_maker_mark/proc/on_examine(datum/source, mob/user, list/examine_list)
+	SIGNAL_HANDLER
+	if(!user?.mind || user.mind.get_skill_level(/datum/skill/level/dwarfy/blacksmithing) < SMITH_QUALITY_VISIBLE_LEVEL)
+		return
+	examine_list += span_notice("Your trained eye puts its forged quality at <b>[round(quality, 0.1)]</b>.")
 
 /datum/component/smithing_maker_mark/proc/apply_mark(mob/user, mark_text)
 	if(marked)
@@ -333,7 +352,7 @@
 
 /obj/item/smithing/weapon/startfinish(mob/user)
 	finalitem = new finalitem(src)
-	finalitem.force += quality * quality_to_force_coeff
+	finalitem.force += QUALITY_MODIFIER * quality_to_force_coeff
 	finalitem.armour_penetration += quality * quality_to_pen_coeff
 	. = ..()
 
@@ -566,7 +585,7 @@
 
 /obj/item/smithing/prospectingpickhead/startfinish(mob/user)
 	var/obj/item/mining_scanner/prospector/finalforreal = new /obj/item/mining_scanner/prospector(src)
-	finalforreal.range = 2 + QUALITY_MODIFIER
+	finalforreal.range = 2 + quality
 	if(quality)
 		finalforreal.cooldown = 100/quality
 	finalforreal.force += QUALITY_MODIFIER
@@ -975,7 +994,7 @@
 
 /obj/item/smithing/bola/startfinish(mob/user)
 	var/obj/item/restraints/legcuffs/bola/smithed/finalforreal = new /obj/item/restraints/legcuffs/bola/smithed(src)
-	finalforreal.breakouttime += QUALITY_MODIFIER * 2
+	finalforreal.breakouttime += quality * 2
 	finalitem = finalforreal
 	..()
 

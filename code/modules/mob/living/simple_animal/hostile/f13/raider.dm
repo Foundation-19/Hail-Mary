@@ -333,7 +333,7 @@
 	attack_verb_simple = list("bayonets", "smacks", "bites", "mauls", "slashes", "thrashes", "bashes", "glomps", "robusts on")
 	variation_list = list()
 
-// FIX: Same double-summon issue as mangomatt. Added proper return check.
+// Skips the boss shout when the parent Aggro already handled it (and summoned backup).
 /mob/living/simple_animal/hostile/raider/ranged/boss/blueberrybates/Aggro()
 	. = ..()
 	if(.)
@@ -454,7 +454,7 @@
 // only chosen for its damage values - using base is cleaner and more intentional.
 /mob/living/simple_animal/hostile/raider/outlaw
 	name = "Bouncer"
-	faction = list("raider", "wastelander") // FIX: was list("Raiders","Wastelander") - wrong case, broke faction checks
+	faction = list("raider", "wastelander")
 	icon_state = "badland_raider"
 	icon_living = "badland_raider"
 	icon_dead = "badland_raider_dead"
@@ -632,7 +632,7 @@
 	minimum_distance = 1
 
 	ranged_cooldown_time = 2 SECONDS
-	// FIX: c10mm projectile was paired with ninemil.ogg sound. Using 10mm sound.
+	// The 10mm projectile uses the 10mm sound
 	projectiletype = /obj/item/projectile/bullet/c10mm/simple
 	projectilesound = 'sound/f13weapons/10mm_fire_02.ogg'
 
@@ -654,7 +654,7 @@
 	name = "Cultist Crowd Controller"
 	icon_state = "cultist_shotgun"
 	icon_living = "cultist_shotgun"
-	icon_dead = "cultist_shotgun_dead" // FIX: was missing, fell back to wrong parent dead sprite
+	icon_dead = "cultist_shotgun_dead"
 
 	ranged_cooldown_time = 4 SECONDS
 	auto_fire_delay = GUN_AUTOFIRE_DELAY_SLOW

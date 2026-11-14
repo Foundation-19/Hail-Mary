@@ -199,6 +199,33 @@
 	
 	pop_required_to_jump_into = MED_MOB_MIN_PLAYERS
 
+// DIRE WOLF - T4 of the canine ladder
+/mob/living/simple_animal/hostile/wolf/cold/dire
+	armour_penetration = 0.15
+	damage_threshold_penetration_mob = 5
+	name = "dire wolf"
+	desc = "A hulking, bone-scarred wolf the size of a pony. It has outlived every pack it has ever led."
+
+	maxHealth = 210
+	health = 210
+
+	melee_damage_lower = 24
+	melee_damage_upper = 34
+	stat_attack = UNCONSCIOUS
+
+	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
+
+/mob/living/simple_animal/hostile/wolf/cold/dire/Initialize()
+	. = ..()
+	resize = 1.25
+	update_transform()
+
+/mob/living/simple_animal/hostile/wolf/cold/dire/Aggro()
+	. = ..()
+	if(.)
+		return
+	summon_backup(14)
+
 /////////////////
 // UNIQUE DOGS //
 /////////////////

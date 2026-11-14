@@ -188,6 +188,7 @@
  */
 /obj/item/proc/active_block_calculate_final_damage(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return)
 	var/datum/block_parry_data/data = get_block_parry_data()
+	var/initial_damage = damage
 	var/absorption = data.attack_type_list_scan(data.block_damage_absorption_override, attack_type)
 	var/efficiency = data.attack_type_list_scan(data.block_damage_multiplier_override, attack_type)
 	var/limit = data.attack_type_list_scan(data.block_damage_limit_override, attack_type)
@@ -208,6 +209,12 @@
 	damage -= min(absorption, damage)		//this way if damage is less than absorption it 0's properly.
 	// apply multiplier to remaining
 	final_damage += (damage * efficiency)
+	// material realism: wood and plastic don't care for lasers or plasma, metal sheds beams but not bolts of plasma
+	if(length(data.block_projectile_flag_multiplier) && istype(object, /obj/item/projectile))
+		var/obj/item/projectile/P = object
+		var/flag_multiplier = data.block_projectile_flag_multiplier[P.flag]
+		if(flag_multiplier)
+			final_damage = min(final_damage * flag_multiplier, initial_damage)
 	return final_damage
 
 /// Amount of stamina from damage blocked. Note that the damage argument is damage_blocked.

@@ -64,7 +64,7 @@
 		return ..()
 	return ..(1)
 
-/mob/living/simple_animal/hostile/mimic/crate/FindTarget()
+/mob/living/simple_animal/hostile/mimic/crate/FindTarget(list/possible_targets, HasTargetsList = 0, bypass_detection = FALSE)
 	. = ..()
 	if(.)
 		trigger()

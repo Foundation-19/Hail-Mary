@@ -1,7 +1,5 @@
-// Combat mode defines
-#define COMBAT_MODE_MELEE 1   // Pure melee, always rush in
-#define COMBAT_MODE_RANGED 2  // Pure ranged, never voluntarily enter melee
-#define COMBAT_MODE_MIXED 3   // Ranged but will melee if target gets close (like reaver)
+/// When TRUE, hostile mobs log target acquire/loss and search transitions to the game log. Toggle via VV.
+GLOBAL_VAR_INIT(debug_ai, FALSE)
 
 /mob/living/simple_animal/hostile
 	faction = list("hostile")
@@ -69,6 +67,8 @@
 	var/ranged_message = "fires" //Fluff text for ranged mobs
 	var/ranged_cooldown = 0 //What the current cooldown on ranged attacks is, generally world.time + ranged_cooldown_time
 	var/ranged_cooldown_time = 3 SECONDS //How long, in deciseconds, the cooldown of ranged attacks is
+	/// Low cover (sandbags, bars, tables) neither stops a ranged mob's shots nor makes it hold fire
+	var/shoot_over_cover = TRUE
 	var/ranged_ignores_vision = FALSE //if it'll fire ranged attacks even if it lacks vision on its target, only works with environment smash
 	var/check_friendly_fire = 0 // Should the ranged mob check for friendlies when shooting
 	/// If our mob runs from players when they're too close, set in tile distance. By default, mobs do not retreat.
@@ -185,9 +185,33 @@
 	var/last_search_exit_time = 0
 	/// SMART SEARCH: Cooldown before re-entering search (prevents spam loop)
 	var/search_entry_cooldown = 10 // 1 second
+	/// SMART SEARCH: Earliest world.time search_for_target may run again. Search is driven by the AI tick
+	/// (handle_automated_action), not by self-rescheduling timers, so there is no callback chain to go stale.
+	var/search_next_tick = 0
+	/// SMART SEARCH: Where the search walk is heading. search_for_target decides it on a slow cadence;
+	/// MoveToTarget re-issues the walk every AI tick until the mob arrives.
+	var/atom/search_move_goal = null
+	var/turf/search_move_last_pos = null
+	/// SMART SEARCH: Consecutive tick checks where the re-issued walk made no progress
+	var/search_move_stalls = 0
+	/// SMART SEARCH: Set after opening a door or container; the next search tick looks for targets before anything else
+	var/search_look_message = null
+	var/atom/search_look_near = null
+	/// Idle curiosity: bumped to invalidate every pending curiosity callback
+	var/curiosity_token = 0
+	/// SMART SEARCH: Position at the previous tick, used to detect a stuck path
+	var/turf/search_last_pos = null
+	/// SMART SEARCH: Consecutive ticks spent far from the destination without moving
+	var/search_stuck_ticks = 0
+	/// SMART SEARCH: Last known position this mob has already reached; from then on it sweeps the area around it instead of walking back
+	var/turf/search_arrived_at = null
+	/// SMART SEARCH: Goal whose walk progress is being tracked, the closest we have been to it, and the search steps since that improved
+	var/atom/search_progress_goal = null
+	var/search_progress_best = 0
+	var/search_progress_steps = 0
 
 	/// How far to call for backup when finding a target (tiles)
-	var/backup_call_range = 2
+	var/backup_call_range = 7
 	/// Cooldown between backup calls to prevent spam
 	COOLDOWN_DECLARE(backup_call_cooldown)
 	/// How long between backup calls (deciseconds)
@@ -255,12 +279,12 @@
 	var/can_detect_light = TRUE
 
 	// DETECTION DELAY SYSTEM - Sneaking players have detection buildup time
-	/// Detection progress toward player (0 to detection_time_required)
-	var/detection_progress = 0
 	/// How long to fully detect player (deciseconds) - 0 = instant, 30 = 3 seconds for sneaking
 	var/detection_time_required = 0
-	/// Who are we currently building detection progress toward?
-	var/atom/detecting_target = null
+	/// Per-candidate sneak detection: candidate atom -> list(start_time, last_checked_time)
+	var/list/detection_timers
+	/// Set once a nested ListTargets() result has been reported, so the log isn't spammed every tick
+	var/nested_target_list_reported = FALSE
 	/// Cooldown for detection tick updates
 	COOLDOWN_DECLARE(detection_tick_cooldown)
 	/// How far can we detect light sources? (tiles)
@@ -294,30 +318,6 @@
 	/// How long to wait before smashing (deciseconds) - 15 seconds (stuck_timeout + smash_delay)
 	var/smash_delay = 150
 
-	/// DOOR KITING PREVENTION: Track TARGET's door passages to detect exploit
-	/// Last door the target passed through
-	var/atom/target_last_door = null
-	/// How many times has target passed through this door recently?
-	var/target_door_pass_count = 0
-	/// Last time target passed through a door
-	var/target_last_door_pass_time = 0
-	/// Have we committed to one side due to target kiting?
-	var/committed_to_door_side = FALSE
-	/// Which side of the door are we committed to?
-	var/turf/committed_door_location = null
-	/// Last known position of target (for tracking movement)
-	var/turf/target_last_position = null
-	
-	/// CORNER KITING PREVENTION: Track target peeking around corners
-	/// How many times has target peeked from same area?
-	var/corner_peek_count = 0
-	/// Last time target peeked
-	var/last_corner_peek_time = 0
-	/// Location where target keeps peeking from
-	var/turf/corner_peek_location = null
-	/// Have we committed to rushing a corner?
-	var/committed_to_corner = FALSE
-	
 	/// LIGHT PATROL SYSTEM: Idle mobs patrol to nearby doors when players are nearby
 	/// Are we on light patrol?
 	var/light_patrolling = FALSE
@@ -362,10 +362,48 @@
 	var/smash_cooldown = 50
 	/// Are we currently stuck and trying alternate routes?
 	var/is_stuck = FALSE
+	/// Kiting state: last retreat/approach decision (RETREAT_MOVE_*), used to detect flip-flopping
+	var/retreat_last_mode = 0
+	/// Number of retreat/approach direction flips inside the current window
+	var/retreat_flip_count = 0
+	/// Start of the current flip-counting window
+	var/retreat_flip_window_start = 0
+	/// Tile we last tried to retreat from; an unchanged tile means walk_away is blocked
+	var/turf/retreat_last_turf = null
+	/// Consecutive retreat ticks without changing tile
+	var/retreat_stalled_ticks = 0
+	/// While world.time is below this, a cornered retreater holds ground and fights instead of kiting
+	var/retreat_hold_until = 0
+	/// When this ranged mob's shot to its target first became blocked (0 while it has a shot)
+	var/ranged_stalled_since = 0
+	/// Last time the shot check ran, so a stale stall from an earlier fight is discarded
+	var/ranged_stalled_checked = 0
+	/// Tile a ranged mob is repositioning to because its current one has no shot
+	var/turf/ranged_push_goal = null
+	/// Earliest time the repositioning tile may be re-picked
+	var/ranged_push_next = 0
 	/// How many alternate path attempts have we made?
 	var/path_attempts = 0
 	/// Maximum path attempts before smashing
 	var/max_path_attempts = 3
+	/// Closed door (its turf) a blocked chase is currently being routed through
+	var/turf/door_route_turf = null
+	/// The door route is abandoned after this time
+	var/door_route_until = 0
+	/// Stops the door route search from running every tick
+	COOLDOWN_DECLARE(door_route_cooldown)
+	/// Waypoint on a short A* detour around something solid that Goto() ran into
+	var/turf/detour_waypoint = null
+	/// Goal the current detour was planned for; the detour is dropped if the goal moves on
+	var/turf/detour_goal = null
+	/// The detour is abandoned after this time
+	var/detour_until = 0
+	/// Where and when Goto() last sampled our position, used to notice we are not getting anywhere
+	var/turf/detour_sample_loc = null
+	var/detour_sample_time = 0
+	var/detour_blocked_ticks = 0
+	/// Stops detour A* searches from running back to back
+	COOLDOWN_DECLARE(detour_cooldown)
 	/// Last time we gave up chasing target due to being stuck
 	var/last_give_up_time = 0
 	/// Cooldown after giving up before we can re-acquire targets (deciseconds) - 15 seconds
@@ -394,10 +432,23 @@
 	COOLDOWN_DECLARE(chain_alert_cooldown)
 	/// How long between chain alerts (deciseconds)
 	var/chain_alert_delay = 30 // 3 seconds
+	/// Stops a mob flip-flopping between targets when gunfire keeps coming from a different shooter
+	COOLDOWN_DECLARE(gunfire_retarget_cooldown)
+	/// Throttles gunshot reactions during automatic fire
+	COOLDOWN_DECLARE(gunshot_react_cooldown)
+	/// How long between gunfire retargets (deciseconds)
+	var/gunfire_retarget_delay = 50
 
 /mob/living/simple_animal/hostile/Initialize()
 	. = ..()
 	roll_affix()
+	roll_ai_personality()
+
+	// Nobody is on this z yet (map load, pre-round): start dormant instead of making 1000+ mobs run their first AI pass at round start.
+	// update_z() wakes them when a player arrives.
+	var/turf/start_turf = get_turf(src)
+	if(AIStatus == AI_ON && !client && start_turf && !length(SSmobs.clients_by_zlevel[start_turf.z]))
+		toggle_ai(AI_Z_OFF)
 
 	if(!targets_from)
 		targets_from = src
@@ -405,6 +456,10 @@
 	if(MOB_EMP_DAMAGE in emp_flags)
 		smoke = new /datum/effect_system/smoke_spread/bad
 		smoke.attach(src)
+
+/mob/living/simple_animal/hostile/gc_failure_context()
+	. = ..()
+	return "[.] stat=[stat] ai_status=[AIStatus] ai_facts=[length(ai_facts)] faults=[length(ai_faults)] friends=[length(friends)] foes=[length(foes)] searching=[searching] has_target=[!!target] squad=[!!ai_squad] intent_target=[!!ai_intent_target] actions=[length(actions)] abilities=[length(abilities)] do_afters=[length(do_afters)] targeted_by=[length(targeted_by)] buckled=[!!buckled] pulledby=[!!pulledby] client=[!!client]"
 
 /mob/living/simple_animal/hostile/Destroy()
 	// Clear target reference with signal cleanup
@@ -480,10 +535,91 @@
 		deltimer(search_objects_timer_id)
 		search_objects_timer_id = null
 	
+	// Clear AI working memory, shot faults and decision/cover-push state
+	QDEL_LIST(ai_facts)
+	ai_facts = null
+	QDEL_LIST_ASSOC_VAL(ai_faults)
+	ai_faults = null
+	ai_switch_times = null
+	ai_intent_target = null
+	ai_flank_tile = null
+	ai_squad_leave()
+	ai_retreat_goal = null
+	search_move_goal = null
+	search_look_near = null
+
+	// Hostile mobs of opposing factions cache and key each other in these, which pins both in a ref cycle
+	cached_targets = null
+	cached_targets_from = null
+	detection_timers = null
+	recent_thrown_items = null
+	recent_light_shots = null
+	patrol_door_visits = null
+	searched_containers = null
+	recently_opened_door = null
+	investigating_container = null
+	patrol_target_door = null
+	door_route_turf = null
+
+	// Other hostiles remember, cache and key this mob in their own lists, which keeps it from being collected.
+	// Cleared in one batched pass so a mass despawn does not sweep every mob once per deletion.
+	queue_ai_reference_purge(src)
+
 	// Unqueue from idle NPC pool
 	SSidlenpcpool.remove_from_culling(src)
 	
 	return ..()
+
+GLOBAL_LIST_EMPTY(ai_purge_queue)
+GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
+
+/proc/queue_ai_reference_purge(atom/gone)
+	GLOB.ai_purge_queue += gone
+	if(GLOB.ai_purge_pending)
+		return
+	GLOB.ai_purge_pending = TRUE
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(run_ai_reference_purge)), 1 SECONDS)
+
+/proc/run_ai_reference_purge()
+	GLOB.ai_purge_pending = FALSE
+	var/list/gone = GLOB.ai_purge_queue
+	GLOB.ai_purge_queue = list()
+	if(!length(gone))
+		return
+	for(var/list/status_list in GLOB.simple_animals)
+		for(var/mob/living/simple_animal/hostile/other in status_list)
+			other.forget_references(gone)
+
+/// Drops every non-weak reference this mob holds to any of the deleted atoms
+/mob/living/simple_animal/hostile/proc/forget_references(list/gone)
+	if(remembered_target in gone)
+		remembered_target = null
+	if(search_move_goal in gone)
+		search_move_goal = null
+	if(search_look_near in gone)
+		search_look_near = null
+	if(ai_intent_target in gone)
+		ai_intent_target = null
+	if(z_pursuit_structure in gone)
+		z_pursuit_structure = null
+	if(recently_opened_door in gone)
+		recently_opened_door = null
+	if(investigating_container in gone)
+		investigating_container = null
+	if(patrol_target_door in gone)
+		patrol_target_door = null
+	if(length(cached_targets))
+		cached_targets -= gone
+	if(length(detection_timers))
+		detection_timers -= gone
+	if(length(friends))
+		friends -= gone
+	if(length(foes))
+		foes -= gone
+	if(length(recent_thrown_items))
+		recent_thrown_items -= gone
+	if(length(recent_light_shots))
+		recent_light_shots -= gone
 
 /mob/living/simple_animal/hostile/BiologicalLife(seconds, times_fired)
 	if(!CHECK_BITFIELD(mobility_flags, MOBILITY_MOVE))
@@ -525,34 +661,9 @@
 	if(AIStatus == AI_OFF)
 		return 0
 
-	var/list/possible_targets = ListTargets()
-	
-	// Safety check: ensure possible_targets is a proper list, not nested
-	if(!possible_targets)
-		possible_targets = list()
-	else if(!islist(possible_targets))
-		possible_targets = list(possible_targets)
-	else if(islist(possible_targets))
-		// Check for nested lists and flatten them
-		var/has_nested = FALSE
-		for(var/item in possible_targets)
-			if(islist(item))
-				has_nested = TRUE
-				break
-		
-		if(has_nested)
-			var/list/flattened = list()
-			var/original_len = possible_targets.len
-			for(var/entry in possible_targets)
-				if(islist(entry))
-					for(var/subitem in entry)
-						flattened += subitem
-				else
-					flattened += entry
-			possible_targets = flattened
-			
-			// Debug logging to track down the source
-			log_runtime("HOSTILE MOB: [src] ([type]) had nested list from ListTargets() at [get_turf(src)]. Original list: [original_len] entries, flattened to [flattened.len] entries.")
+	// GetCachedTargets() already returns a flat list of live atoms
+	var/list/possible_targets = GetCachedTargets()
+	prune_detection_timers(possible_targets)
 
 	// IMMEDIATE TARGET RESPONSE: Fast acquisition for both search mode and initial detection
 	// When idle or searching, quickly grab first valid target without waiting for next cycle
@@ -564,7 +675,7 @@
 				if(L.stat == DEAD || L.ckey && !L.client)
 					continue
 			
-			// CORE FIX: Check distance FIRST using effective range
+			// Check distance first using the effective range
 			var/effective_range = get_effective_vision_range(possible_target)
 			var/actual_distance = get_dist(src, possible_target)
 			
@@ -577,6 +688,10 @@
 			
 			// Faction check
 			if(!CanAttack(possible_target))
+				continue
+
+			// Sneaking candidates still need their detection buildup
+			if(!check_detection_delay(possible_target))
 				continue
 			
 			// All checks passed - acquire target
@@ -682,13 +797,7 @@
 			if(prob(curiosity_chance))
 				// PERFORMANCE: Use direct object range() instead of turf iteration
 				// Limit to range 3 instead of vision_range (9) to reduce lag
-				var/list/nearby_doors = list()
-				for(var/obj/structure/simple_door/SD in range(3, src))
-					if(SD.density)
-						nearby_doors += SD
-				for(var/obj/machinery/door/D in range(3, src))
-					if(D.density)
-						nearby_doors += D
+				var/list/nearby_doors = get_closed_doors(src, 3)
 				
 				if(nearby_doors.len > 0)
 					// Prefer doors closer to us
@@ -705,8 +814,9 @@
 					
 					visible_message(span_notice("[src] investigates a nearby door..."))
 					Goto(door_to_check, move_to_delay, 0)
-					// Try to open it when we get adjacent
-					addtimer(CALLBACK(src, PROC_REF(curiosity_check_door), door_to_check), 3 SECONDS, TIMER_DELETE_ME)
+					// Try to open it when we get adjacent. A new plan invalidates any older pending callbacks.
+					curiosity_token++
+					addtimer(CALLBACK(src, PROC_REF(curiosity_check_door), door_to_check, curiosity_token), 3 SECONDS, TIMER_DELETE_ME)
 	
 	// LIGHT PATROL SYSTEM: Check for nearby players and patrol
 	if(AIStatus == AI_IDLE && !target && !searching && !light_patrolling)
@@ -714,6 +824,11 @@
 		if(!patrol_check_timer || (world.time - patrol_check_timer) > 50)
 			patrol_check_timer = world.time
 			check_light_patrol()
+
+	// Searching is driven from the AI tick: one step per tick once due, no self-rescheduling timers
+	ai_sync_mode()
+	if(searching)
+		search_tick()
 
 	if(AICanContinue(possible_targets))
 		if(!QDELETED(target) && !targets_from.Adjacent(target))
@@ -805,8 +920,10 @@
 /mob/living/simple_animal/hostile/attacked_by(obj/item/I, mob/living/user, attackchain_flags = NONE, damage_multiplier = 1, damage_addition)
 	if (peaceful == TRUE)
 		peaceful = FALSE
+	if(user)
+		remember_fact(AI_FACT_HIT_FROM, get_turf(user), AI_CONF_HIT_FROM, user, "melee_hit")
 	if(stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client && user)
-		FindTarget(list(user), 1)
+		FindTarget(list(user), 1, bypass_detection = TRUE)
 		COOLDOWN_RESET(src, sight_shoot_delay) // Let them shoot back immediately when attacked
 		
 		// CHAIN REACTION: This mob just woke up, alert nearby allies
@@ -816,6 +933,7 @@
 /mob/living/simple_animal/hostile/bullet_act(obj/item/projectile/P)
 	// ALERT NEARBY ALLIES ABOUT COMBAT - alert at multiple locations
 	if(P.firer)
+		remember_fact(AI_FACT_HIT_FROM, get_turf(P.firer), AI_CONF_HIT_FROM, P.firer, "bullet_hit")
 		// Alert from shooter location (full range, muffled by walls)
 		alert_allies_of_combat(get_turf(P.firer), P.firer)
 		
@@ -849,13 +967,15 @@
 			if(should_retarget)
 				if(searching)
 					exit_search_mode(found_target = TRUE) // Found shooter
-				FindTarget(list(P.firer), 1)
+				FindTarget(list(P.firer), 1, bypass_detection = TRUE)
 				COOLDOWN_RESET(src, sight_shoot_delay)
 				trigger_chain_alert(P.firer)
 				visible_message(span_danger("[src] turns its attention to [P.firer]!"))
+				ai_return_fire(target)
 				return
 				
 		if(!target) // Only run to projectile source if we have no target after all checks
+			update_search_destination(get_turf(P.firer), "hit_from", AI_CONF_HIT_FROM, P.firer)
 			Goto(P.starting, move_to_delay, 3)
 
 // GLOBAL HELPER: Alert all hostile mobs about a projectile impact at a location
@@ -888,7 +1008,7 @@
 	if(!threat)
 		return
 
-	// BUG 2 FIX: Only alpha mobs broadcast chain alerts
+	// Only alpha mobs broadcast chain alerts
 	if(!is_alpha_alerter)
 		return
 
@@ -956,6 +1076,8 @@
 		remembered_target = threat
 		last_target_sighting = world.time
 		last_known_location = get_turf(threat)
+		search_dest_confidence = AI_CONF_SIGHT
+		search_dest_time = world.time
 		// GiveTarget (called by FindTarget) sets is_alpha_alerter = TRUE
 		// so this mob CAN chain-alert further
 		trigger_chain_alert(threat)
@@ -964,7 +1086,7 @@
 		is_alpha_alerter = FALSE
 		if(AIStatus != AI_ON)
 			toggle_ai(AI_ON)
-		last_known_location = get_turf(threat)
+		update_search_destination(get_turf(threat), "chain_alert", AI_CONF_ALERT, threat)
 		enter_search_mode() // is_alpha_alerter=FALSE → no broadcast
 
 
@@ -998,8 +1120,9 @@
 /mob/living/simple_animal/hostile/proc/alert_allies_of_combat(turf/combat_location, atom/attacker)
 	if(!combat_location)
 		return
+	if(attacker)
+		ai_get_squad()?.note_threat(attacker, combat_location, src)
 	
-	// Find allies in hearing range across Z-levels
 	var/list/allies_in_range = list()
 	
 	// Same Z
@@ -1397,11 +1520,88 @@
 	
 	return detection_range
 
+/// Per-tick cache of ListTargets(); subtype overrides of ListTargets() are still honoured.
+/mob/living/simple_animal/hostile/var/list/cached_targets
+/mob/living/simple_animal/hostile/var/cached_targets_time = -1
+/mob/living/simple_animal/hostile/var/cached_targets_from
+/// vision_reject log throttle
+/mob/living/simple_animal/hostile/var/vision_reject_next = 0
+/mob/living/simple_animal/hostile/var/vision_reject_last_reason
+
+/mob/living/simple_animal/hostile/proc/GetCachedTargets()
+	// islist, not truthiness: an empty result is the common case and must be cached too
+	if(cached_targets_time == world.time && cached_targets_from == targets_from && islist(cached_targets))
+		return cached_targets.Copy()
+	var/list/result = sanitize_target_list(ListTargets())
+	cached_targets = result.Copy()
+	cached_targets_time = world.time
+	cached_targets_from = targets_from
+	return result
+
+/// Single normalisation point for ListTargets() output: flat list of live atoms, whatever a subtype override returned.
+/mob/living/simple_animal/hostile/proc/sanitize_target_list(raw)
+	var/list/clean = list()
+	if(isnull(raw))
+		return clean
+	if(!islist(raw))
+		if(isatom(raw))
+			var/atom/single = raw
+			if(!QDELETED(single))
+				clean += single
+		return clean
+	var/had_nested = FALSE
+	for(var/entry in raw)
+		if(islist(entry))
+			had_nested = TRUE
+			for(var/sub_entry in entry)
+				if(!isatom(sub_entry))
+					continue
+				var/atom/nested_atom = sub_entry
+				if(!QDELETED(nested_atom))
+					clean += nested_atom
+		else if(isatom(entry))
+			var/atom/flat_atom = entry
+			if(!QDELETED(flat_atom))
+				clean += flat_atom
+	if(had_nested && !nested_target_list_reported)
+		nested_target_list_reported = TRUE
+		log_runtime("HOSTILE MOB: [type] returned a nested list from ListTargets() at [AREACOORD(src)]; flattened. Check the ListTargets() override for this type.")
+	return clean
+
+/// Logs why a player inside vision_range was not seen: rear cone, too dark or too far for the cone, or no line of sight.
+/// Throttled per mob, so a mob that keeps missing someone logs one line every two seconds.
+/mob/living/simple_animal/hostile/proc/log_vision_reject(atom/A, actual_distance, effective_range)
+	if(!ismob(A))
+		return
+	var/mob/M = A
+	if(!M.ckey)
+		return
+	var/reason
+	if(effective_range <= 0)
+		reason = "rear_cone"
+	else if(actual_distance > effective_range)
+		reason = "out_of_range"
+	else
+		reason = "no_los"
+	if(reason == vision_reject_last_reason && world.time < vision_reject_next)
+		return
+	vision_reject_last_reason = reason
+	vision_reject_next = world.time + 20
+	var/cone_name = "front"
+	switch(get_vision_cone(A))
+		if(CONE_PERIPHERAL)
+			cone_name = "peripheral"
+		if(CONE_REAR)
+			cone_name = "rear"
+	var/turf/their_turf = get_turf(A)
+	var/light_amount = their_turf ? round(their_turf.get_lumcount(), 0.01) : -1
+	ai_debug_log("vision_reject target=[M] reason=[reason] dist=[actual_distance] eff_range=[effective_range] cone=[cone_name] facing=[dir] light=[light_amount] searching=[searching]")
+
 /mob/living/simple_animal/hostile/proc/ListTargets()//Step 1, find out what we can see
 	if(stat == DEAD) // Dead mobs can't detect targets
 		return list()
 	if(!search_objects)
-		// CORE FIX: Filter by effective range BEFORE adding to list
+		// Filter by effective range before adding to the list
 		. = list()
 		
 		// Get all potential targets in max vision range
@@ -1421,8 +1621,8 @@
 			
 			var/actual_distance = get_dist(src, A)
 			
-			// Check if within visual range
-			if(actual_distance <= effective_range)
+			// Check if within visual range AND not hidden behind walls/doors
+			if(actual_distance <= effective_range && can_see(targets_from, A, effective_range))
 				. += A
 				if(debug_vision && isliving(A))
 					var/mob/living/L = A
@@ -1436,11 +1636,17 @@
 						if(CONE_REAR)
 							cone_name = "REAR (blind)"
 					to_chat(L, span_notice("[src] detected you via VISION in [cone_name] cone at [actual_distance] tiles (max: [effective_range])"))
+					ai_debug_log("detected [key_name(L)] via VISION in [cone_name] cone at [actual_distance] tiles (max: [effective_range])")
 				continue
 			
+			// Not seen. Players only, and throttled, so the log says why a mob missed someone it should have noticed.
+			if(GLOB.debug_ai || debug_vision)
+				log_vision_reject(A, actual_distance, effective_range)
+
 			// SOUND-BASED DETECTION (for targets behind us)
 			var/sound_range = detect_rear_movement(A)
-			if(sound_range > 0 && actual_distance <= sound_range)
+			// CanAttack last: same-faction mobs must not trigger a search, or a group of friendlies keeps hunting each other in circles
+			if(sound_range > 0 && actual_distance <= sound_range && CanAttack(A))
 				// Heard movement! Turn to face the sound source
 				var/face_dir = get_dir(src, A)
 				if(face_dir && face_dir != dir)
@@ -1451,9 +1657,11 @@
 				var/can_actually_see = can_see(src, A, effective_range) && (actual_distance <= effective_range)
 				
 				if(!can_actually_see)
-					// Heard something, turned to check, but can't see it - enter search mode
-					if(!searching && !target)
-						last_known_location = get_turf(A)
+					// Heard something, turned to check, but can't see it. Steer the search toward the noise,
+					// whether or not we are already searching. The exact turf is used (not a fuzzed one) because
+					// this runs every tick and a random spot would make the walk jitter.
+					if(!target)
+						update_search_destination(get_turf(A), "rear_movement", AI_CONF_REAR_SOUND, A)
 						remembered_target = A
 						last_target_sighting = world.time
 					
@@ -1465,6 +1673,7 @@
 					if(debug_vision && isliving(A))
 						var/mob/living/L = A
 						to_chat(L, span_warning("[src] heard you but can't see you (stealth: [effective_range] tiles) - searching!"))
+						ai_debug_log("heard [key_name(L)] but can't see them (range [effective_range]) - searching")
 						var/sound_cone = get_sound_cone(L)
 						var/cone_name = "UNKNOWN"
 						switch(sound_cone)
@@ -1487,7 +1696,15 @@
 						if(SOUND_REAR_PERIPHERAL)
 							cone_name = "REAR PERIPHERAL (45°)"
 					to_chat(L, span_notice("[src] detected you via SOUND in [cone_name] cone at [actual_distance] tiles (max: [sound_range])"))
+					ai_debug_log("detected [key_name(L)] via SOUND in [cone_name] cone at [actual_distance] tiles (max: [sound_range])")
 		
+		// hearers() does not include mobs inside containers, so a target that just hid in a closet or bin would drop
+		// out of the candidate list and be cleared. Keep the held target while it is in a container we can see.
+		if(isliving(target) && !QDELETED(target) && !(target in .) && istype(target.loc, /obj/structure/closet))
+			var/obj/structure/closet/hide_container = target.loc
+			if(hide_container.z == z && get_dist(src, hide_container) <= get_effective_vision_range(target) && can_see(targets_from, hide_container, vision_range))
+				. += target
+
 		// Check for targets one Z-level ABOVE through openspace
 		var/turf/our_turf = get_turf(targets_from)
 		var/turf/above_us = get_step_multiz(our_turf, UP)
@@ -1525,7 +1742,7 @@
 							. += M
 		
 		// Add hostile machines that are in effective range
-		var/static/hostile_machines = typecacheof(list(/obj/machinery/porta_turret, /obj/mecha, /obj/structure/destructible/clockwork/ocular_warden, /obj/item/electronic_assembly))
+		var/static/hostile_machines = typecacheof(list(/obj/machinery/porta_turret, /obj/mecha, /obj/vehicle/sealed, /obj/structure/destructible/clockwork/ocular_warden, /obj/item/electronic_assembly))
 		
 		for(var/HM in typecache_filter_list(range(vision_range, targets_from), hostile_machines))
 			CHECK_TICK
@@ -1552,19 +1769,19 @@
 						continue // No detection through walls, regardless of sneak mode
 				. += A
 
-/mob/living/simple_animal/hostile/proc/FindTarget(list/possible_targets, HasTargetsList = 0)
+/mob/living/simple_animal/hostile/proc/FindTarget(list/possible_targets, HasTargetsList = 0, bypass_detection = FALSE)
 	. = list()
 
 	if(peaceful == FALSE)
 		if(!HasTargetsList)
-			possible_targets = ListTargets()
+			possible_targets = GetCachedTargets()
 
 		// SEARCH MODE: If searching and target reappears in LOS, re-acquire
 		if(searching && target && (target in possible_targets) && can_see(src, target, get_effective_vision_range(target)))
 			exit_search_mode(found_target = TRUE)
 			last_target_sighting = world.time
 			remembered_target = target
-			GiveTarget(target)
+			GiveTarget(target, "search_reacquire")
 			COOLDOWN_START(src, sight_shoot_delay, sight_shoot_delay_time)
 			call_for_backup(target, "found")
 			return target
@@ -1579,13 +1796,25 @@
 				. += A
 				continue
 
+		// Sneak detection is tracked per candidate, so a picked-over sneaker keeps its progress.
+		// Being attacked or shot (bypass_detection) reveals the attacker immediately.
+		if(!bypass_detection)
+			var/list/detected = list()
+			for(var/atom/candidate in .)
+				if(check_detection_delay(candidate))
+					detected += candidate
+			. = detected
+
 		var/Target = PickTarget(.)
-		
-		// Check detection delay for sneaking targets
-		if(Target && !check_detection_delay(Target))
-			return // Still building detection, don't acquire yet
-		
-		GiveTarget(Target)
+
+		if(!Target && target)
+			// A held target that is merely out of the candidate list is not lost here;
+			// MoveToTarget()'s LOS grace and LoseTarget(reason) own that decision.
+			if(!HasTargetsList)
+				return null
+			ai_debug_log("target_cleared target=[target] reason=find_target_no_candidates")
+
+		GiveTarget(Target, "find_target")
 		COOLDOWN_START(src, sight_shoot_delay, sight_shoot_delay_time)
 
 		if(Target)
@@ -1600,7 +1829,7 @@
 
 /mob/living/simple_animal/hostile/proc/PossibleThreats()
 	. = list()
-	for(var/pos_targ in ListTargets())
+	for(var/pos_targ in GetCachedTargets())
 		var/atom/A = pos_targ
 		if(Found(A))
 			. = list(A)
@@ -1612,18 +1841,47 @@
 /mob/living/simple_animal/hostile/proc/Found(atom/A)//This is here as a potential override to pick a specific target if available
 	return
 
+/// Clearly-closer margin (tiles) another candidate needs before we drop a held target for it
+#define TARGET_SWITCH_MARGIN 2
+
 /mob/living/simple_animal/hostile/proc/PickTarget(list/Targets)//Step 3, pick amongst the possible, attackable targets
-	if(target != null)//If we already have a target, but are told to pick again, calculate the lowest distance between all possible, and pick from the lowest distance targets
-		for(var/pos_targ in Targets)
-			var/atom/A = pos_targ
-			var/target_dist = get_dist(targets_from, target)
-			var/possible_target_distance = get_dist(targets_from, A)
-			if(target_dist < possible_target_distance)
-				Targets -= A
-	if(!Targets.len)//We didnt find nothin!
+	if(!Targets || !Targets.len)//We didnt find nothin!
 		return
-	var/chosen_target = pick(Targets)//Pick the remaining targets (if any) at random
-	return chosen_target
+	if(target != null)
+		var/target_dist = get_dist(targets_from, target)
+		if(target in Targets)
+			// A fresh target is held for a moment so a mob can't flip between candidates
+			if(world.time < ai_target_lock_until)
+				return target
+			// Switch only when a candidate is clearly closer, and then to the closest one
+			var/atom/closest_better
+			var/closest_better_dist = INFINITY
+			for(var/atom/A in Targets)
+				var/candidate_dist = get_dist(targets_from, A)
+				if(A != target && (candidate_dist + TARGET_SWITCH_MARGIN) <= target_dist && candidate_dist < closest_better_dist)
+					closest_better = A
+					closest_better_dist = candidate_dist
+			return closest_better || target
+		// Held target not visible: only consider candidates no farther than where it was last seen
+		var/list/not_farther = list()
+		for(var/atom/A in Targets)
+			if(get_dist(targets_from, A) <= target_dist)
+				not_farther += A
+		Targets = not_farther
+		if(!Targets.len)
+			return
+	return pick(Targets)
+
+/// A sealed vehicle is a valid target while it carries someone we'd attack. Occupants sit inside the
+/// vehicle (no turf coordinates), so they can't go through CanAttack() and are checked here instead.
+/mob/living/simple_animal/hostile/proc/vehicle_has_attackable_occupant(obj/vehicle/V)
+	for(var/mob/living/L in V.return_occupants())
+		if(L.stat != CONSCIOUS || (L.status_flags & GODMODE))
+			continue
+		if(!foes[L] && faction_check_mob(L) && !attack_same)
+			continue
+		return TRUE
+	return FALSE
 
 // Please do not add one-off mob AIs here, but override this function for your mob
 /mob/living/simple_animal/hostile/CanAttack(atom/the_target)
@@ -1641,9 +1899,10 @@
 		return FALSE
 	
 	// Allow attacking through Z-levels if there's openspace
-	if(the_target.z != z)
+	var/target_z = z_of(the_target)
+	if(target_z != z)
 		// Target is above us
-		if(the_target.z == z + 1)
+		if(target_z == z + 1)
 			var/turf/above_us = get_step_multiz(get_turf(src), UP)
 			if(!istype(above_us, /turf/open/transparent/openspace))
 				return FALSE
@@ -1651,7 +1910,7 @@
 			if(!istype(target_turf, /turf/open/transparent/openspace))
 				return FALSE
 		// Target is below us
-		else if(the_target.z == z - 1)
+		else if(target_z == z - 1)
 			var/turf/our_turf = get_turf(src)
 			if(!istype(our_turf, /turf/open/transparent/openspace))
 				// Check if we're near openspace
@@ -1694,6 +1953,9 @@
 				if(CanAttack(M.occupant))
 					return TRUE
 
+		if(istype(the_target, /obj/vehicle/sealed))
+			return vehicle_has_attackable_occupant(the_target)
+
 		if(istype(the_target, /obj/machinery/porta_turret))
 			var/obj/machinery/porta_turret/P = the_target
 			if(P.in_faction(src))
@@ -1733,39 +1995,54 @@
 
 	// Not sneaking = instant detection
 	if(!target_sneaking)
-		detection_progress = 0
-		detecting_target = null
+		if(LAZYLEN(detection_timers))
+			detection_timers -= candidate_target
 		return TRUE
 
-	// Sneaking = 3 second buildup (30 deciseconds)
+	// Sneaking = 3 second buildup (30 deciseconds), tracked separately for every candidate
 	var/required_time = 30
+	// A gap this long in observation restarts the buildup (deciseconds)
+	var/observation_gap = 20
 
-	// Reset if we switched targets
-	if(detecting_target != candidate_target)
-		detection_progress = 0
-		detecting_target = candidate_target
-
-	// Start detection timer
-	if(!detection_progress)
-		detection_progress = world.time // store start time
+	LAZYINITLIST(detection_timers)
+	var/list/entry = detection_timers[candidate_target]
+	if(!entry || (world.time - entry[2]) > observation_gap)
+		detection_timers[candidate_target] = list(world.time, world.time)
+		ai_debug_log("sneak_detect_start candidate=[candidate_target] required=[required_time]")
 		return FALSE
 
-	var/elapsed = world.time - detection_progress
-	if(elapsed >= required_time)
+	entry[2] = world.time
+	if((world.time - entry[1]) >= required_time)
 		// Fully detected!
-		detection_progress = 0
-		detecting_target = null
+		detection_timers -= candidate_target
+		ai_debug_log("sneak_detect_complete candidate=[candidate_target]")
 		return TRUE
 
 	// Still building up - not detected yet
 	return FALSE
 
-/mob/living/simple_animal/hostile/proc/GiveTarget(new_target)
+/// Drop sneak-detection progress for candidates that are gone or no longer perceived
+/mob/living/simple_animal/hostile/proc/prune_detection_timers(list/visible_targets)
+	if(!LAZYLEN(detection_timers))
+		return
+	for(var/atom/candidate in detection_timers)
+		if(QDELETED(candidate) || !(candidate in visible_targets))
+			detection_timers -= candidate
+	if(!detection_timers.len)
+		detection_timers = null
+
+/mob/living/simple_animal/hostile/proc/GiveTarget(new_target, reason)
 	if(stat == DEAD) // Dead mobs can't acquire targets
 		return
+	var/atom/old_target = target
+	var/fresh_threat = !old_target && new_target && (world.time - last_target_sighting) > AI_FRESH_THREAT_GAP
+	if((GLOB.debug_ai || debug_vision) && new_target && new_target != target)
+		ai_debug_log("target_acquired [new_target] reason=[reason || "unspecified"]")
 	add_target(new_target)
 	LosePatience()
 	if(target != null)
+		cancel_curiosity()
+		ai_on_target_acquired(old_target, fresh_threat)
 		remembered_target = target
 		last_target_sighting = world.time
 		is_alpha_alerter = TRUE  // We personally have a confirmed target
@@ -1774,6 +2051,13 @@
 		return 1
 	else
 		is_alpha_alerter = FALSE  // Lost target, no longer primary alerter
+		ai_close_segment("target_lost")
+
+/// Targets a mob that is out of sight, such as an event spawn. The last known position is set too, otherwise the
+/// mob stands still until the line of sight timeout runs out.
+/mob/living/simple_animal/hostile/proc/hunt(mob/living/prey, reason)
+	GiveTarget(prey, reason)
+	update_search_destination(get_turf(prey), reason, AI_CONF_SIGHT, prey)
 
 //What we do after closing in
 /mob/living/simple_animal/hostile/proc/MeleeAction(patience = TRUE)
@@ -1781,7 +2065,7 @@
 	if(target && isliving(target))
 		var/mob/living/LT = target
 		if(LT.stat != CONSCIOUS)
-			LoseTarget()
+			LoseTarget("melee_target_incapacitated")
 			return
 
 	if(rapid_melee > 1)
@@ -1803,79 +2087,94 @@
 				return
 		AttackingTarget()
 
+/// Tiles of slack above retreat_distance before a kiting mob closes in again
+#define RETREAT_DEADZONE 2
+/// Direction flips inside RETREAT_FLIP_WINDOW that mark a kiter as cornered
+#define RETREAT_FLIP_LIMIT 4
+#define RETREAT_FLIP_WINDOW 60
+/// Retreat ticks on the same tile that mark a kiter as cornered
+#define RETREAT_STALL_LIMIT 3
+/// How long a cornered kiter holds ground and fights
+#define RETREAT_HOLD_DURATION 60
+/// A ranged mob with no shot this long repositions instead of holding its range
+#define RANGED_PUSH_DELAY 20
+/// How long a repositioning tile stays chosen before it is re-evaluated
+#define RANGED_PUSH_REPICK 15
+/// Radius searched for a tile with a shot at the target
+#define RANGED_PUSH_SCAN 5
+/// A shot check older than this means the stall belongs to an earlier fight
+#define RANGED_STALL_STALE 30
+
+/// Records a kiting decision. Returns TRUE if the mob is cornered and should hold ground instead.
+/mob/living/simple_animal/hostile/proc/note_retreat_step(mode)
+	if(mode == RETREAT_MOVE_AWAY)
+		var/turf/here = get_turf(src)
+		if(here == retreat_last_turf)
+			retreat_stalled_ticks++
+		else
+			retreat_stalled_ticks = 0
+			retreat_last_turf = here
+	else
+		retreat_stalled_ticks = 0
+		retreat_last_turf = null
+
+	if(mode != retreat_last_mode)
+		retreat_last_mode = mode
+		if(world.time - retreat_flip_window_start > RETREAT_FLIP_WINDOW)
+			retreat_flip_window_start = world.time
+			retreat_flip_count = 0
+		retreat_flip_count++
+
+	if(retreat_stalled_ticks >= RETREAT_STALL_LIMIT || retreat_flip_count >= RETREAT_FLIP_LIMIT)
+		retreat_hold_until = world.time + RETREAT_HOLD_DURATION
+		retreat_stalled_ticks = 0
+		retreat_flip_count = 0
+		retreat_last_turf = null
+		ai_debug_log("retreat_cornered hold=[RETREAT_HOLD_DURATION / 10]s")
+		return TRUE
+	return FALSE
+
+/// The adjacent tile that opens the most distance from the threat while keeping a clear shot at it, or null.
+/// A kiting mob that backs off any other way walks out of the room it just fought its way into, loses sight of
+/// the target and has to start over.
+/mob/living/simple_animal/hostile/proc/find_kite_step(atom/threat)
+	var/turf/my_turf = get_turf(src)
+	var/turf/threat_turf = get_turf(threat)
+	if(!my_turf || !threat_turf || my_turf.z != threat_turf.z)
+		return null
+	var/current_dist = get_dist(my_turf, threat_turf)
+	var/turf/best
+	var/best_dist = current_dist
+	for(var/direction in GLOB.alldirs)
+		var/turf/T = get_step(my_turf, direction)
+		if(!T || T.density)
+			continue
+		var/blocked = FALSE
+		for(var/atom/movable/AM in T)
+			if(AM.density || istype(AM, /obj/structure/simple_door) || istype(AM, /obj/machinery/door))
+				blocked = TRUE
+				break
+		if(blocked)
+			continue
+		var/new_dist = get_dist(T, threat_turf)
+		if(new_dist <= best_dist)
+			continue
+		if(!shot_is_clear(T, threat_turf) || action_suppressed(AI_ACTION_SHOT, lane_key(T, threat_turf), probe = FALSE))
+			continue
+		best = T
+		best_dist = new_dist
+	return best
+
 /mob/living/simple_animal/hostile/proc/MoveToTarget(list/possible_targets)
 	stop_automated_movement = 1
-	
-	// Safety check: flatten nested lists if somehow we received one
-	if(possible_targets && islist(possible_targets))
-		for(var/item in possible_targets)
-			if(islist(item))
-				// We have a nested list - flatten it
-				var/list/flattened = list()
-				for(var/entry in possible_targets)
-					if(islist(entry))
-						// Add all items from the nested list
-						for(var/subitem in entry)
-							flattened += subitem
-					else
-						flattened += entry
-				possible_targets = flattened
-				log_runtime("HOSTILE MOB MoveToTarget: [src] ([type]) had nested list at [get_turf(src)]. Flattened to [flattened.len] entries.")
-				break
 
 	if(peaceful == TRUE)
-		LoseTarget()
+		LoseTarget("peaceful")
 		return 0
 	
-	// DOOR KITING CHECK: Track if target is exploiting door kiting
-	if(target)
-		check_target_door_kiting()
-		
-		// If target is kiting and we're committed, stay on our side
-		if(committed_to_door_side && committed_door_location)
-			var/dist_from_commitment = get_dist(src, committed_door_location)
-			
-			if(dist_from_commitment > 2)
-				// Moved too far from commitment point - return to it
-				Goto(committed_door_location, move_to_delay, 0)
-				return 1
-			else
-				// Stay here and wait for target to come to us
-				walk(src, 0)
-				
-				// If target gets far enough away, reset commitment
-				if(get_dist(src, target) > 7)
-					committed_to_door_side = FALSE
-					committed_door_location = null
-					target_door_pass_count = 0
-					target_last_door = null
-				
-				return 1
-		
-		// CORNER KITING CHECK: Track if target is exploiting corner peeks
-		check_corner_kiting()
-		
-		// If target is corner peeking, commit to rushing their position
-		if(committed_to_corner && corner_peek_location)
-			// Rush toward their last known peek location
-			Goto(corner_peek_location, move_to_delay, 0)
-			
-			// Reset if we reach the corner or target gets far away
-			if(get_dist(src, corner_peek_location) <= 1 || (target && get_dist(src, target) > 10))
-				committed_to_corner = FALSE
-				corner_peek_location = null
-				corner_peek_count = 0
-			
-			return 1
-
 	if(searching)
-		// Tracking check: use plain view() (no vision cone) so the mob can recover its
-		// target regardless of which direction it's currently facing.
-		var/found_target_now = target && target.z == z && (target in view(vision_range, src))
-		// Within aggro range on same Z: always found (mirrors the has_los bypass above)
-		if(!found_target_now && target && target.z == z && get_dist(src, target) <= aggro_vision_range)
-			found_target_now = TRUE
-		if(found_target_now)
+		// Found again by the same sight rules the fight uses
+		if(ai_sight_of(target) != AI_SIGHT_NONE)
 			exit_search_mode(found_target = TRUE)
 			last_target_sighting = world.time
 			call_for_backup(target, "found")
@@ -1895,48 +2194,33 @@
 
 	if(!target)
 		if(remembered_target && !QDELETED(remembered_target) && last_known_location)
-			if((world.time - last_target_sighting) < target_memory_duration)
+			if((world.time - last_target_sighting) < get_memory_duration())
 				if(!searching)
 					enter_search_mode()
 				return 1
-		LoseTarget()
+		LoseTarget("no_target_no_memory")
 		return 0
 
 	if(!CanAttack(target))
 		// If blocked only because the target is on a different Z level, skip search mode
 		// and fall through to the Z-pursuit section which handles cross-Z chasing.
-		if(!(can_z_move && target.z != z))
+		if(!(can_z_move && z_of(target) != z))
 			// If target is still within aggro range on the same Z AND conscious (e.g. fleeing),
 			// keep chasing instead of entering search mode.
 			var/target_is_close = FALSE
-			if(isliving(target) && target.z == z && get_dist(src, target) <= aggro_vision_range)
+			if(isliving(target) && z_of(target) == z && get_dist(src, target) <= aggro_vision_range)
 				var/mob/living/LT = target
 				target_is_close = (LT.stat == CONSCIOUS)
 			if(!target_is_close)
-				if(remembered_target && (world.time - last_target_sighting) < target_memory_duration)
+				if(remembered_target && (world.time - last_target_sighting) < get_memory_duration())
 					if(!searching)
 						enter_search_mode()
 					return 1
-				LoseTarget()
+				LoseTarget("cannot_attack")
 				return 0
 
-	// TRACKING LOS: Use plain BYOND view() without vision-cone restrictions.
-	// Vision cones are for initial detection (idle mob scanning for threats).
-	// An already-engaged mob tracks its target regardless of facing direction.
-	var/has_los = target && target.z == z && (target in view(vision_range, src))
-	// Stealth boy: drastically reduce tracking range for heavily cloaked targets
-	if(has_los && ishuman(target))
-		var/mob/living/carbon/human/H = target
-		if(H.alpha < 100)
-			has_los = (get_dist(src, target) <= max(round(vision_range * 0.2), 1))
-	// Adjacency (dist<=2) always counts as LOS.
-	// Within aggro_vision_range on the same Z: also always treat as LOS.
-	// The mob can hear/sense the target even through doors/walls at close range.
-	// Only when the target escapes beyond aggro range does LOS tracking actually lapse.
-	if(!has_los && target && target.z == z)
-		var/dist_now = get_dist(src, target)
-		if(dist_now <= aggro_vision_range)
-			has_los = TRUE
+	// An engaged mob tracks its target by plain view() with no vision cone, and also senses it at close range
+	var/has_los = (ai_sight_of(target) != AI_SIGHT_NONE)
 
 	if(has_los)
 		last_target_sighting = world.time
@@ -1946,9 +2230,9 @@
 		var/time_since_seen = world.time - last_target_sighting
 		// Use a longer timeout when target is on a different Z level so the mob can
 		// wait out the z_move_success_cooldown (30 ds) and still initiate pursuit.
-		// Same-Z timeout is 60 ds (6 s) — long enough to survive dense-melee occlusion
+		// Same-Z timeout is 60 ds (6 s) long enough to survive dense-melee occlusion
 		// without being so long it prevents real LOS loss from registering.
-		var/los_timeout = (can_z_move && target && target.z != z) ? 80 : 60
+		var/los_timeout = (can_z_move && target && z_of(target) != z) ? 80 : 60
 		// Never enter search mode while actively climbing - the mob KNOWS where the target went
 		if(time_since_seen > los_timeout && !pursuing_z_target)
 			if(!searching)
@@ -1964,14 +2248,14 @@
 
 	// Z-PURSUIT
 	if(pursuing_z_target)
-		if(target && target.z == z)
+		if(target && z_of(target) == z)
 			pursuing_z_target = FALSE
 			z_pursuit_structure = null
 		else if((world.time - z_pursuit_started) > z_pursuit_timeout)
 			pursuing_z_target = FALSE
 			z_pursuit_structure = null
 
-	if(pursuing_z_target && z_pursuit_structure && target && target.z != z)
+	if(pursuing_z_target && z_pursuit_structure && target && z_of(target) != z)
 		var/dist = get_dist(src, z_pursuit_structure)
 		if(dist == 0)
 			// Mob has ARRIVED at the structure - trigger the actual climb
@@ -2009,7 +2293,7 @@
 		return 1
 
 	// DIFFERENT Z LEVEL
-	if(target && target.z != z)
+	if(target && z_of(target) != z)
 		var/on_stairs = FALSE
 		for(var/obj/structure/stairs/S in loc)
 			on_stairs = TRUE
@@ -2028,7 +2312,7 @@
 			Goto(target, move_to_delay, minimum_distance)
 			return 1
 
-		LoseTarget()
+		LoseTarget("z_pursuit_failed")
 		return 0
 
 	// DOOR OPENING toward target
@@ -2047,6 +2331,15 @@
 	if(!target)
 		return 0
 
+	// Committed to a door found by route_through_door(): keep going until it is open, instead of
+	// walking back toward the target and getting stuck again
+	if(follow_door_route())
+		return 1
+	// The target hid inside a container we can see. The aggro-range rule below counts them as visible, so the
+	// mob would otherwise walk up to the container and stand there without ever opening it.
+	if(dig_out_hidden_target())
+		return 1
+
 	if(!Process_Spacemove())
 		walk(src, 0)
 		return 1
@@ -2055,12 +2348,19 @@
 
 	// TARGET IN LOS - normal combat path
 	if(has_los)
+		var/intent = ai_engage_update(target_distance)
+
+		// Mixed mobs shoot while closing the gap, then fight in melee. They never hold a standoff range.
+		var/mixed_charge = (combat_mode == COMBAT_MODE_MIXED)
+
 		// RANGED ATTACK
 		// Allow shooting even when adjacent if we can't maintain proper distance (tight spaces)
 		var/can_shoot = FALSE
 		if(ranged && ranged_cooldown <= world.time)
 			if(!target.Adjacent(targets_from))
 				can_shoot = TRUE // Normal case: not adjacent
+			else if(mixed_charge)
+				can_shoot = FALSE // Adjacent: swing instead of throwing
 			else if(retreat_distance != null && target_distance < retreat_distance)
 				// We want to retreat but target is adjacent - shoot anyway (cornered)
 				can_shoot = TRUE
@@ -2069,43 +2369,89 @@
 				can_shoot = TRUE
 		
 		if(can_shoot)
+			ai_shot_declined = FALSE
 			var/fired = OpenFire(target)
 			// OpenFire can sleep while an attack runs, allowing the target to be lost.
 			if(QDELETED(src) || QDELETED(target))
 				return 0
 			if(!fired || is_shot_blocked(target))
-				if(retreat_distance != null && abs(target_distance - retreat_distance) <= 2)
+				// A declined shot sidesteps to an angle that works, whatever the mob's usual kiting range.
+				// A charging mixed mob just keeps closing in instead.
+				if(!mixed_charge && (ai_shot_declined || (retreat_distance != null && abs(target_distance - retreat_distance) <= 2)))
 					var/turf/better_position = find_firing_position(target)
 					if(better_position)
+						ai_debug_log("sidestep declined=[ai_shot_declined] to=[better_position.x],[better_position.y]")
 						Move(better_position, get_dir(src, better_position))
 						return 1
 
 		// MOVEMENT
-		if(retreat_distance != null)
-			if(is_stuck && target_distance >= 2)
-				if(target_distance > 1)
-					Goto(target, move_to_delay, 1)
-				else
-					is_stuck = FALSE
-					stuck_position = null
-					stuck_time = 0
-					path_attempts = 0
+		var/intent_moved = ai_run_intent_movement(intent)
+
+		// COVER PUSH: range is a band to fight from, not a spot to hold. A ranged mob with no shot (target in cover)
+		// has to move to a tile that has one instead of standing at its kiting distance.
+		var/push_needed = FALSE
+		if(ranged && !ckey && !mixed_charge && !target.Adjacent(targets_from))
+			var/turf/shot_from = get_turf(targets_from)
+			var/turf/shot_to = get_turf(target)
+			var/has_shot = shot_from && shot_to && shot_is_clear(shot_from, shot_to) && (target_distance <= 2 || can_see(src, target, get_effective_vision_range(target)))
+			if(world.time - ranged_stalled_checked > RANGED_STALL_STALE)
+				ranged_stalled_since = 0
+			ranged_stalled_checked = world.time
+			if(has_shot)
+				ranged_stalled_since = 0
+				ranged_push_goal = null
+			else
+				if(!ranged_stalled_since)
+					ranged_stalled_since = world.time
+				push_needed = (world.time - ranged_stalled_since) >= RANGED_PUSH_DELAY
+		else
+			ranged_stalled_since = 0
+		if(!intent_moved && push_needed && CHECK_BITFIELD(mobility_flags, MOBILITY_MOVE))
+			intent_moved = ai_push_for_shot()
+
+		if(!intent_moved && retreat_distance != null && !mixed_charge)
+			if(world.time < retreat_hold_until)
+				// Cornered: stop flip-flopping and fight from here (shooting happens above)
+				walk(src, 0)
+				var/hold_dir = get_dir(src, target)
+				if(hold_dir)
+					setDir(hold_dir)
+			else if(is_stuck && target_distance >= 2 && target_distance >= retreat_distance)
+				Goto(target, move_to_delay, 1)
 			else if(target_distance < retreat_distance && CHECK_BITFIELD(mobility_flags, MOBILITY_MOVE))
-				set_glide_size(DELAY_TO_GLIDE_SIZE(move_to_delay))
-				walk_away(src, target, retreat_distance, move_to_delay)
-			else if(target_distance > retreat_distance)
-				Goto(target, move_to_delay, retreat_distance)
+				if(note_retreat_step(RETREAT_MOVE_AWAY))
+					walk(src, 0)
+				else
+					var/turf/kite_step = find_kite_step(target)
+					if(kite_step)
+						Goto(kite_step, move_to_delay, 0)
+					else
+						// Backing off would break the shot (doorway, wall): stand and fight from here
+						walk(src, 0)
+						var/kite_hold_dir = get_dir(src, target)
+						if(kite_hold_dir)
+							setDir(kite_hold_dir)
+			else if(target_distance > retreat_distance + RETREAT_DEADZONE)
+				note_retreat_step(RETREAT_MOVE_CLOSE)
+				Goto(target, move_to_delay, retreat_distance + 1)
 			else
 				walk(src, 0)
-		else {
-			// Stop moving once adjacent — don't push into the target tile (causes oscillation)
+		else if(!intent_moved) {
+			// Charging mixed mobs close to melee range; minimum_distance would park them out of reach
+			var/approach_distance = mixed_charge ? 1 : minimum_distance
+			// Stop moving once adjacent don't push into the target tile (causes oscillation)
 			if(target.Adjacent(src))
-				walk(src, 0)
+				// Keep tracking at melee range instead of cancelling the walk: walk_to idles inside approach_distance
+				// and resumes by itself when the target steps away, rather than waiting up to a full AI tick.
+				if(approach_distance >= 1 && CHECK_BITFIELD(mobility_flags, MOBILITY_MOVE))
+					Goto(target, move_to_delay, approach_distance)
+				else
+					walk(src, 0)
 				// Face the target now that we've stopped to attack
 				var/face_dir = get_dir(src, target)
 				if(face_dir)
 					setDir(face_dir)
-			else if(target_distance > minimum_distance)
+			else if(target_distance > approach_distance)
 				// ALLY FLANKING: if the next tile toward the target holds a dense ally,
 				// route around them instead of piling up.
 				var/turf/next_tile = get_step(get_turf(src), get_dir(src, target))
@@ -2120,9 +2466,9 @@
 					if(flank_tile)
 						Goto(flank_tile, move_to_delay, 0)
 					else
-						Goto(target, move_to_delay, minimum_distance)
+						Goto(target, move_to_delay, approach_distance)
 				else
-					Goto(target, move_to_delay, minimum_distance)
+					Goto(target, move_to_delay, approach_distance)
 			else
 				walk(src, 0)
 		}
@@ -2157,6 +2503,7 @@
 	// TARGET NOT IN LOS but we know roughly where they are (within grace period)
 	// Move toward last known position - this is the "searching while in combat" path
 	// ranged_ignores_vision mobs can still shoot
+	ai_note_investigating()
 	if(target && (environment_smash || can_open_doors || ranged_ignores_vision))
 		if(target.loc != null && get_dist(targets_from, target.loc) <= vision_range)
 			if(ranged_ignores_vision && ranged_cooldown <= world.time)
@@ -2178,7 +2525,15 @@
 				Goto(target, move_to_delay, minimum_distance)
 				return 1
 
-	LoseTarget()
+	// UNIVERSAL LOS GRACE: any mob keeps pushing to where it last saw the target instead of
+	// freezing until the sighting timeout expires, so stepping out of range doesn't shake it.
+	var/turf/pursue_spot = last_known_location
+	if(pursue_spot && pursue_spot.z == z)
+		if(get_dist(targets_from, pursue_spot) > 1)
+			Goto(pursue_spot, move_to_delay, 0)
+		else
+			walk(src, 0)
+		return 1
 	return 0
 
 /mob/living/simple_animal/hostile/proc/Goto(target, delay, minimum_distance)
@@ -2188,20 +2543,34 @@
 		approaching_target = FALSE
 	if(CHECK_BITFIELD(mobility_flags, MOBILITY_MOVE))
 		set_glide_size(DELAY_TO_GLIDE_SIZE(move_to_delay))
-		// Try pathfinding with walk_to - it handles basic pathing
-		walk_to(src, target, minimum_distance, delay)
+		// walk_to is greedy and stalls on solid objects, so a detour waypoint replaces the goal while one is active
+		var/turf/detour_step = obstruction_detour_waypoint(target, minimum_distance)
+		if(detour_step)
+			walk_to(src, detour_step, 0, delay)
+		else
+			walk_to(src, target, minimum_distance, delay)
 	if(variation_list[MOB_MINIMUM_DISTANCE_CHANCE] && LAZYLEN(variation_list[MOB_MINIMUM_DISTANCE]) && prob(variation_list[MOB_MINIMUM_DISTANCE_CHANCE]))
 		minimum_distance = vary_from_list(variation_list[MOB_MINIMUM_DISTANCE])
 	if(variation_list[MOB_VARIED_SPEED_CHANCE] && LAZYLEN(variation_list[MOB_VARIED_SPEED]) && prob(variation_list[MOB_VARIED_SPEED_CHANCE]))
 		move_to_delay = vary_from_list(variation_list[MOB_VARIED_SPEED])
 
+/// A ranged mob that has just been hit and found its attacker shoots back now instead of waiting for the next AI tick
+/mob/living/simple_animal/hostile/proc/ai_return_fire(atom/shooter)
+	if(!ranged || ckey || stat != CONSCIOUS || QDELETED(shooter) || shooter != target)
+		return
+	COOLDOWN_RESET(src, sight_shoot_delay)
+	if(ranged_cooldown <= world.time)
+		INVOKE_ASYNC(src, PROC_REF(OpenFire), shooter)
+
 /mob/living/simple_animal/hostile/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
 	. = ..()
+	if(. > 0)
+		ai_note_damage(.)
 	if(!ckey && !stat && search_objects < 3 && . > 0)
 		if(searching)
 			exit_search_mode(FALSE, found_target = TRUE)
 			visible_message(span_danger("[src] snaps to attention!"))
-			var/list/possible_targets = ListTargets()
+			var/list/possible_targets = GetCachedTargets()
 			var/new_target = null
 			// FIXED: Only acquire target we can actually see
 			for(var/atom/T in possible_targets)
@@ -2213,6 +2582,7 @@
 				remembered_target = new_target
 				last_target_sighting = world.time
 				last_known_location = get_turf(new_target)
+				ai_return_fire(new_target)
 			else
 				// Was hurt but can't see attacker - keep searching, update memory
 				remembered_target = remembered_target // unchanged
@@ -2222,7 +2592,7 @@
 			rallying = FALSE
 			rally_point = null
 			visible_message(span_danger("[src] cancels retreat and fights back!"))
-			var/list/possible_targets = ListTargets()
+			var/list/possible_targets = GetCachedTargets()
 			var/new_target = null
 			// FIXED: LOS check here too
 			for(var/atom/T in possible_targets)
@@ -2238,7 +2608,7 @@
 				FindTarget()
 
 		else if(search_objects)
-			LoseTarget()
+			LoseTarget("search_objects_no_target")
 			LoseSearchObjects()
 
 		if(AIStatus != AI_ON && AIStatus != AI_OFF)
@@ -2248,121 +2618,7 @@
 			FindTarget()
 
 
-/// DOOR KITING PREVENTION: Track if target is passing through same door repeatedly
-/mob/living/simple_animal/hostile/proc/check_target_door_kiting()
-	if(!target || !isliving(target))
-		return FALSE
-	
-	// Reset if it's been more than 5 seconds
-	if((world.time - target_last_door_pass_time) > 50)
-		target_door_pass_count = 0
-		target_last_door = null
-		committed_to_door_side = FALSE
-		committed_door_location = null
-		return FALSE
-	
-	// Get target's current position
-	var/turf/target_turf = get_turf(target)
-	if(!target_turf || !target_last_position)
-		target_last_position = target_turf
-		return FALSE
-	
-	// Check if target moved
-	if(target_turf == target_last_position)
-		return committed_to_door_side
-	
-	// Check if target passed through a door between last position and current position
-	var/atom/door_passed = null
-	
-	// Check for doors at old position
-	for(var/obj/structure/simple_door/SD in target_last_position)
-		if(!SD.density) // Door is open
-			door_passed = SD
-			break
-	if(!door_passed)
-		for(var/obj/machinery/door/D in target_last_position)
-			if(!D.density) // Door is open
-				door_passed = D
-				break
-	
-	// Check for doors at new position
-	if(!door_passed)
-		for(var/obj/structure/simple_door/SD in target_turf)
-			if(!SD.density)
-				door_passed = SD
-				break
-	if(!door_passed)
-		for(var/obj/machinery/door/D in target_turf)
-			if(!D.density)
-				door_passed = D
-				break
-	
-	// Track door passage
-	if(door_passed)
-		if(door_passed == target_last_door)
-			// Target passed through same door again
-			if((world.time - target_last_door_pass_time) < 50) // Within 5 seconds
-				target_door_pass_count++
-				if(target_door_pass_count >= 3)
-					// Target is kiting! Commit to this side
-					if(!committed_to_door_side)
-						committed_to_door_side = TRUE
-						committed_door_location = get_turf(src)
-						visible_message(span_warning("[src] stops chasing through the doorway!"))
-			else
-				target_door_pass_count = 1 // Reset if too much time passed
-		else
-			// Different door
-			target_last_door = door_passed
-			target_door_pass_count = 1
-		
-		target_last_door_pass_time = world.time
-	
-	// Update last position
-	target_last_position = target_turf
-	return committed_to_door_side
-
-/// CORNER KITING PREVENTION: Track if target is peeking around same corner repeatedly
-/mob/living/simple_animal/hostile/proc/check_corner_kiting()
-	if(!target || !isliving(target))
-		return FALSE
-	
-	// Reset if it's been more than 5 seconds
-	if((world.time - last_corner_peek_time) > 50)
-		corner_peek_count = 0
-		corner_peek_location = null
-		committed_to_corner = FALSE
-		return FALSE
-	
-	// Check if we lost sight of target
-	var/has_los = can_see(src, target, get_effective_vision_range(target))
-	
-	if(!has_los)
-		// Target disappeared - record as potential peek
-		var/turf/target_turf = get_turf(target)
-		if(target_turf)
-			// Check if this is same area as last peek
-			if(corner_peek_location && get_dist(corner_peek_location, target_turf) <= 2)
-				// Same corner area!
-				if((world.time - last_corner_peek_time) < 50) // Within 5 seconds
-					corner_peek_count++
-					if(corner_peek_count >= 3)
-						// Target is corner peeking! Commit to rushing
-						if(!committed_to_corner)
-							committed_to_corner = TRUE
-							visible_message(span_warning("[src] stops reacting to the corner peeks!"))
-				else
-					corner_peek_count = 1
-			else
-				// New corner location
-				corner_peek_location = target_turf
-				corner_peek_count = 1
-			
-			last_corner_peek_time = world.time
-	
-	return committed_to_corner
-
-/// BARRICADE FIX: Check if target is blocked by structure
+/// Whether a structure blocks the target
 /mob/living/simple_animal/hostile/proc/is_target_blocked_by_structure(atom/A)
 	if(!A)
 		return FALSE
@@ -2388,6 +2644,8 @@
 				if(istype(S, /obj/structure/simple_door))
 					continue
 				if(istype(S, /obj/machinery/door))
+					continue
+				if(shoot_over_cover && ranged && S.is_low_cover())
 					continue
 				
 				// Found a blocking structure!
@@ -2619,7 +2877,7 @@
 				toggle_ai(AI_ON)
 			
 			// Enter search mode targeting the thrower
-			last_known_location = get_turf(thrower)
+			update_search_destination(get_turf(thrower), "thrown_item_spam", AI_CONF_REAR_SOUND, thrower)
 			remembered_target = thrower
 			last_target_sighting = world.time
 			
@@ -2632,24 +2890,26 @@
 		// First or second throw - investigate the ITEM, not the thrower
 		var/turf/item_location = get_turf(thrown_item)
 		
-		if(item_location && !searching)
-			visible_message(span_notice("[src] looks toward [thrown_item]..."))
-			
-			// End light patrol if active
-			if(light_patrolling)
-				end_light_patrol()
-			
-			// Wake up
-			if(AIStatus == AI_IDLE || AIStatus == AI_Z_OFF)
-				toggle_ai(AI_ON)
-			
-			// Set investigation state to prevent LoseTarget() from stopping movement
-			last_known_location = item_location
+		if(item_location)
+			if(!searching)
+				visible_message(span_notice("[src] looks toward [thrown_item]..."))
+
+				// End light patrol if active
+				if(light_patrolling)
+					end_light_patrol()
+
+				// Wake up
+				if(AIStatus == AI_IDLE || AIStatus == AI_Z_OFF)
+					toggle_ai(AI_ON)
+
+			// A searching mob ranks the lead against what it is already chasing, and walks to it if it wins
+			update_search_destination(item_location, "thrown_item", AI_CONF_LIGHT)
 			remembered_target = thrower  // Remember who threw it
 			last_target_sighting = world.time  // Mark as recent
-			
-			// Move toward the item to investigate (adjacent)
-			Goto(item_location, move_to_delay, 0)
+
+			// Idle mobs head for the item (adjacent)
+			if(!searching)
+				Goto(item_location, move_to_delay, 0)
 
 // ========================================
 // LIGHT DESTRUCTION DETECTION SYSTEM
@@ -2687,7 +2947,7 @@
 				toggle_ai(AI_ON)
 			
 			// Enter search mode targeting the shooter
-			last_known_location = get_turf(shooter)
+			update_search_destination(get_turf(shooter), "light_spam", AI_CONF_GUNSHOT, shooter)
 			remembered_target = shooter
 			last_target_sighting = world.time
 			
@@ -2716,7 +2976,7 @@
 				toggle_ai(AI_ON)
 			
 			// Set investigation state to prevent LoseTarget() from stopping movement
-			last_known_location = destruction_location
+			update_search_destination(destruction_location, "light_silenced", AI_CONF_LIGHT)
 			if(shooter)
 				remembered_target = shooter
 			last_target_sighting = world.time
@@ -2741,7 +3001,7 @@
 					toggle_ai(AI_ON)
 				
 				// Set investigation state to prevent LoseTarget() from stopping movement
-				last_known_location = shooter_location
+				update_search_destination(shooter_location, "light_shot", AI_CONF_GUNSHOT, shooter)
 				remembered_target = shooter
 				last_target_sighting = world.time
 				
@@ -2761,7 +3021,7 @@
 					toggle_ai(AI_ON)
 				
 				// Set investigation state to prevent LoseTarget() from stopping movement
-				last_known_location = destruction_location
+				update_search_destination(destruction_location, "light_unknown", AI_CONF_LIGHT)
 				last_target_sighting = world.time
 				
 				// Move to investigate the light location (adjacent)
@@ -2773,7 +3033,10 @@
 	in_melee = TRUE
 	if(prob(alternate_attack_prob) && AlternateAttackingTarget(target))
 		return FALSE
-	return target.attack_animal(src)
+	var/attack_result = target.attack_animal(src)
+	if(attack_result && isliving(target))
+		ai_note_hit_landed()
+	return attack_result
 
 /// Does an extra *thing* when attacking. Return TRUE to not do the standard attack
 /mob/living/simple_animal/hostile/proc/AlternateAttackingTarget(atom/the_target)
@@ -2803,7 +3066,15 @@
 	vision_range = initial(vision_range)
 	taunt_chance = initial(taunt_chance)
 
-/mob/living/simple_animal/hostile/proc/LoseTarget()
+/// Logs an AI decision to the game log when GLOB.debug_ai is enabled.
+/mob/living/simple_animal/hostile/proc/ai_debug_log(message)
+	if(!GLOB.debug_ai && !debug_vision)
+		return
+	log_game("AI [type] [REF(src)] at [AREACOORD(src)]: [message]")
+
+/mob/living/simple_animal/hostile/proc/LoseTarget(reason)
+	if((GLOB.debug_ai || debug_vision) && (target || remembered_target))
+		ai_debug_log("target_lost target=[target || "none"] remembered=[remembered_target || "none"] searching=[searching] reason=[reason || "unspecified"]")
 	// Check if we should clear memory due to target being crit/dead
 	if(remembered_target && !QDELETED(remembered_target) && isliving(remembered_target))
 		var/mob/living/L = remembered_target
@@ -2817,7 +3088,7 @@
 	// Z-pursuit check
 	if(target && can_z_move && isliving(target))
 		var/mob/living/L = target
-		if(L.z != z)
+		if(z_of(L) != z)
 			remembered_target = L
 			last_target_sighting = world.time
 			last_known_location = get_turf(L)
@@ -2829,11 +3100,11 @@
 				return
 
 	// Memory expired or no memory - truly give up
-	if(remembered_target && (world.time - last_target_sighting) > target_memory_duration && !searching)
+	if(remembered_target && (world.time - last_target_sighting) > get_memory_duration() && !searching)
 		remembered_target = null
 
 	// If memory still valid, enter search instead of fully giving up
-	if(remembered_target && (world.time - last_target_sighting) < target_memory_duration)
+	if(remembered_target && (world.time - last_target_sighting) < get_memory_duration())
 		if(!searching)
 			enter_search_mode()
 		// Still clear the combat target
@@ -2866,8 +3137,52 @@
 	in_melee = FALSE
 	walk(src, 0)
 	LoseAggro()
+	ai_sync_mode()
 
 // Z-LEVEL PURSUIT SYSTEM
+/// Stairs, ladders or openspace this mob can use to reach another level. Looks within sight first, then anywhere on the
+/// level, so a mob that wandered or fell far from the stairs can still find its way back.
+/mob/living/simple_animal/hostile/proc/find_z_transition_structures(went_up)
+	var/list/found = list()
+	if(went_up)
+		// Use range() instead of view() so walls don't hide interior stairs/ladders
+		if(can_climb_stairs)
+			for(var/obj/structure/stairs/S in range(vision_range, src))
+				if(S.isTerminator())
+					found += S
+		if(can_climb_ladders)
+			for(var/obj/structure/ladder/LD in range(vision_range, src))
+				if(LD.up)
+					found += LD
+	else
+		if(can_jump_down)
+			var/turf/our_turf = get_turf(src)
+			if(istype(our_turf, /turf/open/transparent/openspace))
+				found += our_turf
+			for(var/turf/open/transparent/openspace/OS in view(vision_range, src))
+				found += OS
+		if(can_climb_ladders)
+			for(var/obj/structure/ladder/LD in view(vision_range, src))
+				if(LD.down)
+					found += LD
+	if(found.len)
+		return found
+
+	if(went_up)
+		if(can_climb_stairs)
+			for(var/obj/structure/stairs/S as anything in GLOB.stairs)
+				if(S.z == z && S.isTerminator())
+					found += S
+		if(can_climb_ladders)
+			for(var/obj/structure/ladder/unbreakable/LD as anything in GLOB.ladders)
+				if(LD.z == z && LD.up)
+					found += LD
+	else if(can_climb_ladders)
+		for(var/obj/structure/ladder/unbreakable/LD as anything in GLOB.ladders)
+			if(LD.z == z && LD.down)
+				found += LD
+	return found
+
 // This proc handles mobs chasing targets up/down stairs and ladders
 // Called when target is on a different Z-level than the mob
 /mob/living/simple_animal/hostile/proc/attempt_z_pursuit()
@@ -2894,11 +3209,12 @@
 		z_pursuit_structure = null
 		return FALSE
 	
-	var/went_up = (L.z > z)
-	var/went_down = (L.z < z)
+	var/target_z_now = z_of(L)
+	var/went_up = (target_z_now > z)
+	var/went_down = (target_z_now < z)
 	
 	// Don't pursue if target is on same Z (prevents loop when they just climbed)
-	if(L.z == z)
+	if(target_z_now == z)
 		pursuing_z_target = FALSE
 		z_pursuit_structure = null
 		return FALSE
@@ -2947,45 +3263,15 @@
 			return pursuing_z_target  // Return current state
 	
 	last_z_move_attempt = world.time
-	target_last_z = L.z
+	target_last_z = target_z_now
 	
 	if(!went_up && !went_down)
 		pursuing_z_target = FALSE
 		z_pursuit_structure = null
 		return FALSE
 	
-	// STEP 4: Find Z-level transition structures (stairs, ladders, openspace)
-	// Only include structures we're actually allowed to use
-	var/list/z_structures = list()
-	
-	if(went_up)
-		// Target went UP - look for stairs and ladders going up
-		// Use range() instead of view() so walls don't hide interior stairs/ladders
-		if(can_climb_stairs)
-			for(var/obj/structure/stairs/S in range(vision_range, src))
-				if(S.isTerminator())
-					z_structures += S
-		
-		if(can_climb_ladders)
-			for(var/obj/structure/ladder/LD in range(vision_range, src))
-				if(LD.up)
-					z_structures += LD
-	
-	else if(went_down)
-		// Target went DOWN - look for openspace and ladders going down
-		if(can_jump_down)
-			var/turf/our_turf = get_turf(src)
-			
-			if(istype(our_turf, /turf/open/transparent/openspace))
-				z_structures += our_turf
-			
-			for(var/turf/open/transparent/openspace/OS in view(vision_range, src))
-				z_structures += OS
-		
-		if(can_climb_ladders)
-			for(var/obj/structure/ladder/LD in view(vision_range, src))
-				if(LD.down)
-					z_structures += LD
+	// STEP 4: Find Z-level transition structures (stairs, ladders, openspace) we are allowed to use
+	var/list/z_structures = find_z_transition_structures(went_up)
 	
 	if(!z_structures.len)
 		pursuing_z_target = FALSE
@@ -3108,25 +3394,34 @@
 	// Don't start searching if the remembered target is dead OR CRIT
 	if(remembered_target && !QDELETED(remembered_target) && isliving(remembered_target))
 		var/mob/living/L = remembered_target
-		if(L.stat == DEAD || L.stat == UNCONSCIOUS) // FIX: Include UNCONSCIOUS (crit)
+		if(L.stat == DEAD || L.stat == UNCONSCIOUS) // Crit counts as down too
 			// Target is dead/crit, no point searching
 			remembered_target = null
 			last_target_sighting = 0
 			return
 
 	if(last_search_exit_time > 0 && (world.time - last_search_exit_time) < search_entry_cooldown)
-		if(!remembered_target || (world.time - last_target_sighting) > target_memory_duration)
+		if(!remembered_target || (world.time - last_target_sighting) > get_memory_duration())
 			return
 
 	searching = TRUE
+	ai_debug_log("search_enter target=[target] remembered=[remembered_target]")
 
-	if(target)
-		last_known_location = get_turf(target)
-	else if(remembered_target && !QDELETED(remembered_target))
-		last_known_location = get_turf(remembered_target)
+	// Search from where the target was last SEEN, never its live position. MoveToTarget keeps last_known_location
+	// current while there is line of sight, and sound handlers set it from what was heard. The live position is
+	// only a fallback when nothing was ever recorded.
+	if(!last_known_location)
+		if(target)
+			last_known_location = get_turf(target)
+		else if(remembered_target && !QDELETED(remembered_target))
+			last_known_location = get_turf(remembered_target)
+	if((target || remembered_target) && last_target_sighting > search_dest_time)
+		search_dest_confidence = AI_CONF_SIGHT
+		search_dest_time = last_target_sighting
 
+	prune_ai_facts()
 	searched_turfs = list()
-	searched_doors = list()
+	searched_doors = get_burned_doors()
 	searched_containers = list()
 	search_expansion = 0
 	search_start_time = world.time
@@ -3143,14 +3438,25 @@
 		else if(remembered_target && !QDELETED(remembered_target))
 			call_for_backup(remembered_target, "lost")
 
-	// Schedule search asynchronously to avoid blocking call in signal handlers
-	addtimer(CALLBACK(src, PROC_REF(search_for_target)), 0.5 SECONDS, TIMER_DELETE_ME)
+	search_last_pos = null
+	search_stuck_ticks = 0
+	search_arrived_at = null
+	search_progress_goal = null
+
+	cancel_curiosity()
+	search_look_message = null
+	search_look_near = null
+	schedule_search_tick(0.5 SECONDS)
+	// The idle pool never runs handle_automated_action, so a searching mob must be on the active pool
+	if(AIStatus == AI_IDLE || AIStatus == AI_Z_OFF)
+		toggle_ai(AI_ON)
 
 /mob/living/simple_animal/hostile/proc/exit_search_mode(give_up_message = TRUE, found_target = FALSE)
 	if(!searching)
 		return
 
 	searching = FALSE
+	ai_debug_log("search_exit found_target=[found_target] gave_up_msg=[give_up_message]")
 	last_search_exit_time = world.time
 
 	searched_turfs = list()
@@ -3160,6 +3466,10 @@
 	recently_opened_door = null
 	investigating_container = null
 	search_start_time = 0
+	search_next_tick = 0
+	search_move_goal = null
+	search_look_message = null
+	search_look_near = null
 
 	if(!found_target)
 		// Gave up - no longer tracking this threat
@@ -3168,16 +3478,179 @@
 		last_target_sighting = 0
 		if(give_up_message)
 			visible_message(span_notice("[src] gives up the search."))
-		LoseTarget()
+		LoseTarget("search_gave_up")
 	else
 		if(COOLDOWN_FINISHED(src, search_chatter_cooldown))
 			COOLDOWN_START(src, search_chatter_cooldown, search_chatter_delay)
 			visible_message(span_danger("[src] resumes the hunt!"))
 		// is_alpha_alerter stays as-is - if we found the target we may now broadcast
+	ai_sync_mode()
+
+/// Closed doors (simple_door and machinery door) within radius of center; radius 0 is the center tile only
+/mob/living/simple_animal/hostile/proc/get_closed_doors(atom/center, radius = 0)
+	. = list()
+	for(var/obj/structure/simple_door/SD in range(radius, center))
+		if(SD.density)
+			. += SD
+	for(var/obj/machinery/door/D in range(radius, center))
+		if(D.density)
+			. += D
+
+/// Ends the search on the first live, attackable candidate that passes the visibility rule, and returns it.
+/// $TARGET in spotted_message is replaced by the candidate. Visibility rule: near_atom = adjacent to it (containers,
+/// no LOS needed); max_dist = within that many tiles with LOS; otherwise LOS within the effective vision range.
+/mob/living/simple_animal/hostile/proc/search_acquire_target(list/candidates, spotted_message, reason, max_dist = 0, atom/near_atom = null)
+	for(var/atom/candidate in candidates)
+		if(QDELETED(candidate))
+			continue
+		if(isliving(candidate))
+			var/mob/living/L = candidate
+			if(L.stat == DEAD || L.ckey && !L.client) // Dead or ghosted
+				continue
+		if(near_atom)
+			if(get_dist(candidate, near_atom) > 1)
+				continue
+		else if(max_dist)
+			var/dist = get_dist(src, candidate)
+			if(dist > max_dist || !can_see(src, candidate, dist))
+				continue
+		else if(!can_see(src, candidate, get_effective_vision_range(candidate)))
+			continue
+		if(!CanAttack(candidate)) // Also gates faction members
+			continue
+
+		visible_message(span_danger(replacetext(spotted_message, "$TARGET", "[candidate]")))
+		exit_search_mode(FALSE, found_target = TRUE)
+		last_target_sighting = world.time
+		remembered_target = candidate
+		GiveTarget(candidate, reason)
+		last_known_location = get_turf(candidate)
+		walk(src, 0)
+		call_for_backup(candidate, "found")
+		return candidate
+	return null
+
+/// Queues the next search step. Replaces any earlier schedule, so there is only ever one pending step.
+/mob/living/simple_animal/hostile/proc/schedule_search_tick(delay)
+	search_next_tick = world.time + delay
+
+/// Consecutive stalled tick checks before a search walk is considered blocked
+#define SEARCH_STALL_LIMIT 2
+
+/// Called every AI tick while searching. A search step (decisions) runs only once it is due; between steps the walk
+/// toward the current goal is re-issued whenever the mob has stalled, so a finished or blocked walk never idles
+/// until the next slow step.
+/mob/living/simple_animal/hostile/proc/search_tick()
+	if(!searching || QDELETED(src) || stat == DEAD)
+		return
+	if(world.time >= search_next_tick)
+		search_for_target()
+		search_move_last_pos = get_turf(src)
+		return
+	if(!search_move_goal || QDELETED(search_move_goal) || pursuing_z_target)
+		return
+	var/turf/here = get_turf(src)
+	if(here == search_move_last_pos && get_dist(src, search_move_goal) > 1)
+		search_move_stalls++
+		if(search_move_stalls >= SEARCH_STALL_LIMIT)
+			search_handle_blocked_walk()
+			return
+		ai_debug_log("search_move_reissue goal=[search_move_goal] dist=[get_dist(src, search_move_goal)] stalls=[search_move_stalls]")
+		Goto(search_move_goal, move_to_delay, 0)
+	else
+		search_move_stalls = 0
+	search_move_last_pos = here
+
+/// Search steps in a row that may pass without getting closer to the same goal before the walk counts as blocked
+#define SEARCH_NO_PROGRESS_LIMIT 6
+/// Consecutive stuck checks after which the last known position is written off as unreachable
+#define SEARCH_STUCK_LIMIT 3
+
+/// Tracks whether repeated walks to the same goal are getting anywhere. A mob pacing back and forth against an
+/// obstacle never stands on the same tile twice in a row, so only the distance to the goal shows it is stuck.
+/mob/living/simple_animal/hostile/proc/search_walk_stalled(atom/goal)
+	var/dist = get_dist(src, goal)
+	if(goal != search_progress_goal || z != goal.z)
+		search_progress_goal = goal
+		search_progress_best = dist
+		search_progress_steps = 0
+		return FALSE
+	if(dist < search_progress_best)
+		search_progress_best = dist
+		search_progress_steps = 0
+		return FALSE
+	search_progress_steps++
+	return search_progress_steps >= SEARCH_NO_PROGRESS_LIMIT
+
+/// Sets where the search walk is heading and starts walking; search_tick keeps it going between decision steps.
+/// Returns FALSE when the walk to this goal has made no progress and the goal was written off instead.
+/mob/living/simple_animal/hostile/proc/set_search_goal(atom/goal)
+	if(search_walk_stalled(goal))
+		ai_debug_log("search_no_progress goal=[goal] dist=[get_dist(src, goal)] steps=[search_progress_steps]")
+		search_progress_goal = null
+		search_move_goal = goal
+		return search_handle_blocked_walk()
+	search_move_goal = goal
+	search_move_last_pos = null
+	search_move_stalls = 0
+	Goto(goal, move_to_delay, 0)
+	return TRUE
+
+/// The search walk is making no progress, so the goal is probably unreachable (a closed door or wall in the way).
+/// Open any closed door within reach; otherwise write the goal off and let the next step pick another one.
+/// Returns TRUE if a door was dealt with and the walk was retried, FALSE if the goal was written off.
+/mob/living/simple_animal/hostile/proc/search_handle_blocked_walk()
+	var/atom/goal = search_move_goal
+	search_move_stalls = 0
+	search_move_last_pos = null
+	if(can_open_doors)
+		for(var/atom/door in get_closed_doors(src, 1))
+			if(try_open_door(door))
+				ai_debug_log("search_blocked_opened_door door=[door] goal=[goal]")
+				Goto(goal, move_to_delay, 0)
+				return TRUE
+	else if(environment_smash)
+		// Mobs that cannot open doors break them instead
+		for(var/atom/door in get_closed_doors(src, 1))
+			ai_debug_log("search_blocked_smash_door door=[door] goal=[goal]")
+			door.attack_animal(src)
+			Goto(goal, move_to_delay, 0)
+			return TRUE
+	ai_debug_log("search_goal_burned goal=[goal] dist=[get_dist(src, goal)]")
+	if(isturf(goal))
+		searched_turfs += goal
+	else if(istype(goal, /obj/structure/closet))
+		searched_containers += goal
+	else if(istype(goal, /obj/structure/simple_door) || istype(goal, /obj/machinery/door))
+		mark_door_searched(goal)
+	search_move_goal = null
+	walk(src, 0)
+	search_next_tick = world.time
+	return FALSE
+
+/// Non-blocking replacement for sleeping after opening a door or container: the next search step looks for targets
+/// first, once the animation is done.
+/mob/living/simple_animal/hostile/proc/search_continue_after_open(spotted_message, atom/near_atom = null)
+	search_look_message = spotted_message
+	search_look_near = near_atom
+	schedule_search_tick(0.5 SECONDS)
 
 /mob/living/simple_animal/hostile/proc/search_for_target()
 	if(!searching || QDELETED(src))
 		return
+	// Default re-run; branches below override it with a shorter or longer delay
+	schedule_search_tick(3 SECONDS)
+	// Branches that walk set a new goal; any other outcome leaves the mob standing
+	var/was_walking = search_move_goal && get_dist(src, search_move_goal) > 1
+	search_move_goal = null
+
+	if(search_look_message)
+		var/look_message = search_look_message
+		var/atom/look_near = search_look_near
+		search_look_message = null
+		search_look_near = null
+		if(search_acquire_target(GetCachedTargets(), look_message, "search_after_open", near_atom = look_near))
+			return
 
 	// Check if remembered_target is dead/invalid - if so, give up search
 	if(remembered_target)
@@ -3196,37 +3669,27 @@
 				return
 
 	// HARD CHECK: Valid, visible, ATTACKABLE target right now?
-	var/list/immediate_targets = ListTargets()
-	if(immediate_targets && immediate_targets.len > 0)
-		for(var/atom/possible_target in immediate_targets)
-			// BUG 1 FIX: CanAttack() gates faction member targeting
-			// BUG 3 FIX: Explicit living+stat check catches ghosts that slip past CanAttack
-			if(isliving(possible_target))
-				var/mob/living/L = possible_target
-				if(L.stat == DEAD || L.ckey && !L.client) // Dead or ghosted
-					continue
-			// Use view() (no cone restriction) so we immediately spot targets in any direction
-			if(!(possible_target in view(vision_range, src)))
-				continue
-			if(!CanAttack(possible_target))
-				continue
+	if(search_acquire_target(GetCachedTargets(), "[src] spots $TARGET!", "search_hard_check"))
+		return
 
-			visible_message(span_danger("[src] spots [possible_target]!"))
-			exit_search_mode(FALSE, found_target = TRUE)
-			last_target_sighting = world.time
-			remembered_target = possible_target
-			GiveTarget(possible_target)
-			last_known_location = get_turf(possible_target)
-			walk(src, 0)
-			call_for_backup(possible_target, "found")
-			return
+	// Nothing in sight: the squad's report and the way the target was moving come before the mob's own search goal
+	if(ai_hunt_update())
+		return
+
+	// A mob that stopped walking turns to look: toward the last known position half the time, otherwise sideways or
+	// behind, so a target in its rear cone is not missed just because of the way it happened to stop.
+	if(!was_walking && CHECK_BITFIELD(mobility_flags, MOBILITY_MOVE))
+		if(last_known_location && last_known_location.z == z && get_dist(src, last_known_location) > 0 && prob(50))
+			setDir(get_dir(src, last_known_location))
+		else
+			setDir(turn(dir, pick(90, -90, 180)))
 
 	// TIME-BASED TIMEOUT
 	if(search_start_time > 0)
 		var/elapsed_time = world.time - search_start_time
 		var/timeout_threshold = search_timeout_base
 
-		if(is_low_health || (last_target_sighting > 0 && (world.time - last_target_sighting) < 600))
+		if(is_low_health || ai_bhv_active(AI_BHV_HEAL) || (last_target_sighting > 0 && (world.time - last_target_sighting) < 600))
 			timeout_threshold = search_timeout_aggressive
 
 		if(elapsed_time > timeout_threshold)
@@ -3235,47 +3698,29 @@
 			return
 
 	if(!last_known_location || !CHECK_BITFIELD(mobility_flags, MOBILITY_MOVE))
-		addtimer(CALLBACK(src, PROC_REF(search_for_target)), 3 SECONDS, TIMER_DELETE_ME)
 		return
 
 	var/turf/current_pos = get_turf(src)
 	var/dist_to_last_known = get_dist(current_pos, last_known_location)
 
 	// CROSS-Z CHECK: If we need to change Z levels, do it now before any same-Z navigation.
-	// get_dist() is 2D-only, so a Z4 last_known_location looks "distance 0" to a Z3 mob —
+	// get_dist() is 2D-only, so a Z4 last_known_location looks "distance 0" to a Z3 mob
 	// without this check, the mob thinks it's already there and searches the wrong floor.
 	if(!pursuing_z_target && can_z_move)
 		// Case 1: Remembered target is currently on a different Z level (followed stairs)
 		if(remembered_target && !QDELETED(remembered_target) && isliving(remembered_target))
 			var/mob/living/RT = remembered_target
-			if(RT.stat != DEAD && RT.z != z)
+			if(RT.stat != DEAD && z_of(RT) != z)
 				GiveTarget(RT)
 				is_alpha_alerter = FALSE
 				if(attempt_z_pursuit())
-					addtimer(CALLBACK(src, PROC_REF(search_for_target)), 2 SECONDS, TIMER_DELETE_ME)
+					schedule_search_tick(2 SECONDS)
 					return
 		// Case 2: No remembered target, but last_known_location is on a different Z level
 		// (heard combat sounds from above/below).  Navigate directly to nearest staircase/ladder.
 		else if(!remembered_target && last_known_location && last_known_location.z != z)
 			var/went_up = (last_known_location.z > z)
-			var/list/z_structures = list()
-			if(went_up)
-				if(can_climb_stairs)
-					for(var/obj/structure/stairs/S in range(vision_range, src))
-						if(S.isTerminator())
-							z_structures += S
-				if(can_climb_ladders)
-					for(var/obj/structure/ladder/LD in range(vision_range, src))
-						if(LD.up)
-							z_structures += LD
-			else
-				if(can_jump_down)
-					for(var/turf/open/transparent/openspace/OS in view(vision_range, src))
-						z_structures += OS
-				if(can_climb_ladders)
-					for(var/obj/structure/ladder/LD in view(vision_range, src))
-						if(LD.down)
-							z_structures += LD
+			var/list/z_structures = find_z_transition_structures(went_up)
 			if(z_structures.len)
 				var/atom/nearest = get_closest_atom(/atom, z_structures, src)
 				var/dist_to_structure = get_dist(src, nearest)
@@ -3301,89 +3746,54 @@
 							zMove(target = get_turf(L2.down), z_move_flags = ZMOVE_CHECK_PULLEDBY|ZMOVE_ALLOW_BUCKLED|ZMOVE_INCLUDE_PULLED)
 							record_z_level_change()
 							last_known_location = null
-					addtimer(CALLBACK(src, PROC_REF(search_for_target)), 2 SECONDS, TIMER_DELETE_ME)
+					schedule_search_tick(2 SECONDS)
 					return
 				// Not there yet - navigate to the staircase/ladder
 				visible_message(span_notice("[src] heads toward the commotion..."))
-				Goto(nearest, move_to_delay, 0)
-				addtimer(CALLBACK(src, PROC_REF(search_for_target)), 3 SECONDS, TIMER_DELETE_ME)
+				set_search_goal(nearest)
 				return
-	// This ensures we search where the player was last seen, not random areas
-	if(dist_to_last_known > 3)
+	var/current_radius = search_radius + (search_expansion * 2)
+	if(current_radius > 15)
+		current_radius = 15
+
+	// Once we have stood on the last known position, the sweep goals (tiles, doors, containers) lie around it. Walking
+	// back to it every step would undo each sweep walk and leave the mob pacing between the two forever.
+	if(dist_to_last_known <= 1)
+		search_arrived_at = last_known_location
+	var/sweeping = search_arrived_at == last_known_location && dist_to_last_known <= current_radius + 1
+
+	// This ensures we search where the player was last seen, not random areas. Walk there whenever we are not
+	// already on top of it, so a target lost two or three tiles away behind a door is still followed.
+	if(dist_to_last_known > 1 && !sweeping)
+		if(current_pos == search_last_pos)
+			search_stuck_ticks++
+		else if(search_stuck_ticks < SEARCH_STUCK_LIMIT)
+			// Once written off, the last known position stays written off until the destination changes
+			search_stuck_ticks = 0
+			search_last_pos = current_pos
+		ai_debug_log("search_tick dist=[dist_to_last_known] stuck=[search_stuck_ticks] elapsed=[world.time - search_start_time]")
 		// Check for doors blocking the path to last_known_location
 		if(can_open_doors)
-			var/dir_to_target = get_dir(src, last_known_location)
-			var/turf/T = get_step(src, dir_to_target)
+			var/turf/T = get_step(src, get_dir(src, last_known_location))
 			if(T)
-				// Check for doors in the next step toward target
-				for(var/obj/structure/simple_door/SD in T)
-					if(SD.density && !(SD in searched_doors))
-						searched_doors += SD
-						if(try_open_door(SD))
-							visible_message(span_notice("[src] opens [SD] to continue pursuit..."))
-							
-							// Check if target is now visible after opening door
-							sleep(5)
-							var/list/check_targets = ListTargets()
-							if(check_targets && check_targets.len > 0)
-								for(var/atom/possible_target in check_targets)
-									if(isliving(possible_target))
-										var/mob/living/L = possible_target
-										if(L.stat == DEAD || L.ckey && !L.client)
-											continue
-									if(!can_see(src, possible_target, get_effective_vision_range(possible_target)))
-										continue
-									if(!CanAttack(possible_target))
-										continue
-									
-									visible_message(span_danger("[src] spots [possible_target]!"))
-									exit_search_mode(FALSE, found_target = TRUE)
-									last_target_sighting = world.time
-									remembered_target = possible_target
-									GiveTarget(possible_target)
-									last_known_location = get_turf(possible_target)
-									walk(src, 0)
-									call_for_backup(possible_target, "found")
-									return
-							
-							addtimer(CALLBACK(src, PROC_REF(search_for_target)), 1 SECONDS, TIMER_DELETE_ME)
-							return
-				for(var/obj/machinery/door/D in T)
-					if(D.density && !(D in searched_doors))
-						searched_doors += D
-						if(try_open_door(D))
-							visible_message(span_notice("[src] opens [D] to continue pursuit..."))
-							
-							// Check if target is now visible after opening door
-							sleep(5)
-							var/list/check_targets = ListTargets()
-							if(check_targets && check_targets.len > 0)
-								for(var/atom/possible_target in check_targets)
-									if(isliving(possible_target))
-										var/mob/living/L = possible_target
-										if(L.stat == DEAD || L.ckey && !L.client)
-											continue
-									if(!can_see(src, possible_target, get_effective_vision_range(possible_target)))
-										continue
-									if(!CanAttack(possible_target))
-										continue
-									
-									visible_message(span_danger("[src] spots [possible_target]!"))
-									exit_search_mode(FALSE, found_target = TRUE)
-									last_target_sighting = world.time
-									remembered_target = possible_target
-									GiveTarget(possible_target)
-									last_known_location = get_turf(possible_target)
-									walk(src, 0)
-									call_for_backup(possible_target, "found")
-									return
-							
-							addtimer(CALLBACK(src, PROC_REF(search_for_target)), 1 SECONDS, TIMER_DELETE_ME)
-							return
+				for(var/atom/door in get_closed_doors(T, 0))
+					if(door in searched_doors)
+						continue
+					mark_door_searched(door)
+					if(try_open_door(door))
+						visible_message(span_notice("[src] opens [door] to continue pursuit..."))
+						search_continue_after_open("[src] spots $TARGET!")
+						return
 		
 		// We're too far from where we last saw them - move closer first
-		if(!(last_known_location in searched_turfs))
-			searched_turfs += last_known_location
+		// Re-issue the Goto every tick so blocked or interrupted paths are retried. If we are stuck
+		// for several ticks, fall through to the systematic search (doors/containers) instead.
+		if(search_stuck_ticks < SEARCH_STUCK_LIMIT)
+			if(!(last_known_location in searched_turfs))
+				searched_turfs += last_known_location
+				if(COOLDOWN_FINISHED(src, search_chatter_cooldown))
+					COOLDOWN_START(src, search_chatter_cooldown, search_chatter_delay)
+					visible_message(span_warning("[src] moves to investigate the last known position..."))
 			// If the last known location is on a different Z level, don't Goto across Z -
 			// use Z-pursuit to find a staircase/ladder instead.
 			if(last_known_location.z != z && can_z_move)
@@ -3391,45 +3801,22 @@
 					GiveTarget(remembered_target)
 					is_alpha_alerter = FALSE
 					attempt_z_pursuit()
-				addtimer(CALLBACK(src, PROC_REF(search_for_target)), 3 SECONDS, TIMER_DELETE_ME)
 				return
-			if(COOLDOWN_FINISHED(src, search_chatter_cooldown))
-				COOLDOWN_START(src, search_chatter_cooldown, search_chatter_delay)
-				visible_message(span_warning("[src] moves to investigate the last known position..."))
-			Goto(last_known_location, move_to_delay, 0)
-			addtimer(CALLBACK(src, PROC_REF(search_for_target)), 3 SECONDS, TIMER_DELETE_ME)
+			if(!set_search_goal(last_known_location))
+				// The walk is going nowhere: stop retrying it and fall through to the systematic search next step
+				search_stuck_ticks = SEARCH_STUCK_LIMIT
+				return
+			schedule_search_tick(1 SECONDS)
 			return
 
 	// Special case: Very close to last_known_location - do thorough immediate area check
 	// This catches targets standing right at/near the door or last known position
 	if(dist_to_last_known <= 1)
-		var/list/close_range_targets = ListTargets()
-		if(close_range_targets && close_range_targets.len > 0)
-			for(var/atom/possible_target in close_range_targets)
-				if(isliving(possible_target))
-					var/mob/living/L = possible_target
-					if(L.stat == DEAD || L.ckey && !L.client)
-						continue
-				
-				// More lenient check when very close - check actual distance
-				var/dist_to_target = get_dist(src, possible_target)
-				if(dist_to_target <= 3) // Within close range
-					if(CanAttack(possible_target))
-						visible_message(span_danger("[src] spots [possible_target] nearby!"))
-						exit_search_mode(FALSE, found_target = TRUE)
-						last_target_sighting = world.time
-						remembered_target = possible_target
-						GiveTarget(possible_target)
-						last_known_location = get_turf(possible_target)
-						walk(src, 0)
-						call_for_backup(possible_target, "found")
-						return
+		search_acquire_target(GetCachedTargets(), "[src] spots $TARGET nearby!", "search_close_range", max_dist = 3)
+		if(!searching)
+			return
 
 	// Now we're close to last_known_location - search systematically around it
-	var/current_radius = search_radius + (search_expansion * 2)
-	if(current_radius > 15)
-		current_radius = 15
-
 	// PRIORITY 1: Check BOTH doors AND containers, investigate closest one
 	// This fixes the issue where mobs would check all doors before any containers
 	if(can_open_doors && last_known_location)
@@ -3438,190 +3825,98 @@
 			last_known_location = get_turf(last_known_location)
 		
 		if(last_known_location)
-			var/list/hiding_spots = list() // Combined list of doors and containers
-			
-			// Collect unchecked doors
-			for(var/obj/structure/simple_door/SD in range(current_radius, last_known_location))
-				if(!(SD in searched_doors) && SD.density)
-					hiding_spots += SD
-			for(var/obj/machinery/door/D in range(current_radius, last_known_location))
-				if(!(D in searched_doors) && D.density)
-					hiding_spots += D
-			
-			// Collect unchecked containers 
+			var/list/hiding_spots = get_closed_doors(last_known_location, current_radius) - searched_doors
 			for(var/obj/structure/closet/C in range(current_radius, last_known_location))
 				if(!(C in searched_containers) && !C.opened && !C.welded && !C.locked)
 					hiding_spots += C
-			
-			// Find CLOSEST hiding spot (door or container)
-			if(hiding_spots.len > 0)
-				var/atom/closest_spot = null
-				var/closest_dist = 999
-				for(var/atom/spot in hiding_spots)
-					var/dist = get_dist(src, spot)
-					if(dist < closest_dist)
-						closest_dist = dist
-						closest_spot = spot
-				
-				// Handle the closest hiding spot
-				if(closest_spot)
-					// Is it a container?
-					if(istype(closest_spot, /obj/structure/closet))
-						var/obj/structure/closet/C = closest_spot
-						
-						if(get_dist(src, C) <= 1) // Adjacent - open it NOW
-							searched_containers += C
-							visible_message(span_warning("[src] searches [C]..."))
-							
-							// Check container contents BEFORE opening
-							for(var/atom/A in C.contents)
-								if(isliving(A))
-									var/mob/living/L = A
-									if(L.stat == DEAD || L.ckey && !L.client)
-										continue
-									if(CanAttack(L))
-										// Found someone hiding!
-										C.open(src)
-										sleep(5)
-										visible_message(span_danger("[src] found [L] hiding in [C]!"))
-										exit_search_mode(FALSE, found_target = TRUE)
-										last_target_sighting = world.time
-										remembered_target = L
-										GiveTarget(L)
-										last_known_location = get_turf(L)
-										walk(src, 0)
-										call_for_backup(L, "found")
-										return
-							
-							// No one inside - open and check nearby
-							C.open(src)
-							sleep(5)
-							
-							var/list/check_targets = ListTargets()
-							if(check_targets && check_targets.len > 0)
-								for(var/atom/possible_target in check_targets)
-									if(isliving(possible_target))
-										var/mob/living/L = possible_target
-										if(L.stat == DEAD || L.ckey && !L.client)
-											continue
-									if(!CanAttack(possible_target))
-										continue
-									
-									if(get_dist(possible_target, C) <= 1)
-										visible_message(span_danger("[src] found [possible_target] near [C]!"))
-										exit_search_mode(FALSE, found_target = TRUE)
-										last_target_sighting = world.time
-										remembered_target = possible_target
-										GiveTarget(possible_target)
-										last_known_location = get_turf(possible_target)
-										walk(src, 0)
-										call_for_backup(possible_target, "found")
-										return
-							
-							// Container was empty - continue searching
-							addtimer(CALLBACK(src, PROC_REF(search_for_target)), 1 SECONDS, TIMER_DELETE_ME)
-							return
-						else // Not adjacent - move toward it
-							Goto(C, move_to_delay, 0)
-							addtimer(CALLBACK(src, PROC_REF(search_for_target)), 1.5 SECONDS, TIMER_DELETE_ME)
-							return
-					
-					// Is it a door?
-					else
-						if(get_dist(src, closest_spot) <= 1) // Adjacent - open it
-							searched_doors += closest_spot
-							if(try_open_door(closest_spot))
-								recently_opened_door = closest_spot
-								sleep(5)
-								
-								var/list/check_targets = ListTargets()
-								if(check_targets && check_targets.len > 0)
-									for(var/atom/possible_target in check_targets)
-										if(isliving(possible_target))
-											var/mob/living/L = possible_target
-											if(L.stat == DEAD || L.ckey && !L.client)
-												continue
-										if(!can_see(src, possible_target, get_effective_vision_range(possible_target)))
-											continue
-										if(!CanAttack(possible_target))
-											continue
-										
-										visible_message(span_danger("[src] spots [possible_target] behind the door!"))
-										exit_search_mode(FALSE, found_target = TRUE)
-										last_target_sighting = world.time
-										remembered_target = possible_target
-										GiveTarget(possible_target)
-										last_known_location = get_turf(possible_target)
-										walk(src, 0)
-										call_for_backup(possible_target, "found")
-										return
-								
-								// No visible target - continue searching
-								addtimer(CALLBACK(src, PROC_REF(search_for_target)), 1 SECONDS, TIMER_DELETE_ME)
-								return
-						else // Not adjacent - move toward it
-							Goto(closest_spot, move_to_delay, 0)
-							addtimer(CALLBACK(src, PROC_REF(search_for_target)), 1.5 SECONDS, TIMER_DELETE_ME)
-							return
+
+			// Investigate the best hiding spot, door or container. Score by the trip src -> spot -> last known position,
+			// so a door on the way to where the target was lost beats one that merely sits close to us.
+			var/atom/closest_spot = null
+			var/closest_dist = 999
+			for(var/atom/spot in hiding_spots)
+				var/dist = get_dist(src, spot) + get_dist(spot, last_known_location)
+				if(dist < closest_dist)
+					closest_dist = dist
+					closest_spot = spot
+
+			if(closest_spot)
+				if(get_dist(src, closest_spot) > 1) // Not adjacent - move toward it
+					set_search_goal(closest_spot)
+					schedule_search_tick(1.5 SECONDS)
+					return
+
+				if(istype(closest_spot, /obj/structure/closet))
+					var/obj/structure/closet/C = closest_spot
+					searched_containers += C
+					visible_message(span_warning("[src] searches [C]..."))
+					// Snapshot the occupants first, then open: hiders are reported even though they spill out
+					var/list/occupants = list()
+					for(var/mob/living/M in C.contents)
+						occupants += M
+					C.open(src)
+					if(search_acquire_target(occupants, "[src] found $TARGET hiding in [C]!", "search_container_hidden", near_atom = C))
+						return
+					search_continue_after_open("[src] found $TARGET near [C]!", C)
+					return
+
+				mark_door_searched(closest_spot)
+				if(try_open_door(closest_spot))
+					recently_opened_door = closest_spot
+					search_continue_after_open("[src] spots $TARGET behind the door!")
+					return
 		
 		// All hiding spots checked
 	
 	// PRIORITY 2: Explore unsearched tiles around last_known_location
 	var/list/unexplored_turfs = list()
-	
+	// Tiles next to a door we have not opened, or next to the door we just opened, are worth checking first
+	var/list/priority_turfs = list()
+	var/list/unopened_doors = get_closed_doors(last_known_location, current_radius + 1) - searched_doors
+	var/turf/opened_door_turf = recently_opened_door ? get_turf(recently_opened_door) : null
+
 	// Search around last_known_location, not our current position
 	for(var/turf/T in range(current_radius, last_known_location))
 		if(T in searched_turfs)
 			continue
 		if(!istype(T, /turf/open))
 			continue
-		
-		// Prioritize tiles near recently opened doors
-		if(recently_opened_door)
-			var/turf/door_turf = get_turf(recently_opened_door)
-			if(get_dist(T, door_turf) <= 2)
-				unexplored_turfs.Insert(1, T)
-				continue
-		
-		// PERFORMANCE: Direct door check instead of turf iteration
-		var/near_unopened_door = FALSE
-		for(var/obj/structure/simple_door/SD in orange(1, T))
-			if(SD.density && !(SD in searched_doors))
-				near_unopened_door = TRUE
+		unexplored_turfs += T
+		if(opened_door_turf && get_dist(T, opened_door_turf) <= 2)
+			priority_turfs[T] = TRUE
+			continue
+		for(var/atom/door in unopened_doors)
+			if(get_dist(T, door) <= 1)
+				priority_turfs[T] = TRUE
 				break
-		if(!near_unopened_door)
-			for(var/obj/machinery/door/D in orange(1, T))
-				if(D.density && !(D in searched_doors))
-					near_unopened_door = TRUE
-					break
-		
-		if(near_unopened_door)
-			unexplored_turfs.Insert(1, T)
-		else
-			unexplored_turfs += T
-	
+
 	// Move to unexplored area
 	if(unexplored_turfs.len)
 		var/turf/search_target = null
-		
-		// Pick from top candidates, preferring ones closer to last_known_location
-		var/candidates_count = min(5, unexplored_turfs.len)
-		var/list/candidate_turfs = unexplored_turfs.Copy(1, candidates_count + 1)
-		
+
+		// Tiles we can see are reachable without a door in the way, so they beat tiles in other rooms
+		var/list/in_view = list()
+		for(var/turf/V in view(7, src))
+			in_view[V] = TRUE
+
 		// Score by distance to last_known_location (closer = better)
 		var/best_score = 999
-		for(var/turf/T in candidate_turfs)
+		for(var/turf/T in unexplored_turfs)
 			var/score = get_dist(T, last_known_location)
-			
+			if(priority_turfs[T])
+				score -= 3
+			if(!in_view[T])
+				score += 6
+
 			// Small randomization to avoid perfectly synchronized movement
 			score += rand(-2, 2)
-			
+
 			if(score < best_score)
 				best_score = score
 				search_target = T
-		
+
 		if(!search_target)
-			search_target = pick(candidate_turfs)
+			search_target = pick(unexplored_turfs)
 		
 		// Clear recently_opened_door if we've moved past it
 		if(recently_opened_door)
@@ -3631,14 +3926,12 @@
 		
 		// Move to target
 		searched_turfs += search_target
-		Goto(search_target, move_to_delay, 0)
+		set_search_goal(search_target)
 	else
 		// Exhausted current radius - expand search
 		search_expansion++
 		if(search_expansion <= 8)
 			visible_message(span_notice("[src] expands the search..."))
-
-	addtimer(CALLBACK(src, PROC_REF(search_for_target)), 3 SECONDS, TIMER_DELETE_ME)
 
 // BACKUP SYSTEM - alert nearby allies about target location
 /mob/living/simple_animal/hostile/proc/call_for_backup(atom/found_target, alert_type = "found")
@@ -3650,6 +3943,8 @@
 		return
 	
 	COOLDOWN_START(src, backup_call_cooldown, backup_call_delay)
+	if(alert_type == "found")
+		ai_get_squad()?.note_threat(found_target, get_turf(found_target), src)
 	
 	// Alert message
 	switch(alert_type)
@@ -3719,6 +4014,8 @@
 		remembered_target = alert_target
 		last_target_sighting = world.time
 		last_known_location = target_location
+		search_dest_confidence = AI_CONF_SIGHT
+		search_dest_time = world.time
 		if(AIStatus != AI_ON)
 			toggle_ai(AI_ON)
 		// Only announce response if not already actively fighting this target
@@ -3730,7 +4027,8 @@
 	is_alpha_alerter = FALSE  // Explicitly secondary
 	remembered_target = alert_target
 	last_target_sighting = world.time
-	last_known_location = target_location
+	// Also redirects a search already in progress instead of ignoring the alert
+	update_search_destination(target_location, "backup_alert", AI_CONF_ALERT)
 
 	if(AIStatus == AI_IDLE || AIStatus == AI_Z_OFF)
 		toggle_ai(AI_ON)
@@ -3755,7 +4053,7 @@
 	else if(target && target != alert_target)
 		// Already have a target - only update memory if alert target is much closer
 		if(get_dist(src, alert_target) < get_dist(src, target) - 3)
-			last_known_location = target_location
+			update_search_destination(target_location, "backup_alert", AI_CONF_ALERT, alert_target)
 
 // RETREAT TO ALLIES - move toward nearby allies while calling for backup
 /mob/living/simple_animal/hostile/proc/retreat_to_allies()
@@ -3848,8 +4146,7 @@
 /mob/living/simple_animal/hostile/proc/receive_lost_alert(atom/lost_target, turf/last_location)
 	// If we're searching for the same target, update our search location
 	if(searching && remembered_target == lost_target)
-		last_known_location = last_location
-		visible_message(span_notice("[src] updates their search pattern..."))
+		update_search_destination(last_location, "lost_alert", AI_CONF_ALERT, lost_target)
 
 // DOOR OPENING - smart mobs can open doors instead of destroying them
 /mob/living/simple_animal/hostile/proc/try_open_door(atom/D)
@@ -3915,137 +4212,115 @@
 	
 	return FALSE
 
-// CURIOSITY - Check door during idle investigation
-/mob/living/simple_animal/hostile/proc/curiosity_check_door(atom/door)
-	if(!door || QDELETED(door) || stat == DEAD || AIStatus == AI_OFF)
-		return
-	
-	// Only proceed if we're still idle and near the door
-	if(AIStatus != AI_IDLE || get_dist(src, door) > 2)
-		return
-	
-	// Try to open the door
-	if(get_dist(src, door) <= 1 && try_open_door(door))
-		visible_message(span_notice("[src] peeks through [door]..."))
-		
-		// Wait a moment for door to open
-		sleep(5)
-		
-		// Look for targets on the other side
-		var/list/check_targets = ListTargets()
-		if(check_targets && check_targets.len > 0)
-			for(var/atom/possible_target in check_targets)
-				if(isliving(possible_target))
-					var/mob/living/L = possible_target
-					if(L.stat == DEAD || L.ckey && !L.client)
-						continue
-				if(!CanAttack(possible_target))
-					continue
-				
-				// Found someone! Wake up and aggro properly
-				visible_message(span_danger("[src] spots [possible_target] through the door!"))
-				toggle_ai(AI_ON)
-				last_target_sighting = world.time
-				remembered_target = possible_target
-				GiveTarget(possible_target)
-				last_known_location = get_turf(possible_target)
-				walk(src, 0)
-				call_for_backup(possible_target, "found")
-				COOLDOWN_RESET(src, sight_shoot_delay)
-				LosePatience()
-				return
-		
-		// Didn't see anyone - check nearby containers (within 5 tiles beyond the door)
-		var/turf/door_turf = get_turf(door)
-		if(door_turf)
-			var/list/nearby_containers = list()
-			for(var/turf/T in range(5, door_turf))
-				for(var/obj/structure/closet/C in T)
-					if(!C.opened && !C.welded && !C.locked)
-						nearby_containers += C
-			
-			if(nearby_containers.len > 0)
-				// Pick closest container
-				var/obj/structure/closet/closest_container = null
-				var/closest_dist = 999
-				for(var/obj/structure/closet/C in nearby_containers)
-					var/dist = get_dist(src, C)
-					if(dist < closest_dist)
-						closest_dist = dist
-						closest_container = C
-				
-				if(closest_container)
-					visible_message(span_notice("[src] investigates [closest_container]..."))
-					// Move toward it
-					Goto(closest_container, move_to_delay, 0)
-					// Check it after getting close
-					addtimer(CALLBACK(src, PROC_REF(curiosity_check_container), closest_container), 3 SECONDS, TIMER_DELETE_ME)
-					return
+/// Invalidates every pending idle-curiosity callback
+/mob/living/simple_animal/hostile/proc/cancel_curiosity()
+	curiosity_token++
 
-// CURIOSITY - Check container during idle investigation
-/mob/living/simple_animal/hostile/proc/curiosity_check_container(obj/structure/closet/container)
-	if(!container || QDELETED(container) || stat == DEAD || AIStatus == AI_OFF)
-		return
-	
-	// Only proceed if we're still idle and near the container
-	if(AIStatus != AI_IDLE || get_dist(src, container) > 1)
-		return
-	
-	// Check if container is still closed
-	if(container.opened || container.welded || container.locked)
-		return
-	
-	visible_message(span_warning("[src] searches [container]..."))
-	
-	// Check container contents BEFORE opening (to catch hiding mobs)
-	for(var/atom/A in container.contents)
-		if(isliving(A))
-			var/mob/living/L = A
+/// A curiosity callback is only valid for the plan that scheduled it, and only while the mob is still idle
+/mob/living/simple_animal/hostile/proc/curiosity_valid(token)
+	return !QDELETED(src) && token == curiosity_token && stat != DEAD && AIStatus == AI_IDLE && !target && !searching
+
+/// First live, attackable target currently in view, if any
+/mob/living/simple_animal/hostile/proc/curiosity_find_target()
+	var/list/check_targets = GetCachedTargets()
+	if(!check_targets || !check_targets.len)
+		return null
+	for(var/atom/possible_target in check_targets)
+		if(isliving(possible_target))
+			var/mob/living/L = possible_target
 			if(L.stat == DEAD || L.ckey && !L.client)
 				continue
-			if(CanAttack(L))
-				// Found someone hiding! Open and aggro!
-				container.open(src)
-				sleep(5) // Wait for animation
-				visible_message(span_danger("[src] found [L] hiding in [container]!"))
-				toggle_ai(AI_ON)
-				last_target_sighting = world.time
-				remembered_target = L
-				GiveTarget(L)
-				last_known_location = get_turf(L)
-				walk(src, 0)
-				call_for_backup(L, "found")
-				COOLDOWN_RESET(src, sight_shoot_delay)
-				LosePatience()
-				return
-	
-	// No one inside - just open it
-	container.open(src)
-	sleep(5)
-	
-	// Check if anyone visible nearby now (they might have stepped out)
-	var/list/check_targets = ListTargets()
-	if(check_targets && check_targets.len > 0)
-		for(var/atom/possible_target in check_targets)
-			if(isliving(possible_target))
-				var/mob/living/L = possible_target
-				if(L.stat == DEAD || L.ckey && !L.client)
-					continue
-			if(!CanAttack(possible_target))
+		if(!CanAttack(possible_target))
+			continue
+		return possible_target
+	return null
+
+/mob/living/simple_animal/hostile/proc/curiosity_aggro(atom/found, message)
+	visible_message(span_danger(message))
+	toggle_ai(AI_ON)
+	last_target_sighting = world.time
+	remembered_target = found
+	GiveTarget(found)
+	last_known_location = get_turf(found)
+	walk(src, 0)
+	call_for_backup(found, "found")
+	COOLDOWN_RESET(src, sight_shoot_delay)
+	LosePatience()
+
+// CURIOSITY - Check door during idle investigation
+/mob/living/simple_animal/hostile/proc/curiosity_check_door(atom/door, token)
+	if(!curiosity_valid(token) || !door || QDELETED(door))
+		return
+	if(get_dist(src, door) > 1)
+		return
+	if(!try_open_door(door))
+		return
+	visible_message(span_notice("[src] peeks through [door]..."))
+	// Give the door time to open before looking
+	addtimer(CALLBACK(src, PROC_REF(curiosity_peek_through_door), door, token), 0.5 SECONDS, TIMER_DELETE_ME)
+
+/mob/living/simple_animal/hostile/proc/curiosity_peek_through_door(atom/door, token)
+	if(!curiosity_valid(token) || !door || QDELETED(door))
+		return
+	var/atom/found = curiosity_find_target()
+	if(found)
+		curiosity_aggro(found, "[src] spots [found] through the door!")
+		return
+
+	// Didn't see anyone - check nearby containers (within 5 tiles beyond the door)
+	var/turf/door_turf = get_turf(door)
+	if(!door_turf)
+		return
+	var/obj/structure/closet/closest_container
+	var/closest_dist = 999
+	for(var/turf/T in range(5, door_turf))
+		for(var/obj/structure/closet/C in T)
+			if(C.opened || C.welded || C.locked)
 				continue
-			
-			// Found someone nearby - aggro!
-			visible_message(span_danger("[src] spots [possible_target]!"))
-			toggle_ai(AI_ON)
-			last_target_sighting = world.time
-			remembered_target = possible_target
-			GiveTarget(possible_target)
-			last_known_location = get_turf(possible_target)
-			walk(src, 0)
-			call_for_backup(possible_target, "found")
-			COOLDOWN_RESET(src, sight_shoot_delay)
-			LosePatience()
-			return
+			var/dist = get_dist(src, C)
+			if(dist < closest_dist)
+				closest_dist = dist
+				closest_container = C
+	if(closest_container)
+		visible_message(span_notice("[src] investigates [closest_container]..."))
+		Goto(closest_container, move_to_delay, 0)
+		// Check it after getting close; same plan, so the same token
+		addtimer(CALLBACK(src, PROC_REF(curiosity_check_container), closest_container, token), 3 SECONDS, TIMER_DELETE_ME)
+
+// CURIOSITY - Check container during idle investigation
+/mob/living/simple_animal/hostile/proc/curiosity_check_container(obj/structure/closet/container, token)
+	if(!curiosity_valid(token) || !container || QDELETED(container))
+		return
+	if(get_dist(src, container) > 1)
+		return
+	if(container.opened || container.welded || container.locked)
+		return
+
+	visible_message(span_warning("[src] searches [container]..."))
+
+	// Check container contents BEFORE opening (to catch hiding mobs)
+	var/mob/living/hider
+	for(var/mob/living/L in container.contents)
+		if(L.stat == DEAD || L.ckey && !L.client)
+			continue
+		if(CanAttack(L))
+			hider = L
+			break
+
+	container.open(src)
+	if(hider)
+		curiosity_aggro(hider, "[src] found [hider] hiding in [container]!")
+		return
+	// Nobody inside: look again once the lid is open, in case someone stepped out
+	addtimer(CALLBACK(src, PROC_REF(curiosity_peek_container), token), 0.5 SECONDS, TIMER_DELETE_ME)
+
+/mob/living/simple_animal/hostile/proc/curiosity_peek_container(token)
+	if(!curiosity_valid(token))
+		return
+	var/atom/found = curiosity_find_target()
+	if(found)
+		curiosity_aggro(found, "[src] spots [found]!")
+
 
 // Z-LEVEL COMMITMENT - prevents constant up/down movement
 /mob/living/simple_animal/hostile/proc/commit_to_z_level()
@@ -4077,6 +4352,52 @@
 	last_successful_z_move = world.time
 
 // SOUND DETECTION - hear gunfire and move toward it (WITH MUFFLING)
+/// Picks a reachable (open, non-dense) turf near a sound so we never path into a wall and hearing stays imprecise.
+/mob/living/simple_animal/hostile/proc/get_sound_investigation_spot(turf/sound_location, radius = 3)
+	var/list/candidates = list()
+	for(var/turf/open/T in range(radius, sound_location))
+		if(!T.density)
+			candidates += T
+	if(!candidates.len)
+		for(var/turf/open/T in range(radius + 2, sound_location))
+			if(!T.density)
+				candidates += T
+	if(!candidates.len)
+		return sound_location
+	return pick(candidates)
+
+/// Offers a new place to look. Evidence is ranked by confidence (decaying with age): a weaker or staler lead never
+/// drags a mob off a stronger one unless it refines the same area or the mob has already arrived.
+/// A big jump resets the explored area and redirects an active search immediately. Returns TRUE if accepted.
+/mob/living/simple_animal/hostile/proc/update_search_destination(turf/new_location, source = "sound", confidence = AI_CONF_COMBAT_SOUND, atom/subject)
+	if(!new_location)
+		return FALSE
+	// Every lead is remembered, even one that does not change where we are walking
+	remember_fact(AI_FACT_THREAT, new_location, confidence, subject, source)
+
+	var/different_area = !last_known_location || last_known_location.z != new_location.z || get_dist(last_known_location, new_location) > 3
+	if(different_area && last_known_location && get_dist(src, last_known_location) > 1 && last_known_location.z == z && confidence < get_destination_strength())
+		ai_debug_log("search_destination_ignored source=[source] confidence=[confidence] current=[round(get_destination_strength(), 0.01)]")
+		return FALSE
+
+	if(different_area)
+		searched_turfs = list()
+		search_expansion = 0
+		search_stuck_ticks = 0
+		search_arrived_at = null
+		ai_debug_log("search_destination source=[source] confidence=[confidence] from=[last_known_location ? "[last_known_location.x],[last_known_location.y],[last_known_location.z]" : "none"] to=[new_location.x],[new_location.y],[new_location.z]")
+	last_known_location = new_location
+	search_dest_confidence = confidence
+	search_dest_time = world.time
+	if(searching)
+		search_start_time = world.time
+		// Even a lead inside the same area is worth walking to when it is not where we are already heading
+		var/new_goal = different_area || !search_move_goal || get_dist(search_move_goal, new_location) > 1
+		if(new_goal && !target && new_location.z == z && get_dist(src, new_location) > 1)
+			ai_debug_log("search_redirect source=[source] to=[new_location.x],[new_location.y]")
+			set_search_goal(new_location)
+	return TRUE
+
 /mob/living/simple_animal/hostile/proc/hear_combat_sound(turf/sound_location, atom/sound_source)
 	if(!can_hear_combat)
 		return
@@ -4100,14 +4421,7 @@
 	last_combat_sound = world.time
 	
 	// Don't give exact location - pick a random spot near the sound (simulates hearing direction)
-	var/list/investigation_turfs = list()
-	for(var/turf/T in range(3, sound_location)) // Smaller radius for more accurate investigation
-		if(istype(T, /turf/open))
-			investigation_turfs += T
-	
-	var/turf/investigation_spot = sound_location
-	if(investigation_turfs.len)
-		investigation_spot = pick(investigation_turfs)
+	var/turf/investigation_spot = get_sound_investigation_spot(sound_location, 3)
 	
 	// WAKE UP if idle - sounds should always wake mobs
 	if(AIStatus == AI_IDLE || AIStatus == AI_Z_OFF)
@@ -4122,16 +4436,13 @@
 			recent_climbs = 0
 			z_commit_time = 0
 			
-			if(remembered_target)
-				last_known_location = investigation_spot // Use approximate location
-			
-			if(searching)
-				last_known_location = investigation_spot
+			if(remembered_target || searching)
+				update_search_destination(investigation_spot, "combat_sound_z", AI_CONF_COMBAT_SOUND)
 		else if(sound_location.z == z)
 			commit_to_z_level()
 			
 			if(searching || !target)
-				last_known_location = investigation_spot
+				update_search_destination(investigation_spot, "combat_sound", AI_CONF_COMBAT_SOUND)
 				if(!searching)
 					enter_search_mode()
 	
@@ -4154,17 +4465,16 @@
 				attempt_z_pursuit()
 				return
 		// Same-Z or no usable attacker source: investigate the sound location normally
-		last_known_location = investigation_spot
+		var/redirected = update_search_destination(investigation_spot, "combat_sound", AI_CONF_COMBAT_SOUND)
 		if(!searching)
 			enter_search_mode()
 			visible_message(span_notice("[src] starts investigating the commotion..."))
-		else
-			// Already searching, update location
+		else if(redirected)
 			visible_message(span_notice("[src] adjusts their search toward the gunfire..."))
 	else if(searching)
 		// We have a remembered target but are searching - update search location
-		last_known_location = investigation_spot
-		visible_message(span_notice("[src] adjusts their search toward the gunfire..."))
+		if(update_search_destination(investigation_spot, "combat_sound", AI_CONF_COMBAT_SOUND))
+			visible_message(span_notice("[src] adjusts their search toward the gunfire..."))
 
 // Hear impact sounds (bullet hitting wall/target) - smaller radius
 /mob/living/simple_animal/hostile/proc/hear_impact_sound(turf/impact_location, atom/sound_source)
@@ -4188,9 +4498,11 @@
 		return
 	
 	last_combat_sound = world.time
+	if(distance <= 2)
+		ai_note_near_miss(sound_source)
 	
-	// Use impact location directly for CPU efficiency (no random picking)
-	var/turf/investigation_spot = impact_location
+	// Impacts are often on walls; resolve to a nearby reachable turf instead of pathing into the wall
+	var/turf/investigation_spot = get_sound_investigation_spot(impact_location, 1)
 	
 	// ALWAYS WAKE UP - impacts should alert idle mobs
 	if(AIStatus == AI_IDLE || AIStatus == AI_Z_OFF)
@@ -4201,7 +4513,7 @@
 	if(can_open_doors)
 		var/list/path = getline(get_turf(src), impact_location)
 		for(var/turf/T in path)
-			// REALISM FIX: Only open doors within melee range (adjacent)
+			// Only open doors within melee range (adjacent)
 			var/door_distance = get_dist(src, T)
 			if(door_distance > 1)
 				continue // Too far to open
@@ -4220,16 +4532,14 @@
 	
 	// INVESTIGATE - move toward the impact
 	if(!target)
-		last_known_location = investigation_spot
+		update_search_destination(investigation_spot, "impact_sound", AI_CONF_IMPACT_SOUND)
 		
 		if(!searching)
 			enter_search_mode()
 			visible_message(span_notice("[src] goes to investigate the noise..."))
-		else
-			last_known_location = investigation_spot
 	else if(searching)
 		// Update search location to be closer to impact
-		last_known_location = investigation_spot
+		update_search_destination(investigation_spot, "impact_sound", AI_CONF_IMPACT_SOUND)
 
 /mob/living/simple_animal/hostile/proc/hear_gunshot(turf/shot_location, atom/shooter)
 	if(!can_hear_combat)
@@ -4241,6 +4551,11 @@
 	// Check if shooter is an enemy
 	if(shooter && faction_check_mob(shooter))
 		return // Don't care about friendly fire
+
+	// Automatic fire hits this every shot; a mob only needs to react a couple of times a second
+	if(!COOLDOWN_FINISHED(src, gunshot_react_cooldown))
+		return
+	COOLDOWN_START(src, gunshot_react_cooldown, 5)
 	
 	// Calculate muffled range
 	var/effective_range = calculate_muffled_sound_range(shot_location, combat_hearing_range)
@@ -4258,11 +4573,53 @@
 	if(AIStatus == AI_IDLE || AIStatus == AI_Z_OFF)
 		toggle_ai(AI_ON)
 	
-	// If we don't have a target, investigate the sound
-	if(!target && !searching)
-		last_known_location = shot_location
-		enter_search_mode()
-		visible_message(span_warning("[src] perks up at the sound of gunfire!"))
+	last_combat_sound = world.time
+
+	// Already fighting something else: a visible shooter can still pull our attention away
+	if(target)
+		if(target != shooter)
+			consider_gunfire_retarget(shot_location, shooter)
+		return
+
+	// A shooter we can see is a target, not just a noise
+	if(isliving(shooter) && stat == CONSCIOUS && !QDELETED(shooter) && can_see(src, shooter, get_effective_vision_range(shooter)) && CanAttack(shooter))
+		if(searching)
+			exit_search_mode(found_target = TRUE)
+		FindTarget(list(shooter), 1, bypass_detection = TRUE)
+		COOLDOWN_RESET(src, sight_shoot_delay)
+		if(target)
+			trigger_chain_alert(shooter)
+			return
+
+	// If we don't have a target, investigate the sound (fuzzed so walls and exact shooter position aren't leaked)
+	if(!target)
+		update_search_destination(get_sound_investigation_spot(shot_location, 2), "gunshot", AI_CONF_GUNSHOT, shooter)
+		if(!searching)
+			enter_search_mode()
+			visible_message(span_warning("[src] perks up at the sound of gunfire!"))
+
+/// Gunfire from a shooter we can see overrides a held target that is another NPC and not yet in melee range
+/mob/living/simple_animal/hostile/proc/consider_gunfire_retarget(turf/shot_location, atom/shooter)
+	if(!isliving(shooter) || QDELETED(shooter) || stat != CONSCIOUS || AIStatus == AI_OFF || client)
+		return
+	remember_fact(AI_FACT_THREAT, shot_location, AI_CONF_GUNSHOT, shooter, "gunshot")
+	if(!COOLDOWN_FINISHED(src, gunfire_retarget_cooldown))
+		return
+	if(ismob(target))
+		var/mob/current_mob = target
+		if(current_mob.ckey)
+			return // already fighting a player
+	if(get_dist(src, target) <= 1)
+		return
+	if(!can_see(src, shooter, get_effective_vision_range(shooter)) || !CanAttack(shooter))
+		return
+	COOLDOWN_START(src, gunfire_retarget_cooldown, gunfire_retarget_delay)
+	ai_debug_log("gunfire_retarget from=[target] to=[shooter]")
+	if(searching)
+		exit_search_mode(found_target = TRUE)
+	GiveTarget(shooter, "gunfire_retarget")
+	COOLDOWN_RESET(src, sight_shoot_delay)
+	trigger_chain_alert(shooter)
 
 // LIGHT DETECTION - detect and investigate light sources in darkness
 /mob/living/simple_animal/hostile/proc/detect_light_source()
@@ -4287,7 +4644,7 @@
 	// ONLY check for living mobs with lights - not objects
 	var/list/potential_lights = list()
 	
-	// FIX: Use the INTEGRATED vision system instead of raw view()
+	// Use the integrated vision system instead of raw view()
 	// Check all mobs in range, but filter by effective vision range
 	for(var/mob/living/M in view(light_detection_range, src))
 		if(M == src)
@@ -4301,7 +4658,7 @@
 		if(M.light_range < light_detection_threshold)
 			continue
 		
-		// FIX: Apply the integrated vision system
+		// Apply the integrated vision system
 		// This checks BOTH lighting and direction
 		var/effective_range = get_effective_vision_range(M)
 		var/actual_distance = get_dist(src, M)
@@ -4340,12 +4697,12 @@
 			
 			// Otherwise investigate the location
 			if(!target && !searching)
-				last_known_location = light_location
+				update_search_destination(light_location, "light", AI_CONF_LIGHT)
 				enter_search_mode()
 				visible_message(span_warning("[src] notices a light in the darkness..."))
 			else if(searching && !target)
 				// Update search location if already searching
-				last_known_location = light_location
+				update_search_destination(light_location, "light", AI_CONF_LIGHT)
 
 // CORNER NAVIGATION - try alternate paths when stuck at corners
 /mob/living/simple_animal/hostile/proc/navigate_around_corner()
@@ -4432,20 +4789,28 @@
 //////////////END HOSTILE MOB TARGETTING AND AGGRESSION////////////
 
 /mob/living/simple_animal/hostile/death(gibbed)
-	LoseTarget()
+	ai_close_segment("death", TRUE)
+	LoseTarget("death")
+	broadcast_ally_death()
 	affix_death()
 	..(gibbed)
 
 /mob/living/simple_animal/hostile/proc/summon_backup(distance, exact_faction_match)
-	if(COOLDOWN_FINISHED(src, ding_spam_cooldown))
+	if(!COOLDOWN_FINISHED(src, ding_spam_cooldown))
 		return TRUE
 	COOLDOWN_START(src, ding_spam_cooldown, SIMPLE_MOB_DING_COOLDOWN)
 	do_alert_animation(src)
 	playsound(loc, 'sound/machines/chime.ogg', 50, 1, -1)
 	for(var/mob/living/simple_animal/hostile/M in oview(distance, targets_from))
-		if(faction_check_mob(M, TRUE))
-			if(M.AIStatus == AI_OFF || M.stat == DEAD || M.ckey)
-				return
+		if(!faction_check_mob(M, exact_faction_match))
+			continue
+		if(M.AIStatus != AI_ON || M.stat == DEAD || M.ckey || M.target)
+			continue
+		// Allies spend their own cooldown so one alert spreads a single hop instead of rippling across the whole map
+		COOLDOWN_START(M, ding_spam_cooldown, SIMPLE_MOB_DING_COOLDOWN)
+		if(target && !QDELETED(target))
+			M.GiveTarget(target, "backup_call")
+		else
 			M.Goto(src,M.move_to_delay,M.minimum_distance)
 
 /mob/living/simple_animal/hostile/proc/CheckFriendlyFire(atom/A)
@@ -4506,28 +4871,11 @@
 		if(blocked)
 			continue
 		
-		// Check if this position has clear shot line (not just vision)
-		var/has_clear_shot = TRUE
+		// Check if this position has a clear shot line (not just vision) that hasn't already failed us
 		var/turf/target_turf = get_turf(target)
-		var/list/shot_check = getline(T, target_turf)
-		
-		for(var/turf/check_turf in shot_check)
-			if(check_turf == T || check_turf == target_turf)
-				continue
-			
-			if(check_turf.density)
-				has_clear_shot = FALSE
-				break
-			
-			for(var/atom/A in check_turf)
-				if(A.density && !ismob(A))
-					has_clear_shot = FALSE
-					break
-			
-			if(!has_clear_shot)
-				break
-		
-		if(!has_clear_shot)
+		if(!shot_is_clear(T, target_turf))
+			continue
+		if(action_suppressed(AI_ACTION_SHOT, lane_key(T, target_turf), probe = FALSE))
 			continue
 		
 		// Check distance - prefer positions at similar distance
@@ -4555,6 +4903,61 @@
 	
 	return null
 
+/// Moves a ranged mob that has no shot toward a tile that does. Returns TRUE if it issued movement.
+/mob/living/simple_animal/hostile/proc/ai_push_for_shot()
+	if(!target)
+		return FALSE
+	var/turf/target_turf = get_turf(target)
+	var/turf/here = get_turf(src)
+	if(ranged_push_goal && (here == ranged_push_goal || world.time >= ranged_push_next || !shot_is_clear(ranged_push_goal, target_turf)))
+		ranged_push_goal = null
+	if(!ranged_push_goal)
+		ranged_push_goal = find_flank_firing_position(target)
+		ranged_push_next = world.time + RANGED_PUSH_REPICK
+		ai_debug_log("ranged_push goal=[ranged_push_goal ? "[ranged_push_goal.x],[ranged_push_goal.y]" : "none"] dist=[get_dist(src, target)]")
+	if(ranged_push_goal)
+		Goto(ranged_push_goal, move_to_delay, 0)
+		return TRUE
+	// Nothing nearby sees the target: close in and let pathing carry the mob around the cover
+	if(get_dist(src, target) > 2)
+		Goto(target, move_to_delay, 2)
+		return TRUE
+	return FALSE
+
+/// A reachable tile from which the target can be shot, preferring the mob's usual fighting band and the shortest trip.
+/// Candidates must be in a straight clear line from the mob, so the walk there never needs a detour through walls.
+/mob/living/simple_animal/hostile/proc/find_flank_firing_position(atom/threat)
+	var/turf/my_turf = get_turf(src)
+	var/turf/threat_turf = get_turf(threat)
+	if(!my_turf || !threat_turf || my_turf.z != threat_turf.z)
+		return null
+	var/preferred = isnull(retreat_distance) ? 3 : retreat_distance + 1
+	var/max_threat_dist = max(preferred + 3, 7)
+	var/turf/best
+	var/best_cost = INFINITY
+	for(var/turf/T in range(RANGED_PUSH_SCAN, my_turf))
+		if(T == my_turf || T.density)
+			continue
+		var/threat_dist = get_dist(T, threat_turf)
+		if(threat_dist < 2 || threat_dist > max_threat_dist)
+			continue
+		var/occupied = FALSE
+		for(var/atom/movable/A in T)
+			if(A.density)
+				occupied = TRUE
+				break
+		if(occupied)
+			continue
+		if(!shot_is_clear(T, threat_turf) || !shot_is_clear(my_turf, T))
+			continue
+		if(action_suppressed(AI_ACTION_SHOT, lane_key(T, threat_turf), probe = FALSE))
+			continue
+		var/cost = get_dist(my_turf, T) + abs(threat_dist - preferred) * 0.5
+		if(cost < best_cost)
+			best_cost = cost
+			best = T
+	return best
+
 /mob/living/simple_animal/hostile/proc/OpenFire(atom/A)
 	// CRITICAL: Check if we actually have line of sight before shooting
 	// Exception: Allow close-range shooting (within 2 tiles) even without perfect LOS
@@ -4565,7 +4968,7 @@
 	if(COOLDOWN_TIMELEFT(src, sight_shoot_delay))
 		return FALSE
 	
-	// BARRICADE FIX: Don't shoot at targets blocked by structures
+	// Don't shoot at targets blocked by structures
 	// Pathfinding will handle getting around obstacles
 	if(dist_to_target > 2 && is_target_blocked_by_structure(A))
 		return FALSE // Target behind barricade/table/window - path around instead
@@ -4577,7 +4980,7 @@
 			if(T == get_turf(src)) // Skip our own tile
 				continue
 			
-			// REALISM FIX: Only open doors within melee range (adjacent tiles)
+			// Only open doors within melee range (adjacent tiles)
 			var/door_distance = get_dist(src, T)
 			if(door_distance > 1)
 				continue // Too far to open, skip this door
@@ -4619,6 +5022,20 @@
 	
 	if(CheckFriendlyFire(A))
 		return
+
+	// PREVENTION: the target being visible does not mean the projectile can reach it
+	ai_shot_declined = FALSE
+	if(!ckey && A.z == z)
+		var/turf/shot_origin = get_turf(targets_from)
+		var/turf/shot_goal = get_turf(A)
+		if(!shot_is_clear(shot_origin, shot_goal))
+			ai_shot_declined = TRUE
+			ai_debug_log("shot_declined reason=geometry to=[shot_goal.x],[shot_goal.y]")
+			return FALSE
+		if(action_suppressed(AI_ACTION_SHOT, lane_key(shot_origin, shot_goal)))
+			ai_shot_declined = TRUE
+			ai_debug_log("shot_declined reason=blocked_lane to=[shot_goal.x],[shot_goal.y]")
+			return FALSE
 	
 	visible_message("<span class='danger'><b>[src]</b> [islist(ranged_message) ? pick(ranged_message) : ranged_message] at [A]!</span>")
 	if(rapid > 1)
@@ -4645,6 +5062,8 @@
 	if( QDELETED(targeted_atom) || targeted_atom == targets_from.loc || targeted_atom == targets_from )
 		return
 	var/turf/startloc = get_turf(targets_from)
+	if(!ckey)
+		note_shot_fired()
 	if(casingtype)
 		var/obj/item/ammo_casing/casing = new casingtype(startloc)
 		if(casing.BB)
@@ -4697,40 +5116,7 @@
 /mob/living/simple_animal/hostile/proc/is_shot_blocked(atom/target)
 	if(!target)
 		return TRUE
-	
-	// Get the shot line from us to target
-	var/turf/source_turf = get_turf(src)
-	var/turf/target_turf = get_turf(target)
-	
-	if(!source_turf || !target_turf)
-		return TRUE
-	
-	// Use getline to get the actual path a projectile would take
-	var/list/shot_line = getline(source_turf, target_turf)
-	
-	// Check each turf in the shot path
-	for(var/turf/T in shot_line)
-		if(T == source_turf || T == target_turf)
-			continue // Skip source and destination
-		
-		// Check if turf itself is dense
-		if(T.density)
-			return TRUE // Wall or dense turf blocks shot
-		
-		// Check for dense atoms (walls, windows, etc)
-		for(var/atom/A in T)
-			if(A.density)
-				// Ignore mobs - we can shoot over/past them
-				if(ismob(A))
-					continue
-				// Ignore simple animals - can shoot over them
-				if(istype(A, /mob/living/simple_animal))
-					continue
-				// Dense structure/obj blocks shot
-				return TRUE
-	
-	// Shot line is clear
-	return FALSE
+	return !shot_is_clear(get_turf(src), get_turf(target))
 
 
 /mob/living/simple_animal/hostile/Move(atom/newloc, dir, step_x, step_y)
@@ -4771,7 +5157,10 @@
 	
 	if(!.) // Move failed
 		return FALSE
-	
+
+	if(target && AIStatus == AI_ON && !client && get_dist(src, target) <= 1)
+		INVOKE_ASYNC(src, PROC_REF(melee_on_arrival))
+
 	// IMMEDIATE LADDER CLIMBING
 	if(can_climb_ladders && pursuing_z_target && target && target.z != z && !client)
 		if((world.time - last_successful_z_move) < z_move_success_cooldown)
@@ -4802,6 +5191,28 @@
 				record_z_level_change()
 				consecutive_stair_steps = 0
 				return TRUE
+
+/// The AI only decides once per SSnpcpool tick, so a melee mob that walks up between ticks would stand next to its
+/// target for up to a second before swinging. Strike on arrival instead; melee_cooldown keeps the attack rate unchanged.
+/mob/living/simple_animal/hostile/proc/melee_on_arrival()
+	if(QDELETED(src) || QDELETED(target) || stat != CONSCIOUS || AIStatus != AI_ON || searching || (retreat_distance != null && combat_mode != COMBAT_MODE_MIXED))
+		return
+	if(COOLDOWN_TIMELEFT(src, melee_cooldown) || !targets_from || !isturf(targets_from.loc) || target.z != z || !target.Adjacent(targets_from))
+		return
+	if(incapacitated() || !CHECK_BITFIELD(mobility_flags, MOBILITY_MOVE) || !CanAttack(target))
+		return
+	var/effective_combat_mode = combat_mode ? combat_mode : COMBAT_MODE_MELEE
+	if(effective_combat_mode != COMBAT_MODE_MELEE && effective_combat_mode != COMBAT_MODE_MIXED)
+		return
+	// Keep the follow loop running when it idles at melee range; a minimum_distance of 0 would push into the target
+	if(combat_mode != COMBAT_MODE_MIXED && minimum_distance < 1)
+		walk(src, 0)
+	var/face_dir = get_dir(src, target)
+	if(face_dir)
+		setDir(face_dir)
+	COOLDOWN_START(src, melee_cooldown, melee_attack_cooldown)
+	ai_debug_log("melee_on_arrival target=[target]")
+	MeleeAction()
 
 /mob/living/simple_animal/hostile/proc/dodge(moving_to,move_direction)
 	//Assuming we move towards the target we want to swerve toward them to get closer
@@ -4837,6 +5248,159 @@
 	// Limit memory size to prevent bloat (keep 20 most recent)
 	if(known_doors.len > 20)
 		known_doors.Cut(1, known_doors.len - 20)
+
+/// Whether this mob could open the given door right now (locked and welded doors never open)
+/mob/living/simple_animal/hostile/proc/can_open_door_type(atom/D)
+	if(!can_open_doors)
+		return FALSE
+	if(istype(D, /obj/structure/simple_door))
+		var/obj/structure/simple_door/SD = D
+		return !(SD.padlock && SD.padlock.locked)
+	if(istype(D, /obj/machinery/door/airlock))
+		var/obj/machinery/door/airlock/A = D
+		return can_open_airlocks && !A.locked && !A.welded
+	return istype(D, /obj/machinery/door)
+
+/// The closed door on a turf that this mob could open, if any
+/mob/living/simple_animal/hostile/proc/get_openable_door_at(turf/T)
+	if(!T)
+		return null
+	for(var/obj/structure/simple_door/SD in T)
+		if(SD.density && can_open_door_type(SD))
+			return SD
+	for(var/obj/machinery/door/D in T)
+		if(D.density && can_open_door_type(D))
+			return D
+	return null
+
+/// Plans a route to the target that treats openable doors as passable, then heads for the first closed door on it.
+/// Walking straight at a target behind a table or counter never reaches the door, so the mob would just stand there.
+/// Returns TRUE if the mob is now heading for (or opening) a door.
+/mob/living/simple_animal/hostile/proc/route_through_door()
+	if(!target || !can_open_doors || !COOLDOWN_FINISHED(src, door_route_cooldown))
+		return FALSE
+	// Searching is not free, so a mob with no door on its route waits a good while before looking again
+	COOLDOWN_START(src, door_route_cooldown, 100)
+
+	var/turf/goal = get_turf(target)
+	var/turf/here = get_turf(src)
+	if(!goal || !here || goal.z != here.z)
+		return FALSE
+
+	var/list/route = AStar(src, goal, TYPE_PROC_REF(/turf, Distance_cardinal), 15, 15, 1, TYPE_PROC_REF(/turf, ai_door_reachable_test))
+	if(!route || !route.len)
+		return FALSE
+
+	for(var/turf/step_turf in route)
+		var/atom/door = get_openable_door_at(step_turf)
+		if(!door)
+			continue
+		door_route_turf = step_turf
+		door_route_until = world.time + 80
+		COOLDOWN_START(src, door_route_cooldown, 20)
+		ai_debug_log("door_route door=[door] at=[step_turf.x],[step_turf.y] dist=[get_dist(src, step_turf)]")
+		return follow_door_route()
+	return FALSE
+
+/// Keeps walking to the door chosen by route_through_door() and opens it. Returns TRUE while it is handling the turn.
+/mob/living/simple_animal/hostile/proc/follow_door_route()
+	if(!door_route_turf)
+		return FALSE
+	if(world.time > door_route_until || !target)
+		door_route_turf = null
+		return FALSE
+	var/atom/door = get_openable_door_at(door_route_turf)
+	if(!door)
+		// Already open (or gone): carry on with the normal chase
+		door_route_turf = null
+		return FALSE
+	if(get_dist(src, door_route_turf) <= 1)
+		walk(src, 0)
+		var/door_dir = get_dir(src, door_route_turf)
+		if(door_dir)
+			setDir(door_dir)
+		try_open_door(door)
+		return TRUE
+	Goto(door_route_turf, move_to_delay, 1)
+	return TRUE
+
+/// Called from Goto(). If the mob has not moved since the last sample while still far from its goal, it is wedged on
+/// something solid (walk_to just pushes into it), so plan a short cardinal A* route and return a waypoint a few steps
+/// along it. Returns null when the mob should simply walk at the goal.
+/mob/living/simple_animal/hostile/proc/obstruction_detour_waypoint(atom/goal, minimum_distance)
+	var/turf/here = get_turf(src)
+	var/turf/goal_turf = get_turf(goal)
+	if(!here || !goal_turf || goal_turf.z != here.z || !isturf(loc))
+		return null
+
+	if(detour_waypoint)
+		if(world.time > detour_until || here == detour_waypoint || get_dist(goal_turf, detour_goal) > 3 || get_dist(here, goal_turf) <= max(minimum_distance, 1))
+			detour_waypoint = null
+			detour_goal = null
+		else
+			return detour_waypoint
+
+	// Goto() is called several times a tick, so only sample once per tick
+	if(world.time - detour_sample_time < 5)
+		return null
+	var/sample_gap = world.time - detour_sample_time
+	detour_sample_time = world.time
+	if(detour_sample_loc == here && sample_gap <= 30 && get_dist(here, goal_turf) > max(minimum_distance, 1))
+		detour_blocked_ticks++
+	else
+		detour_blocked_ticks = 0
+	detour_sample_loc = here
+	if(detour_blocked_ticks < 1 || !COOLDOWN_FINISHED(src, detour_cooldown))
+		return null
+	COOLDOWN_START(src, detour_cooldown, 10)
+
+	var/list/route = AStar(src, goal_turf, TYPE_PROC_REF(/turf, Distance_cardinal), 40, 25, max(minimum_distance, 1), TYPE_PROC_REF(/turf, ai_door_reachable_test))
+	if(!route || !route.len)
+		ai_debug_log("path_detour none goal=[goal_turf.x],[goal_turf.y] blocked_ticks=[detour_blocked_ticks]")
+		return null
+
+	// Stop short of closed doors: opening those is the door routing's job
+	var/turf/waypoint = null
+	var/steps = 0
+	for(var/turf/step_turf in route)
+		if(get_openable_door_at(step_turf))
+			break
+		waypoint = step_turf
+		steps++
+		if(steps >= 4)
+			break
+	if(!waypoint)
+		return null
+
+	detour_waypoint = waypoint
+	detour_goal = goal_turf
+	detour_until = world.time + 20
+	detour_blocked_ticks = 0
+	ai_debug_log("path_detour waypoint=[waypoint.x],[waypoint.y] route_len=[route.len] goal=[goal_turf.x],[goal_turf.y]")
+	return waypoint
+
+/// A* adjacency test that lets a mob plan through closed doors it can open; any other dense object blocks
+/turf/proc/ai_door_reachable_test(caller, turf/T, ID, simulated_only)
+	if(!T || T.density)
+		return FALSE
+	if(simulated_only && SSpathfinder.space_type_cache[T.type])
+		return FALSE
+	var/mob/living/simple_animal/hostile/H = caller
+	var/adir = get_dir(src, T)
+	var/rdir = turn(adir, 180)
+	for(var/obj/structure/window/W in src)
+		if(!W.CanAStarPass(ID, adir))
+			return FALSE
+	for(var/obj/O in T)
+		if(!O.density)
+			continue
+		if(istype(O, /obj/structure/simple_door) || istype(O, /obj/machinery/door/airlock) || istype(O, /obj/machinery/door))
+			if(istype(H) && H.can_open_door_type(O))
+				continue
+			return FALSE
+		if(!O.CanAStarPass(ID, rdir, caller))
+			return FALSE
+	return TRUE
 
 // Try alternate paths using door memory
 /mob/living/simple_animal/hostile/proc/try_alternate_path()
@@ -4877,8 +5441,32 @@
 	
 	return TRUE
 
+/// Finds a dense border structure (railing, fence) that blocks stepping from our tile in `direction`.
+/// Border blockers sit on our own tile (blocks exit) or the next tile (blocks entry), so a plain
+/// "dense object on the next turf" scan misses the ones on our own tile.
+/mob/living/simple_animal/hostile/proc/get_border_blocker(direction)
+	var/turf/here = get_turf(targets_from)
+	if(!here)
+		return null
+	for(var/obj/structure/S in here)
+		if(S.density && (S.flags_1 & ON_BORDER_1) && (S.dir & direction))
+			return S
+	var/turf/there = get_step(here, direction)
+	if(!there)
+		return null
+	var/opposite = turn(direction, 180)
+	for(var/obj/structure/S in there)
+		if(S.density && (S.flags_1 & ON_BORDER_1) && (S.dir & opposite))
+			return S
+	return null
+
 /mob/living/simple_animal/hostile/proc/DestroyObjectsInDirection(direction)
 	var/turf/T = get_step(targets_from, direction)
+	if(environment_smash >= ENVIRONMENT_SMASH_STRUCTURES)
+		var/obj/structure/blocker = get_border_blocker(direction)
+		if(blocker)
+			blocker.attack_animal(src)
+			return
 	if(T && T.Adjacent(targets_from))
 		if(CanSmashTurfs(T))
 			T.attack_animal(src)
@@ -4888,7 +5476,7 @@
 				return
 
 
-/mob/living/simple_animal/hostile/proc/find_open_flank(atom/flank_target)
+/mob/living/simple_animal/hostile/proc/find_open_flank(atom/flank_target, datum/ai_squad/squad)
 	var/turf/target_turf = get_turf(flank_target)
 	if(!target_turf) return null
 
@@ -4900,6 +5488,7 @@
 		var/turf/T = get_step(target_turf, dir)
 		if(!T || T == my_turf) continue
 		if(T.density) continue
+		if(squad && !squad.flank_tile_free(T, flank_target, src)) continue
 		var/clear = TRUE
 		for(var/atom/movable/AM in T)
 			if(AM.density)
@@ -4915,7 +5504,7 @@
 
 	if(!candidates.len) return null
 
-	// Prefer the tile that matches our approach direction — stable as we move toward target
+	// Prefer the tile that matches our approach direction stable as we move toward target
 	var/approach_dir = get_dir(target_turf, my_turf)
 	for(var/turf/T in candidates)
 		if(get_dir(target_turf, T) == approach_dir)
@@ -4927,7 +5516,7 @@
 /mob/living/simple_animal/hostile/proc/DestroyPathToTarget()
 	// This should only be called when we're REALLY stuck (after 15 seconds of trying)
 
-	// PRIORITY 0: Ally flanking — if friendly mobs are the obstacle, find a side angle
+	// PRIORITY 0: Ally flanking if friendly mobs are the obstacle, find a side angle
 	// rather than trying to open doors or smash through walls.
 	if(target && !searching)
 		var/turf/my_turf = get_turf(src)
@@ -4992,6 +5581,10 @@
 		if(opened_something)
 			// Give the door time to open
 			return
+
+		// PRIORITY 1.5: A door further along the real route to the target (the straight line is blocked by a table, etc.)
+		if(route_through_door())
+			return
 	
 	// PRIORITY 2: Try alternate paths using door memory
 	if(can_open_doors && try_alternate_path())
@@ -5007,7 +5600,7 @@
 		searching = FALSE
 		remembered_target = null
 		last_target_sighting = 0
-		LoseTarget()
+		LoseTarget("path_exhausted_give_up")
 		return
 	
 	// PRIORITY 3: Only smash if we can't open doors AND we're REALLY stuck
@@ -5021,7 +5614,7 @@
 			searching = FALSE
 			remembered_target = null
 			last_target_sighting = 0
-			LoseTarget()
+			LoseTarget("path_exhausted_cannot_smash")
 		return
 	
 	// Check if we have direct line of sight to target
@@ -5059,6 +5652,11 @@
 // Pure smashing - no door checking (that's handled above now)
 /mob/living/simple_animal/hostile/proc/SmashInDirection(direction)
 	var/turf/T = get_step(targets_from, direction)
+	if(environment_smash >= ENVIRONMENT_SMASH_STRUCTURES)
+		var/obj/structure/blocker = get_border_blocker(direction)
+		if(blocker)
+			blocker.attack_animal(src)
+			return
 	if(T && T.Adjacent(targets_from))
 		if(environment_smash)
 			if(CanSmashTurfs(T))
@@ -5082,6 +5680,45 @@ mob/living/simple_animal/hostile/proc/DestroySurroundings() // for use with mega
 		var/atom/A = targets_from.loc
 		A.attack_animal(src)//Bang on it till we get out
 
+
+/// Walks to the closet or crate the target is hiding in and opens it (or smashes it, for mobs that cannot open things).
+/// Returns TRUE while this is handling the turn.
+/mob/living/simple_animal/hostile/proc/dig_out_hidden_target()
+	if(!target || !istype(target.loc, /obj/structure/closet))
+		return FALSE
+	if(!can_open_doors && !environment_smash)
+		ai_debug_log("hidden_target_unreachable target=[target] container=[target.loc] reason=cannot_open_or_smash")
+		return FALSE
+	var/obj/structure/closet/C = target.loc
+	if(C.z != z)
+		return FALSE
+	if(!C.Adjacent(targets_from))
+		ai_debug_log("hidden_target_approach container=[C]")
+		Goto(C, move_to_delay, 0)
+		return TRUE
+	walk(src, 0)
+	var/face_dir = get_dir(src, C)
+	if(face_dir)
+		setDir(face_dir)
+	if(can_open_doors && !C.welded && !C.locked)
+		if(COOLDOWN_FINISHED(src, door_open_cooldown))
+			COOLDOWN_START(src, door_open_cooldown, door_open_delay)
+			ai_debug_log("hidden_target_opened container=[C]")
+			visible_message(span_danger("[src] yanks open [C]!"))
+			C.open(src)
+	else if(environment_smash)
+		ai_debug_log("hidden_target_smash container=[C]")
+		C.attack_animal(src)
+	return TRUE
+
+/// Z level of an atom. Anything inside a container (closet, crate, bin) has z = 0, so this resolves its turf instead.
+/mob/living/simple_animal/hostile/proc/z_of(atom/A)
+	if(!A)
+		return 0
+	if(A.z)
+		return A.z
+	var/turf/T = get_turf(A)
+	return T ? T.z : 0
 
 /mob/living/simple_animal/hostile/proc/FindHidden()
 	if(istype(target.loc, /obj/structure/closet) || istype(target.loc, /obj/machinery/disposal) || istype(target.loc, /obj/machinery/sleeper))
@@ -5123,7 +5760,7 @@ mob/living/simple_animal/hostile/proc/DestroySurroundings() // for use with mega
 	
 	if(lose_patience_timeout)
 		LosePatience()
-		lose_patience_timer_id = addtimer(CALLBACK(src, PROC_REF(LoseTarget)), lose_patience_timeout, TIMER_STOPPABLE)
+		lose_patience_timer_id = addtimer(CALLBACK(src, PROC_REF(LoseTarget), "patience_timeout"), lose_patience_timeout, TIMER_STOPPABLE)
 
 
 /mob/living/simple_animal/hostile/proc/LosePatience()
@@ -5180,7 +5817,7 @@ mob/living/simple_animal/hostile/proc/DestroySurroundings() // for use with mega
 	SIGNAL_HANDLER
 	UnregisterSignal(target, COMSIG_PARENT_QDELETING)
 	target = null
-	INVOKE_ASYNC(src, PROC_REF(LoseTarget)) // LoseTarget() can chain into door Open()/Close(), which can sleep; signal handlers must not
+	INVOKE_ASYNC(src, PROC_REF(LoseTarget), "target_qdeleted") // LoseTarget() can chain into door Open()/Close(), which can sleep; signal handlers must not
 
 // Ensure add_target properly cleans up old references
 /mob/living/simple_animal/hostile/proc/add_target(new_target)
@@ -5218,6 +5855,10 @@ mob/living/simple_animal/hostile/proc/DestroySurroundings() // for use with mega
 		move_to_delay = vary_from_list(variation_list[MOB_VARIED_SPEED])
 	if(LAZYLEN(variation_list[MOB_RETREAT_DISTANCE]))
 		retreat_distance = vary_from_list(variation_list[MOB_RETREAT_DISTANCE])
+		// A non-null retreat_distance makes the mob hold a standoff band (stops RETREAT_DEADZONE tiles out), which a
+		// melee mob rolling 0 or 1 would do 2-3 tiles from the player instead of closing in
+		if(!ranged && !isnull(retreat_distance) && retreat_distance < 2)
+			retreat_distance = null
 	if(LAZYLEN(variation_list[MOB_MINIMUM_DISTANCE]))
 		minimum_distance = vary_from_list(variation_list[MOB_MINIMUM_DISTANCE])
 
@@ -5253,13 +5894,13 @@ mob/living/simple_animal/hostile/proc/DestroySurroundings() // for use with mega
 		return FALSE
 	active_emp_flags |= MOB_EMP_STUN
 	visible_message(span_green("[src] shudders as the EMP overloads its servos!"))
-	LoseTarget()
+	LoseTarget("emp_stun")
 	toggle_ai(AI_OFF)
 	addtimer(CALLBACK(src, PROC_REF(un_emp_stun)), min(intensity, 3 SECONDS), TIMER_DELETE_ME)
 
 /mob/living/simple_animal/hostile/proc/un_emp_stun()
 	active_emp_flags -= MOB_EMP_STUN
-	LoseTarget()
+	LoseTarget("emp_stun_end")
 	toggle_ai(AI_ON)
 
 /mob/living/simple_animal/hostile/proc/do_emp_berserk(intensity)
@@ -5268,7 +5909,7 @@ mob/living/simple_animal/hostile/proc/DestroySurroundings() // for use with mega
 	if(MOB_EMP_BERSERK in active_emp_flags)
 		return FALSE
 	active_emp_flags |= MOB_EMP_BERSERK
-	LoseTarget()
+	LoseTarget("emp_berserk")
 	visible_message(span_green("[src] lets out a burst of static and whips its gun around wildly!"))
 	var/list/old_faction = faction
 	faction = null
@@ -5277,7 +5918,7 @@ mob/living/simple_animal/hostile/proc/DestroySurroundings() // for use with mega
 /mob/living/simple_animal/hostile/proc/un_emp_berserk(list/unberserk)
 	active_emp_flags -= MOB_EMP_BERSERK
 	faction = unberserk
-	LoseTarget()
+	LoseTarget("emp_berserk_end")
 
 /mob/living/simple_animal/hostile/proc/do_emp_damage(intensity)
 	if(!intensity)
@@ -5297,5 +5938,5 @@ mob/living/simple_animal/hostile/proc/DestroySurroundings() // for use with mega
 	ranged_cooldown_time = rand(ranged_cooldown_time * 0.5, ranged_cooldown_time * 2)
 	retreat_distance = rand(0, 10)
 	minimum_distance = rand(0, 10)
-	LoseTarget()
+	LoseTarget("emp_scramble")
 	visible_message(span_notice("[src] jerks around wildly and starts acting strange!"))

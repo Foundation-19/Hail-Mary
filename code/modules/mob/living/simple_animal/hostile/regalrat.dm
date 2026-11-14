@@ -226,7 +226,7 @@
 	)
 
 /// nerfed rats for above-ground spawn
-/// they run around like assholes and avoid player interaction at all costs
+/// weak, fast little rodents that rush players and nip at them
 /mob/living/simple_animal/hostile/rat/skitter
 	name = "radmouse"
 	desc = "It's a scared lil rodent with anxiety issues."
@@ -245,8 +245,8 @@
 	see_in_dark = 10
 	maxHealth = 5
 	health = 5
-	retreat_distance = 7
-	minimum_distance = 7
+	retreat_distance = null
+	minimum_distance = 1
 	aggro_vision_range = 7
 	vision_range = 10
 	is_smol = TRUE
@@ -255,10 +255,6 @@
 		MOB_SPEED_LIST(0.2, 1.5, 1.8, 2.0, 5.0),
 		MOB_SPEED_CHANGE_PER_TURN_CHANCE(50),
 		MOB_HEALTH_LIST(5, 10, 15, 20, 24),
-		MOB_RETREAT_DISTANCE_LIST(3, 5, 7),
-		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(100),
-		MOB_MINIMUM_DISTANCE_LIST(2, 3, 4, 5, 6),
-		MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE(100),
 	)
 
 /mob/living/simple_animal/hostile/rat/Initialize()

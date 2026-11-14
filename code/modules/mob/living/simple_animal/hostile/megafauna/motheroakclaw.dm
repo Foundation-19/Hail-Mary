@@ -42,7 +42,7 @@
 	melee_queue_distance = 20 // as far as possible really, need this because of charging
 	ranged = TRUE
 	stat_attack = CONSCIOUS
-	pixel_x = -16
+	faction = list("mining", "boss", "oakclaw_kin")
 	wander = FALSE
 	movement_type = GROUND
 	blood_volume = BLOOD_VOLUME_NORMAL
@@ -267,7 +267,7 @@
 			for(var/mob/living/L in T)
 				var/obj/item/bodypart/affecting = L.get_bodypart(BODY_ZONE_CHEST)
 				var/armor_block = L.run_armor_check(affecting, "melee")
-				if(L == src || L.throwing || (L in kin))
+				if(L == src || L.throwing || (L in kin) || faction_check_mob(L))
 					continue
 				to_chat(L, span_userdanger("[src]'s ground slam shockwave sends you flying!"))
 				var/turf/thrownat = get_ranged_target_turf_direct(src, L, 8, rand(-10, 10))
@@ -347,7 +347,7 @@
 		playsound(T, 'sound/effects/bamf.ogg', 300, TRUE, 10)
 		new /obj/effect/temp_visual/small_smoke/halfsecond(T)
 		for(var/mob/living/L in T)
-			if(L == src || L.stat == DEAD || (L in kin))
+			if(L == src || L.stat == DEAD || (L in kin) || faction_check_mob(L))
 				continue
 			var/obj/item/bodypart/affecting = L.get_bodypart(BODY_ZONE_CHEST)
 			var/armor_block = L.run_armor_check(affecting, "melee")

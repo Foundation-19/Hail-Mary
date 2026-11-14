@@ -341,6 +341,14 @@ ATTACHMENTS
 		var/safe_cost = clamp(stam_cost, 0, (STAMINA_NEAR_CRIT * user.get_special_endurance_stamina_mod()) - user.getStaminaLoss())*(firing && burst_size >= 2 ? 1/burst_size : 1)
 		user.adjustStaminaLossBuffered(safe_cost) //CIT CHANGE - ditto
 
+	// Alert nearby hostile mobs to gunfire, even if this gun has no sound properties
+	if(!silenced)
+		for(var/mob/living/simple_animal/hostile/H in range(7, user))
+			if(H.stat != DEAD && !H.ckey && H.can_hear_combat)
+				// Don't alert if shooter is same faction
+				if(!H.faction_check_mob(user))
+					H.hear_gunshot(get_turf(user), user)
+
 	var/datum/ammo_sound_properties/soundies = GLOB.casing_sound_properties[casing_sound]
 	if(!soundies)
 		return
@@ -358,14 +366,6 @@ ATTACHMENTS
 		distant_sound = shootprops[CSP_INDEX_DISTANT_SOUND],
 		distant_range = shootprops[CSP_INDEX_DISTANT_RANGE]
 		)
-	
-	// Alert nearby hostile mobs to gunfire
-	if(!silenced)
-		for(var/mob/living/simple_animal/hostile/H in range(7, user))
-			if(H.stat != DEAD && !H.ckey && H.can_hear_combat)
-				// Don't alert if shooter is same faction
-				if(!H.faction_check_mob(user))
-					H.hear_gunshot(get_turf(user), user)
 	
 	if(!silenced && message && COOLDOWN_FINISHED(src, shoot_message_antispam))
 		COOLDOWN_START(src, shoot_message_antispam, GUN_SHOOT_MESSAGE_ANTISPAM_TIME)
@@ -394,6 +394,9 @@ ATTACHMENTS
 	if(bayonet && user.a_intent == INTENT_HARM)
 		M.attackby(bayonet, user) // handles cooldown
 		return
+	// Only harm intent pistol-whips an adjacent mob; otherwise let afterattack() fire point blank. Skipping the melee here also skips its clickdelay, which would otherwise block the shot.
+	if(user.a_intent != INTENT_HARM)
+		return NO_AUTO_CLICKDELAY_HANDLING
 	. = ..()
 	if(!(. & DISCARD_LAST_ACTION))
 		user.DelayNextAction(attack_speed)

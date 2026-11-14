@@ -135,6 +135,26 @@
 		return
 	return ..()
 
+// DAMAGED HANDY - T1 scavenged chassis, a step below the civilian tier
+/mob/living/simple_animal/hostile/handy/damaged
+	affix_chance = 2
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
+	name = "damaged mr. handy"
+	desc = "A pre-war household robot in a bad way. Its casing is cracked and rusted, and its saw arm sparks when it swings."
+
+	mob_armor = ARMOR_VALUE_ROBOT_DAMAGED
+
+	maxHealth = 75
+	health = 75
+	speed = 2.4
+
+	melee_damage_lower = 6
+	melee_damage_upper = 14
+
+	can_ghost_into = FALSE
+	pop_required_to_jump_into = SMALL_MOB_MIN_PLAYERS
+
 // PLAYABLE HANDY
 /mob/living/simple_animal/hostile/handy/playable
 	affix_chance = 0
@@ -522,6 +542,24 @@
 		SP_DISTANT_RANGE(LASER_RANGE_DISTANT)
 	)
 
+// DAMAGED PROTECTRON - T1 scavenged chassis, weaker and slower to fire
+/mob/living/simple_animal/hostile/handy/protectron/damaged
+	affix_chance = 2
+	name = "damaged protectron"
+	desc = "A pre-war security robot with a cracked casing and a flickering arm laser. It still thinks it's on patrol."
+
+	mob_armor = ARMOR_VALUE_ROBOT_DAMAGED
+
+	maxHealth = 60
+	health = 60
+	speed = 4.5
+
+	melee_damage_lower = 3
+	melee_damage_upper = 8
+	ranged_cooldown_time = 3 SECONDS
+
+	can_ghost_into = FALSE
+
 // PLAYABLE PROTECTRON
 /mob/living/simple_animal/hostile/handy/protectron/playable
 	maxHealth = 130
@@ -651,6 +689,29 @@
 	combat_mode = COMBAT_MODE_MELEE
 	retreat_distance = null
 	minimum_distance = 1
+
+// ASSAULTRON DOMINATOR - elite generic tier above the base assaultron
+/mob/living/simple_animal/hostile/handy/assaultron/dominator
+	armour_penetration = 0.3
+	damage_threshold_penetration_mob = 8
+	name = "assaultron dominator"
+	desc = "An upgraded RobCo assaultron with reinforced plating and a retuned servo suite. Its optics track you the whole way in."
+
+	mob_armor = ARMOR_VALUE_ROBOT_MILITARY_HEAVY
+
+	maxHealth = 320
+	health = 320
+	speed = 0.9
+
+	melee_damage_lower = 25
+	melee_damage_upper = 55
+	aggro_vision_range = 12
+
+	loot = list(
+		/obj/effect/decal/cleanable/robot_debris,
+		/obj/item/stack/crafting/electronicparts/five,
+		/obj/item/stock_parts/cell/ammo/mfc
+	)
 
 // NSB ASSAULTRON
 /mob/living/simple_animal/hostile/handy/assaultron/nsb

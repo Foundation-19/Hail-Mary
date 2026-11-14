@@ -53,6 +53,11 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	footstep_type = FOOTSTEP_MOB_CLAW
 	has_field_of_vision = FALSE // 360° vision
+	mob_armor = ARMOR_VALUE_SPIDER
+	combat_mode = COMBAT_MODE_MELEE
+	minimum_distance = 1
+	affix_pool_type = "venomous"
+	affix_chance = 4
 	var/playable_spider = FALSE
 	var/datum/action/innate/spider/lay_web/lay_web
 	var/directive = "" // Message passed down to children to relay the creator's orders
@@ -61,6 +66,12 @@
 	. = ..()
 	lay_web = new
 	lay_web.Grant(src)
+
+/mob/living/simple_animal/hostile/poison/giant_spider/Aggro()
+	. = ..()
+	if(.)
+		return
+	summon_backup(8)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/Destroy()
 	GLOB.spidermobs -= src
@@ -80,8 +91,8 @@
 			if(ability.ranged_ability_user == src)
 				ability.ranged_ability_user = null
 			if(ability.action)
-				if(ability.action.owner == src)
-					ability.action.owner = null
+				// Remove() also drops the action from our action list and HUD, which would otherwise keep it and the ability alive
+				ability.action.Remove(src)
 			qdel(ability)
 
 	// Clear lay_web action (datum/action/innate - not in abilities list)
@@ -162,6 +173,7 @@
 	melee_damage_lower = 5
 	melee_damage_upper = 10
 	poison_per_bite = 3
+	mob_armor = ARMOR_VALUE_SPIDER_SOFT
 	var/atom/movable/cocoon_target
 	var/fed = 0
 	var/obj/effect/proc_holder/wrap/wrap
@@ -258,7 +270,7 @@
 				stop_automated_movement = 1
 				Goto(O, move_to_delay)
 				GiveUp(O)
-				return 1 // BUG FIX: break after first target, don't overwrite with last obj in loop
+				return 1 // Stop after the first target so a later obj in the loop doesn't overwrite it
 
 	return 1
 
@@ -354,6 +366,7 @@
 	melee_damage_upper = 20
 	poison_per_bite = 5
 	move_to_delay = 5
+	mob_armor = ARMOR_VALUE_SPIDER_HUNTER
 
 // Viper: glass cannon variant - almost no physical damage, lethal poison
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper
@@ -369,6 +382,7 @@
 	poison_per_bite = 12
 	move_to_delay = 4
 	poison_type = /datum/reagent/toxin/venom
+	mob_armor = ARMOR_VALUE_SPIDER_SOFT
 	speed = 1
 	gold_core_spawnable = NO_SPAWN
 
@@ -389,6 +403,7 @@
 	melee_damage_upper = 40
 	poison_per_bite = 0
 	move_to_delay = 8
+	mob_armor = ARMOR_VALUE_SPIDER_TARANTULA
 	speed = 7
 	status_flags = NONE
 	mob_size = MOB_SIZE_LARGE
@@ -419,6 +434,7 @@
 	maxHealth = 40
 	health = 40
 	sentience_type = SENTIENCE_BOSS
+	affix_chance = 0
 	var/datum/action/innate/spider/comm/letmetalkpls
 	gold_core_spawnable = NO_SPAWN
 
@@ -523,10 +539,6 @@
 	action_icon = 'icons/mob/actions/actions_animal.dmi'
 	action_icon_state = "wrap_0"
 	action_background_icon_state = "bg_alien"
-
-/obj/effect/proc_holder/wrap/Initialize()
-	. = ..()
-	action = new(src)
 
 /obj/effect/proc_holder/wrap/Destroy()
 	// action was created in Initialize() - qdel it explicitly to prevent leak

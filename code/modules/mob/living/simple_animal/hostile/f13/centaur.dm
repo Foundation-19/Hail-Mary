@@ -137,6 +137,55 @@
 	
 	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
 
+// LARVAL CENTAUR - immature, weaker, no real spit
+/mob/living/simple_animal/hostile/centaur/larval
+	name = "larval centaur"
+	desc = "A still-forming FEV mass that is mostly limbs and teeth. Smaller than the full-grown abominations, but no less angry."
+	affix_chance = 2
+
+	maxHealth = 55
+	health = 55
+	speed = 1.5
+	move_to_delay = 3
+
+	melee_damage_lower = 3
+	melee_damage_upper = 10
+	ranged_cooldown_time = 5 SECONDS
+
+	sentience_type = SENTIENCE_ORGANIC
+	pop_required_to_jump_into = SMALL_MOB_MIN_PLAYERS
+
+/mob/living/simple_animal/hostile/centaur/larval/Initialize()
+	. = ..()
+	resize = 0.75
+	update_transform()
+
+// FEV-PERFECTED CENTAUR - stabilized strain above the strong centaur
+/mob/living/simple_animal/hostile/centaur/perfected
+	name = "perfected centaur"
+	desc = "A centaur where the FEV finally took hold cleanly. Corded muscle, steady hands, and a spit that burns."
+
+	mob_armor = ARMOR_VALUE_CENTAUR_PERFECTED
+
+	maxHealth = 650
+	health = 650
+	speed = 1.5
+	move_to_delay = 3
+	stat_attack = UNCONSCIOUS
+
+	melee_damage_lower = 40
+	melee_damage_upper = 40
+	armour_penetration = 0.2
+	damage_threshold_penetration_mob = 6
+	ranged_cooldown_time = 2 SECONDS
+
+	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
+
+/mob/living/simple_animal/hostile/centaur/perfected/Initialize()
+	. = ..()
+	resize = 1.15
+	update_transform()
+
 // DOUG - friendly pet centaur
 /mob/living/simple_animal/pet/dog/centaur
 	name = "Doug"
