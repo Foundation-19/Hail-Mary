@@ -278,6 +278,11 @@
 /datum/component/personal_crafting/proc/construct_item(atom/a, datum/crafting_recipe/R)
 	var/list/contents = get_surroundings(a)
 	var/send_feedback = 1
+	var/datum/buildable/placement = R.get_buildable()
+	if(!placement.has_placement_rules())
+		placement = null
+	if(placement && !placement.check_placement(ismob(a) ? a : null, get_turf(a), a.dir))
+		return "."
 	if(check_contents(a, R, contents))
 		if(check_tools(a, R, contents))
 			//If we're a mob we'll try a do_after; non mobs will instead instantly construct the item
@@ -292,6 +297,8 @@
 				return ", missing component."
 			if(!check_tools(a, R, contents))
 				return ", missing tool."
+			if(placement && !placement.check_placement(ismob(a) ? a : null, get_turf(a), a.dir))
+				return "."
 			var/list/parts = del_reqs(R, a)
 			var/atom/movable/I = new R.result (get_turf(a.loc))
 			I.CheckParts(parts, R)

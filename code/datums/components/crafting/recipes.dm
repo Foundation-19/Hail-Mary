@@ -11,6 +11,13 @@
 	var/subcategory = CAT_NONE
 	var/always_available = TRUE //Set to FALSE if it needs to be learned first.
 	var/required_int = 0 //Min S.P.E.C.I.A.L. Intelligence required to craft this thing
+	/// Opt-in placement rules for structure results, enforced through /datum/buildable
+	var/one_per_turf = FALSE
+	var/on_floor = FALSE
+	var/window_checks = FALSE
+	var/placement_checks = FALSE
+	/// Lazily built by get_buildable()
+	var/datum/buildable/buildable
 
 /datum/crafting_recipe/New()
 	if(!(result in reqs))

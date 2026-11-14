@@ -267,7 +267,7 @@
 		else
 			O = new R.result_type(get_turf(usr))
 		if(O)
-			O.setDir(usr.dir)
+			O.set_build_dir(usr.dir)
 			log_craft("[O] crafted by [usr] at [loc_name(O.loc)]")
 
 		use(R.req_amount * multiplier)
@@ -278,16 +278,7 @@
 				used_materials[SSmaterials.GetMaterialRef(i)] = R.req_amount / R.res_amount * (MINERAL_MATERIAL_AMOUNT / custom_materials.len)
 			O.set_custom_materials(used_materials)
 
-		//START: oh fuck i'm so sorry
-		if(istype(O, /obj/structure/windoor_assembly))
-			var/obj/structure/windoor_assembly/W = O
-			W.ini_dir = W.dir
-		else if(istype(O, /obj/structure/window))
-			var/obj/structure/window/W = O
-			W.ini_dir = W.dir
-		//END: oh fuck i'm so sorry
-
-		else if(istype(O, /obj/item/restraints/handcuffs/cable))
+		if(istype(O, /obj/item/restraints/handcuffs/cable))
 			var/obj/item/cuffs = O
 			cuffs.color = color
 
@@ -311,45 +302,7 @@
 		else
 			to_chat(usr, span_warning("You haven't got enough [src] to build \the [R.title]!"))
 		return FALSE
-	var/turf/T = get_turf(usr)
-
-	var/obj/D = R.result_type
-	if(R.window_checks && !valid_window_location(T, initial(D.dir) == FULLTILE_WINDOW_DIR ? FULLTILE_WINDOW_DIR : usr.dir))
-		to_chat(usr, span_warning("The [R.title] won't fit here!"))
-		return FALSE
-	if(R.one_per_turf && (locate(R.result_type) in T))
-		to_chat(usr, span_warning("There is another [R.title] here!"))
-		return FALSE
-	if(R.on_floor)
-		if(!isfloorturf(T) && !isgroundturf(T))
-			to_chat(usr, span_warning("\The [R.title] must be constructed on the floor!"))
-			return FALSE
-		for(var/obj/AM in T)
-			if(istype(AM,/obj/structure/grille))
-				continue
-			if(istype(AM,/obj/structure/table))
-				continue
-			if(istype(AM,/obj/structure/window))
-				var/obj/structure/window/W = AM
-				if(!W.fulltile)
-					continue
-			if(AM.density)
-				to_chat(usr, span_warning("Theres a [AM.name] here. You cant make a [R.title] here!"))
-				return FALSE
-	if(R.placement_checks)
-		switch(R.placement_checks)
-			if(STACK_CHECK_CARDINALS)
-				var/turf/step
-				for(var/direction in GLOB.cardinals)
-					step = get_step(T, direction)
-					if(locate(R.result_type) in step)
-						to_chat(usr, span_warning("\The [R.title] must not be built directly adjacent to another!"))
-						return FALSE
-			if(STACK_CHECK_ADJACENT)
-				if(locate(R.result_type) in range(1, T))
-					to_chat(usr, span_warning("\The [R.title] must be constructed at least one tile away from others of its type!"))
-					return FALSE
-	return TRUE
+	return R.get_buildable().check_placement(usr, get_turf(usr), usr.dir)
 
 /obj/item/stack/use(used, transfer = FALSE, check = TRUE) // return 0 = borked; return 1 = had enough
 	if(check && zero_amount())
@@ -567,6 +520,8 @@
 	var/trait_modifier = 1
 	/// Is the resulting thing made from this a stack? if so, multi-crafting will make a stack with multiple 'uses' of it. if not, multi-crafting makes several separate items of it
 	var/is_stack = TRUE
+	/// Lazily built by get_buildable(); holds the shared placement rules
+	var/datum/buildable/buildable
 
 /datum/stack_recipe/New(title, result_type, req_amount = 1, res_amount = 1, max_res_amount = 1,time = 0, one_per_turf = FALSE, on_floor = FALSE, window_checks = FALSE, placement_checks = FALSE, applies_mats = FALSE, trait_booster = null, trait_modifier = 1, is_stack = TRUE)
 
