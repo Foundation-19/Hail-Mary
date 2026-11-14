@@ -86,12 +86,12 @@
 	if(user)
 		to_chat(user, span_warning(message))
 
-/// Whether the build direction matters for this buildable (directional windows, not fulltile ones, and rotatable furniture).
+/// Whether the build direction matters for this buildable. Fulltile windows never rotate; everything else rotates if flagged or checked as a window.
 /datum/buildable/proc/is_directional()
-	if(rotatable)
-		return TRUE
 	var/obj/D = result_type
-	return window_checks && initial(D.dir) != FULLTILE_WINDOW_DIR
+	if(window_checks && initial(D.dir) == FULLTILE_WINDOW_DIR)
+		return FALSE
+	return rotatable || window_checks
 
 /// The direction the result will actually be built facing. Things that ignore rotation keep their own.
 /datum/buildable/proc/get_build_dir(build_dir)

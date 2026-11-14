@@ -541,7 +541,7 @@
 	/// Offers placement mode (ghost preview, build on a nearby tile). Only for single structures built with no custom materials.
 	/// Left null, it is on for any such structure that must be built on a floor and is limited to one per tile (or checked as a window); pass FALSE to opt out.
 	var/placeable = null
-	/// Placement mode lets the builder rotate the result (chairs and benches). Windows are always rotatable when directional.
+	/// Placement mode lets the builder rotate the result. Left null, it follows placeable (fulltile windows never rotate); pass FALSE for things whose facing is meaningless.
 	var/rotatable = FALSE
 
 /datum/stack_recipe/New(title, result_type, req_amount = 1, res_amount = 1, max_res_amount = 1,time = 0, one_per_turf = FALSE, on_floor = FALSE, window_checks = FALSE, placement_checks = FALSE, applies_mats = FALSE, trait_booster = null, trait_modifier = 1, is_stack = TRUE, placeable = null, rotatable = null)
@@ -565,7 +565,7 @@
 		placeable = ispath(result_type, /obj/structure) && res_amount == 1 && max_res_amount == 1 && !applies_mats && on_floor && (one_per_turf || window_checks)
 	src.placeable = placeable
 	if(isnull(rotatable))
-		rotatable = ispath(result_type, /obj/structure/chair)
+		rotatable = placeable
 	src.rotatable = rotatable
 /*
  * Recipe list datum
