@@ -195,6 +195,8 @@
 			title+= " ([R.req_amount] [singular_name]\s)"
 			if (can_build)
 				t1 += text("<A href='?src=[REF(src)];sublist=[recipes_sublist];make=[i];multiplier=1'>[title]</A>  ")
+				if(R.placeable)
+					t1 += "<A href='?src=[REF(src)];sublist=[recipes_sublist];place=[i]'>(place)</A>  "
 			else
 				t1 += text("[]", title)
 				continue
@@ -217,8 +219,17 @@
 	..()
 	if (usr.restrained() || usr.stat || usr.get_active_held_item() != src)
 		return
-	if (href_list["sublist"] && !href_list["make"])
+	if (href_list["sublist"] && !href_list["make"] && !href_list["place"])
 		interact(usr, text2num(href_list["sublist"]))
+	if (href_list["place"])
+		var/list/place_list = recipes
+		if (href_list["sublist"])
+			var/datum/stack_recipe_list/place_srl = place_list[text2num(href_list["sublist"])]
+			place_list = place_srl.recipes
+		var/datum/stack_recipe/placed_recipe = place_list[text2num(href_list["place"])]
+		if(istype(placed_recipe) && start_placement(usr, placed_recipe))
+			usr << browse(null, "window=stack")
+		return
 	if (href_list["make"])
 		if (get_amount() < 1 && !is_cyborg)
 			qdel(src)
@@ -522,8 +533,10 @@
 	var/is_stack = TRUE
 	/// Lazily built by get_buildable(); holds the shared placement rules
 	var/datum/buildable/buildable
+	/// Offers placement mode (ghost preview, build on a nearby tile). Only for single structures built with no custom materials.
+	var/placeable = FALSE
 
-/datum/stack_recipe/New(title, result_type, req_amount = 1, res_amount = 1, max_res_amount = 1,time = 0, one_per_turf = FALSE, on_floor = FALSE, window_checks = FALSE, placement_checks = FALSE, applies_mats = FALSE, trait_booster = null, trait_modifier = 1, is_stack = TRUE)
+/datum/stack_recipe/New(title, result_type, req_amount = 1, res_amount = 1, max_res_amount = 1,time = 0, one_per_turf = FALSE, on_floor = FALSE, window_checks = FALSE, placement_checks = FALSE, applies_mats = FALSE, trait_booster = null, trait_modifier = 1, is_stack = TRUE, placeable = FALSE)
 
 
 	src.title = title
@@ -540,6 +553,7 @@
 	src.trait_booster = trait_booster
 	src.trait_modifier = trait_modifier
 	src.is_stack = is_stack
+	src.placeable = placeable
 /*
  * Recipe list datum
  */

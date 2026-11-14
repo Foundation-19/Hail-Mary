@@ -73,6 +73,11 @@
 	if(user)
 		to_chat(user, span_warning(message))
 
+/// Whether the build direction matters for this buildable (directional windows, not fulltile ones).
+/datum/buildable/proc/is_directional()
+	var/obj/D = result_type
+	return window_checks && initial(D.dir) != FULLTILE_WINDOW_DIR
+
 /// Spawns result_type on target facing build_dir. Types that remember their initial direction
 /// override set_build_dir() so nothing has to patch it up after the fact.
 /datum/buildable/proc/create(turf/target, build_dir)
