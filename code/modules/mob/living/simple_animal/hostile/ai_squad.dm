@@ -291,6 +291,7 @@ GLOBAL_VAR_INIT(ai_squad_flanks_completed, 0)
 		nearby.add_member(src)
 
 /mob/living/simple_animal/hostile/proc/ai_get_squad()
+	RETURN_TYPE(/datum/ai_squad)
 	if(!ai_squad)
 		ai_squad_sync(null)
 	return ai_squad

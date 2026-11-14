@@ -277,14 +277,15 @@
 
 /datum/component/personal_crafting/proc/construct_item(atom/a, datum/crafting_recipe/R)
 	var/list/contents = get_surroundings(a)
-	var/send_feedback = 1
+	var/datum/buildable/placement = R.get_buildable()
+	if(!placement.has_placement_rules())
+		placement = null
+	if(placement && !placement.check_placement(ismob(a) ? a : null, get_turf(a), a.dir))
+		return "."
 	if(check_contents(a, R, contents))
 		if(check_tools(a, R, contents))
 			//If we're a mob we'll try a do_after; non mobs will instead instantly construct the item
-			var/craft_time = R.time
-			if(ishuman(a))
-				var/mob/living/carbon/human/crafter = a
-				craft_time *= max(0.5, 1 - 0.15 * crafter.get_perk_rank("mad_scientist"))
+			var/craft_time = R.get_craft_time(a)
 			if(ismob(a) && !do_after(a, craft_time, target = a))
 				return "."
 			contents = get_surroundings(a)
@@ -292,14 +293,47 @@
 				return ", missing component."
 			if(!check_tools(a, R, contents))
 				return ", missing tool."
-			var/list/parts = del_reqs(R, a)
-			var/atom/movable/I = new R.result (get_turf(a.loc))
-			I.CheckParts(parts, R)
-			if(send_feedback)
-				SSblackbox.record_feedback("tally", "object_crafted", 1, I.type)
-			return I //Send the item back to whatever called this proc so it can handle whatever it wants to do with the new item
+			if(placement && !placement.check_placement(ismob(a) ? a : null, get_turf(a), a.dir))
+				return "."
+			return spawn_crafted(a, R, get_turf(a.loc))
 		return ", missing tool."
 	return ", missing component."
+
+/// Spends R's ingredients from a's surroundings and makes the result on T. Everything must have been checked already.
+/datum/component/personal_crafting/proc/spawn_crafted(atom/a, datum/crafting_recipe/R, turf/T)
+	var/list/parts = del_reqs(R, a)
+	var/atom/movable/I = new R.result (T)
+	I.CheckParts(parts, R)
+	SSblackbox.record_feedback("tally", "object_crafted", 1, I.type)
+	return I //Send the item back to whatever called this proc so it can handle whatever it wants to do with the new item
+
+/// Why user can't craft R right now from what is around them, or null if they can.
+/datum/component/personal_crafting/proc/get_blocker(mob/user, datum/crafting_recipe/R)
+	var/list/surroundings = get_surroundings(user)
+	var/has_contents = check_contents(user, R, surroundings)
+	var/has_tools = check_tools(user, R, surroundings)
+	if(has_contents && has_tools)
+		return null
+	var/list/reasons = list()
+	if(!has_contents)
+		reasons += get_missing_text(R, surroundings)
+	if(!has_tools)
+		reasons += get_missing_tool_text(user, R, surroundings)
+	reasons -= ""
+	return length(reasons) ? reasons.Join(", ") : "requirements not met"
+
+/// Crafts R on T, for placement mode. Checks nothing: the caller has validated the tile and get_blocker() already.
+/datum/component/personal_crafting/proc/place_crafted(mob/user, datum/crafting_recipe/R, turf/T, build_dir)
+	var/atom/movable/made = spawn_crafted(user, R, T)
+	if(!made || QDELETED(made))
+		return null
+	made.set_build_dir(R.get_place_buildable().get_build_dir(build_dir))
+	made.add_fingerprint(user)
+	log_craft("[made] crafted by [user] at [loc_name(made.loc)]")
+	if(isstructure(made))
+		var/obj/structure/built = made
+		built.set_build_owner(user)
+	return made
 
 /*Del reqs works like this:
 
@@ -498,6 +532,9 @@
 		if(R.name == "") //This is one of the invalid parents that sneaks in
 			continue
 
+		if(R.is_builder_recipe()) //Listed in the builder now
+			continue
+
 		if(!R.always_available && !(R.type in user?.mind?.learned_recipes)) //User doesn't actually know how to make this.
 			continue
 
@@ -515,48 +552,62 @@
 	data["crafting_recipes"] = crafting_recipes
 	return data
 
+/**
+ * Crafts TR for user the way the crafting menu's make button does. The crafting menu and the builder both come through here.
+ * Returns the thing made, or null if nothing was.
+ * show_menu: redraws the crafting menu while busy, which the builder doesn't want.
+ */
+/datum/component/personal_crafting/proc/craft_recipe(mob/user, datum/crafting_recipe/TR, show_menu = TRUE)
+	if(!TR)
+		//Stale recipe ref (e.g. UI was left open across a server restart/hotswap). Without this
+		//guard, construct_item() would dereference a null recipe and throw an uncaught runtime,
+		//aborting before busy is ever reset to FALSE -- leaving the crafting menu permanently
+		//"stuck" (busy) with no visible feedback to the player at all.
+		to_chat(user, span_warning("That recipe is no longer valid. Please close and reopen the crafting menu."))
+		busy = FALSE
+		return null
+	busy = TRUE
+	CHECK_TICK
+	if(show_menu)
+		ui_interact(user)
+	var/atom/movable/result
+	try
+		result = construct_item(user, TR)
+	catch(var/exception/e)
+		//Make absolutely sure a bug in construct_item()/check_contents()/del_reqs() can never
+		//permanently strand the menu in a "busy" (unresponsive, no-feedback) state again.
+		stack_trace("personal_crafting construct_item error: [e]")
+		to_chat(user, span_warning("Construction failed, something went wrong."))
+		busy = FALSE
+		return null
+	busy = FALSE
+	if(istext(result))
+		to_chat(user, span_warning("Construction failed[result]"))
+		return null
+	if(ismob(user) && isitem(result)) //In case the user is actually possessing a non mob like a machine
+		user.put_in_hands(result)
+	else
+		result.forceMove(user.drop_location())
+	if(isstructure(result))
+		var/obj/structure/built = result
+		built.set_build_owner(user)
+	to_chat(user, span_notice("[TR.name] constructed."))
+	return result
+
 /datum/component/personal_crafting/ui_act(action, params)
 	if(..())
 		return
 	switch(action)
 		if("make")
-			var/mob/user = usr
-			var/datum/crafting_recipe/TR = locate(params["recipe"]) in GLOB.crafting_recipes
-			if(!TR)
-				//Stale recipe ref (e.g. UI was left open across a server restart/hotswap). Without this
-				//guard, construct_item() would dereference a null recipe and throw an uncaught runtime,
-				//aborting before busy is ever reset to FALSE -- leaving the crafting menu permanently
-				//"stuck" (busy) with no visible feedback to the player at all.
-				to_chat(user, span_warning("That recipe is no longer valid. Please close and reopen the crafting menu."))
-				busy = FALSE
-				return
-			busy = TRUE
-			CHECK_TICK
-			ui_interact(user)
-			var/atom/movable/result
-			try
-				result = construct_item(user, TR)
-			catch(var/exception/e)
-				//Make absolutely sure a bug in construct_item()/check_contents()/del_reqs() can never
-				//permanently strand the menu in a "busy" (unresponsive, no-feedback) state again.
-				stack_trace("personal_crafting construct_item error: [e]")
-				to_chat(user, span_warning("Construction failed, something went wrong."))
-				busy = FALSE
-				return
-			if(!istext(result)) //We made an item and didn't get a fail message
-				if(ismob(user) && isitem(result)) //In case the user is actually possessing a non mob like a machine
-					user.put_in_hands(result)
-				else
-					result.forceMove(user.drop_location())
-				to_chat(user, span_notice("[TR.name] constructed."))
-			else
-				to_chat(user, span_warning("Construction failed[result]"))
-			busy = FALSE
+			craft_recipe(usr, locate(params["recipe"]) in GLOB.crafting_recipes)
 		if("toggle_recipes")
 			display_craftable_only = !display_craftable_only
 			. = TRUE
 		if("toggle_compact")
 			display_compact = !display_compact
+			. = TRUE
+		if("open_builder")
+			open_build_menu(usr)
 			. = TRUE
 		if("set_category")
 			cur_category = params["category"]

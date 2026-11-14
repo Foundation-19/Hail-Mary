@@ -286,8 +286,8 @@ GLOBAL_LIST_INIT(plasteel_recipes, list ( \
 //  Wood
 
 GLOBAL_LIST_INIT(wood_recipes, list ( \
-	new/datum/stack_recipe("wooden barricade", /obj/structure/barricade/wooden, 5, time = 50, one_per_turf = TRUE, on_floor = TRUE), \
-	new/datum/stack_recipe("wooden floor tile", /obj/item/stack/tile/wood, 1, 4, 20), \
+	new/datum/stack_recipe("wooden barricade", /obj/structure/barricade/wooden, 5, time = 50, one_per_turf = TRUE, on_floor = TRUE, placeable = TRUE), \
+	new/datum/stack_recipe_list("wooden floor tiles", tile_variant_recipes(/obj/item/stack/tile/wood, 1, 4, 20, list(/obj/item/stack/tile/f13_wood))), \
 	new/datum/stack_recipe("wooden arrow shaft", /obj/item/arrow_shaft, 1, 1, 0.5 SECONDS, is_stack = FALSE), \
 	null, \
 	new/datum/stack_recipe_list("pews", list( \
@@ -304,7 +304,7 @@ GLOBAL_LIST_INIT(wood_recipes, list ( \
 	*/
 	new/datum/stack_recipe("antique chair", /obj/structure/chair/wood/wings, 3, time = 10, one_per_turf = TRUE, on_floor = TRUE), \
 	new/datum/stack_recipe("deckchair", /obj/structure/chair/comfy/plywood, 4, time = 10, one_per_turf = TRUE, on_floor = TRUE), \
-	new/datum/stack_recipe("table frame", /obj/structure/table_frame/wood, 2, time = 10), \
+	new/datum/stack_recipe("table frame", /obj/structure/table_frame/wood, 2, time = 10, one_per_turf = TRUE, on_floor = TRUE), \
 	new/datum/stack_recipe("bed", /obj/structure/bed/wooden, 2, one_per_turf = TRUE, on_floor = TRUE), \
 		)), \
 	null, \
@@ -544,7 +544,7 @@ GLOBAL_LIST_INIT(durathread_recipes, list ( \
  */
 GLOBAL_LIST_INIT(cardboard_recipes, list ( \
 	new/datum/stack_recipe("box", /obj/item/storage/box),										\
-	new/datum/stack_recipe("large box", /obj/structure/closet/cardboard, 4),					\
+	new/datum/stack_recipe("large box", /obj/structure/closet/cardboard, 4, on_floor = TRUE),					\
 	new/datum/stack_recipe("cardboard cutout", /obj/item/cardboard_cutout, 5),					\
 	new/datum/stack_recipe("folder", /obj/item/folder),											\
 	new/datum/stack_recipe("pipe rifle ammo belt (.357-ish)", /obj/item/ammo_box/magazine/autopipe/empty, 2),
@@ -616,6 +616,7 @@ GLOBAL_LIST_INIT(runed_metal_recipes, list ( \
 	name = "runed metal"
 	desc = "Sheets of cold metal with shifting inscriptions writ upon them."
 	singular_name = "runed metal sheet"
+	builder_hidden = TRUE
 	icon_state = "sheet-runed"
 	item_state = "sheet-runed"
 	icon = 'icons/obj/stack_objects.dmi'
@@ -689,6 +690,7 @@ GLOBAL_LIST_INIT(brass_recipes, list ( \
 	name = "brass"
 	desc = "Sheets made out of brass."
 	singular_name = "brass sheet"
+	builder_hidden = TRUE
 	icon_state = "sheet-brass"
 	item_state = "sheet-brass"
 	icon = 'icons/obj/stack_objects.dmi'

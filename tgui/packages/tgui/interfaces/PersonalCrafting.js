@@ -75,6 +75,11 @@ export const PersonalCrafting = (props, context) => {
           title="Personal Crafting"
           buttons={(
             <Fragment>
+              <Button
+                icon="hammer"
+                content="Builder"
+                tooltip="Build walls, windows, doors and more from materials"
+                onClick={() => act('open_builder')} />
               <Button.Checkbox
                 content="Compact"
                 checked={display_compact}

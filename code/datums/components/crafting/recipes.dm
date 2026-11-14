@@ -11,10 +11,47 @@
 	var/subcategory = CAT_NONE
 	var/always_available = TRUE //Set to FALSE if it needs to be learned first.
 	var/required_int = 0 //Min S.P.E.C.I.A.L. Intelligence required to craft this thing
+	/// Opt-in placement rules for structure results, enforced through /datum/buildable
+	var/one_per_turf = FALSE
+	var/on_floor = FALSE
+	var/window_checks = FALSE
+	var/placement_checks = FALSE
+	/// Offers placement mode in the builder. Left null, any structure the builder lists can be placed; pass FALSE to keep it a craft at your feet.
+	var/placeable = null
+	/// Placement mode lets the builder turn the result
+	var/rotatable = FALSE
+	/// Lazily built by get_buildable() and get_place_buildable()
+	var/datum/buildable/buildable
+	var/datum/buildable/place_buildable
 
 /datum/crafting_recipe/New()
 	if(!(result in reqs))
 		blacklist += result
+
+/// Tool behaviours that mean "stand at a bench". Recipes needing one stay in the crafting menu.
+GLOBAL_LIST_INIT(crafting_station_tools, list(
+	TOOL_WORKBENCH, TOOL_MWORKBENCH, TOOL_ASSWORKBENCH, TOOL_FWORKBENCH, TOOL_AWORKBENCH,
+	TOOL_BOTTLER, TOOL_FORGE, TOOL_LOOM, TOOL_CHEMMASTER, TOOL_ALCHEMY_TABLE,
+	TOOL_RELOADER, TOOL_MSRELOADER, TOOL_NCR, TOOL_LEGION, TOOL_LUNCHBOX,
+	TOOL_GUNTIER1, TOOL_GUNTIER2, TOOL_GUNTIER3, TOOL_GUNTIER4,
+))
+
+/**
+ * Whether this recipe is listed in the universal builder instead of the crafting menu.
+ * Recipes that put down a structure or machine, and need no workbench or other station, move over.
+ * This is the one switch for the migration: return FALSE here and everything is back in the crafting menu.
+ */
+/datum/crafting_recipe/proc/is_builder_recipe()
+	if(name == "" || !ispath(result))
+		return FALSE
+	if(!ispath(result, /obj/structure) && !ispath(result, /obj/machinery))
+		return FALSE
+	for(var/tool in tools)
+		if(tool in GLOB.crafting_station_tools)
+			return FALSE
+		if(ispath(tool, /obj/machinery))
+			return FALSE
+	return TRUE
 
 /**
  * Run custom pre-craft checks for this recipe

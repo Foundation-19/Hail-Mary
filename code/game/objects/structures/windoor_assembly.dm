@@ -42,6 +42,10 @@
 	air_update_turf(1)
 	return ..()
 
+/obj/structure/windoor_assembly/set_build_dir(new_dir)
+	..()
+	ini_dir = dir
+
 /obj/structure/windoor_assembly/Move()
 	var/turf/T = loc
 	. = ..()

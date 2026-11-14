@@ -283,6 +283,9 @@
 #define COMSIG_MOB_CLIENT_LOGOUT "mob_client_logout"				//sent when a mob/logout() starts: (client)
 #define COMSIG_MOB_CLIENT_CHANGE_VIEW "mob_client_change_view"		//from base of /client/change_view(): (client, old_view, view)
 #define COMSIG_MOB_CLIENT_MOUSEMOVE "mob_client_mousemove"			//from base of /client/MouseMove(): (object, location, control, params)
+#define COMSIG_MOB_CLIENT_MOUSEDRAG "mob_client_mousedrag"			//from base of /client/MouseDrag(): (src_object, over_object, over_location, params)
+#define COMSIG_MOB_CLIENT_MOUSEUP "mob_client_mouseup"				//from base of /client/MouseUp(): (object, location, params)
+#define COMSIG_MOB_MOUSEWHEEL "mob_mousewheel"					//from base of /mob/MouseWheelOn(): (atom/A, delta_x, delta_y, params)
 
 /// From base of /client/Move(): (list/move_args)
 #define COMSIG_MOB_CLIENT_PRE_MOVE "mob_client_pre_move"

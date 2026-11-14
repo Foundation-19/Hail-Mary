@@ -74,6 +74,10 @@
 	ini_dir = dir
 	add_fingerprint(user)
 
+/obj/structure/destructible/clockwork/reflector/set_build_dir(new_dir)
+	..()
+	ini_dir = dir
+
 
 /obj/structure/destructible/clockwork/reflector/wrench_act(mob/living/user, obj/item/I)
 

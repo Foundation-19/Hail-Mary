@@ -89,16 +89,28 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 	var/id = -1
 	var/dirtype = PIPE_BENDABLE
 
-/datum/pipe_info/proc/Render(dispenser)
-	var/dat = "<li><a href='?src=[REF(dispenser)]&[Params()]'>[name]</a></li>"
+/// The icon file this recipe's preview is drawn from, matching the RPD's pipes spritesheet.
+/datum/pipe_info/proc/get_icon_file()
+	return null
+
+/// Dispenser buttons are HTML, so each one carries the pipe's own icon to let players see what they are picking.
+/datum/pipe_info/proc/Render(dispenser, mob/user)
+	var/dat = render_button(dispenser, user, Params(), name, dirtype == PIPE_ONEDIR ? SOUTH : NORTH)
 
 	// Stationary pipe dispensers don't allow you to pre-select pipe directions.
 	// This makes it impossble to spawn bent versions of bendable pipes.
 	// We add a "Bent" pipe type with a preset diagonal direction to work around it.
 	if(istype(dispenser, /obj/machinery/pipedispenser) && (dirtype == PIPE_BENDABLE || dirtype == /obj/item/pipe/binary/bendable))
-		dat += "<li><a href='?src=[REF(dispenser)]&[Params()]&dir=[NORTHEAST]'>Bent [name]</a></li>"
+		dat += render_button(dispenser, user, "[Params()]&dir=[NORTHEAST]", "Bent [name]", NORTHEAST)
 
 	return dat
+
+/datum/pipe_info/proc/render_button(dispenser, mob/user, button_params, label, preview_dir)
+	var/icon_html = ""
+	var/icon_file = get_icon_file()
+	if(user && icon_file && icon_state && (icon_state in icon_states(icon_file)))
+		icon_html = icon2html(icon(icon_file), user, icon_state, preview_dir)
+	return "<a class='pipe' href='?src=[REF(dispenser)]&[button_params]'>[icon_html]<span>[label]</span></a>"
 
 /datum/pipe_info/proc/Params()
 	return ""
@@ -152,6 +164,9 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 /datum/pipe_info/pipe/Params()
 	return "makepipe=[id]&type=[dirtype]"
 
+/datum/pipe_info/pipe/get_icon_file()
+	return 'icons/obj/atmospherics/pipes/pipe_item.dmi'
+
 /datum/pipe_info/meter
 	icon_state = "meter"
 	dirtype = PIPE_ONEDIR
@@ -161,6 +176,9 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 
 /datum/pipe_info/meter/Params()
 	return "makemeter=[id]&type=[dirtype]"
+
+/datum/pipe_info/meter/get_icon_file()
+	return 'icons/obj/atmospherics/pipes/pipe_item.dmi'
 
 /datum/pipe_info/disposal/New(label, obj/path, dt=PIPE_UNARY)
 	name = label
@@ -175,6 +193,9 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 /datum/pipe_info/disposal/Params()
 	return "dmake=[id]&type=[dirtype]"
 
+/datum/pipe_info/disposal/get_icon_file()
+	return 'icons/obj/atmospherics/pipes/disposal.dmi'
+
 /datum/pipe_info/transit/New(label, obj/path, dt=PIPE_UNARY)
 	name = label
 	id = path
@@ -182,6 +203,9 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 	icon_state = initial(path.icon_state)
 	if(dt == PIPE_UNARY_FLIPPABLE)
 		icon_state = "[icon_state]_preview"
+
+/datum/pipe_info/transit/get_icon_file()
+	return 'icons/obj/atmospherics/pipes/transit_tube.dmi'
 
 /datum/pipe_info/plumbing/New(label, obj/path, dt=PIPE_UNARY)
 	name = label

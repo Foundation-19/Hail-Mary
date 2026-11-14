@@ -55,6 +55,8 @@ GLOBAL_VAR_INIT(use_experimental_clickdrag_thing, TRUE)
 	if (mouse_up_icon)
 		mouse_pointer_icon = mouse_up_icon
 	selected_target[1] = null
+	if(mob)
+		SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_MOUSEUP, object, location, params)
 	if(active_mousedown_item)
 		active_mousedown_item.onMouseUp(object, location, params, mob)
 		active_mousedown_item = null
@@ -143,6 +145,8 @@ GLOBAL_VAR_INIT(use_experimental_clickdrag_thing, TRUE)
 	if(selected_target[1] && over_object && over_object.IsAutoclickable())
 		selected_target[1] = over_object
 		selected_target[2] = params
+	if(mob)
+		SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_MOUSEDRAG, src_object, over_object, over_location, params)
 	if(active_mousedown_item)
 		active_mousedown_item.onMouseDrag(src_object, over_object, src_location, over_location, params, mob)
 

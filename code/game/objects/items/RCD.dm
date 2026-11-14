@@ -447,6 +447,12 @@ RLD
 	var/list/rcd_results = A.rcd_vals(user, src)
 	if(!rcd_results)
 		return FALSE
+	if(rcd_results["mode"] == RCD_DECONSTRUCT && istype(A, /obj/structure))
+		var/obj/structure/protected = A
+		var/protection = protected.build_protection_message(user)
+		if(protection)
+			to_chat(user, span_warning(protection))
+			return FALSE
 	var/delay = rcd_results["delay"] * delay_mod
 	var/obj/effect/constructing_effect/rcd_effect = new(get_turf(A), delay, src.mode)
 	var/turf/the_turf = get_turf(A)
