@@ -145,9 +145,9 @@
 	var/mob/living/user = parent
 	if(!istype(T))
 		return FALSE
-	if(source.get_amount() < recipe.req_amount)
+	if(source.get_amount() < buildable.req_amount)
 		if(complain)
-			to_chat(complain, span_warning("You haven't got enough [source] to build \the [recipe.title]!"))
+			to_chat(complain, span_warning("You haven't got enough [source] to build \the [buildable.name]!"))
 		return FALSE
 	if(T.z != user.z || get_dist(user, T) > range)
 		if(complain)
@@ -175,30 +175,26 @@
 		return
 	placing = TRUE
 	user.face_atom(T)
-	if(recipe.time)
-		var/adjusted_time = HAS_TRAIT(user, recipe.trait_booster) ? recipe.time * recipe.trait_modifier : recipe.time
-		user.visible_message(span_notice("[user] starts building [recipe.title]."), span_notice("You start building [recipe.title]..."))
+	if(buildable.build_time)
+		var/adjusted_time = buildable.get_build_time(user)
+		user.visible_message(span_notice("[user] starts building [buildable.name]."), span_notice("You start building [buildable.name]..."))
 		var/completed = do_after(user, adjusted_time, target = T)
 		if(QDELETED(src))
 			return
 		if(!completed || !user_can_build() || !can_place(T, user))
 			placing = FALSE
 			return
-	// Using the last of the stack deletes it, which ends placement mode and clears our references mid-build
-	var/datum/buildable/to_build = buildable
-	var/build_facing = build_dir
-	if(!source.use(recipe.req_amount))
+	// Spending the last of the stack deletes it and so ends placement mode, so only the buildable does the building
+	var/needed = buildable.req_amount
+	if(!buildable.build_from_stack(user, source, T, build_dir))
+		to_chat(user, span_warning("You couldn't build \the [buildable.name]."))
 		placing = FALSE
 		return
-	var/atom/movable/built = to_build.create(T, build_facing)
-	if(built)
-		log_craft("[built] crafted by [user] at [loc_name(built.loc)]")
-		built.add_fingerprint(user)
 	if(QDELETED(src))
 		to_chat(user, span_notice("You've run out of materials."))
 		return
 	placing = FALSE
-	if(QDELETED(source) || source.get_amount() < recipe.req_amount)
+	if(QDELETED(source) || source.get_amount() < needed)
 		to_chat(user, span_notice("You've run out of materials."))
 		qdel(src)
 		return

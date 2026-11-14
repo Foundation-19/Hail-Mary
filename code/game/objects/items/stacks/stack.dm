@@ -263,6 +263,11 @@
 			if(!building_checks(R, multiplier))
 				return
 
+		// Placeable recipes build through the same code as placement mode so the two can't drift apart
+		if(R.placeable && multiplier == 1)
+			R.get_buildable().build_from_stack(usr, src, get_turf(usr), usr.dir)
+			return
+
 		var/obj/O
 		if(R.max_res_amount > 1) //Is it a stack?
 			if(R.is_stack)
@@ -534,9 +539,12 @@
 	/// Lazily built by get_buildable(); holds the shared placement rules
 	var/datum/buildable/buildable
 	/// Offers placement mode (ghost preview, build on a nearby tile). Only for single structures built with no custom materials.
-	var/placeable = FALSE
+	/// Left null, it is on for any such structure that must be built on a floor and is limited to one per tile (or checked as a window); pass FALSE to opt out.
+	var/placeable = null
+	/// Placement mode lets the builder rotate the result (chairs and benches). Windows are always rotatable when directional.
+	var/rotatable = FALSE
 
-/datum/stack_recipe/New(title, result_type, req_amount = 1, res_amount = 1, max_res_amount = 1,time = 0, one_per_turf = FALSE, on_floor = FALSE, window_checks = FALSE, placement_checks = FALSE, applies_mats = FALSE, trait_booster = null, trait_modifier = 1, is_stack = TRUE, placeable = FALSE)
+/datum/stack_recipe/New(title, result_type, req_amount = 1, res_amount = 1, max_res_amount = 1,time = 0, one_per_turf = FALSE, on_floor = FALSE, window_checks = FALSE, placement_checks = FALSE, applies_mats = FALSE, trait_booster = null, trait_modifier = 1, is_stack = TRUE, placeable = null, rotatable = null)
 
 
 	src.title = title
@@ -553,7 +561,12 @@
 	src.trait_booster = trait_booster
 	src.trait_modifier = trait_modifier
 	src.is_stack = is_stack
+	if(isnull(placeable))
+		placeable = ispath(result_type, /obj/structure) && res_amount == 1 && max_res_amount == 1 && !applies_mats && on_floor && (one_per_turf || window_checks)
 	src.placeable = placeable
+	if(isnull(rotatable))
+		rotatable = ispath(result_type, /obj/structure/chair)
+	src.rotatable = rotatable
 /*
  * Recipe list datum
  */
