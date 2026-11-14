@@ -505,6 +505,9 @@
 		if(R.name == "") //This is one of the invalid parents that sneaks in
 			continue
 
+		if(R.is_builder_recipe()) //Listed in the builder now
+			continue
+
 		if(!R.always_available && !(R.type in user?.mind?.learned_recipes)) //User doesn't actually know how to make this.
 			continue
 
@@ -522,48 +525,62 @@
 	data["crafting_recipes"] = crafting_recipes
 	return data
 
+/**
+ * Crafts TR for user the way the crafting menu's make button does. The crafting menu and the builder both come through here.
+ * Returns the thing made, or null if nothing was.
+ * show_menu: redraws the crafting menu while busy, which the builder doesn't want.
+ */
+/datum/component/personal_crafting/proc/craft_recipe(mob/user, datum/crafting_recipe/TR, show_menu = TRUE)
+	if(!TR)
+		//Stale recipe ref (e.g. UI was left open across a server restart/hotswap). Without this
+		//guard, construct_item() would dereference a null recipe and throw an uncaught runtime,
+		//aborting before busy is ever reset to FALSE -- leaving the crafting menu permanently
+		//"stuck" (busy) with no visible feedback to the player at all.
+		to_chat(user, span_warning("That recipe is no longer valid. Please close and reopen the crafting menu."))
+		busy = FALSE
+		return null
+	busy = TRUE
+	CHECK_TICK
+	if(show_menu)
+		ui_interact(user)
+	var/atom/movable/result
+	try
+		result = construct_item(user, TR)
+	catch(var/exception/e)
+		//Make absolutely sure a bug in construct_item()/check_contents()/del_reqs() can never
+		//permanently strand the menu in a "busy" (unresponsive, no-feedback) state again.
+		stack_trace("personal_crafting construct_item error: [e]")
+		to_chat(user, span_warning("Construction failed, something went wrong."))
+		busy = FALSE
+		return null
+	busy = FALSE
+	if(istext(result))
+		to_chat(user, span_warning("Construction failed[result]"))
+		return null
+	if(ismob(user) && isitem(result)) //In case the user is actually possessing a non mob like a machine
+		user.put_in_hands(result)
+	else
+		result.forceMove(user.drop_location())
+	if(isstructure(result))
+		var/obj/structure/built = result
+		built.set_build_owner(user)
+	to_chat(user, span_notice("[TR.name] constructed."))
+	return result
+
 /datum/component/personal_crafting/ui_act(action, params)
 	if(..())
 		return
 	switch(action)
 		if("make")
-			var/mob/user = usr
-			var/datum/crafting_recipe/TR = locate(params["recipe"]) in GLOB.crafting_recipes
-			if(!TR)
-				//Stale recipe ref (e.g. UI was left open across a server restart/hotswap). Without this
-				//guard, construct_item() would dereference a null recipe and throw an uncaught runtime,
-				//aborting before busy is ever reset to FALSE -- leaving the crafting menu permanently
-				//"stuck" (busy) with no visible feedback to the player at all.
-				to_chat(user, span_warning("That recipe is no longer valid. Please close and reopen the crafting menu."))
-				busy = FALSE
-				return
-			busy = TRUE
-			CHECK_TICK
-			ui_interact(user)
-			var/atom/movable/result
-			try
-				result = construct_item(user, TR)
-			catch(var/exception/e)
-				//Make absolutely sure a bug in construct_item()/check_contents()/del_reqs() can never
-				//permanently strand the menu in a "busy" (unresponsive, no-feedback) state again.
-				stack_trace("personal_crafting construct_item error: [e]")
-				to_chat(user, span_warning("Construction failed, something went wrong."))
-				busy = FALSE
-				return
-			if(!istext(result)) //We made an item and didn't get a fail message
-				if(ismob(user) && isitem(result)) //In case the user is actually possessing a non mob like a machine
-					user.put_in_hands(result)
-				else
-					result.forceMove(user.drop_location())
-				to_chat(user, span_notice("[TR.name] constructed."))
-			else
-				to_chat(user, span_warning("Construction failed[result]"))
-			busy = FALSE
+			craft_recipe(usr, locate(params["recipe"]) in GLOB.crafting_recipes)
 		if("toggle_recipes")
 			display_craftable_only = !display_craftable_only
 			. = TRUE
 		if("toggle_compact")
 			display_compact = !display_compact
+			. = TRUE
+		if("open_builder")
+			open_build_menu(usr)
 			. = TRUE
 		if("set_category")
 			cur_category = params["category"]

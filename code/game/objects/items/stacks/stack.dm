@@ -17,6 +17,8 @@
 	var/amount = 1
 	var/max_amount = 50 //also see stack recipes initialisation, param "max_res_amount" must be equal to this max_amount
 	var/is_cyborg = 0 // It's 1 if module is used by a cyborg, and uses its storage
+	/// Keeps this material out of the universal builder, for materials only a faith may work
+	var/builder_hidden = FALSE
 	var/datum/robot_energy_storage/source
 	var/cost = 1 // How much energy from storage it costs
 	var/merge_type = null // This path and its children should merge with this stack, defaults to src.type
@@ -147,80 +149,23 @@
 
 /obj/item/stack/proc/get_amount()
 	if(is_cyborg)
-		. = round(source.energy / cost)
+		. = source ? round(source.energy / cost) : 0
 	else
 		. = (amount)
 
 /obj/item/stack/attack_self(mob/user)
 	interact(user)
 
-/obj/item/stack/interact(mob/user, sublist)
-	ui_interact(user, sublist)
-
-/obj/item/stack/ui_interact(mob/user, recipes_sublist)
-	. = ..()
-	if (!recipes)
+/// Opens the universal builder, focused on this stack's recipes.
+/obj/item/stack/interact(mob/user)
+	if(!length(recipes))
 		return
-	if (!src || get_amount() <= 0)
-		user << browse(null, "window=stack")
-	user.set_machine(src) //for correct work of onclose
-	var/list/recipe_list = recipes
-	if (recipes_sublist && recipe_list[recipes_sublist] && istype(recipe_list[recipes_sublist], /datum/stack_recipe_list))
-		var/datum/stack_recipe_list/srl = recipe_list[recipes_sublist]
-		recipe_list = srl.recipes
-	var/t1 = "Amount Left: [get_amount()]<br>"
-	for(var/i in 1 to length(recipe_list))
-		var/E = recipe_list[i]
-		if (isnull(E))
-			t1 += "<hr>"
-			continue
-		if (i>1 && !isnull(recipe_list[i-1]))
-			t1+="<br>"
-
-		if (istype(E, /datum/stack_recipe_list))
-			var/datum/stack_recipe_list/srl = E
-			t1 += "<a href='?src=[REF(src)];sublist=[i]'>[srl.title]</a>"
-
-		if (istype(E, /datum/stack_recipe))
-			var/datum/stack_recipe/R = E
-			var/max_multiplier = round(get_amount() / R.req_amount)
-			var/title
-			var/can_build = 1
-			can_build = can_build && (max_multiplier>0)
-
-			if (R.res_amount>1)
-				title+= "[R.res_amount]x [R.title]\s"
-			else
-				title+= "[R.title]"
-			title+= " ([R.req_amount] [singular_name]\s)"
-			if (can_build)
-				t1 += text("<A href='?src=[REF(src)];sublist=[recipes_sublist];make=[i];multiplier=1'>[title]</A>  ")
-				if(R.placeable)
-					t1 += "<A href='?src=[REF(src)];sublist=[recipes_sublist];place=[i]'>(place)</A>  "
-			else
-				t1 += text("[]", title)
-				continue
-			if (R.max_res_amount>1 && max_multiplier>1)
-				max_multiplier = min(max_multiplier, round(R.max_res_amount/R.res_amount))
-				t1 += " |"
-				var/list/multipliers = list(5,10,25)
-				for (var/n in multipliers)
-					if (max_multiplier>=n)
-						t1 += " <A href='?src=[REF(src)];make=[i];multiplier=[n]'>[n*R.res_amount]x</A>"
-				if (!(max_multiplier in multipliers))
-					t1 += " <A href='?src=[REF(src)];make=[i];multiplier=[max_multiplier]'>[max_multiplier*R.res_amount]x</A>"
-
-	var/datum/browser/popup = new(user, "stack", name, 400, 400)
-	popup.set_content(t1)
-	popup.open(0)
-	onclose(user, "stack")
+	open_build_menu(user, src)
 
 /obj/item/stack/Topic(href, href_list)
 	..()
 	if (usr.restrained() || usr.stat || usr.get_active_held_item() != src)
 		return
-	if (href_list["sublist"] && !href_list["make"] && !href_list["place"])
-		interact(usr, text2num(href_list["sublist"]))
 	if (href_list["place"])
 		var/list/place_list = recipes
 		if (href_list["sublist"])
@@ -239,86 +184,91 @@
 			var/datum/stack_recipe_list/srl = recipes_list[text2num(href_list["sublist"])]
 			recipes_list = srl.recipes
 		var/datum/stack_recipe/R = recipes_list[text2num(href_list["make"])]
-		var/multiplier = round(text2num(href_list["multiplier"]))
-		
-		// Validate multiplier is in acceptable range
-		var/max_multiplier = round(get_amount() / R.req_amount)
-		if(R.max_res_amount > 1)
-			max_multiplier = min(max_multiplier, round(R.max_res_amount / R.res_amount))
-		
-		if(!multiplier || multiplier < 1 || multiplier > max_multiplier || !IS_FINITE(multiplier))
-			log_admin("[key_name(usr)] attempted stack exploit with invalid multiplier: [multiplier] (max: [max_multiplier])")
-			return
-		if(!building_checks(R, multiplier))
-			return
-		if (R.time)
-			var/adjusted_time = 0
-			usr.visible_message(span_notice("[usr] starts building [R.title]."), span_notice("You start building [R.title]..."))
-			if(HAS_TRAIT(usr, R.trait_booster))
-				adjusted_time = (R.time * R.trait_modifier)
-			else
-				adjusted_time = R.time
-			if (!do_after(usr, adjusted_time, target = usr))
-				return
-			if(!building_checks(R, multiplier))
-				return
+		make_recipe(usr, R, round(text2num(href_list["multiplier"])))
 
-		// Placeable recipes build through the same code as placement mode so the two can't drift apart
-		if(R.placeable && multiplier == 1)
-			R.get_buildable().build_from_stack(usr, src, get_turf(usr), usr.dir)
-			return
-
-		var/obj/O
-		if(R.max_res_amount > 1) //Is it a stack?
-			if(R.is_stack)
-				O = new R.result_type(usr.drop_location(), R.res_amount * multiplier)
-			else
-				for(var/i in 1 to multiplier)
-					O = new R.result_type(get_turf(usr))
-		else if(ispath(R.result_type, /turf))
-			var/turf/T = usr.drop_location()
-			if(!isturf(T))
-				return
-			T.PlaceOnTop(R.result_type, flags = CHANGETURF_INHERIT_AIR)
+/// Builds recipe R multiplier times from this stack, for user. The legacy make link and the build menu both come through here.
+/obj/item/stack/proc/make_recipe(mob/user, datum/stack_recipe/R, multiplier)
+	if(!istype(R) || !istype(user))
+		return
+		
+	// Validate multiplier is in acceptable range
+	var/max_multiplier = round(get_amount() / R.req_amount)
+	if(R.max_res_amount > 1)
+		max_multiplier = min(max_multiplier, round(R.max_res_amount / R.res_amount))
+		
+	if(!multiplier || multiplier < 1 || multiplier > max_multiplier || !IS_FINITE(multiplier))
+		log_admin("[key_name(user)] attempted stack exploit with invalid multiplier: [multiplier] (max: [max_multiplier])")
+		return
+	if(!building_checks(R, multiplier, user))
+		return
+	if (R.time)
+		var/adjusted_time = 0
+		user.visible_message(span_notice("[user] starts building [R.title]."), span_notice("You start building [R.title]..."))
+		if(HAS_TRAIT(user, R.trait_booster))
+			adjusted_time = (R.time * R.trait_modifier)
 		else
-			O = new R.result_type(get_turf(usr))
-		if(O)
-			O.set_build_dir(usr.dir)
-			log_craft("[O] crafted by [usr] at [loc_name(O.loc)]")
+			adjusted_time = R.time
+		if (!do_after(user, adjusted_time, target = user))
+			return
+		if(!building_checks(R, multiplier, user))
+			return
 
-		use(R.req_amount * multiplier)
+	// Placeable recipes build through the same code as placement mode so the two can't drift apart
+	if(R.placeable && multiplier == 1)
+		R.get_buildable().build_from_stack(user, src, get_turf(user), user.dir)
+		return
 
-		if(R.applies_mats && custom_materials && custom_materials.len)
-			var/list/used_materials = list()
-			for(var/i in custom_materials)
-				used_materials[SSmaterials.GetMaterialRef(i)] = R.req_amount / R.res_amount * (MINERAL_MATERIAL_AMOUNT / custom_materials.len)
-			O.set_custom_materials(used_materials)
+	var/obj/O
+	if(R.max_res_amount > 1) //Is it a stack?
+		if(R.is_stack)
+			O = new R.result_type(user.drop_location(), R.res_amount * multiplier)
+		else
+			for(var/i in 1 to multiplier)
+				O = new R.result_type(get_turf(user))
+	else if(ispath(R.result_type, /turf))
+		var/turf/T = user.drop_location()
+		if(!isturf(T))
+			return
+		T.PlaceOnTop(R.result_type, flags = CHANGETURF_INHERIT_AIR)
+	else
+		O = new R.result_type(get_turf(user))
+	if(O)
+		O.set_build_dir(user.dir)
+		log_craft("[O] crafted by [user] at [loc_name(O.loc)]")
 
-		if(istype(O, /obj/item/restraints/handcuffs/cable))
-			var/obj/item/cuffs = O
-			cuffs.color = color
+	use(R.req_amount * multiplier)
 
-		if (QDELETED(O))
-			return //It's a stack and has already been merged
+	if(O && R.applies_mats && custom_materials && custom_materials.len)
+		var/list/used_materials = list()
+		for(var/i in custom_materials)
+			used_materials[SSmaterials.GetMaterialRef(i)] = R.req_amount / R.res_amount * (MINERAL_MATERIAL_AMOUNT / custom_materials.len)
+		O.set_custom_materials(used_materials)
 
-		if (isitem(O))
-			usr.put_in_hands(O)
-		O.add_fingerprint(usr)
+	if(istype(O, /obj/item/restraints/handcuffs/cable))
+		var/obj/item/cuffs = O
+		cuffs.color = color
 
-		//BubbleWrap - so newly formed boxes are empty
-		if ( istype(O, /obj/item/storage) )
-			for (var/obj/item/I in O)
-				qdel(I)
-		//BubbleWrap END
+	if (QDELETED(O))
+		return //It's a stack and has already been merged
 
-/obj/item/stack/proc/building_checks(datum/stack_recipe/R, multiplier)
+	if (isitem(O))
+		user.put_in_hands(O)
+	O.add_fingerprint(user)
+
+	//BubbleWrap - so newly formed boxes are empty
+	if ( istype(O, /obj/item/storage) )
+		for (var/obj/item/I in O)
+			qdel(I)
+	//BubbleWrap END
+
+/obj/item/stack/proc/building_checks(datum/stack_recipe/R, multiplier, mob/user = usr)
 	if (get_amount() < R.req_amount*multiplier)
 		if (R.req_amount*multiplier>1)
-			to_chat(usr, span_warning("You haven't got enough [src] to build \the [R.req_amount*multiplier] [R.title]\s!"))
+			to_chat(user, span_warning("You haven't got enough [src] to build \the [R.req_amount*multiplier] [R.title]\s!"))
 		else
-			to_chat(usr, span_warning("You haven't got enough [src] to build \the [R.title]!"))
+			to_chat(user, span_warning("You haven't got enough [src] to build \the [R.title]!"))
 		return FALSE
-	return R.get_buildable().check_placement(usr, get_turf(usr), usr.dir)
+	return R.get_buildable().check_placement(user, get_turf(user), user.dir)
 
 /obj/item/stack/use(used, transfer = FALSE, check = TRUE) // return 0 = borked; return 1 = had enough
 	if(check && zero_amount())

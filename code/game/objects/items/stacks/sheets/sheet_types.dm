@@ -616,6 +616,7 @@ GLOBAL_LIST_INIT(runed_metal_recipes, list ( \
 	name = "runed metal"
 	desc = "Sheets of cold metal with shifting inscriptions writ upon them."
 	singular_name = "runed metal sheet"
+	builder_hidden = TRUE
 	icon_state = "sheet-runed"
 	item_state = "sheet-runed"
 	icon = 'icons/obj/stack_objects.dmi'
@@ -689,6 +690,7 @@ GLOBAL_LIST_INIT(brass_recipes, list ( \
 	name = "brass"
 	desc = "Sheets made out of brass."
 	singular_name = "brass sheet"
+	builder_hidden = TRUE
 	icon_state = "sheet-brass"
 	item_state = "sheet-brass"
 	icon = 'icons/obj/stack_objects.dmi'

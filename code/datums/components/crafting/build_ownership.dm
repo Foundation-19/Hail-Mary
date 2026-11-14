@@ -66,10 +66,22 @@ GLOBAL_VAR(build_owner_timer)
 	build_owner_name = user.real_name
 	register_build_owner(user.ckey)
 
+/// Ownership carries over when a structure turns into another one and fingerprints are handed on (girder to reinforced girder, window assembly to window and so on)
+/obj/structure/transfer_fingerprints_to(atom/A)
+	. = ..()
+	var/obj/structure/target = A
+	if(build_owner_ckey && istype(target) && !target.build_owner_ckey)
+		target.build_owner_ckey = build_owner_ckey
+		target.build_owner_name = build_owner_name
+
 /// Returns the reason user may not take this apart with tool, or null if they may.
 /obj/structure/proc/deconstruct_blocked(mob/user, obj/item/tool)
 	if(!(tool.tool_behaviour in BUILD_DECONSTRUCT_TOOLS))
 		return null
+	return build_protection_message(user)
+
+/// The reason user may not take this apart by any means, or null if they may. Used by tools and by the RCD.
+/obj/structure/proc/build_protection_message(mob/user)
 	if(user?.client && check_rights_for(user.client, R_ADMIN))
 		return null
 	if(!build_owner_ckey)

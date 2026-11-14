@@ -23,6 +23,31 @@
 	if(!(result in reqs))
 		blacklist += result
 
+/// Tool behaviours that mean "stand at a bench". Recipes needing one stay in the crafting menu.
+GLOBAL_LIST_INIT(crafting_station_tools, list(
+	TOOL_WORKBENCH, TOOL_MWORKBENCH, TOOL_ASSWORKBENCH, TOOL_FWORKBENCH, TOOL_AWORKBENCH,
+	TOOL_BOTTLER, TOOL_FORGE, TOOL_LOOM, TOOL_CHEMMASTER, TOOL_ALCHEMY_TABLE,
+	TOOL_RELOADER, TOOL_MSRELOADER, TOOL_NCR, TOOL_LEGION, TOOL_LUNCHBOX,
+	TOOL_GUNTIER1, TOOL_GUNTIER2, TOOL_GUNTIER3, TOOL_GUNTIER4,
+))
+
+/**
+ * Whether this recipe is listed in the universal builder instead of the crafting menu.
+ * Recipes that put down a structure or machine, and need no workbench or other station, move over.
+ * This is the one switch for the migration: return FALSE here and everything is back in the crafting menu.
+ */
+/datum/crafting_recipe/proc/is_builder_recipe()
+	if(name == "" || !ispath(result))
+		return FALSE
+	if(!ispath(result, /obj/structure) && !ispath(result, /obj/machinery))
+		return FALSE
+	for(var/tool in tools)
+		if(tool in GLOB.crafting_station_tools)
+			return FALSE
+		if(ispath(tool, /obj/machinery))
+			return FALSE
+	return TRUE
+
 /**
  * Run custom pre-craft checks for this recipe
  *
