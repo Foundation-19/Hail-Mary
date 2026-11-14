@@ -6591,6 +6591,11 @@
 	icon_state = "verticalinnermain1"
 	},
 /area/f13/wasteland/cold)
+"cEu" = (
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "horizontaloutermain2"
+	},
+/area/f13/wasteland)
 "cEx" = (
 /obj/structure/barricade/wooden/strong,
 /obj/structure/decoration/rag{
@@ -8172,6 +8177,12 @@
 	icon_state = "horizontalbottombordertop0"
 	},
 /area/f13/wasteland/cold)
+"dlQ" = (
+/obj/structure/closet/crate/trashcart,
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "verticaloutermain1"
+	},
+/area/f13/wasteland)
 "dlS" = (
 /obj/structure/barricade/wooden,
 /turf/open/floor/plating/dirt,
@@ -40839,6 +40850,12 @@
 	icon_state = "whitegreenrustychess"
 	},
 /area/f13/building/powered)
+"qlo" = (
+/turf/closed/wall/f13/store{
+	desc = "A pre-War wall made of solid concrete.";
+	name = "concrete wall"
+	},
+/area)
 "qlp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -45006,6 +45023,9 @@
 /mob/living/simple_animal/hostile/supermutant/meleemutant,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/underground/mountain)
+"rWt" = (
+/turf/closed/mineral/random,
+/area)
 "rWR" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -56944,7 +56964,7 @@
 /turf/open/floor/f13/wood,
 /area/f13/building/powered)
 "wFh" = (
-/obj/structure/closet/crate/trashcart,
+/obj/structure/car/rubbish4,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontaloutermainright"
 	},
@@ -59247,6 +59267,9 @@
 /obj/effect/spawner/lootdrop/f13/crafting,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/underground/mountain)
+"xEq" = (
+/turf/open/indestructible/ground/outside/snow,
+/area)
 "xEC" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
@@ -130541,7 +130564,7 @@ jRd
 jRd
 jRd
 jRd
-jRd
+xEq
 jRd
 uXX
 uXX
@@ -131267,7 +131290,7 @@ qXQ
 kzQ
 aAW
 jIN
-kzQ
+qlo
 kcI
 fqZ
 lLg
@@ -137764,7 +137787,7 @@ dbq
 dbq
 dbq
 dbq
-dbq
+rWt
 dbq
 dbq
 dbq
@@ -149126,9 +149149,9 @@ rHS
 rHS
 rHS
 qgt
-qgt
-cgb
-vMG
+lcr
+lcr
+dlQ
 iZt
 brV
 vhI
@@ -149383,9 +149406,9 @@ igV
 hDD
 hDD
 hqQ
-fTj
-rTj
-wFh
+cgb
+cgb
+vMG
 iZt
 cuv
 lds
@@ -149638,11 +149661,11 @@ rHS
 rHS
 qgt
 djP
-emy
-emy
-emy
-gzn
-rYB
+cEu
+cEu
+rTj
+wFh
+rTj
 iZt
 iZt
 iZt
@@ -150926,7 +150949,7 @@ tej
 emy
 emy
 emy
-emy
+gzn
 emy
 emy
 pgD
