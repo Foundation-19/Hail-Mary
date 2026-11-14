@@ -24,6 +24,8 @@
 	var/trait_modifier = 1
 	/// Whether the build direction matters even though this is not a window (chairs, benches)
 	var/rotatable = FALSE
+	/// The last reason check_placement() refused, kept so callers can show it without asking the user
+	var/last_failure
 
 /datum/buildable/New(name, result_type, one_per_turf = FALSE, on_floor = FALSE, window_checks = FALSE, placement_checks = FALSE, req_amount = 0, build_time = 0, trait_booster = null, trait_modifier = 1, rotatable = FALSE)
 	src.name = name
@@ -83,6 +85,7 @@
 	return TRUE
 
 /datum/buildable/proc/placement_failed(mob/user, message)
+	last_failure = message
 	if(user)
 		to_chat(user, span_warning(message))
 
@@ -129,6 +132,9 @@
 		return null
 	log_craft("[built] crafted by [user] at [loc_name(built.loc)]")
 	built.add_fingerprint(user)
+	if(isstructure(built))
+		var/obj/structure/owned = built
+		owned.set_build_owner(user)
 	source.use(req_amount)
 	return built
 

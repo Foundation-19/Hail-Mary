@@ -17,9 +17,10 @@
 	//flags_ricochet = RICOCHET_HARD
 	//ricochet_chance_mod = 0.5
 
-/obj/structure/Initialize()
+/obj/structure/Initialize(mapload)
 	if (!armor)
 		armor = ARMOR_VALUE_LIGHT
+	build_map_loaded = mapload
 	. = ..()
 	if(smooth)
 		queue_smooth(src)
