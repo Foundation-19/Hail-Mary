@@ -753,7 +753,10 @@
 	if(myseed.getYield() <= 0)
 		to_chat(user, span_warning("You fail to harvest anything useful!"))
 	else
-		to_chat(user, span_notice("You harvest [myseed.getYield()] items from the [myseed.plantname]."))
+		to_chat(user, span_notice("You harvest [myseed.getYield() + myseed.harvest_bonus] items from the [myseed.plantname]."))
+		if(myseed.harvest_bonus)
+			to_chat(user, span_notice("Your green thumb coaxed out a little extra."))
+		myseed.harvest_bonus = 0
 	if(!myseed.get_gene(/datum/plant_gene/trait/repeated_harvest))
 		qdel(myseed)
 		STOP_PROCESSING(SSplants, src)

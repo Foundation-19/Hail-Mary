@@ -579,6 +579,18 @@ Merged into the paired Wasteland Trait "Night Owl" (code/datums/traits/fallout_t
 	gain_text = span_notice("You learn the secrets of butchering!")
 	lose_text = span_danger("You forget how to slaughter animals.")
 	locked = FALSE
+
+/datum/quirk/green_thumb
+	name = "Green Thumb"
+	desc = "You have a knack for growing things. Harvesting, extracting seeds and composting each have a chance to yield a little extra, and that chance grows with your Perception and Luck."
+	value = 1
+	required_special_stat = "special_p"
+	required_special_name = "Perception"
+	required_special_value = 4
+	mob_trait = TRAIT_GREEN_THUMB
+	gain_text = span_notice("You can tell at a glance which plants are ready to give more.")
+	lose_text = span_danger("Plants stop making sense to you.")
+	locked = FALSE
 /*
 Merged into ranked Wasteland Perk "Big Leagues" (code/datums/traits/ranked_perks.dm)
 /datum/quirk/bigleagues

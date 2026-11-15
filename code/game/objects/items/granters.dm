@@ -266,6 +266,15 @@
 	rank_quirks = list(/datum/quirk/sneak_rank1, /datum/quirk/sneak_rank2)
 	remarks = list("Roll your foot heel-to-toe, never flat...", "Watch the ground ahead, not your feet...", "A loose floorboard is worse than any guard dog...", "The last page is just a crude sketch of someone flattened against a wall.")
 
+/obj/item/book/granter/trait/rank/greenthumb
+	name = "The Dirt Under Your Nails"
+	desc = "A grubby, sun-faded gardening almanac, its margins full of notes on soil, seed saving and the knack of knowing when a plant is ready."
+	oneuse = TRUE
+	traitname = "farming"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/green_thumb)
+	remarks = list("Squeeze the soil: if it holds together and then crumbles, it's ready...", "Save seeds from your best plants, not your biggest...", "Compost everything that was ever alive and isn't a meat pie...", "A ripe plant tells you when it's ready, if you pay attention...", "The last page is a hand-drawn calendar, every square annotated with weather and yield.")
+
 /obj/item/book/granter/trait/rank/strongback
 	name = "Pack Mule's Pocket Guide"
 	desc = "A battered little pamphlet on load distribution and pack rigging, clearly written by someone who hauled a lot of scrap for a living."

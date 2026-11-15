@@ -406,6 +406,15 @@ proc/get_top_level_mob(mob/S)
 /mob/proc/get_intelligence_gun_repair_multiplier()
 	return CLAMP(1 + ((special_i - SPECIAL_DEFAULT_ATTR_VALUE) * 0.1), 0.5, 1.5)
 
+/// Green Thumb: percent chance of a bonus on farming actions. Perception spots the ripe, healthy plants and Luck sweetens the odds; capped so it never snowballs.
+/mob/proc/get_green_thumb_chance()
+	if(!HAS_TRAIT(src, TRAIT_GREEN_THUMB))
+		return 0
+	return clamp(15 + (special_p - SPECIAL_DEFAULT_ATTR_VALUE) * 3 + (special_l - SPECIAL_DEFAULT_ATTR_VALUE) * 2, 10, 35)
+
+/mob/proc/green_thumb_roll()
+	return prob(get_green_thumb_chance())
+
 /// Canonical way to change Intelligence mid-round. No cached/derived state currently keys off this one (crafting/gun-lock checks and the repair multiplier are all read live), but kept consistent with the other six setters.
 /mob/living/proc/set_special_i(new_value)
 	special_i = clamp(new_value, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)

@@ -345,6 +345,7 @@
 #define TRAIT_FEV				"FEV_MUT" //OH BOY
 #define TRAIT_GHOULMELEE		"ghoulmelee"
 #define TRAIT_TRAPPER			"trapper"
+#define TRAIT_GREEN_THUMB		"green_thumb" //farming bonuses scaled by SPECIAL (see get_green_thumb_chance)
 #define TRAIT_IRONFIST			"iron_fist"
 #define TRAIT_STEELFIST			"steel_fist"
 #define TRAIT_TITANIUMFIST		"titanium_fist"

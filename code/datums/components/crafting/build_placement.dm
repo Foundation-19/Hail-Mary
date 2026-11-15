@@ -1,5 +1,5 @@
-/// How many tiles away from the builder something can be placed
-#define BUILD_PLACEMENT_RANGE 2
+/// How many tiles away from the builder something can be placed. Reach is also checked with Adjacent(), so this is the tiles around you and your own.
+#define BUILD_PLACEMENT_RANGE 1
 #define BUILD_GHOST_VALID "#7dff7d"
 #define BUILD_GHOST_INVALID "#ff6e6e"
 /// The most tiles a single drag can queue
@@ -24,7 +24,6 @@
 	/// The stack paying for a stack recipe. Null for a crafting recipe.
 	var/obj/item/stack/source
 	var/build_dir = SOUTH
-	var/range = BUILD_PLACEMENT_RANGE
 	var/image/ghost
 	var/client/viewer
 	var/turf/hovered
@@ -297,12 +296,19 @@
 	// Crafts are paid for from the surroundings, which is too much to search every time the mouse moves, so they are only checked when building
 	if(source && source.get_amount() < buildable.req_amount)
 		return refuse(complain, "You haven't got enough [source] to build \the [buildable.name]!")
-	if(T.z != user.z || get_dist(user, T) > range)
+	if(T.z != user.z || get_dist(user, T) > BUILD_PLACEMENT_RANGE)
 		return refuse(complain, "That is too far away.")
-	if(!(T in view(range, user)))
-		return refuse(complain, "You can't see that spot.")
+	// Adjacent() looks at what is in the way, so nothing gets built through a window, barricade or around a corner
+	if(!T.Adjacent(user))
+		return refuse(complain, "You can't reach that spot.")
 	if(T.density)
 		return refuse(complain, "That spot is solid. You can't build there.")
+	// Dense things can't be dropped onto someone, which would trap them or wall them in
+	var/atom/movable/result = buildable.result_type
+	if(initial(result.density))
+		for(var/mob/living/occupant in T)
+			if(occupant != user)
+				return refuse(complain, "Someone is standing there.")
 	buildable.last_failure = null
 	if(!buildable.check_placement(complain, T, build_dir))
 		block_reason = buildable.last_failure
