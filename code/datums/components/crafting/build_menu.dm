@@ -18,7 +18,7 @@ GLOBAL_LIST_INIT(build_menu_categories, list(
 	"Defenses",
 	"Furniture",
 	"Plumbing",
-	"Workshop",
+	"Farming",
 	"Power & Machines",
 	"Structures",
 	"Materials",
@@ -43,6 +43,11 @@ GLOBAL_LIST_EMPTY(build_static_data)
 		return "Items"
 	if(ispath(result_type, /turf) || ispath(result_type, /obj/structure/girder) || ispath(result_type, /obj/item/stack/tile))
 		return "Floors & Walls"
+	if(ispath(result_type, /obj/machinery/hydroponics) || ispath(result_type, /obj/structure/closet/crate/hydroponics) || ispath(result_type, /obj/structure/reagent_dispensers/compostbin) || ispath(result_type, /obj/structure/reagent_dispensers/rainwater_tank) || ispath(result_type, /obj/structure/closet/crate/wicker) \
+		|| ispath(result_type, /obj/machinery/smartfridge/bottlerack/grownbin) || ispath(result_type, /obj/machinery/smartfridge/bottlerack/seedbin) || ispath(result_type, /obj/machinery/smartfridge/bottlerack/gardentool) \
+		|| ispath(result_type, /obj/machinery/smartfridge/drying_rack) || ispath(result_type, /obj/structure/legion_extractor) || ispath(result_type, /obj/item/cultivator) || ispath(result_type, /obj/item/shovel/spade) \
+		|| ispath(result_type, /obj/item/hatchet) || ispath(result_type, /obj/item/storage/bag/plants) || ispath(result_type, /obj/item/clothing/gloves/botanic_leather) || ispath(result_type, /obj/item/storage/belt/utility/gardener))
+		return "Farming"
 	if(ispath(result_type, /obj/structure/window) || ispath(result_type, /obj/structure/windoor_assembly) || ispath(result_type, /obj/structure/grille))
 		return "Windows & Grilles"
 	if(ispath(result_type, /obj/structure/simple_door) || ispath(result_type, /obj/structure/mineral_door) || ispath(result_type, /obj/structure/door_assembly) || ispath(result_type, /obj/machinery/door))
