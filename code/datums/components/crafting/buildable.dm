@@ -128,7 +128,10 @@
  * Returns the built thing, or null if the stack couldn't pay or nothing was built.
  */
 /datum/buildable/proc/build_from_stack(mob/user, obj/item/stack/source, turf/target, build_dir)
-	if(source.get_amount() < req_amount)
+	// TRAIT_EFFICIENT_BUILDER shaves 15% off the material cost, same discount shape as Ammo Smith on
+	// reloading benches. Rounds up so a 1-cost recipe is never discounted all the way to free.
+	var/effective_amount = (user && HAS_TRAIT(user, TRAIT_EFFICIENT_BUILDER)) ? CEILING(req_amount * 0.85, 1) : req_amount
+	if(source.get_amount() < effective_amount)
 		return null
 	var/atom/movable/built = create(target, get_build_dir(build_dir))
 	if(!built || QDELETED(built))
@@ -142,9 +145,9 @@
 		var/obj/made = built
 		var/list/used_materials = list()
 		for(var/material in source.custom_materials)
-			used_materials[SSmaterials.GetMaterialRef(material)] = req_amount * (MINERAL_MATERIAL_AMOUNT / length(source.custom_materials))
+			used_materials[SSmaterials.GetMaterialRef(material)] = effective_amount * (MINERAL_MATERIAL_AMOUNT / length(source.custom_materials))
 		made.set_custom_materials(used_materials)
-	source.use(req_amount)
+	source.use(effective_amount)
 	return built
 
 /// Called when a player builds this with a chosen direction. Override to also record an initial direction.

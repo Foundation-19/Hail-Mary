@@ -864,15 +864,27 @@
 		reagents.remove_reagent(/datum/reagent/fuel, 1)
 
 /// Fuel and wear spent on a landed swing - subtypes call this from afterattack() while the engine is running.
-/obj/item/twohanded/engine_tool/proc/engine_swing(mob/user)
+/obj/item/twohanded/engine_tool/proc/engine_swing(mob/user, atom/target_hit)
 	if(!engine_running)
 		return
 	if(get_fuel() < fuel_per_swing)
 		stall_out(user, "sputters and dies as the tank runs dry")
 		return
 	reagents.remove_reagent(/datum/reagent/fuel, fuel_per_swing)
-	condition = max(0, condition - condition_loss_per_swing)
-	if(condition < ENGINE_CONDITION_DEGRADED_THRESHOLD && prob((ENGINE_CONDITION_DEGRADED_THRESHOLD - condition) * stall_chance_per_point))
+	// TRAIT_WEAPON_MAINTENANCE already covers guns wearing out slower - the perk's "weapon" in its own
+	// description was never actually gun-specific, so a cared-for chainsaw benefits just the same.
+	var/wear_mult = (user && HAS_TRAIT(user, TRAIT_WEAPON_MAINTENANCE)) ? 0.6 : 1
+	// TRAIT_REDLINE - the mirror image of Weapon Maintenance. Instead of babying the tool, you lean into
+	// it right as it's running on fumes or rattling apart: a free bonus hit on top of the swing that just
+	// landed, paid for with faster wear and a much better chance of it choking out on you.
+	var/redlining = user && HAS_TRAIT(user, TRAIT_REDLINE) && (get_fuel() <= max_fuel * 0.25 || condition <= ENGINE_CONDITION_DEGRADED_THRESHOLD)
+	if(redlining && isliving(target_hit))
+		var/mob/living/victim = target_hit
+		var/blocked = victim.run_armor_check(attack_flag = "melee", armour_penetration = armour_penetration, silent = TRUE)
+		victim.apply_damage(round(force * 0.25), BRUTE, blocked = blocked)
+	condition = max(0, condition - (condition_loss_per_swing * wear_mult * (redlining ? 1.3 : 1)))
+	var/stall_chance_mult = redlining ? 1.6 : 1
+	if(condition < ENGINE_CONDITION_DEGRADED_THRESHOLD && prob((ENGINE_CONDITION_DEGRADED_THRESHOLD - condition) * stall_chance_per_point * stall_chance_mult))
 		stall_out(user, "chokes and stalls out from neglect")
 
 /// The engine dies unexpectedly - subtypes override engine_shutdown() to reset their own force/icon/attack speed.
@@ -906,7 +918,7 @@
 		return TRUE
 	if(!I.use_tool(src, user, 40, volume = 50))
 		return TRUE
-	condition = min(ENGINE_CONDITION_MAX, condition + condition_repair_amount)
+	condition = min(ENGINE_CONDITION_MAX, condition + (condition_repair_amount * (HAS_TRAIT(user, TRAIT_WEAPON_MAINTENANCE) ? 1.3 : 1)))
 	to_chat(user, span_notice("You service [src], clearing the gunk out of the engine and tightening the chain."))
 	return TRUE
 
@@ -965,7 +977,7 @@
 	. = ..()
 	if(!proximity || !wielded || IS_STAMCRIT(user))
 		return
-	engine_swing(user)
+	engine_swing(user, A)
 	if(istype(A, /obj/structure/barricade/wooden)) //destroys windows and grilles in one hit (or more if it has a ton of health like plasmaglass)
 		var/obj/structure/barricade/wooden/K = A
 		K.take_damage(40, BRUTE, "melee", 0, attacked_by = user)
@@ -1056,7 +1068,7 @@
 	. = ..()
 	if(!proximity || !on || IS_STAMCRIT(user))
 		return
-	engine_swing(user)
+	engine_swing(user, A)
 	if(istype(A, /obj/structure)) //hurts structures more (it can cut through i-beams, it can ostensibly cut through weaker shit)
 		var/obj/structure/S = A
 		S.take_damage(structure_bonus_damage, BRUTE, "melee", 0, armour_penetration = src.armour_penetration, attacked_by = user)

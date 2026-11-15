@@ -600,6 +600,24 @@
 	rank_quirks = list(/datum/quirk/modular/wild_card)
 	remarks = list("Never fight the same way twice...", "A good hit makes room for a better one...", "When they're reeling, improvise...", "The margins are full of scribbled diagrams.")
 
+/obj/item/book/granter/trait/rank/redline
+	name = "Engines Don't Care About Warranties"
+	desc = "A backyard mechanic's dog-eared notes on squeezing one more mile out of anything with a motor."
+	oneuse = TRUE
+	traitname = "redlining machinery"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/redline)
+	remarks = list("A dry tank still has a few good swings left in it...", "The gauge on the dash is a suggestion, not a law...", "Run it hot, just know when to let go of the trigger...", "Grease-stained pages end mid-sentence.")
+
+/obj/item/book/granter/trait/rank/efficient_builder
+	name = "Waste Not"
+	desc = "A settlement scrapper's notebook on getting a wall out of half the lumber everyone else uses."
+	oneuse = TRUE
+	traitname = "efficient building"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/efficient_builder)
+	remarks = list("Measure twice, waste nothing...", "Every offcut is a future repair...", "A joint done right needs less to hold it...", "Sketches crowd every margin.")
+
 /obj/item/book/granter/trait/rank/pa_advanced
 	name = "US Army: Advanced Mechanized Systems Manual"
 	desc = "A thick, restricted-access manual on power armor reactor management. Assumes you already know how to wear the stuff."

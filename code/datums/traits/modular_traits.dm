@@ -191,6 +191,77 @@
 		to_chat(quirk_holder, span_userdanger("You lose yourself to the pain and lash out blindly!"))
 		step(quirk_holder, pick(GLOB.alldirs))
 
+/datum/quirk/modular/trait_volatile_temper
+	name = "Volatile Temper"
+	desc = "Your nerves run hot and cold with no warning. While you're hurt, you'll randomly swing between bursts of steely calm (tougher, harder to stun) and fits of shakes (more fragile, easier to stun) - you never know which one you'll get next."
+	value = 0
+	is_trait = TRUE
+	gain_text = span_notice("Your moods have always come and gone like weather.")
+	lose_text = span_danger("Your temper settles down.")
+	medical_record_text = "Patient shows erratic but otherwise harmless adrenaline swings when hurt."
+	var/swing_active = FALSE
+	var/next_swing = 0
+
+/datum/quirk/modular/trait_volatile_temper/on_process()
+	if(health_fraction() >= 0.9)
+		if(swing_active)
+			swing_active = FALSE
+			set_dyn(null)
+		return
+	if(swing_active || world.time < next_swing)
+		return
+	swing_active = TRUE
+	next_swing = world.time + rand(10 SECONDS, 18 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(end_swing)), 6 SECONDS)
+	if(prob(50))
+		to_chat(quirk_holder, span_notice("A wave of steely calm washes over you."))
+		set_dyn(list("damage_resistance" = 10, "stun_mod" = -0.25))
+	else
+		to_chat(quirk_holder, span_warning("Your hands start shaking uncontrollably!"))
+		set_dyn(list("damage_resistance" = -10, "stun_mod" = 0.35))
+
+/datum/quirk/modular/trait_volatile_temper/proc/end_swing()
+	swing_active = FALSE
+	set_dyn(null)
+
+/datum/quirk/modular/trait_volatile_temper/remove()
+	swing_active = FALSE
+	return ..()
+
+// Mirrors the Abomination's Metastasis: a one-way trip. Reuses TRAIT_LITTLE_LEAGUES (the smallest existing
+// melee-damage trait tier, +20% force in item_attack.dm) rather than inventing a new combat hook, and stores
+// the exact flat HP cut taken so removing the trait later (respec, admin tools) reverses it precisely.
+/datum/quirk/modular/trait_point_of_no_return
+	name = "Point of No Return"
+	desc = "You've been close to death before, and some part of you never fully came back. The first time your health drops below 20%, it changes you for good: permanent +20% melee damage, but your maximum health is permanently cut by 10%."
+	value = 0
+	is_trait = TRUE
+	gain_text = span_notice("You remember exactly how close you've come before.")
+	lose_text = span_danger("That old scar stops aching.")
+	medical_record_text = "Patient shows a permanent physiological change consistent with a past near-death trauma."
+	var/triggered = FALSE
+	var/health_cut_amount = 0
+
+/datum/quirk/modular/trait_point_of_no_return/on_process()
+	if(triggered)
+		return
+	if(health_fraction() >= 0.2)
+		return
+	triggered = TRUE
+	var/mob/living/carbon/human/H = quirk_holder
+	to_chat(H, span_userdanger("Something inside you gives way, and doesn't come back. You'll never be quite the same again."))
+	ADD_TRAIT(H, TRAIT_LITTLE_LEAGUES, "[type]")
+	health_cut_amount = round(H.maxHealth * 0.1)
+	H.maxHealth -= health_cut_amount
+	H.health = min(H.health, H.maxHealth)
+
+/datum/quirk/modular/trait_point_of_no_return/remove()
+	var/mob/living/carbon/human/H = quirk_holder
+	if(!QDELETED(H) && triggered)
+		REMOVE_TRAIT(H, TRAIT_LITTLE_LEAGUES, "[type]")
+		H.maxHealth += health_cut_amount
+	return ..()
+
 /datum/quirk/modular/trait_gifted
 	name = "Gifted"
 	desc = "You're naturally talented: +1 to every S.P.E.C.I.A.L. stat. But you start with one fewer Perk Point to spend."
@@ -664,6 +735,17 @@
 	gain_text = span_notice("You can make every grain of powder count.")
 	lose_text = span_danger("You waste powder again.")
 
+/datum/quirk/modular/efficient_builder
+	name = "Efficient Builder"
+	desc = "You get more out of what you've got. Stack recipes built through the Build Menu use 15% less material."
+	value = 2
+	trait_flags = list(TRAIT_EFFICIENT_BUILDER)
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 5
+	gain_text = span_notice("You can see exactly how little you need to get the job done.")
+	lose_text = span_danger("You start overbuilding again.")
+
 /* ------------------------------ Combat Modifiers (Batch B) ------------------------------ */
 
 /datum/quirk/modular/sniper_rank1
@@ -1118,7 +1200,7 @@
 
 /datum/quirk/modular/weapon_maintenance
 	name = "Weapon Maintenance"
-	desc = "Jams wear your guns 40% less, and servicing a gun restores 30% more condition."
+	desc = "Jams and mechanical wear hurt your guns, chainsaws, saws and axes 40% less, and servicing any of them restores 30% more condition."
 	value = 2
 	trait_flags = list(TRAIT_WEAPON_MAINTENANCE)
 	required_special_stat = "special_i"
@@ -1126,6 +1208,17 @@
 	required_special_value = 5
 	gain_text = span_notice("You treat your weapons with care.")
 	lose_text = span_danger("You get sloppy with your weapons.")
+
+/datum/quirk/modular/redline
+	name = "Redline"
+	desc = "The opposite of careful. While a fuel-powered melee tool in your hands is running low on fuel or badly worn, every landed hit adds a free bonus hit on top - but it also wears out and stalls out much faster while you push it like that."
+	value = 2
+	trait_flags = list(TRAIT_REDLINE)
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 5
+	gain_text = span_notice("You've never met a machine you couldn't push past its limits.")
+	lose_text = span_danger("You start babying machinery again.")
 
 /datum/quirk/modular/steady_hands
 	name = "Steady Hands"

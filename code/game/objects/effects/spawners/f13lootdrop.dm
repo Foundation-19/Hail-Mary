@@ -2411,6 +2411,8 @@
 				/obj/item/book/granter/trait/rank/vein_finder = 1,
 				/obj/item/book/granter/trait/rank/gamblers_eye = 1,
 				/obj/item/book/granter/trait/rank/wild_card = 1,
+				/obj/item/book/granter/trait/rank/redline = 1,
+				/obj/item/book/granter/trait/rank/efficient_builder = 1,
 //				/obj/item/book/granter/crafting_recipe/gunsmith_five = 5
 				)
 
@@ -2477,7 +2479,9 @@
 				/obj/item/book/granter/trait/rank/lucky_catch = 1,
 				/obj/item/book/granter/trait/rank/vein_finder = 1,
 				/obj/item/book/granter/trait/rank/gamblers_eye = 1,
-				/obj/item/book/granter/trait/rank/wild_card = 1,)
+				/obj/item/book/granter/trait/rank/wild_card = 1,
+				/obj/item/book/granter/trait/rank/redline = 1,
+				/obj/item/book/granter/trait/rank/efficient_builder = 1,)
 
 /obj/effect/spawner/lootdrop/f13/traitbooks/low
 	name = "low trait book spawner"
@@ -2559,6 +2563,8 @@
 				/obj/item/book/granter/trait/rank/vein_finder = 1,
 				/obj/item/book/granter/trait/rank/gamblers_eye = 1,
 				/obj/item/book/granter/trait/rank/wild_card = 1,
+				/obj/item/book/granter/trait/rank/redline = 1,
+				/obj/item/book/granter/trait/rank/efficient_builder = 1,
 				)
 
 /obj/effect/spawner/lootdrop/f13/blueprintLow

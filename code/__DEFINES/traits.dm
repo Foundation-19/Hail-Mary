@@ -181,6 +181,7 @@
 #define TRAIT_QUICKER_CARRY		"quicker-carry"
 #define TRAIT_SLOW_CARRY		"slow-carry"
 #define TRAIT_QUICK_BUILD		"quick-build"
+#define TRAIT_EFFICIENT_BUILDER	"efficient-builder"
 #define TRAIT_STRONG_GRABBER	"strong_grabber"
 #define TRAIT_CALCIUM_HEALER	"calcium_healer"
 #define TRAIT_MAGIC_CHOKE		"magic_choke"
@@ -265,6 +266,7 @@
 #define TRAIT_ROBOTICS_EXPERT_RANK2	"robotics_expert_rank2"
 #define TRAIT_FIELD_MEDIC	"field_medic" //Faster and stronger bandages and sutures
 #define TRAIT_WEAPON_MAINTENANCE	"weapon_maintenance" //Guns wear out slower and are serviced better
+#define TRAIT_REDLINE	"redline" //Fuel-powered melee tools hit harder while running on fumes or badly worn, but stall out more easily
 #define TRAIT_STEADY_HANDS	"steady_hands" //Tighter spread
 #define TRAIT_WATER_WISE	"water_wise" //Thirst builds more slowly
 #define TRAIT_IRON_STOMACH	"iron_stomach" //Dirty water rarely makes you sick
