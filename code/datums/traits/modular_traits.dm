@@ -228,38 +228,73 @@
 	swing_active = FALSE
 	return ..()
 
-// Mirrors the Abomination's Metastasis: a one-way trip. Reuses TRAIT_LITTLE_LEAGUES (the smallest existing
-// melee-damage trait tier, +20% force in item_attack.dm) rather than inventing a new combat hook, and stores
-// the exact flat HP cut taken so removing the trait later (respec, admin tools) reverses it precisely.
-/datum/quirk/modular/trait_point_of_no_return
-	name = "Point of No Return"
-	desc = "You've been close to death before, and some part of you never fully came back. The first time your health drops below 20%, it changes you for good: permanent +20% melee damage, but your maximum health is permanently cut by 10%."
+// Redesigned from a one-time permanent trade into an actual berserk-and-crash loop: a temporary rage window
+// with real teeth (melee damage + a flat damage threshold bump, like adrenaline blunting pain), paid for
+// with the muscle damage and weakness of pushing your body that hard, on a cooldown so it can't be chained.
+// Reuses TRAIT_LITTLE_LEAGUES (the existing +20% melee force tier) and /datum/armor/modifyRating() for the DT
+// bump - NOT direct var edits, since /datum/armor instances are interned/shared by value (see datums/armor.dm),
+// so mutating one in place would silently buff every other mob or item that happens to share that armor profile.
+/datum/quirk/modular/trait_berserker
+	name = "Berserker"
+	desc = "Pain doesn't stop you, it ignites you. Whenever your health drops below 25% (and you're off cooldown), you go berserk for 8 seconds: +20% melee damage and +8 damage threshold. When the rage fades, your overworked muscles tear - a burst of brute damage, then a weaker, more fragile state for 20 seconds before a 90-second cooldown until you can go berserk again."
 	value = 0
 	is_trait = TRUE
-	gain_text = span_notice("You remember exactly how close you've come before.")
-	lose_text = span_danger("That old scar stops aching.")
-	medical_record_text = "Patient shows a permanent physiological change consistent with a past near-death trauma."
-	var/triggered = FALSE
-	var/health_cut_amount = 0
+	gain_text = span_notice("You can feel a rage simmering just under your skin, waiting for pain to light it.")
+	lose_text = span_danger("That simmering rage goes quiet.")
+	medical_record_text = "Patient displays a pronounced berserker response to pain, with a costly physiological crash afterward."
+	var/berserk_active = FALSE
+	var/weakened_active = FALSE
+	var/next_berserk = 0
+	var/datum/armor/base_armor
 
-/datum/quirk/modular/trait_point_of_no_return/on_process()
-	if(triggered)
+/datum/quirk/modular/trait_berserker/on_process()
+	if(berserk_active || weakened_active || world.time < next_berserk)
 		return
-	if(health_fraction() >= 0.2)
+	if(health_fraction() >= 0.25)
 		return
-	triggered = TRUE
+	start_berserk()
+
+/datum/quirk/modular/trait_berserker/proc/start_berserk()
 	var/mob/living/carbon/human/H = quirk_holder
-	to_chat(H, span_userdanger("Something inside you gives way, and doesn't come back. You'll never be quite the same again."))
+	berserk_active = TRUE
+	next_berserk = world.time + 90 SECONDS
+	to_chat(H, span_userdanger("Pain turns to rage - you go berserk!"))
 	ADD_TRAIT(H, TRAIT_LITTLE_LEAGUES, "[type]")
-	health_cut_amount = round(H.maxHealth * 0.1)
-	H.maxHealth -= health_cut_amount
-	H.health = min(H.health, H.maxHealth)
+	base_armor = H.physiology.armor
+	H.physiology.armor = base_armor.modifyRating(damage_threshold = 8)
+	addtimer(CALLBACK(src, PROC_REF(end_berserk)), 8 SECONDS)
 
-/datum/quirk/modular/trait_point_of_no_return/remove()
+/datum/quirk/modular/trait_berserker/proc/end_berserk()
+	berserk_active = FALSE
 	var/mob/living/carbon/human/H = quirk_holder
-	if(!QDELETED(H) && triggered)
+	if(QDELETED(H))
+		return
+	REMOVE_TRAIT(H, TRAIT_LITTLE_LEAGUES, "[type]")
+	if(base_armor)
+		H.physiology.armor = base_armor
+	base_armor = null
+	to_chat(H, span_userdanger("The rage fades, and your overworked muscles tear!"))
+	H.apply_damage(10, BRUTE)
+	weakened_active = TRUE
+	set_dyn(list("damage_resistance" = -10, "stamina_mod" = 0.2))
+	addtimer(CALLBACK(src, PROC_REF(end_weakness)), 20 SECONDS)
+
+/datum/quirk/modular/trait_berserker/proc/end_weakness()
+	if(!weakened_active)
+		return
+	weakened_active = FALSE
+	set_dyn(null)
+	if(!QDELETED(quirk_holder))
+		to_chat(quirk_holder, span_notice("You feel steady again."))
+
+/datum/quirk/modular/trait_berserker/remove()
+	var/mob/living/carbon/human/H = quirk_holder
+	if(!QDELETED(H) && berserk_active)
 		REMOVE_TRAIT(H, TRAIT_LITTLE_LEAGUES, "[type]")
-		H.maxHealth += health_cut_amount
+		if(base_armor)
+			H.physiology.armor = base_armor
+	berserk_active = FALSE
+	weakened_active = FALSE
 	return ..()
 
 /datum/quirk/modular/trait_gifted
