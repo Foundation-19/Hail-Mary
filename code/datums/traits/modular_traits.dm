@@ -228,7 +228,7 @@
 	swing_active = FALSE
 	return ..()
 
-// Redesigned from a one-time permanent trade into an actual berserk-and-crash loop: a temporary rage window
+// Designed for an actual berserk-and-crash loop: a temporary rage window
 // with real teeth (melee damage + a flat damage threshold bump, like adrenaline blunting pain), paid for
 // with the muscle damage and weakness of pushing your body that hard, on a cooldown so it can't be chained.
 // Reuses TRAIT_LITTLE_LEAGUES (the existing +20% melee force tier) and /datum/armor/modifyRating() for the DT
