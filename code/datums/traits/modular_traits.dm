@@ -2027,7 +2027,7 @@
 
 /datum/quirk/modular/shock_value
 	name = "Shock Value"
-	desc = "Your violence is hard to stomach. Every hit you land on a hostile mob drains an extra chunk of its morale, so mobs falter sooner. It cannot rout a mob by itself (morale never drops below 30% from it) and it does nothing to one that is already falling back, so it will not make fleeing mobs harder to catch."
+	desc = "Your violence is hard to stomach. Every hit you land on a hostile mob drains an extra chunk of its morale, so mobs falter sooner. Melee mobs also flinch for a fraction of a second (once every 12 seconds per mob) and, for a few seconds, may fall back toward their pack the way ranged mobs do. It cannot rout a mob by itself (morale never drops below 30% from it) and it does nothing to one that is already falling back, so it will not make fleeing mobs harder to catch."
 	value = 2
 	required_special_stat = "special_c"
 	required_special_name = "Charisma"
@@ -2055,6 +2055,8 @@
 		return
 	next_shock = world.time + 5
 	M.adjust_ai_morale(-min(0.08, max(M.get_ai_morale() - SHOCK_VALUE_MORALE_FLOOR, 0)), "shock_value")
+	if(!M.ranged)
+		M.ai_get_shaken(SHOCK_VALUE_SHAKEN_TIME, SHOCK_VALUE_FLINCH)
 
 /datum/quirk/modular/shoulder_check
 	name = "Shoulder Check"

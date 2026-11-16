@@ -45,6 +45,19 @@
 #define CLIMATE_WET_DRY_OUTDOORS 1
 #define CLIMATE_WET_DRY_WARM 3 // extra, when beside a fire or in the heat
 
+// Acid rain. Standing in it builds exposure up and sheltering washes it off, so a short dash between buildings is free and only
+// lingering in the open hurts. Damage then lands on each body part according to what covers it, and never kills on its own
+#define ACID_EXPOSURE_MAX 100
+#define ACID_EXPOSURE_GAIN 8 // per second in the open
+#define ACID_EXPOSURE_THRESHOLD 24 // no damage and no sting below this, about three seconds of grace
+#define ACID_EXPOSURE_DECAY 12 // per life tick once out of the rain for a moment
+#define ACID_EXPOSURE_DECAY_DELAY (3 SECONDS)
+#define ACID_DAMAGE_PER_SECOND 1.6 // total burn per second across the whole body at full exposure and no protection
+#define ACID_COVER_PROTECTION 0.4 // the first layer of clothing over a body part
+#define ACID_COVER_LAYER_BONUS 0.15 // each extra layer
+#define ACID_PROTECTION_MAX 0.9
+#define ACID_DAMAGE_HEALTH_FLOOR 0.35 // acid rain alone never takes someone below this fraction of their max health
+
 // Ambient temperature outdoors by time of day, see SSnightcycle phases
 #define CLIMATE_TEMP_SUNRISE 283
 #define CLIMATE_TEMP_MORNING 293

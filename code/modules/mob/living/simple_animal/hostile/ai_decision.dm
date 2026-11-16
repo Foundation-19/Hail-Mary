@@ -180,6 +180,9 @@ GLOBAL_LIST_INIT(ai_mode_names, list("idle", "engage", "hunt"))
 	var/ai_hesitate_until = 0
 	/// Melee swings and shots are suppressed until this time, see ai_stagger()
 	var/ai_stagger_until = 0
+	/// Until this time a mob that would not normally fall back may do so, see ai_get_shaken()
+	var/ai_shaken_until = 0
+	COOLDOWN_DECLARE(ai_flinch_cooldown)
 	var/ai_near_miss_next = 0
 	var/ai_target_lock_until = 0
 	var/list/ai_switch_times
@@ -230,6 +233,15 @@ GLOBAL_LIST_INIT(ai_mode_names, list("idle", "engage", "hunt"))
 	ai_stagger_until = max(ai_stagger_until, world.time + duration)
 	COOLDOWN_START(src, melee_cooldown, COOLDOWN_TIMELEFT(src, melee_cooldown) + duration)
 	do_staggered_animation()
+
+/// A scare that melee mobs feel as well as ranged ones: for a few seconds the mob may fall back toward its pack like a ranged mob would, and it flinches for a moment unless it is already off balance or flinched recently. Never compounds with ai_stagger().
+/mob/living/simple_animal/hostile/proc/ai_get_shaken(duration, flinch)
+	if(stat == DEAD || ckey || !ai_decision_enabled)
+		return
+	ai_shaken_until = max(ai_shaken_until, world.time + duration)
+	if(flinch > 0 && world.time >= ai_stagger_until && COOLDOWN_FINISHED(src, ai_flinch_cooldown))
+		COOLDOWN_START(src, ai_flinch_cooldown, SHOCK_VALUE_FLINCH_COOLDOWN)
+		ai_stagger(flinch)
 
 /mob/living/simple_animal/hostile/proc/ai_note_damage(amount)
 	if(ckey || stat == DEAD || !ai_decision_enabled)
@@ -452,7 +464,7 @@ GLOBAL_LIST_INIT(ai_mode_names, list("idle", "engage", "hunt"))
 
 	var/attack = 0.55 * ai_aggression + 0.25 * morale + 0.2 * hp - 0.1 * outnumbered
 
-	var/can_retreat = isnull(ai_can_retreat) ? (ranged || retreat_distance != null) : ai_can_retreat
+	var/can_retreat = isnull(ai_can_retreat) ? (ranged || retreat_distance != null || world.time < ai_shaken_until) : ai_can_retreat
 	var/retreat = 0
 	if(can_retreat && (ai_retreat_goal || retreat_distance != null) && world.time >= retreat_hold_until)
 		retreat = ((1 - morale) * 1.1 + (1 - hp) * 0.5) / ai_risk_tolerance

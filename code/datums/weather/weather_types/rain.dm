@@ -193,3 +193,5 @@
 	visibility_mult = 0.6
 	wetness_rate = 1.5
 	extinguishes_fires = FALSE
+	// Fog gathers in the cool hours around dawn
+	phase_weights = "3 2 0.8 0.4 0.4 0.6 1 1.2 1.5"

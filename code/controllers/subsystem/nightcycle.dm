@@ -83,30 +83,39 @@ SUBSYSTEM_DEF(nightcycle)
 		last_custom_cycle = world.time
 		new_time = (current_time + 1) % NIGHTCYCLE_PHASE_DAY_END
 	else
-		switch (STATION_TIME(FALSE, world.time))
-			if (CYCLE_SUNRISE to CYCLE_MORNING)
-				new_time = NIGHTCYCLE_PHASE_SUNRISE
-			if (CYCLE_MORNING to CYCLE_LATEMORN)
-				new_time = NIGHTCYCLE_PHASE_MORNING
-			if (CYCLE_LATEMORN to CYCLE_DAYTIME)
-				new_time = NIGHTCYCLE_PHASE_LATEMORN
-			if (CYCLE_DAYTIME to CYCLE_AFTERNOON)
-				new_time = NIGHTCYCLE_PHASE_DAYTIME
-			if (CYCLE_AFTERNOON to CYCLE_LATEAFTERNOON)
-				new_time = NIGHTCYCLE_PHASE_AFTERNOON
-			if (CYCLE_LATEAFTERNOON to CYCLE_SUNSET)
-				new_time = NIGHTCYCLE_PHASE_LATEAFTERNOON
-			if (CYCLE_FULLSUNSET to CYCLE_SUNSET)
-				new_time = NIGHTCYCLE_PHASE_SUNSET
-			if (CYCLE_FULLSUNSET to CYCLE_NIGHTTIME)
-				new_time = NIGHTCYCLE_PHASE_FULLSUNSET
-			else
-				new_time = NIGHTCYCLE_PHASE_NIGHTTIME
+		new_time = phase_for_station_time(STATION_TIME(FALSE, world.time))
 		if (new_time == current_time)
 			return
 
 	set_phase(new_time)
 	CHECK_TICK
+
+/// The NIGHTCYCLE_PHASE_* a STATION_TIME value falls in
+/datum/controller/subsystem/nightcycle/proc/phase_for_station_time(station_time)
+	switch (station_time)
+		if (CYCLE_SUNRISE to CYCLE_MORNING)
+			return NIGHTCYCLE_PHASE_SUNRISE
+		if (CYCLE_MORNING to CYCLE_LATEMORN)
+			return NIGHTCYCLE_PHASE_MORNING
+		if (CYCLE_LATEMORN to CYCLE_DAYTIME)
+			return NIGHTCYCLE_PHASE_LATEMORN
+		if (CYCLE_DAYTIME to CYCLE_AFTERNOON)
+			return NIGHTCYCLE_PHASE_DAYTIME
+		if (CYCLE_AFTERNOON to CYCLE_LATEAFTERNOON)
+			return NIGHTCYCLE_PHASE_AFTERNOON
+		if (CYCLE_LATEAFTERNOON to CYCLE_SUNSET)
+			return NIGHTCYCLE_PHASE_LATEAFTERNOON
+		if (CYCLE_FULLSUNSET to CYCLE_SUNSET)
+			return NIGHTCYCLE_PHASE_SUNSET
+		if (CYCLE_FULLSUNSET to CYCLE_NIGHTTIME)
+			return NIGHTCYCLE_PHASE_FULLSUNSET
+	return NIGHTCYCLE_PHASE_NIGHTTIME
+
+/// The phase it will be this many deciseconds from now. Falls back to the current phase when the cycle is not driven by the clock
+/datum/controller/subsystem/nightcycle/proc/predict_phase(delta)
+	if(admin_frozen || !isnull(custom_cycle_wait))
+		return current_time
+	return phase_for_station_time(STATION_TIME(FALSE, world.time + delta))
 
 /// Applies the color/power for a phase and swaps to it. Shared by the automatic fire() cycling and by admins
 /// forcing a phase directly, so both paths stay in sync instead of duplicating the color/power switch.

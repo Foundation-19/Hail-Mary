@@ -42,7 +42,40 @@
 	if(victim.damage_credit_serial != snapshot[3])
 		victim.pending_damager = null
 		return
-	victim.register_damage_from(src, snapshot[2] - victim.health, source || src)
+	var/lost = snapshot[2] - victim.health
+	if(lost <= 0 && ishuman(src) && (a_intent == INTENT_HARM || a_intent == INTENT_DISARM))
+		// The hit may still be sleeping in an async attack_hand(); attribute the damage if it lands shortly
+		victim.pending_damager = null
+		victim.watch_late_damage(src)
+		return
+	victim.register_damage_from(src, lost, source || src)
+
+/// Attributes damage this mob takes in the next LATE_DAMAGE_CREDIT_WINDOW to the attacker, unless a path that names its own attacker deals it
+/mob/living/proc/watch_late_damage(mob/living/attacker)
+	late_damager = WEAKREF(attacker)
+	late_damager_until = world.time + LATE_DAMAGE_CREDIT_WINDOW
+	RegisterSignal(src, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(on_late_damage), override = TRUE)
+	addtimer(CALLBACK(src, PROC_REF(stop_late_damage)), LATE_DAMAGE_CREDIT_WINDOW + 1)
+
+/mob/living/proc/stop_late_damage()
+	if(world.time < late_damager_until)
+		return
+	late_damager = null
+	UnregisterSignal(src, COMSIG_MOB_APPLY_DAMAGE)
+
+/mob/living/proc/on_late_damage(datum/source, damage, damagetype, def_zone, blocked, forced)
+	SIGNAL_HANDLER
+	if(world.time > late_damager_until || stat == DEAD || damage <= 0)
+		return
+	if(!(damagetype in list(BRUTE, BURN, TOX, OXY, CLONE)))
+		return
+	if(pending_damager && pending_damager_time == world.time)
+		return
+	var/mob/living/attacker = RESOLVEWEAKREF(late_damager)
+	if(!attacker || QDELETED(attacker) || attacker == src)
+		return
+	var/dealt = forced ? damage : damage * (100 - min(blocked, ARMOR_CAP_DR)) / 100
+	register_damage_from(attacker, dealt, attacker)
 
 /**
  * Names the attacker of a hit that is about to resolve. Attack paths call this BEFORE applying damage, because a killing

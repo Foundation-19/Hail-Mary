@@ -181,8 +181,15 @@
 #define KILL_CREDIT_WINDOW (8 SECONDS)
 /// Same, but for a victim that is still burning: the damage over time keeps ticking after the last direct hit
 #define KILL_CREDIT_WINDOW_DOT (20 SECONDS)
+/// How long after an unarmed attack that dealt nothing yet (it sleeps first) its damage is still attributed to the attacker
+#define LATE_DAMAGE_CREDIT_WINDOW (2 SECONDS)
 /// Shock Value cannot push a mob's morale below this on its own
 #define SHOCK_VALUE_MORALE_FLOOR 0.3
+/// Shock Value makes a melee mob flinch this long, and may do so once per cooldown. Ranged mobs just lose morale.
+#define SHOCK_VALUE_FLINCH 4
+#define SHOCK_VALUE_FLINCH_COOLDOWN (12 SECONDS)
+/// A shaken melee mob may fall back for this long
+#define SHOCK_VALUE_SHAKEN_TIME (6 SECONDS)
 
 //Shove knockdown lengths (deciseconds)
 #define SHOVE_KNOCKDOWN_SOLID 30

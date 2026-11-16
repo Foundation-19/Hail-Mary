@@ -411,7 +411,7 @@
 
 /obj/item/projectile/bullet/shotgun_frag12/on_hit(atom/target, blocked = FALSE)
 	..()
-	explosion(target, -1, 0, 1)
+	explosion(target, -1, 0, 1, credit_to = isliving(firer) ? firer : null)
 	return BULLET_ACT_HIT
 
 // Mech Scattershots

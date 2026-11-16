@@ -5,7 +5,7 @@
 
 /obj/item/projectile/bullet/gyro/on_hit(atom/target, blocked = FALSE)
 	..()
-	explosion(target, -1, 0, 2)
+	explosion(target, -1, 0, 2, credit_to = isliving(firer) ? firer : null)
 	return BULLET_ACT_HIT
 
 /obj/item/projectile/bullet/a84mm
@@ -19,7 +19,7 @@
 
 /obj/item/projectile/bullet/a84mm/on_hit(atom/target, blocked = FALSE)
 	..()
-	explosion(target, -1, 1, 3, 1, 0, flame_range = 4)
+	explosion(target, -1, 1, 3, 1, 0, flame_range = 4, credit_to = isliving(firer) ? firer : null)
 
 	if(ismecha(target))
 		var/obj/mecha/M = target
@@ -41,7 +41,7 @@
 /obj/item/projectile/bullet/a84mm_incend/on_hit(atom/target, blocked=0)
 	..()
 	var/radius_mult = isliving(firer) ? firer:get_demolition_expert_radius_mult() : 1
-	explosion(target, -1, -1, -1, -1, 4, flame_range = round(5 * radius_mult))
+	explosion(target, -1, -1, -1, -1, 4, flame_range = round(5 * radius_mult), credit_to = isliving(firer) ? firer : null)
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
 		C.adjustFireLoss(20)
@@ -94,7 +94,7 @@
 /obj/item/projectile/bullet/a84mm_he/on_hit(atom/target, blocked=0)
 	..()
 	var/radius_mult = isliving(firer) ? firer:get_demolition_expert_radius_mult() : 1
-	explosion(target, 0, 0, round(2 * radius_mult), 4)
+	explosion(target, 0, 0, round(2 * radius_mult), 4, credit_to = isliving(firer) ? firer : null)
 	new /obj/effect/temp_visual/explosion(get_turf(target))
 	return BULLET_ACT_HIT
 
@@ -108,7 +108,7 @@
 /obj/item/projectile/bullet/a84mm_he_big/on_hit(atom/target, blocked=0)
 	..()
 	var/radius_mult = isliving(firer) ? firer:get_demolition_expert_radius_mult() : 1
-	explosion(target, 0, round(3 * radius_mult), round(5 * radius_mult), 5)
+	explosion(target, 0, round(3 * radius_mult), round(5 * radius_mult), 5, credit_to = isliving(firer) ? firer : null)
 	new /obj/effect/temp_visual/explosion(get_turf(target))
 	return BULLET_ACT_HIT
 
@@ -138,7 +138,7 @@
 	..()
 	for(var/i in sturdy)
 		if(istype(target, i))
-			explosion(target, 0, 1, 1, 2)
+			explosion(target, 0, 1, 1, 2, credit_to = isliving(firer) ? firer : null)
 			return BULLET_ACT_HIT
 	new /obj/item/broken_missile(get_turf(src), 1)
 
@@ -152,7 +152,7 @@
 
 /obj/item/projectile/bullet/mininuke/on_hit(atom/target, blocked=0)
 	..()
-	explosion(target, 5, 10, 20, 20, flame_range = 20) //burn baby burn. a lot of stuff is gonna be incenerated. remember though: salt doesn't burn.
+	explosion(target, 5, 10, 20, 20, flame_range = 20, credit_to = isliving(firer) ? firer : null) //burn baby burn. a lot of stuff is gonna be incenerated. remember though: salt doesn't burn.
 	radiation_pulse(target, 1500, 20, can_contaminate = FALSE) //spicy. 1500 is radiation grenade potency
 	new /obj/effect/temp_visual/explosion(get_turf(target))
 	return BULLET_ACT_HIT
@@ -167,7 +167,7 @@
 
 /obj/item/projectile/bullet/meganuke/on_hit(atom/target, blocked=0)
 	..()
-	explosion(target, 5, 10, 20, 20, flame_range = 20)
+	explosion(target, 5, 10, 20, 20, flame_range = 20, credit_to = isliving(firer) ? firer : null)
 	radiation_pulse(target, 1500, 20, can_contaminate = FALSE)
 	AddComponent(/datum/component/pellet_cloud, projectile_type=/obj/item/projectile/bullet/mininuke, magnitude=10)
 	new /obj/effect/temp_visual/explosion(get_turf(target))

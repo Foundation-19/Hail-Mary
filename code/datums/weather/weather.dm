@@ -97,6 +97,8 @@
 	var/wetness_rate = 0
 	/// Puts out campfires and bonfires standing in the affected areas
 	var/extinguishes_fires = FALSE
+	/// Multiplies this weather's chance of being rolled by the phase of the day it would arrive in: space separated numbers, one per NIGHTCYCLE_PHASE_* in order (sunrise, morning, late morning, daytime, afternoon, late afternoon, sunset, full sunset, night). Empty means no preference. Text because initial() cannot read a list off a type path
+	var/phase_weights = ""
 
 /// The weather that is in full force over this atom right now, if any
 /proc/get_active_weather(atom/A)

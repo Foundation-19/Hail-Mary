@@ -24,7 +24,9 @@ GLOBAL_LIST_EMPTY(climate_heat_sources)
 	var/climate_temp_offset = 0
 	/// 0 to CLIMATE_WET_MAX, soaked by rain and fog and dried by shelter, warmth and time
 	var/climate_wetness = 0
-
+	/// 0 to ACID_EXPOSURE_MAX, builds while standing in acid rain and washes off once sheltered
+	var/acid_exposure = 0
+	var/acid_last_exposed = 0
 /proc/climate_phase_temp(phase)
 	switch(phase)
 		if(NIGHTCYCLE_PHASE_SUNRISE)
@@ -152,6 +154,7 @@ GLOBAL_LIST_EMPTY(climate_heat_sources)
 	if(stat == DEAD)
 		return
 	dry_off()
+	acid_decay()
 	var/target = get_climate_target()
 	climate_exposure += (target - climate_exposure) * CLIMATE_EXPOSURE_RATE
 	if(!target && abs(climate_exposure) < 1)
@@ -197,4 +200,57 @@ GLOBAL_LIST_EMPTY(climate_heat_sources)
 	var/damage = CLIMATE_DAMAGE_MIN + (CLIMATE_DAMAGE_MAX - CLIMATE_DAMAGE_MIN) * (level - CLIMATE_TIER_SEVERE) / (CLIMATE_EXPOSURE_MAX - CLIMATE_TIER_SEVERE)
 	apply_damage(damage, BURN)
 	if(prob(8))
-		to_chat(src, span_userdanger(hot ? "Heatstroke is setting in. You need shade and water." : "Frostbite is setting in. You need warmth."))
+		to_chat(src, span_userdanger("[hot ? "Heatstroke is setting in. You need shade and water." : "Frostbite is setting in. You need warmth."]"))
+
+/// Body zones acid rain burns, how much of the damage each takes and the clothing slot flag that shields it
+/proc/acid_rain_zones()
+	var/static/list/zones = list(
+		BODY_ZONE_HEAD = list(0.2, HEAD),
+		BODY_ZONE_CHEST = list(0.4, CHEST),
+		BODY_ZONE_L_ARM = list(0.1, ARM_LEFT),
+		BODY_ZONE_R_ARM = list(0.1, ARM_RIGHT),
+		BODY_ZONE_L_LEG = list(0.1, LEG_LEFT),
+		BODY_ZONE_R_LEG = list(0.1, LEG_RIGHT))
+	return zones
+
+/// 0 to ACID_PROTECTION_MAX, how well this body part is shielded from acid rain by what is worn over it or its acid armor
+/mob/living/carbon/human/proc/get_acid_protection(zone, cover_flag)
+	var/layers = 0
+	for(var/obj/item/I in list(head, wear_mask, wear_suit, w_uniform))
+		if(I.body_parts_covered & cover_flag)
+			layers++
+	var/cover = layers ? ACID_COVER_PROTECTION + (layers - 1) * ACID_COVER_LAYER_BONUS : 0
+	var/obj/item/bodypart/BP = get_bodypart(zone)
+	var/armor = BP ? clamp(getarmor(BP, "acid"), 0, 100) / 100 : 0
+	return min(ACID_PROTECTION_MAX, max(cover, armor))
+
+/// Called every second while this person is standing in acid rain. Exposure has to build before it hurts
+/mob/living/carbon/human/proc/acid_rain_tick()
+	if(stat == DEAD)
+		return
+	acid_last_exposed = world.time
+	var/was_safe = acid_exposure < ACID_EXPOSURE_THRESHOLD
+	acid_exposure = min(ACID_EXPOSURE_MAX, acid_exposure + ACID_EXPOSURE_GAIN)
+	if(acid_exposure < ACID_EXPOSURE_THRESHOLD)
+		return
+	if(was_safe)
+		to_chat(src, span_userdanger("The rain is eating at you! Find cover, or the burns will keep building."))
+	if(health <= maxHealth * ACID_DAMAGE_HEALTH_FLOOR)
+		return
+	var/severity = 0.25 + 0.75 * (acid_exposure - ACID_EXPOSURE_THRESHOLD) / (ACID_EXPOSURE_MAX - ACID_EXPOSURE_THRESHOLD)
+	var/list/zones = acid_rain_zones()
+	for(var/zone in zones)
+		var/list/info = zones[zone]
+		var/damage = ACID_DAMAGE_PER_SECOND * info[1] * severity * (1 - get_acid_protection(zone, info[2]))
+		if(damage > 0)
+			apply_damage(damage, BURN, zone, 0)
+	if(prob(5))
+		to_chat(src, span_warning("Acid sizzles against your skin."))
+
+/mob/living/carbon/human/proc/acid_decay()
+	if(acid_exposure <= 0 || world.time - acid_last_exposed < ACID_EXPOSURE_DECAY_DELAY)
+		return
+	var/was_burning = acid_exposure >= ACID_EXPOSURE_THRESHOLD
+	acid_exposure = max(0, acid_exposure - ACID_EXPOSURE_DECAY)
+	if(was_burning && acid_exposure < ACID_EXPOSURE_THRESHOLD)
+		to_chat(src, span_notice("The stinging finally fades."))

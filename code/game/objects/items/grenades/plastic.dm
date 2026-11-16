@@ -74,9 +74,9 @@
 	if(location)
 		if(directional && target && target.density)
 			var/turf/T = get_step(location, aim_dir)
-			explosion(get_step(T, aim_dir), boom_sizes[1], boom_sizes[2], boom_sizes[3])
+			explosion(get_step(T, aim_dir), boom_sizes[1], boom_sizes[2], boom_sizes[3], credit_to = primed_by)
 		else
-			explosion(location, boom_sizes[1], boom_sizes[2], boom_sizes[3])
+			explosion(location, boom_sizes[1], boom_sizes[2], boom_sizes[3], credit_to = primed_by)
 	if(ismob(target))
 		var/mob/M = target
 		M.gib()
@@ -119,6 +119,7 @@
 		if(!user.temporarilyRemoveItemFromInventory(src))
 			return
 		target = AM
+		primed_by = user
 
 		message_admins("[ADMIN_LOOKUPFLW(user)] planted [name] on [target.name] at [ADMIN_VERBOSEJMP(target)] with [det_time] second fuse")
 		log_game("[key_name(user)] planted [name] on [target.name] at [AREACOORD(user)] with [det_time] second fuse")
@@ -232,7 +233,7 @@
 	else
 		location = get_turf(src)
 	if(location)
-		explosion(location,0,0,3)
+		explosion(location,0,0,3, credit_to = primed_by)
 	qdel(src)
 
 /obj/item/grenade/plastic/c4/attack(mob/M, mob/user, def_zone)

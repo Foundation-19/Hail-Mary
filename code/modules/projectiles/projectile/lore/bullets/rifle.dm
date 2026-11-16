@@ -961,7 +961,7 @@
 
 /obj/item/projectile/bullet/a50MG/explosive/on_hit(atom/target, blocked = FALSE)
 	..()
-	explosion(target, 0, 1, 1, 1)
+	explosion(target, 0, 1, 1, 1, credit_to = isliving(firer) ? firer : null)
 
 /* .50MG rubber
  * DAMAGE: 7
@@ -1163,7 +1163,7 @@
 
 /obj/item/projectile/bullet/c4570/explosive/on_hit(atom/target, blocked = FALSE)
 	..()
-	explosion(target, 0, 0, 1, 1, flame_range = 1)
+	explosion(target, 0, 0, 1, 1, flame_range = 1, credit_to = isliving(firer) ? firer : null)
 
 /* .45-70 acid
  * DAMAGE: 35

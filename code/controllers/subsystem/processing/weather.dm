@@ -30,11 +30,25 @@ PROCESSING_SUBSYSTEM_DEF(weather)
 	// start random weather on relevant levels - the SAME weather on all those Zs!
 	if(weather_queued || !LAZYLEN(weather_rolls))
 		return FALSE
-	var/datum/weather/W = pickweight(weather_rolls)
 	var/randTime = rand(WEATHER_WAIT_MIN, WEATHER_WAIT_MAX)
+	var/datum/weather/W = pickweight(get_weather_weights(randTime))
 	timerid = addtimer(CALLBACK(src, PROC_REF(run_weather), W), randTime + initial(W.weather_duration_upper), TIMER_UNIQUE | TIMER_STOPPABLE) //Around 25-30 minutes between weathers
 	next_hit_by_zlevel = world.time + randTime + initial(W.telegraph_duration)
 	weather_queued = TRUE // weather'll set this to FALSE when it ends
+
+/// weather_rolls with each chance scaled by how well the weather suits the time of day it would hit at (the roll is made randTime before the weather is queued to start)
+/datum/controller/subsystem/processing/weather/proc/get_weather_weights(wait)
+	var/list/weights = list()
+	for(var/datum/weather/W as anything in weather_rolls)
+		var/weight_text = initial(W.phase_weights)
+		var/mult = 1
+		if(length(weight_text))
+			var/list/phase_weights = splittext(weight_text, " ")
+			var/phase = SSnightcycle.predict_phase(wait + initial(W.weather_duration_upper))
+			mult = text2num(phase_weights[phase + 1])
+		if(mult > 0)
+			weights[W] = weather_rolls[W] * mult
+	return LAZYLEN(weights) ? weights : weather_rolls
 
 /datum/controller/subsystem/processing/weather/Initialize(start_timeofday)
 	for(var/V in subtypesof(/datum/weather))

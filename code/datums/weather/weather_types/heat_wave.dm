@@ -28,3 +28,5 @@
 
 	carbons_only = TRUE
 	climate_temp_shift = 12
+	// Heat waves favour the middle of the day and almost never happen at night
+	phase_weights = "0.1 1 2 3 3 2 0.5 0.2 0.02"

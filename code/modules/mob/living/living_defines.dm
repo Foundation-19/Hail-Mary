@@ -22,6 +22,9 @@
 	var/pending_damager_time = 0
 	/// Bumped by every register_damage_from(), so a wrapper around a whole attack can tell whether a more specific path already attributed it
 	var/damage_credit_serial = 0
+	/// An attacker whose unarmed hit has not dealt its damage yet because it sleeps first, and until when apply_damage() is attributed to them (see watch_late_damage())
+	var/datum/weakref/late_damager
+	var/late_damager_until = 0
 	//Health and life related vars
 	var/maxHealth = 100 //Maximum health that should be possible.
 	var/health = 100 	//A mob's health

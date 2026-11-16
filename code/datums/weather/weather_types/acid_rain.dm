@@ -1,14 +1,14 @@
 /datum/weather/acid_rain
 	name = "acid rain"
-	desc = "The planet's thunderstorms are by nature acidic, and will incinerate anyone standing beneath them without protection."
+	desc = "Acidic downpours that slowly burn anyone caught in the open. Brief dashes are survivable, and clothing, armor and shelter all help. It will not kill on its own."
 	probability = 2
 
 	telegraph_duration = 700
 	telegraph_overlay = "acid_rain"
-	telegraph_message = span_userdanger("Thunder rumbles far above. You hear droplets land around you, and audible fizzling can be heard as they make contact.. acid rain is coming.")
+	telegraph_message = span_userdanger("Thunder rumbles far above. Droplets start to land around you and fizz as they touch the ground.. acid rain is coming. You have a minute to get under cover.")
 	telegraph_sound = 'sound/ambience/acidrain_start.ogg'
 
-	weather_message = "<span class='userdanger'><i>Acidic rain pours down around you! Get inside!</i></span>"
+	weather_message = "<span class='userdanger'><i>Acidic rain pours down around you! The longer you stay in the open the worse it burns. Get inside, or cover up!</i></span>"
 	weather_overlay = "acid_rain"
 	weather_duration_lower = 1200
 	weather_duration_upper = 2400
@@ -33,9 +33,13 @@
 	extinguishes_fires = TRUE
 
 /datum/weather/acid_rain/weather_act(mob/living/L)
-	// Acid armor shaves off the burn, but a little always gets through
+	if(ishuman(L))
+		var/mob/living/carbon/human/H = L
+		H.acid_rain_tick()
+		return
+	// Other carbons just take a flat burn that acid armor shaves down
 	var/resist = clamp(L.getarmor(null, "acid"), 0, 75)
-	L.adjustFireLoss(2 * (1 - resist / 100))
+	L.adjustFireLoss(1 * (1 - resist / 100))
 
 /* // Stops weather from cleaning the ground (though it still cleans mobs c:)
 /datum/weather/acid_rain/weather_act_turf(turf/T)

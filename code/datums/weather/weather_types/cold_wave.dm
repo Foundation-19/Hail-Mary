@@ -28,3 +28,5 @@
 
 	carbons_only = TRUE
 	climate_temp_shift = -22
+	// Cold snaps favour the night and the hours around it, so one does not land at noon
+	phase_weights = "2 0.5 0.2 0.05 0.05 0.3 1.5 2 3"

@@ -30,15 +30,15 @@ SUBSYSTEM_DEF(explosion_spam)
 		// Execute the explosion
 		if(spam_mode)
 			// Reduced effects during spam
-			explosion(E.epicenter, E.devastation * 0.7, E.heavy * 0.7, E.light * 0.7, E.flash * 0.5, flame_range = E.flame_range * 0.5, adminlog = FALSE)
+			explosion(E.epicenter, E.devastation * 0.7, E.heavy * 0.7, E.light * 0.7, E.flash * 0.5, flame_range = E.flame_range * 0.5, adminlog = FALSE, credit_to = RESOLVEWEAKREF(E.credit_ref))
 		else
 			// Full explosion
-			explosion(E.epicenter, E.devastation, E.heavy, E.light, E.flash, flame_range = E.flame_range, adminlog = E.adminlog)
+			explosion(E.epicenter, E.devastation, E.heavy, E.light, E.flash, flame_range = E.flame_range, adminlog = E.adminlog, credit_to = RESOLVEWEAKREF(E.credit_ref))
 		
 		qdel(E)
 		processed++
 
-/datum/controller/subsystem/explosion_spam/proc/queue_explosion(turf/epicenter, devastation, heavy, light, flash = 0, flame_range = 0, obj/source, adminlog = TRUE)
+/datum/controller/subsystem/explosion_spam/proc/queue_explosion(turf/epicenter, devastation, heavy, light, flash = 0, flame_range = 0, obj/source, adminlog = TRUE, mob/living/credit_to)
 	if(!epicenter)
 		return FALSE
 	
@@ -51,6 +51,8 @@ SUBSYSTEM_DEF(explosion_spam)
 	E.flame_range = flame_range
 	E.source = source
 	E.adminlog = adminlog
+	if(credit_to)
+		E.credit_ref = WEAKREF(credit_to)
 	E.queued_time = world.time
 	
 	queued_explosions += E
@@ -65,4 +67,5 @@ SUBSYSTEM_DEF(explosion_spam)
 	var/flame_range = 0
 	var/obj/source
 	var/adminlog = TRUE
+	var/datum/weakref/credit_ref
 	var/queued_time = 0

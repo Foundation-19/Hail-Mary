@@ -275,3 +275,104 @@
 	TEST_ASSERT(victim.climate_wetness < CLIMATE_WET_MAX, "A soaked person never dried off")
 	TEST_ASSERT(isnull(get_active_weather(victim)), "A weather was reported with none running")
 
+/datum/unit_test/credit_ref_projectile
+	var/hits = 0
+
+/datum/unit_test/credit_ref_projectile/proc/on_hit(datum/source, mob/living/victim, damage, atom/hit_source)
+	hits++
+
+/datum/unit_test/credit_ref_projectile/Run()
+	var/mob/living/carbon/human/placer = allocate(/mob/living/carbon/human)
+	var/mob/living/simple_animal/hostile/victim = allocate(/mob/living/simple_animal/hostile)
+	RegisterSignal(placer, COMSIG_MOB_LANDED_HIT, PROC_REF(on_hit))
+	// Shrapnel from a mine has no firer, only the person who planted it
+	var/obj/item/projectile/pellet = allocate(/obj/item/projectile)
+	pellet.credit_ref = WEAKREF(placer)
+	pellet.deliver_to(victim, BODY_ZONE_CHEST)
+	TEST_ASSERT_EQUAL(hits, 1, "A projectile carrying only a credit reference did not credit its owner")
+	var/obj/item/projectile/stray = allocate(/obj/item/projectile)
+	stray.deliver_to(victim, BODY_ZONE_CHEST)
+	TEST_ASSERT_EQUAL(hits, 1, "A projectile with nobody to credit signalled a hit")
+
+/datum/unit_test/late_damage_credit
+	var/hits = 0
+
+/datum/unit_test/late_damage_credit/proc/on_hit(datum/source, mob/living/victim, damage, atom/hit_source)
+	hits++
+
+/datum/unit_test/late_damage_credit/Run()
+	var/mob/living/carbon/human/attacker = allocate(/mob/living/carbon/human)
+	var/mob/living/simple_animal/hostile/victim = allocate(/mob/living/simple_animal/hostile)
+	victim.maxHealth = 50
+	victim.health = 50
+	attacker.a_intent = INTENT_HARM
+	RegisterSignal(attacker, COMSIG_MOB_LANDED_HIT, PROC_REF(on_hit))
+
+	// The attack slept before dealing damage, so the wrapper saw nothing and the damage lands afterwards
+	var/list/snapshot = attacker.start_attack_credit(victim)
+	attacker.end_attack_credit(snapshot)
+	TEST_ASSERT_EQUAL(hits, 0, "A hit that had not landed yet was signalled")
+	victim.apply_damage(5, BRUTE)
+	TEST_ASSERT_EQUAL(hits, 1, "Damage landing just after an attack was not attributed to the attacker")
+
+	victim.late_damager_until = world.time - 1
+	victim.apply_damage(5, BRUTE)
+	TEST_ASSERT_EQUAL(hits, 1, "Damage long after an attack was still attributed to the attacker")
+
+/datum/unit_test/weather_time_of_day/Run()
+	var/old_time = SSnightcycle.current_time
+	var/old_frozen = SSnightcycle.admin_frozen
+	SSnightcycle.admin_frozen = TRUE
+	SSnightcycle.current_time = NIGHTCYCLE_PHASE_NIGHTTIME
+	var/list/night = SSweather.get_weather_weights(0)
+	SSnightcycle.current_time = NIGHTCYCLE_PHASE_DAYTIME
+	var/list/noon = SSweather.get_weather_weights(0)
+	SSnightcycle.current_time = old_time
+	SSnightcycle.admin_frozen = old_frozen
+
+	TEST_ASSERT(night[/datum/weather/cold_wave] > noon[/datum/weather/cold_wave] * 10, "Cold waves are not much likelier at night than at noon")
+	TEST_ASSERT(noon[/datum/weather/heat_wave] > night[/datum/weather/heat_wave] * 10, "Heat waves are not much likelier at noon than at night")
+
+/datum/unit_test/acid_rain_exposure/Run()
+	var/mob/living/carbon/human/victim = allocate(/mob/living/carbon/human)
+	// A quick dash through the rain does nothing
+	for(var/i in 1 to 2)
+		victim.acid_rain_tick()
+	TEST_ASSERT_EQUAL(victim.getFireLoss(), 0, "Acid rain burned someone during the grace period")
+	for(var/i in 1 to 6)
+		victim.acid_rain_tick()
+	TEST_ASSERT(victim.getFireLoss() > 0, "Lingering in acid rain did not burn")
+
+	// Shelter washes it off
+	victim.acid_exposure = ACID_EXPOSURE_MAX
+	victim.acid_decay()
+	TEST_ASSERT_EQUAL(victim.acid_exposure, ACID_EXPOSURE_MAX, "Exposure faded while still in the rain")
+	victim.acid_last_exposed = world.time - ACID_EXPOSURE_DECAY_DELAY - 1
+	victim.acid_decay()
+	TEST_ASSERT(victim.acid_exposure < ACID_EXPOSURE_MAX, "Exposure did not fade once out of the rain")
+
+	// It never kills on its own
+	victim.adjustFireLoss(victim.maxHealth * 0.8 - victim.getFireLoss())
+	var/before = victim.getFireLoss()
+	victim.acid_exposure = ACID_EXPOSURE_MAX
+	victim.acid_rain_tick()
+	TEST_ASSERT_EQUAL(victim.getFireLoss(), before, "Acid rain went past the health floor")
+
+/datum/unit_test/acid_rain_protection/Run()
+	var/mob/living/carbon/human/victim = allocate(/mob/living/carbon/human)
+	TEST_ASSERT_EQUAL(victim.get_acid_protection(BODY_ZONE_CHEST, CHEST), 0, "A naked person had acid protection")
+	var/obj/item/clothing/suit/coat = allocate(/obj/item/clothing/suit)
+	coat.body_parts_covered = CHEST
+	victim.equip_to_slot(coat, SLOT_WEAR_SUIT)
+	TEST_ASSERT(victim.get_acid_protection(BODY_ZONE_CHEST, CHEST) >= ACID_COVER_PROTECTION, "A coat did not shield the chest from acid rain")
+	TEST_ASSERT_EQUAL(victim.get_acid_protection(BODY_ZONE_HEAD, HEAD), 0, "A coat shielded an uncovered head")
+
+/datum/unit_test/shock_value_melee/Run()
+	var/mob/living/simple_animal/hostile/mob = allocate(/mob/living/simple_animal/hostile)
+	mob.ai_get_shaken(SHOCK_VALUE_SHAKEN_TIME, SHOCK_VALUE_FLINCH)
+	TEST_ASSERT(mob.ai_shaken_until > world.time, "A shaken melee mob was not allowed to fall back")
+	TEST_ASSERT(mob.ai_stagger_until > world.time, "A shaken melee mob did not flinch")
+	mob.ai_stagger_until = 0
+	mob.ai_get_shaken(SHOCK_VALUE_SHAKEN_TIME, SHOCK_VALUE_FLINCH)
+	TEST_ASSERT_EQUAL(mob.ai_stagger_until, 0, "A mob flinched again inside the flinch cooldown")
+
