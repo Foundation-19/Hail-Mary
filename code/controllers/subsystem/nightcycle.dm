@@ -14,22 +14,22 @@
 #define CYCLE_SUNSET 	783000
 #define CYCLE_NIGHTTIME 810000
 
-#define SUNRISE 0
-#define MORNING 1
-#define LATEMORN 2
-#define DAYTIME 3
-#define AFTERNOON 4
-#define LATEAFTERNOON 5
-#define SUNSET 6
-#define FULLSUNSET 7
-#define NIGHTTIME 8
-#define DAY_END 9
+#define NIGHTCYCLE_PHASE_SUNRISE 0
+#define NIGHTCYCLE_PHASE_MORNING 1
+#define NIGHTCYCLE_PHASE_LATEMORN 2
+#define NIGHTCYCLE_PHASE_DAYTIME 3
+#define NIGHTCYCLE_PHASE_AFTERNOON 4
+#define NIGHTCYCLE_PHASE_LATEAFTERNOON 5
+#define NIGHTCYCLE_PHASE_SUNSET 6
+#define NIGHTCYCLE_PHASE_FULLSUNSET 7
+#define NIGHTCYCLE_PHASE_NIGHTTIME 8
+#define NIGHTCYCLE_PHASE_DAY_END 9
 
 SUBSYSTEM_DEF(nightcycle)
 	name = "Day/Night Cycle"
 	wait = 10 SECONDS
 	// Control vars
-	var/current_time = DAYTIME
+	var/current_time = NIGHTCYCLE_PHASE_DAYTIME
 	var/current_sun_color = "#FFFFFF"
 	var/current_sun_power = 230
 
@@ -58,6 +58,9 @@ SUBSYSTEM_DEF(nightcycle)
 	var/custom_cycle_wait
 	var/last_custom_cycle = 0
 
+	/// Set by an admin forcing a phase - skips the normal STATION_TIME-driven cycling entirely until released.
+	var/admin_frozen = FALSE
+
 	// Light objects
 	var/atom/movable/sunlight/sunlight_source_object = new()
 	var/list/atom/movable/sunlight/sunlight_border_objects = list()
@@ -70,78 +73,93 @@ SUBSYSTEM_DEF(nightcycle)
 
 
 /datum/controller/subsystem/nightcycle/fire(resumed = FALSE)
+	if(admin_frozen)
+		return
 	var/new_time
 
 	if (!isnull(custom_cycle_wait))
 		if(last_custom_cycle + custom_cycle_wait >= world.time)
 			return
 		last_custom_cycle = world.time
-		new_time = (current_time + 1) % DAY_END
+		new_time = (current_time + 1) % NIGHTCYCLE_PHASE_DAY_END
 	else
 		switch (STATION_TIME(FALSE, world.time))
 			if (CYCLE_SUNRISE to CYCLE_MORNING)
-				new_time = SUNRISE
+				new_time = NIGHTCYCLE_PHASE_SUNRISE
 			if (CYCLE_MORNING to CYCLE_LATEMORN)
-				new_time = MORNING
+				new_time = NIGHTCYCLE_PHASE_MORNING
 			if (CYCLE_LATEMORN to CYCLE_DAYTIME)
-				new_time = LATEMORN
+				new_time = NIGHTCYCLE_PHASE_LATEMORN
 			if (CYCLE_DAYTIME to CYCLE_AFTERNOON)
-				new_time = DAYTIME
+				new_time = NIGHTCYCLE_PHASE_DAYTIME
 			if (CYCLE_AFTERNOON to CYCLE_LATEAFTERNOON)
-				new_time = AFTERNOON
+				new_time = NIGHTCYCLE_PHASE_AFTERNOON
 			if (CYCLE_LATEAFTERNOON to CYCLE_SUNSET)
-				new_time = LATEAFTERNOON
+				new_time = NIGHTCYCLE_PHASE_LATEAFTERNOON
 			if (CYCLE_FULLSUNSET to CYCLE_SUNSET)
-				new_time = SUNSET
+				new_time = NIGHTCYCLE_PHASE_SUNSET
 			if (CYCLE_FULLSUNSET to CYCLE_NIGHTTIME)
-				new_time = FULLSUNSET
+				new_time = NIGHTCYCLE_PHASE_FULLSUNSET
 			else
-				new_time = NIGHTTIME
+				new_time = NIGHTCYCLE_PHASE_NIGHTTIME
 		if (new_time == current_time)
 			return
 
+	set_phase(new_time)
+	CHECK_TICK
+
+/// Applies the color/power for a phase and swaps to it. Shared by the automatic fire() cycling and by admins
+/// forcing a phase directly, so both paths stay in sync instead of duplicating the color/power switch.
+/datum/controller/subsystem/nightcycle/proc/set_phase(new_time, announce = TRUE)
 	switch (new_time)
-		if (SUNRISE)
-			message_admins("Transitioning into dawn...")
+		if (NIGHTCYCLE_PHASE_SUNRISE)
+			if(announce)
+				message_admins("Transitioning into dawn...")
 			current_sun_color = sunrise_sun_color
 			current_sun_power = sunrise_sun_power
-		if (MORNING)
-			message_admins("Transitioning into midmorning...")
+		if (NIGHTCYCLE_PHASE_MORNING)
+			if(announce)
+				message_admins("Transitioning into midmorning...")
 			current_sun_color = morning_sun_color
 			current_sun_power = morning_sun_power
-		if (LATEMORN)
+		if (NIGHTCYCLE_PHASE_LATEMORN)
 			current_sun_color = latemorn_sun_color
 			current_sun_power = latemorn_sun_power
-		if (DAYTIME)
-			message_admins("Transitioning into midday...")
+		if (NIGHTCYCLE_PHASE_DAYTIME)
+			if(announce)
+				message_admins("Transitioning into midday...")
 			current_sun_color = daytime_sun_color
 			current_sun_power = daytime_sun_power
-		if (AFTERNOON)
-			message_admins("Transitioning into midafternoon...")
+		if (NIGHTCYCLE_PHASE_AFTERNOON)
+			if(announce)
+				message_admins("Transitioning into midafternoon...")
 			current_sun_color = afternoon_sun_color
 			current_sun_power = afternoon_sun_power
-		if (LATEAFTERNOON)
-			message_admins("Transitioning into midafternoon...")
+		if (NIGHTCYCLE_PHASE_LATEAFTERNOON)
+			if(announce)
+				message_admins("Transitioning into midafternoon...")
 			current_sun_color = lateafternoon_sun_color
 			current_sun_power = lateafternoon_sun_power
-		if (SUNSET)
-			message_admins("Transitioning into early sunset...")
+		if (NIGHTCYCLE_PHASE_SUNSET)
+			if(announce)
+				message_admins("Transitioning into early sunset...")
 			current_sun_color = sunset_sun_color
 			current_sun_power = sunset_sun_power
-		if (FULLSUNSET)
-			message_admins("Transitioning into full sunset...")
+		if (NIGHTCYCLE_PHASE_FULLSUNSET)
+			if(announce)
+				message_admins("Transitioning into full sunset...")
 			current_sun_color = fullsunset_sun_color
 			current_sun_power = fullsunset_sun_power
-		if(NIGHTTIME)
-			message_admins("Transitioning into night...")
+		if(NIGHTCYCLE_PHASE_NIGHTTIME)
+			if(announce)
+				message_admins("Transitioning into night...")
 			current_sun_color = nighttime_sun_color
 			current_sun_power = nighttime_sun_power
 		else
-			CRASH("Invalid new_time returned from STATION_TIME()")
+			CRASH("Invalid new_time passed to set_phase()")
 
 	current_time = new_time
 	INVOKE_ASYNC(src, PROC_REF(AnimateTransition))
-	CHECK_TICK
 
 /datum/controller/subsystem/nightcycle/proc/AnimateTransition()
 	var/atom/movable/sunlight/light_object = sunlight_source_object
@@ -292,13 +310,5 @@ SUBSYSTEM_DEF(nightcycle)
 #undef CYCLE_FULLSUNSET
 #undef CYCLE_SUNSET
 #undef CYCLE_NIGHTTIME
-#undef SUNRISE
-#undef MORNING
-#undef DAYTIME
-#undef LATEMORN
-#undef AFTERNOON
-#undef LATEAFTERNOON
-#undef FULLSUNSET
-#undef SUNSET
-#undef NIGHTTIME
-#undef DAY_END
+// NIGHTCYCLE_PHASE_* constants are intentionally NOT undef'd here (unlike the CYCLE_* time-of-day thresholds
+// above) - they're referenced from the day/night admin verbs outside this file.

@@ -91,6 +91,12 @@
 	var/mob/living/carbon/human/H = quirk_holder
 	return H.maxHealth > 0 ? H.health / H.maxHealth : 1
 
+/// Remaining stamina as a 0..1 fraction. getStaminaLoss() has no hard max var, but 100 is the conventional
+/// stamcrit ceiling used throughout the codebase (see CHECK_STAMCRIT callers), so it doubles as "full stamina".
+/datum/quirk/modular/proc/stamina_fraction()
+	var/mob/living/carbon/human/H = quirk_holder
+	return CLAMP(1 - (H.getStaminaLoss() / 100), 0, 1)
+
 /* ------------------------------ Free Wasteland Traits ------------------------------ */
 
 /datum/quirk/modular/trait_kamikaze
@@ -296,6 +302,133 @@
 	berserk_active = FALSE
 	weakened_active = FALSE
 	return ..()
+
+/datum/quirk/modular/trait_night_terror
+	name = "Night Terror"
+	desc = "The dark doesn't scare you, light does. In near-darkness you move with real confidence: +10 damage resistance and 20% less stun duration. Out somewhere brightly lit, you're exposed and twitchy: -10 damage resistance and 25% more stun duration."
+	value = 0
+	is_trait = TRUE
+	gain_text = span_notice("Shadows start to feel like home.")
+	lose_text = span_danger("The dark stops feeling like an advantage.")
+	medical_record_text = "Patient shows markedly different confidence and reaction time depending on ambient lighting."
+
+/datum/quirk/modular/trait_night_terror/on_process()
+	var/turf/T = get_turf(quirk_holder)
+	if(!T)
+		return
+	var/lums = T.get_lumcount()
+	if(lums <= 0.3)
+		set_dyn(list("damage_resistance" = 10, "stun_mod" = -0.2))
+	else if(lums >= 0.6)
+		set_dyn(list("damage_resistance" = -10, "stun_mod" = 0.25))
+	else
+		set_dyn(null) // dusk/indoor lighting is a dead zone so it doesn't flicker right at the thresholds
+
+/datum/quirk/modular/trait_running_on_empty
+	name = "Running on Empty"
+	desc = "Exhaustion doesn't slow you down the way it should - but it costs you elsewhere. Below 30% stamina, stamina damage hits you 20% less, but you're sloppier and take 10% more physical damage with nothing left to brace with."
+	value = 0
+	is_trait = TRUE
+	gain_text = span_notice("You've learned to push past the point where your body wants to quit.")
+	lose_text = span_danger("Exhaustion starts hitting you like it should again.")
+	medical_record_text = "Patient shows an unusual tolerance for exhaustion, offset by poor reflexes once truly spent."
+
+/datum/quirk/modular/trait_running_on_empty/on_process()
+	if(stamina_fraction() <= 0.3)
+		set_dyn(list("stamina_mod" = -0.2, "damage_resistance" = -10))
+	else
+		set_dyn(null)
+
+// MOMENTUM, done safely: there is no signal anywhere in the combat code for "I just landed a hit" or "I just
+// dealt damage" - COMSIG_MOB_APPLY_DAMAGE only fires on the victim and carries no attacker reference, and
+// building one in would mean threading an attacker parameter through apply_damage() and every call site that
+// feeds it, which is too broad a change to make for a single perk. This flips the idea around instead: build
+// composure the longer you go WITHOUT being hit, and lose it all instantly the moment something connects.
+/datum/quirk/modular/trait_flow_state
+	name = "Flow State"
+	desc = "The longer a fight goes without you taking a hit, the more in control you feel: damage resistance climbs the longer you stay untouched, capping at +15 after 10 seconds. The instant something connects, it's gone - you're right back to square one."
+	value = 0
+	is_trait = TRUE
+	gain_text = span_notice("You can feel yourself settling into a rhythm whenever nothing's touching you.")
+	lose_text = span_danger("That sense of rhythm fades.")
+	medical_record_text = "Patient shows a building composure effect the longer they go without taking damage, resetting sharply on injury."
+	var/streak_start = 0
+
+/datum/quirk/modular/trait_flow_state/add()
+	. = ..()
+	streak_start = world.time
+	RegisterSignal(quirk_holder, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(on_damage_taken))
+
+/datum/quirk/modular/trait_flow_state/remove()
+	if(quirk_holder)
+		UnregisterSignal(quirk_holder, COMSIG_MOB_APPLY_DAMAGE)
+	return ..()
+
+/datum/quirk/modular/trait_flow_state/proc/on_damage_taken(mob/living/source, damage)
+	SIGNAL_HANDLER
+	if(damage > 0)
+		streak_start = world.time
+
+/datum/quirk/modular/trait_flow_state/on_process()
+	var/elapsed = world.time - streak_start
+	var/bonus = min(15, (elapsed / 10 SECONDS) * 15)
+	if(bonus > 0)
+		set_dyn(list("damage_resistance" = bonus))
+	else
+		set_dyn(null)
+
+// AMMO DESPERATION, built on COMSIG_LIVING_GUN_PROCESS_FIRE - already fired on the shooter right after a shot
+// resolves (gun.dm's process_fire()), so checking the gun's own get_ammo() there is the only reliable way to
+// catch "that was the last round" without the same attacker-reference problem as Flow State above. Scoped to
+// ballistic guns only, matching gun_malfunction.dm's existing split between ballistic and energy weapons.
+/datum/quirk/modular/trait_empty_chamber
+	name = "Empty Chamber"
+	desc = "Running dry doesn't rattle you, it focuses you. The instant a ballistic gun's last round fires, you get a 4-second surge: +15 damage resistance and 30% less stun duration, so you can handle whatever's coming while you reload or draw steel. When it fades, the adrenaline dump leaves you shaky for 10 seconds: -10 damage resistance."
+	value = 0
+	is_trait = TRUE
+	gain_text = span_notice("Running dry has never been the problem - it's what comes after that counts.")
+	lose_text = span_danger("An empty gun just feels like an empty gun again.")
+	medical_record_text = "Patient shows a sharp adrenaline spike when a weapon runs dry, followed by a pronounced crash."
+	var/surging = FALSE
+	var/crashing = FALSE
+
+/datum/quirk/modular/trait_empty_chamber/add()
+	. = ..()
+	RegisterSignal(quirk_holder, COMSIG_LIVING_GUN_PROCESS_FIRE, PROC_REF(on_gun_fired))
+
+/datum/quirk/modular/trait_empty_chamber/remove()
+	if(quirk_holder)
+		UnregisterSignal(quirk_holder, COMSIG_LIVING_GUN_PROCESS_FIRE)
+	surging = FALSE
+	crashing = FALSE
+	return ..()
+
+/datum/quirk/modular/trait_empty_chamber/proc/on_gun_fired(mob/living/source)
+	SIGNAL_HANDLER
+	if(surging || crashing)
+		return
+	var/obj/item/gun/ballistic/G = source.get_active_held_item()
+	if(!istype(G) || G.get_ammo())
+		return
+	start_surge()
+
+/datum/quirk/modular/trait_empty_chamber/proc/start_surge()
+	surging = TRUE
+	to_chat(quirk_holder, span_userdanger("Dry! Every instinct you have sharpens."))
+	set_dyn(list("damage_resistance" = 15, "stun_mod" = -0.3))
+	addtimer(CALLBACK(src, PROC_REF(end_surge)), 4 SECONDS)
+
+/datum/quirk/modular/trait_empty_chamber/proc/end_surge()
+	surging = FALSE
+	crashing = TRUE
+	set_dyn(list("damage_resistance" = -10))
+	if(!QDELETED(quirk_holder))
+		to_chat(quirk_holder, span_warning("The rush drains out of you all at once."))
+	addtimer(CALLBACK(src, PROC_REF(end_crash)), 10 SECONDS)
+
+/datum/quirk/modular/trait_empty_chamber/proc/end_crash()
+	crashing = FALSE
+	set_dyn(null)
 
 /datum/quirk/modular/trait_gifted
 	name = "Gifted"
