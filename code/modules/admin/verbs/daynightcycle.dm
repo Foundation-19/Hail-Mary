@@ -1,5 +1,5 @@
 /client/proc/set_daynight_phase()
-	set category = "Fun"
+	set category = "Admin.Fun"
 	set desc = "Force the day/night cycle to a specific phase and freeze it there until released"
 	set name = "Set Day/Night Phase"
 
@@ -27,7 +27,7 @@
 	message_admins("[key_name_admin(usr)] forced the day/night cycle to [picked] and froze it there.")
 
 /client/proc/resume_daynight_autocycle()
-	set category = "Fun"
+	set category = "Admin.Fun"
 	set desc = "Let the day/night cycle resume following the normal station clock"
 	set name = "Resume Day/Night Auto-Cycle"
 

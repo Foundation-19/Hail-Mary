@@ -123,7 +123,9 @@ GLOBAL_LIST_INIT(admin_verbs_fun, list(
 	/client/proc/smite,
 	/client/proc/admin_away,
 	/client/proc/cmd_admin_toggle_fov,
-	/client/proc/roll_dices					//CIT CHANGE - Adds dice verb
+	/client/proc/roll_dices,					//CIT CHANGE - Adds dice verb
+	/client/proc/set_daynight_phase,
+	/client/proc/resume_daynight_autocycle
 	))
 GLOBAL_PROTECT(admin_verbs_fun)
 GLOBAL_LIST_INIT(admin_verbs_spawn, list(/datum/admins/proc/spawn_atom, /datum/admins/proc/podspawn_atom, /datum/admins/proc/spawn_cargo, /datum/admins/proc/spawn_objasmob, /client/proc/respawn_character))
@@ -240,6 +242,8 @@ GLOBAL_LIST_INIT(admin_verbs_hideable, list(
 	/client/proc/get_dynex_power,
 	/client/proc/set_dynex_scale,
 	/client/proc/cinematic,
+	/client/proc/set_daynight_phase,
+	/client/proc/resume_daynight_autocycle,
 	/client/proc/cmd_admin_add_freeform_ai_law,
 	/client/proc/cmd_admin_create_centcom_report,
 	/client/proc/cmd_change_command_name,
