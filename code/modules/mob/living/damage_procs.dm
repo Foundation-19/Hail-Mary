@@ -1,5 +1,78 @@
 
 /**
+ * Attacker-aware damage attribution, the foundation for perks that react to "I hit something" or "I killed something".
+ * apply_damage() only fires on the victim and knows nothing about who caused it, so the attack paths that do know
+ * (melee items, unarmed hits, projectiles) call this once the hit has resolved.
+ *
+ * Remembers the attacker for kill credit and sends [COMSIG_MOB_LANDED_HIT] on them.
+ *
+ * Arguments:
+ * * attacker - the mob that dealt the damage
+ * * damage - health actually lost by this mob in the hit; nothing happens if it is not positive
+ * * source - the item or projectile responsible, if any
+ */
+/mob/living/proc/register_damage_from(mob/living/attacker, damage, atom/source)
+	pending_damager = null
+	if(!istype(attacker) || attacker == src || damage <= 0)
+		return
+	damage_credit_serial++
+	if(stat != DEAD) // a killing blow was already credited from death(), see prime_damage_credit()
+		last_damager = WEAKREF(attacker)
+		last_damager_time = world.time
+	SEND_SIGNAL(attacker, COMSIG_MOB_LANDED_HIT, src, damage, source)
+
+/**
+ * Attacker-side wrapper for unarmed attack dispatchers (martial arts, hulk punches, alien claws, slime shocks, ...), whose
+ * damage is dealt by many different victim-side procs that do not attribute themselves.
+ * Call start_attack_credit() before dispatching the attack and end_attack_credit() with its result afterwards.
+ * If a more specific path (a plain punch, a bullet) already attributed the hit, the victim's damage_credit_serial moved
+ * and nothing more happens, so a hit is never signalled twice.
+ */
+/mob/living/proc/start_attack_credit(atom/target)
+	if(!isliving(target))
+		return null
+	var/mob/living/victim = target
+	victim.prime_damage_credit(src)
+	return list(victim, victim.health, victim.damage_credit_serial)
+
+/mob/living/proc/end_attack_credit(list/snapshot, atom/source)
+	if(!snapshot)
+		return
+	var/mob/living/victim = snapshot[1]
+	if(victim.damage_credit_serial != snapshot[3])
+		victim.pending_damager = null
+		return
+	victim.register_damage_from(src, snapshot[2] - victim.health, source || src)
+
+/**
+ * Names the attacker of a hit that is about to resolve. Attack paths call this BEFORE applying damage, because a killing
+ * blow runs death() (and credit_kill) from inside apply_damage(). It is only honoured by a death in the same tick, and
+ * only register_damage_from() makes it stick as the last damager, so blocked hits and healing never steal kill credit.
+ */
+/mob/living/proc/prime_damage_credit(mob/living/attacker)
+	if(!istype(attacker) || attacker == src)
+		return
+	pending_damager = WEAKREF(attacker)
+	pending_damager_time = world.time
+
+/// Called from death(): tells the mob that recently damaged us that it killed us, then forgets it so a later death cannot credit it again
+/mob/living/proc/credit_kill()
+	var/datum/weakref/killer_ref = last_damager
+	var/hit_time = last_damager_time
+	if(pending_damager && pending_damager_time == world.time)
+		killer_ref = pending_damager
+		hit_time = world.time
+	last_damager = null
+	last_damager_time = 0
+	pending_damager = null
+	var/mob/living/killer = RESOLVEWEAKREF(killer_ref)
+	if(!killer || killer == src || QDELETED(killer) || killer.stat == DEAD)
+		return
+	if(world.time - hit_time > (on_fire ? KILL_CREDIT_WINDOW_DOT : KILL_CREDIT_WINDOW))
+		return
+	SEND_SIGNAL(killer, COMSIG_MOB_KILLED_MOB, src)
+
+/**
  * Applies damage to this mob
  *
  * Sends [COMSIG_MOB_APPLY_DAMAGE]

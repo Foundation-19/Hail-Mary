@@ -179,7 +179,7 @@
 	if(ex_dev || ex_heavy || ex_light || ex_flame)
 		var/mob/living/igniter = lanced_by || primed_by
 		var/radius_mult = igniter ? igniter.get_demolition_expert_radius_mult() : 1
-		explosion(loc, round(ex_dev * radius_mult), round(ex_heavy * radius_mult), round(ex_light * radius_mult), flame_range = round(ex_flame * radius_mult))
+		explosion(loc, round(ex_dev * radius_mult), round(ex_heavy * radius_mult), round(ex_light * radius_mult), flame_range = round(ex_flame * radius_mult), credit_to = igniter)
 
 /obj/item/grenade/proc/update_mob()
 	if(ismob(loc))

@@ -4,8 +4,9 @@ GLOBAL_LIST_EMPTY(explosions)
 //Against my better judgement, I will return the explosion datum
 //If I see any GC errors for it I will find you
 //and I will gib you
-/proc/explosion(atom/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = TRUE, ignorecap = FALSE, flame_range = 0, silent = FALSE, smoke = FALSE)
-	return new /datum/explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog, ignorecap, flame_range, silent, smoke)
+/// credit_to - the mob responsible (whoever threw, fired or armed it); hurting a mob with this explosion counts as a hit by them and a kill if it dies
+/proc/explosion(atom/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = TRUE, ignorecap = FALSE, flame_range = 0, silent = FALSE, smoke = FALSE, mob/living/credit_to)
+	return new /datum/explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog, ignorecap, flame_range, silent, smoke, credit_to)
 
 //This datum creates 3 async tasks
 //1 GatherSpiralTurfsProc runs spiral_range_turfs(tick_checked = TRUE) to populate the affected_turfs list
@@ -19,6 +20,8 @@ GLOBAL_LIST_EMPTY(explosions)
 	var/running = TRUE
 	var/stopped = 0		//This is the number of threads stopped !DOESN'T COUNT THREAD 2!
 	var/static/id_counter = 0
+	/// Who gets hit and kill credit for mobs this explosion hurts, see explosion()
+	var/datum/weakref/credit_ref
 
 #define EX_PREPROCESS_EXIT_CHECK \
 	if(!running) {\
@@ -33,12 +36,14 @@ GLOBAL_LIST_EMPTY(explosions)
 		EX_PREPROCESS_EXIT_CHECK\
 	}
 
-/datum/explosion/New(atom/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog, ignorecap, flame_range, silent, smoke)
+/datum/explosion/New(atom/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog, ignorecap, flame_range, silent, smoke, mob/living/credit_to)
 	set waitfor = FALSE
 
 	var/id = ++id_counter
 	explosion_id = id
 	explosion_source = epicenter
+	if(credit_to)
+		credit_ref = WEAKREF(credit_to)
 
 	epicenter = get_turf(epicenter)
 	if(!epicenter)
@@ -219,7 +224,16 @@ GLOBAL_LIST_EMPTY(explosions)
 		if(dist > EXPLODE_NONE)
 			T.explosion_level = max(T.explosion_level, dist)	//let the bigger one have it
 			T.explosion_id = id
+			var/mob/living/credit = RESOLVEWEAKREF(credit_ref)
+			var/list/credit_health
+			if(credit && !QDELETED(credit))
+				credit_health = list()
+				for(var/mob/living/L in T)
+					credit_health[L] = L.health
+					L.prime_damage_credit(credit)
 			T.ex_act(dist)
+			for(var/mob/living/L as anything in credit_health)
+				L.register_damage_from(credit, credit_health[L] - L.health, explosion_source)
 			exploded_this_tick += T
 
 		//--- THROW ITEMS AROUND ---

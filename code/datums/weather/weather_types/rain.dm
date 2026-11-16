@@ -28,7 +28,10 @@
 
 	affects_turfs = TRUE
 	carbons_only = TRUE
-
+	climate_temp_shift = -4
+	visibility_mult = 0.85
+	wetness_rate = 3
+	extinguishes_fires = TRUE
 
 	var/datum/looping_sound/rain_sounds/sound_ao = new(list(), FALSE, TRUE)
 	var/datum/looping_sound/indoor_rain_sounds/sound_ai = new(list(), FALSE, TRUE)
@@ -56,6 +59,7 @@
 
 		if(ishuman(L))
 			var/mob/living/carbon/human/H = L
+			H.adjust_climate_wetness(wetness_rate)
 			var/washgloves = TRUE
 			var/washshoes = TRUE
 			var/washmask = TRUE
@@ -185,3 +189,7 @@
 
 	affects_turfs = TRUE
 	carbons_only = TRUE
+	climate_temp_shift = -3
+	visibility_mult = 0.6
+	wetness_rate = 1.5
+	extinguishes_fires = FALSE

@@ -28,13 +28,14 @@
 	barometer_predictable = TRUE
 
 	carbons_only = TRUE
+	climate_temp_shift = 8
+	visibility_mult = 0.8
+	extinguishes_fires = TRUE
 
 /datum/weather/acid_rain/weather_act(mob/living/L)
-//	var/resist = L.getarmor(null, "acid")
-//	if(prob(max(0,100-resist)))
-//		L.acid_act(45, 10)
-	L.adjust_bodytemperature(rand(20, 30))
-	L.adjustFireLoss(2)
+	// Acid armor shaves off the burn, but a little always gets through
+	var/resist = clamp(L.getarmor(null, "acid"), 0, 75)
+	L.adjustFireLoss(2 * (1 - resist / 100))
 
 /* // Stops weather from cleaning the ground (though it still cleans mobs c:)
 /datum/weather/acid_rain/weather_act_turf(turf/T)

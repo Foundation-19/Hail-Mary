@@ -68,6 +68,7 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 			list("Big Appetite", "Fast Metabolism", "Survivalist I", "Survivalist II", "Survivalist III"),
 			list("Dehydrated", "Water Wise"),
 			list("Iron Stomach", "Delicate Stomach"),
+			list("Slow Poke", "Fleet Footed"),
 			list("Slow Poke", "Speed Walker", "Mobility - Wasteland Trekker", "Mobility - Wasteland Wanderer", "Mobility - Wasteland Slug", "Mobility - Wasteland Molasses")
 			)
 	return ..()
@@ -109,6 +110,22 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 		cli.prefs.save_character()
 	if (!silent && LAZYLEN(cut))
 		to_chat(to_chat_target || user, span_boldwarning("Some quirks have been cut from your character because of these quirks conflicting with your job assignment: [english_list(cut)]."))
+
+/// Returns the name of a quirk the user already has that conflicts with quirk_path, or null. Used by sources that bypass chargen, like skill books.
+/datum/controller/subsystem/processing/quirks/proc/get_conflicting_quirk(mob/living/user, quirk_path)
+	var/name = quirk_names_by_path[quirk_path]
+	if(!name)
+		return null
+	for(var/list/group in quirk_blacklist)
+		if(!(name in group))
+			continue
+		for(var/other in group)
+			if(other == name)
+				continue
+			var/other_path = quirks[other]
+			if(other_path && user.has_quirk(other_path))
+				return other
+	return null
 
 /datum/controller/subsystem/processing/quirks/proc/quirk_path_by_name(name)
 	return quirks[name]

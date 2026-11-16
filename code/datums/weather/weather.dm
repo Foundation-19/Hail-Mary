@@ -89,6 +89,28 @@
 	var/affects_turfs = FALSE //Does this weather affect turfs at all?
 	var/turfs_impacted = FALSE // Did this weather already impact turfs?
 	var/carbons_only = FALSE //Does this weather affect only carbon mobs?
+	/// Kelvin added to the outdoor ambient temperature while this weather is in its main stage, see code/modules/mob/living/carbon/human/climate.dm
+	var/climate_temp_shift = 0
+	/// Multiplies how far hostile mobs can spot anyone standing in the affected areas. Below 1 gives rushers cover to close in
+	var/visibility_mult = 1
+	/// Wetness per second gained by carbons caught outside, see climate.dm
+	var/wetness_rate = 0
+	/// Puts out campfires and bonfires standing in the affected areas
+	var/extinguishes_fires = FALSE
+
+/// The weather that is in full force over this atom right now, if any
+/proc/get_active_weather(atom/A)
+	var/datum/weather/W = SSweather.current_weather
+	if(!W || W.stage != MAIN_STAGE)
+		return null
+	var/area/place = get_area(A)
+	if(place && (place in W.impacted_areas))
+		return W
+	return null
+
+/proc/is_rained_on(atom/A)
+	var/datum/weather/W = get_active_weather(A)
+	return W ? W.extinguishes_fires : FALSE
 
 /datum/weather/New(z_levels)
 	..()

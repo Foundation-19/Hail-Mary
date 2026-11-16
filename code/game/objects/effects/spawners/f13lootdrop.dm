@@ -2413,6 +2413,11 @@
 				/obj/item/book/granter/trait/rank/wild_card = 1,
 				/obj/item/book/granter/trait/rank/redline = 1,
 				/obj/item/book/granter/trait/rank/efficient_builder = 1,
+				/obj/item/book/granter/trait/rank/fleet_footed = 1,
+				/obj/item/book/granter/trait/rank/adrenal_kill = 1,
+				/obj/item/book/granter/trait/rank/hunters_pursuit = 1,
+				/obj/item/book/granter/trait/rank/shock_value = 1,
+				/obj/item/book/granter/trait/rank/shoulder_check = 1,
 //				/obj/item/book/granter/crafting_recipe/gunsmith_five = 5
 				)
 
@@ -2481,7 +2486,12 @@
 				/obj/item/book/granter/trait/rank/gamblers_eye = 1,
 				/obj/item/book/granter/trait/rank/wild_card = 1,
 				/obj/item/book/granter/trait/rank/redline = 1,
-				/obj/item/book/granter/trait/rank/efficient_builder = 1,)
+				/obj/item/book/granter/trait/rank/efficient_builder = 1,
+				/obj/item/book/granter/trait/rank/fleet_footed = 1,
+				/obj/item/book/granter/trait/rank/adrenal_kill = 1,
+				/obj/item/book/granter/trait/rank/hunters_pursuit = 1,
+				/obj/item/book/granter/trait/rank/shock_value = 1,
+				/obj/item/book/granter/trait/rank/shoulder_check = 1,)
 
 /obj/effect/spawner/lootdrop/f13/traitbooks/low
 	name = "low trait book spawner"
@@ -2565,6 +2575,11 @@
 				/obj/item/book/granter/trait/rank/wild_card = 1,
 				/obj/item/book/granter/trait/rank/redline = 1,
 				/obj/item/book/granter/trait/rank/efficient_builder = 1,
+				/obj/item/book/granter/trait/rank/fleet_footed = 1,
+				/obj/item/book/granter/trait/rank/adrenal_kill = 1,
+				/obj/item/book/granter/trait/rank/hunters_pursuit = 1,
+				/obj/item/book/granter/trait/rank/shock_value = 1,
+				/obj/item/book/granter/trait/rank/shoulder_check = 1,
 				)
 
 /obj/effect/spawner/lootdrop/f13/blueprintLow

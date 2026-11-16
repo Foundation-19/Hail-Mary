@@ -29,14 +29,20 @@
 		if(G.glove_weapon && isliving(A))
 			return . | G.melee_attack_chain(src, A, null, .)
 
+	// Martial arts and hulk punches resolve in here without attributing themselves, see start_attack_credit()
+	var/list/credit = start_attack_credit(A)
+
 	for(var/datum/mutation/human/HM in dna.mutations)
 		. |= HM.on_attack_hand(A, proximity, intent, .)
 
 	if(. & INTERRUPT_UNARMED_ATTACK)
+		end_attack_credit(credit)
 		return
 
 	SEND_SIGNAL(src, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, A)
-	return . | A.attack_hand(src, intent, .)
+	. |= A.attack_hand(src, intent, .)
+	end_attack_credit(credit)
+	return .
 
 /atom/proc/attack_hand(mob/user, act_intent, attackchain_flags)
 	//SHOULD_NOT_SLEEP(TRUE)
@@ -138,7 +144,9 @@
 	Animals & All Unspecified
 */
 /mob/living/UnarmedAttack(atom/A, proximity, intent = a_intent, flags = NONE)
+	var/list/credit = start_attack_credit(A)
 	A.attack_animal(src, intent, flags)
+	end_attack_credit(credit)
 
 /atom/proc/attack_animal(mob/user)
 	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_ANIMAL, user)
@@ -152,7 +160,9 @@
 /mob/living/carbon/monkey/UnarmedAttack(atom/A, proximity, intent = a_intent, flags = NONE)
 	if(!CheckActionCooldown(CLICK_CD_MELEE))
 		return
-	return !isnull(A.attack_paw(src, intent, flags))
+	var/list/credit = start_attack_credit(A)
+	. = !isnull(A.attack_paw(src, intent, flags))
+	end_attack_credit(credit)
 
 /atom/proc/attack_paw(mob/user)
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_PAW, user) & COMPONENT_NO_ATTACK_HAND)
@@ -201,7 +211,9 @@
 	Defaults to same as monkey in most places
 */
 /mob/living/carbon/alien/UnarmedAttack(atom/A, proximity, intent = a_intent, flags = NONE)
+	var/list/credit = start_attack_credit(A)
 	A.attack_alien(src, intent, flags)
+	end_attack_credit(credit)
 
 /atom/proc/attack_alien(mob/living/carbon/alien/user)
 	attack_paw(user)
@@ -212,7 +224,9 @@
 
 // Babby aliens
 /mob/living/carbon/alien/larva/UnarmedAttack(atom/A, proximity, intent = a_intent, flags = NONE)
+	var/list/credit = start_attack_credit(A)
 	A.attack_larva(src, intent, flags)
+	end_attack_credit(credit)
 
 /atom/proc/attack_larva(mob/user)
 	return
@@ -222,7 +236,9 @@
 	Nothing happening here
 */
 /mob/living/simple_animal/slime/UnarmedAttack(atom/A, proximity, intent = a_intent, flags = NONE)
+	var/list/credit = start_attack_credit(A)
 	A.attack_slime(src, intent, flags)
+	end_attack_credit(credit)
 
 /atom/proc/attack_slime(mob/user)
 	return

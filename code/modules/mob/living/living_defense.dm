@@ -82,6 +82,9 @@
 			CRASH("Invalid rediretion mode [redirection_mode]")
 
 /mob/living/bullet_act(obj/item/projectile/P, def_zone)
+	var/health_before = health
+	if(ismob(P.firer))
+		prime_damage_credit(P.firer)
 	if(ranged_mob_grief(P))
 		if(ismob(P.firer))
 			var/mob/shootier = P.firer
@@ -118,6 +121,8 @@
 			apply_damage(staminadamage, STAMINA, def_zone, armor, wound_bonus = P.wound_bonus, bare_wound_bonus = P.bare_wound_bonus, sharpness = SHARP_NONE, damage_threshold = dt)
 		if(P.dismemberment)
 			check_projectile_dismemberment(P, def_zone)
+		if(ismob(P.firer))
+			register_damage_from(P.firer, health_before - health, P)
 	var/missing = 100 - final_percent
 	var/armor_ratio = armor * 0.01
 	if(missing > 0)
@@ -187,9 +192,13 @@
 					return
 				var/armor = run_armor_check(impacting_zone, "melee", "Your armor has protected your [parse_zone(impacting_zone)].", "Your armor has softened hit to your [parse_zone(impacting_zone)].",I.armour_penetration)
 				var/dt = max(run_armor_check(impacting_zone, "damage_threshold", null, null, 0, null) - I.damage_threshold_penetration, 0)
+				var/mob/living/thrower = throwingdatum?.thrower
+				var/health_before = health
+				if(istype(thrower))
+					prime_damage_credit(thrower)
 				apply_damage(I.throwforce, dtype, impacting_zone, armor, sharpness=I.get_sharpness(), wound_bonus=(nosell_hit * CANT_WOUND), damage_threshold = dt)
-		else
-			return 1
+				if(istype(thrower))
+					register_damage_from(thrower, health_before - health, I)
 	else
 		playsound(loc, 'sound/weapons/genhit.ogg', 50, 1, -1)
 	..()

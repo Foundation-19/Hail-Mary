@@ -1,7 +1,7 @@
 /datum/weather/heat_wave
 	name = "heat wave"
 	desc = "Harsh heat wave will grip an entire area."
-	probability = 0
+	probability = 8
 
 	telegraph_message = span_notice("The temperature outside starts to rise unfavorably.")
 	telegraph_duration = 300
@@ -27,6 +27,4 @@
 	barometer_predictable = TRUE
 
 	carbons_only = TRUE
-
-/datum/weather/heat_wave/weather_act(mob/living/L)
-	L.adjust_bodytemperature(rand(10, 20))
+	climate_temp_shift = 12

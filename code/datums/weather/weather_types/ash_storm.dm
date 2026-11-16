@@ -123,6 +123,7 @@
 
 	aesthetic = TRUE
 	obscures_sight = TRUE // try seeing stuff now! YOU CANT!
+	visibility_mult = 0.5
 
 	target_trait = ZTRAIT_STATION
 

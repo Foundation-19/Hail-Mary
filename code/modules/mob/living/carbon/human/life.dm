@@ -36,6 +36,7 @@
 	//Per-viewer hover/right-click override images for anyone who's remembered this mob's face - .name itself
 	//can't be per-viewer in BYOND, so this is the closest equivalent (see sync_identity_override_for()).
 	refresh_identity_overrides()
+	handle_climate()
 
 /mob/living/carbon/human/calculate_affecting_pressure(pressure)
 	var/headless = !get_bodypart(BODY_ZONE_HEAD) //should the mob be perennially headless (see dullahans), we only take the suit into account, so they can into space.

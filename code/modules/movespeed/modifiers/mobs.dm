@@ -77,6 +77,16 @@
 	multiplicative_slowdown = 0.15
 	blacklisted_movetypes = FLOATING
 
+/// Fleet Footed perk: a short burst of speed after taking damage
+/datum/movespeed_modifier/fleet_footed
+	multiplicative_slowdown = -0.25
+	blacklisted_movetypes = FLOATING
+
+/// Hunter's Pursuit perk: a short speed burst for chasing down a wounded or retreating mob
+/datum/movespeed_modifier/hunters_pursuit
+	multiplicative_slowdown = -0.2
+	blacklisted_movetypes = FLOATING
+
 /datum/movespeed_modifier/turf_slowdown
 	movetypes = GROUND
 	blacklisted_movetypes = (FLYING|FLOATING)

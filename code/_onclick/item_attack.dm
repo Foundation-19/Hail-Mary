@@ -74,7 +74,11 @@
 	. = ..()
 	if(. & STOP_ATTACK_PROC_CHAIN)
 		return
+	// Wrapped here rather than in attack() so items that override attack() without calling the parent (power fists, batons) still count
+	var/health_before = health
+	prime_damage_credit(user)
 	. |= I.attack(src, user, attackchain_flags, damage_multiplier)
+	register_damage_from(user, health_before - health, I)
 	if(!(. & NO_AUTO_CLICKDELAY_HANDLING))	// SAFETY NET - unless the proc tells us we should not handle this, give them the basic melee cooldown!
 		I.ApplyAttackCooldown(user, src, attackchain_flags)
 

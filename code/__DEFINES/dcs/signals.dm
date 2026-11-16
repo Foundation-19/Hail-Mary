@@ -243,6 +243,10 @@
 #define COMSIG_MOB_ATTACK_HAND "mob_attack_hand"				//from base of
 #define COMSIG_MOB_ITEM_ATTACK "mob_item_attack"				//from base of /obj/item/attack(): (mob/M, mob/user)
 	#define COMPONENT_ITEM_NO_ATTACK 1
+///from /mob/living/proc/register_damage_from(), sent on the ATTACKER once a melee hit, unarmed hit or projectile has damaged something: (mob/living/victim, damage, atom/source)
+#define COMSIG_MOB_LANDED_HIT "mob_landed_hit"
+///from /mob/living/proc/credit_kill(), sent on the last mob that damaged a victim within KILL_CREDIT_WINDOW when that victim dies: (mob/living/victim)
+#define COMSIG_MOB_KILLED_MOB "mob_killed_mob"
 #define COMSIG_MOB_ITEM_AFTERATTACK "mob_item_afterattack"		//from base of obj/item/afterattack(): (atom/target, mob/user, proximity_flag, click_parameters)
 #define COMSIG_MOB_ATTACK_RANGED "mob_attack_ranged"			//from base of mob/RangedAttack(): (atom/A, params)
 #define COMSIG_MOB_THROW "mob_throw"							//from base of /mob/throw_item(): (atom/target)

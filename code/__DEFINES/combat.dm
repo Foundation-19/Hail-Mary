@@ -177,6 +177,13 @@
 #define COMBAT_MESSAGE_RANGE 3
 #define DEFAULT_MESSAGE_RANGE 7
 
+/// A death is credited to the last mob that damaged the victim if it happened within this long (see register_damage_from)
+#define KILL_CREDIT_WINDOW (8 SECONDS)
+/// Same, but for a victim that is still burning: the damage over time keeps ticking after the last direct hit
+#define KILL_CREDIT_WINDOW_DOT (20 SECONDS)
+/// Shock Value cannot push a mob's morale below this on its own
+#define SHOCK_VALUE_MORALE_FLOOR 0.3
+
 //Shove knockdown lengths (deciseconds)
 #define SHOVE_KNOCKDOWN_SOLID 30
 #define SHOVE_KNOCKDOWN_HUMAN 30

@@ -14,7 +14,14 @@
 	var/resize = 1 //Badminnery resize
 	var/lastattacker = null
 	var/lastattackerckey = null
-
+	/// Weakref to the last mob that damaged us and when, for kill credit. Set by register_damage_from()
+	var/datum/weakref/last_damager
+	var/last_damager_time = 0
+	/// The attacker of the hit currently resolving, only valid within the tick it was set (see prime_damage_credit())
+	var/datum/weakref/pending_damager
+	var/pending_damager_time = 0
+	/// Bumped by every register_damage_from(), so a wrapper around a whole attack can tell whether a more specific path already attributed it
+	var/damage_credit_serial = 0
 	//Health and life related vars
 	var/maxHealth = 100 //Maximum health that should be possible.
 	var/health = 100 	//A mob's health
