@@ -26,15 +26,28 @@
 #define CLIMATE_DAMAGE_MAX 1
 #define CLIMATE_DAMAGE_HEALTH_FLOOR 0.35 // climate alone never takes someone below this fraction of their max health
 
-// Clothing. Each worn item lowers cold exposure by its weight, scaled by how much of the body it covers
+// Clothing. Each worn item lowers cold exposure by its slot weight, scaled by how much of the body it covers and by its own
+// climate_warmth (1 is ordinary cloth or leather, fur and winter wear is higher, plate and rags lower). Heat works the same way
+// through climate_heat_trap: breathable gear is below 1, sealed or plated gear above it
 #define CLIMATE_INSULATION_UNIFORM 0.3
 #define CLIMATE_INSULATION_SUIT 0.4
 #define CLIMATE_INSULATION_HEAD 0.15
 #define CLIMATE_INSULATION_GLOVES 0.05
 #define CLIMATE_INSULATION_SHOES 0.1
-#define CLIMATE_INSULATION_MAX 0.75
-#define CLIMATE_INSULATION_HEAT_PENALTY 0.4 // heavy clothing traps heat: heat exposure rises by this much at full insulation
-#define CLIMATE_HAT_HEAT_RELIEF 0.15 // a hat or helmet shades the head
+#define CLIMATE_INSULATION_NECK 0.06
+#define CLIMATE_INSULATION_MASK 0.04
+#define CLIMATE_INSULATION_MAX 0.9
+#define CLIMATE_INSULATION_HEAT_PENALTY 0.4 // heavy clothing traps heat: heat exposure rises by this much per point of trapped heat
+#define CLIMATE_HEAT_TRAP_MAX 1.2
+#define CLIMATE_HAT_HEAT_RELIEF 0.15 // a hat or helmet shades the head, scaled by how breathable it is
+
+// How much of a garment's slot weight each part of the body is worth. A coat with no legs still covers most of what matters
+#define CLIMATE_COVER_CHEST 0.5
+#define CLIMATE_COVER_ARM 0.125
+#define CLIMATE_COVER_LEG 0.125
+
+// A machine that overheats has its cooling fans burn this much charge per tick at the top of the moderate tier
+#define CLIMATE_MACHINE_CHARGE_DRAIN 2
 
 // Wetness. Rain and fog soak people, which makes the cold bite harder and the heat a little easier. It dries off per life tick
 #define CLIMATE_WET_MAX 100
@@ -62,8 +75,8 @@
 #define CLIMATE_TEMP_SUNRISE 283
 #define CLIMATE_TEMP_MORNING 293
 #define CLIMATE_TEMP_LATEMORN 303
-#define CLIMATE_TEMP_DAYTIME 311
-#define CLIMATE_TEMP_AFTERNOON 311
+#define CLIMATE_TEMP_DAYTIME 312
+#define CLIMATE_TEMP_AFTERNOON 312
 #define CLIMATE_TEMP_LATEAFTERNOON 305
 #define CLIMATE_TEMP_SUNSET 297
 #define CLIMATE_TEMP_FULLSUNSET 288

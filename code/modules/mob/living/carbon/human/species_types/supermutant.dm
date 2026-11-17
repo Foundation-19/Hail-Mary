@@ -15,6 +15,9 @@
 	liked_food = JUNKFOOD | FRIED | RAW 
 	thirst_rate_mod = SMUTANT_THIRST_MOD // big bodies need more water, but they hold more of it
 	stomach_water_mod = SMUTANT_STOMACH_MOD
+	// a huge body holds its heat well but sheds it badly
+	climate_cold_mod = 0.6
+	climate_heat_mod = 1.2
 
 /datum/species/smutant/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()

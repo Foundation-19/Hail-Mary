@@ -50,9 +50,15 @@ GLOBAL_LIST_EMPTY(climate_heat_sources)
 	return CLIMATE_INDOOR_TEMP
 
 /mob/living/carbon/human/proc/climate_applies()
-	if(!(mob_biotypes & MOB_ORGANIC) || HAS_TRAIT(src, TRAIT_POWER_ARMOR) || (status_flags & GODMODE))
+	if(HAS_TRAIT(src, TRAIT_POWER_ARMOR) || (status_flags & GODMODE))
+		return FALSE
+	if(!climate_is_machine() && !(mob_biotypes & MOB_ORGANIC))
 		return FALSE
 	return !!physiology
+
+/// Machines overheat but never feel the cold
+/mob/living/carbon/human/proc/climate_is_machine()
+	return !!dna?.species?.climate_machine
 
 /// Kelvin of the air around this person
 /mob/living/carbon/human/proc/get_climate_ambient()
@@ -110,23 +116,46 @@ GLOBAL_LIST_EMPTY(climate_heat_sources)
 /proc/climate_cover_fraction(obj/item/I)
 	if(!I)
 		return 0
-	var/count = 0
-	for(var/part in list(CHEST, ARMS, LEGS))
-		if(I.body_parts_covered & part)
-			count++
-	return count / 3
+	. = 0
+	var/covered = I.body_parts_covered
+	if(covered & CHEST)
+		. += CLIMATE_COVER_CHEST
+	for(var/limb in list(ARM_LEFT, ARM_RIGHT))
+		if(covered & limb)
+			. += CLIMATE_COVER_ARM
+	for(var/limb in list(LEG_LEFT, LEG_RIGHT))
+		if(covered & limb)
+			. += CLIMATE_COVER_LEG
+
+/// A worn item's warmth or heat trap multiplier, 1 for anything that is not clothing
+/proc/climate_item_factor(obj/item/I, heat)
+	if(!istype(I, /obj/item/clothing))
+		return 1
+	var/obj/item/clothing/C = I
+	return heat ? C.climate_heat_trap : C.climate_warmth
+
+/// Sum of every worn layer's slot weight times coverage times its warmth, or its heat trap when heat is set
+/mob/living/carbon/human/proc/get_climate_layers(heat = FALSE)
+	. = CLIMATE_INSULATION_UNIFORM * climate_cover_fraction(w_uniform) * climate_item_factor(w_uniform, heat)
+	. += CLIMATE_INSULATION_SUIT * climate_cover_fraction(wear_suit) * climate_item_factor(wear_suit, heat)
+	if(head && (head.body_parts_covered & HEAD))
+		. += CLIMATE_INSULATION_HEAD * climate_item_factor(head, heat)
+	if(wear_neck && (wear_neck.body_parts_covered & NECK))
+		. += CLIMATE_INSULATION_NECK * climate_item_factor(wear_neck, heat)
+	if(wear_mask && (wear_mask.body_parts_covered & HEAD))
+		. += CLIMATE_INSULATION_MASK * climate_item_factor(wear_mask, heat)
+	if(gloves && (gloves.body_parts_covered & HANDS))
+		. += CLIMATE_INSULATION_GLOVES * climate_item_factor(gloves, heat)
+	if(shoes && (shoes.body_parts_covered & FEET))
+		. += CLIMATE_INSULATION_SHOES * climate_item_factor(shoes, heat)
 
 /// 0 to CLIMATE_INSULATION_MAX, how much worn clothing keeps the cold out
 /mob/living/carbon/human/proc/get_climate_insulation()
-	. = CLIMATE_INSULATION_UNIFORM * climate_cover_fraction(w_uniform)
-	. += CLIMATE_INSULATION_SUIT * climate_cover_fraction(wear_suit)
-	if(head && (head.body_parts_covered & HEAD))
-		. += CLIMATE_INSULATION_HEAD
-	if(gloves && (gloves.body_parts_covered & HANDS))
-		. += CLIMATE_INSULATION_GLOVES
-	if(shoes && (shoes.body_parts_covered & FEET))
-		. += CLIMATE_INSULATION_SHOES
-	return min(., CLIMATE_INSULATION_MAX)
+	return min(get_climate_layers(FALSE), CLIMATE_INSULATION_MAX)
+
+/// How much heat worn clothing holds in, 0 to CLIMATE_HEAT_TRAP_MAX
+/mob/living/carbon/human/proc/get_climate_heat_trap()
+	return min(get_climate_layers(TRUE), CLIMATE_HEAT_TRAP_MAX)
 
 /// Signed exposure this person is heading towards right now
 /mob/living/carbon/human/proc/get_climate_target()
@@ -134,19 +163,20 @@ GLOBAL_LIST_EMPTY(climate_heat_sources)
 	if(!climate_applies())
 		return
 	var/ambient = get_climate_ambient()
+	var/datum/species/S = dna?.species
 	if(ambient < CLIMATE_COMFORT_MIN)
 		if(HAS_TRAIT(src, TRAIT_RESISTCOLD))
 			return
-		var/stress = (CLIMATE_COMFORT_MIN - ambient) * CLIMATE_EXPOSURE_PER_DEGREE * (1 - get_climate_insulation()) * physiology.cold_mod
+		var/stress = (CLIMATE_COMFORT_MIN - ambient) * CLIMATE_EXPOSURE_PER_DEGREE * (1 - get_climate_insulation()) * physiology.cold_mod * (S ? S.climate_cold_mod : 1)
 		stress *= 1 + CLIMATE_WET_COLD_PENALTY * climate_wetness / CLIMATE_WET_MAX
 		return -min(CLIMATE_EXPOSURE_MAX, stress)
 	if(ambient > CLIMATE_COMFORT_MAX)
 		if(HAS_TRAIT(src, TRAIT_RESISTHEAT))
 			return
-		var/trapped = 1 + get_climate_insulation() * CLIMATE_INSULATION_HEAT_PENALTY
+		var/trapped = 1 + get_climate_heat_trap() * CLIMATE_INSULATION_HEAT_PENALTY
 		if(head && (head.body_parts_covered & HEAD))
-			trapped *= 1 - CLIMATE_HAT_HEAT_RELIEF
-		var/stress = (ambient - CLIMATE_COMFORT_MAX) * CLIMATE_EXPOSURE_PER_DEGREE * trapped * physiology.heat_mod
+			trapped *= 1 - CLIMATE_HAT_HEAT_RELIEF * clamp(2 - climate_item_factor(head, TRUE), 0, 1.5)
+		var/stress = (ambient - CLIMATE_COMFORT_MAX) * CLIMATE_EXPOSURE_PER_DEGREE * trapped * physiology.heat_mod * (S ? S.climate_heat_mod : 1)
 		stress *= 1 - CLIMATE_WET_HEAT_RELIEF * climate_wetness / CLIMATE_WET_MAX
 		return min(CLIMATE_EXPOSURE_MAX, stress)
 
@@ -182,15 +212,20 @@ GLOBAL_LIST_EMPTY(climate_heat_sources)
 		return
 	clear_alert("tempfeel")
 	var/severe = level >= CLIMATE_TIER_SEVERE
+	var/machine = climate_is_machine()
 	throw_alert("temp", hot ? /obj/screen/alert/hot : /obj/screen/alert/cold, severe ? 2 : 1)
-	SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, hot ? "cold" : "hot")
-	SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, hot ? "hot" : "cold", hot ? /datum/mood_event/hot : /datum/mood_event/cold)
+	if(!machine)
+		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, hot ? "cold" : "hot")
+		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, hot ? "hot" : "cold", hot ? /datum/mood_event/hot : /datum/mood_event/cold)
 	var/frac = (level - CLIMATE_TIER_MODERATE) / (CLIMATE_EXPOSURE_MAX - CLIMATE_TIER_MODERATE)
 	if(hot)
 		remove_movespeed_modifier(/datum/movespeed_modifier/cold)
-		adjustStaminaLossBuffered(CLIMATE_HEAT_STAMINA * (0.5 + 0.5 * frac))
+		if(machine)
+			adjust_nutrition(-CLIMATE_MACHINE_CHARGE_DRAIN * (0.5 + 0.5 * frac))
+		else
+			adjustStaminaLossBuffered(CLIMATE_HEAT_STAMINA * (0.5 + 0.5 * frac))
 		if(prob(4))
-			to_chat(src, span_warning("The heat is wearing you down."))
+			to_chat(src, span_warning(machine ? "Your cooling fans are running flat out." : "The heat is wearing you down."))
 	else
 		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/cold, multiplicative_slowdown = CLIMATE_COLD_SLOWDOWN_MAX * (0.2 + 0.8 * frac))
 		if(prob(4))
@@ -200,7 +235,8 @@ GLOBAL_LIST_EMPTY(climate_heat_sources)
 	var/damage = CLIMATE_DAMAGE_MIN + (CLIMATE_DAMAGE_MAX - CLIMATE_DAMAGE_MIN) * (level - CLIMATE_TIER_SEVERE) / (CLIMATE_EXPOSURE_MAX - CLIMATE_TIER_SEVERE)
 	apply_damage(damage, BURN)
 	if(prob(8))
-		to_chat(src, span_userdanger("[hot ? "Heatstroke is setting in. You need shade and water." : "Frostbite is setting in. You need warmth."]"))
+		var/warning = hot ? (machine ? "Core temperature critical. You need shade and a chance to cool down." : "Heatstroke is setting in. You need shade and water.") : "Frostbite is setting in. You need warmth."
+		to_chat(src, span_userdanger("[warning]"))
 
 /// Body zones acid rain burns, how much of the damage each takes and the clothing slot flag that shields it
 /proc/acid_rain_zones()

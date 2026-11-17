@@ -60,6 +60,8 @@
 	exotic_bloodtype = "HF"
 	exotic_blood_color = BLOOD_COLOR_OIL
 	species_type = "robotic"
+	climate_cold_mod = 0
+	climate_machine = TRUE
 
 //	var/datum/action/innate/monitor_change/screen
 /* Furry no more!

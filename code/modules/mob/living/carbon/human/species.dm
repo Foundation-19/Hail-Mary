@@ -85,6 +85,11 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 	// generic traits tied to having the species
 	var/list/inherent_traits = list()
 	var/inherent_biotypes = MOB_ORGANIC|MOB_HUMANOID
+	/// How hard the cold and the heat hit this species, on top of quirks. 0 means immune
+	var/climate_cold_mod = 1
+	var/climate_heat_mod = 1
+	/// Machines feel no cold and overheat instead of getting heatstroke, which burns charge rather than stamina
+	var/climate_machine = FALSE
 
 	var/attack_verb = "punch"	// punch-specific attack verb
 	var/sound/attack_sound = 'sound/weapons/punch1.ogg'

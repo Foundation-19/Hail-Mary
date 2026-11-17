@@ -275,6 +275,72 @@
 	TEST_ASSERT(victim.climate_wetness < CLIMATE_WET_MAX, "A soaked person never dried off")
 	TEST_ASSERT(isnull(get_active_weather(victim)), "A weather was reported with none running")
 
+/datum/unit_test/climate_clothing/Run()
+	var/mob/living/carbon/human/bare = allocate(/mob/living/carbon/human)
+	var/mob/living/carbon/human/coated = allocate(/mob/living/carbon/human)
+	var/mob/living/carbon/human/armored = allocate(/mob/living/carbon/human)
+	var/mob/living/carbon/human/ragged = allocate(/mob/living/carbon/human)
+	var/mob/living/carbon/human/duster = allocate(/mob/living/carbon/human)
+	for(var/mob/living/carbon/human/H in list(coated, armored, duster))
+		H.equip_to_slot(allocate(/obj/item/clothing/under/color/grey), SLOT_W_UNIFORM)
+	ragged.equip_to_slot(allocate(/obj/item/clothing/under/f13/rag), SLOT_W_UNIFORM)
+	coated.equip_to_slot(allocate(/obj/item/clothing/suit/hooded/wintercoat), SLOT_WEAR_SUIT)
+	armored.equip_to_slot(allocate(/obj/item/clothing/suit/armor/heavy), SLOT_WEAR_SUIT)
+	duster.equip_to_slot(allocate(/obj/item/clothing/suit/armor/light/duster), SLOT_WEAR_SUIT)
+
+	TEST_ASSERT(coated.get_climate_insulation() > bare.get_climate_insulation(), "A winter coat added no insulation")
+	TEST_ASSERT(coated.get_climate_insulation() >= armored.get_climate_insulation(), "A winter coat kept the cold out worse than heavy armor")
+	TEST_ASSERT(ragged.get_climate_insulation() < duster.get_climate_insulation(), "Rags insulated as well as a proper outfit")
+	TEST_ASSERT(armored.get_climate_heat_trap() > duster.get_climate_heat_trap(), "Heavy armor did not trap more heat than a duster")
+	TEST_ASSERT(coated.get_climate_insulation() <= CLIMATE_INSULATION_MAX, "Insulation went past its cap")
+
+	var/before = coated.get_climate_insulation()
+	coated.equip_to_slot(allocate(/obj/item/clothing/neck/scarf), SLOT_NECK)
+	var/with_scarf = coated.get_climate_insulation()
+	TEST_ASSERT(with_scarf > before, "A scarf around the neck added no insulation")
+	coated.equip_to_slot(allocate(/obj/item/clothing/mask/balaclava), SLOT_WEAR_MASK)
+	TEST_ASSERT(coated.get_climate_insulation() > with_scarf, "A balaclava added no insulation")
+
+	bare.climate_temp_offset = -40
+	coated.climate_temp_offset = -40
+	TEST_ASSERT(coated.get_climate_target() > bare.get_climate_target(), "Warm clothing did not soften the cold")
+
+/datum/unit_test/climate_species/Run()
+	var/mob/living/carbon/human/human = allocate(/mob/living/carbon/human)
+	var/mob/living/carbon/human/ghoul = allocate(/mob/living/carbon/human)
+	var/mob/living/carbon/human/mutant = allocate(/mob/living/carbon/human)
+	var/mob/living/carbon/human/robot = allocate(/mob/living/carbon/human)
+	ghoul.set_species(/datum/species/ghoul)
+	mutant.set_species(/datum/species/smutant)
+	robot.set_species(/datum/species/c27)
+	var/list/everyone = list(human, ghoul, mutant, robot)
+	// Whatever area the arena is in, aim for fixed absolute temperatures
+	var/base = human.get_climate_ambient()
+
+	for(var/mob/living/carbon/human/H in everyone)
+		TEST_ASSERT(H.climate_applies(), "[H.dna.species.name] was exempt from the climate")
+		H.climate_temp_offset = CLIMATE_COMFORT_MIN - 10 - base
+	TEST_ASSERT(human.get_climate_target() < 0, "A human felt no cold")
+	TEST_ASSERT(ghoul.get_climate_target() > human.get_climate_target(), "A ghoul did not feel the cold less than a human")
+	TEST_ASSERT(mutant.get_climate_target() > ghoul.get_climate_target(), "A super mutant did not feel the cold less than a ghoul")
+	TEST_ASSERT_EQUAL(robot.get_climate_target(), 0, "A C-27 felt the cold")
+
+	for(var/mob/living/carbon/human/H in everyone)
+		H.climate_temp_offset = CLIMATE_COMFORT_MAX + 10 - base
+	TEST_ASSERT(human.get_climate_target() > 0, "A human felt no heat")
+	TEST_ASSERT(ghoul.get_climate_target() > human.get_climate_target(), "A ghoul did not feel the heat more than a human")
+	TEST_ASSERT(mutant.get_climate_target() > human.get_climate_target(), "A super mutant did not feel the heat more than a human")
+	TEST_ASSERT(robot.get_climate_target() > 0, "A C-27 never overheated")
+
+	robot.physiology.heat_mod = 0.5
+	TEST_ASSERT(robot.get_climate_target() < human.get_climate_target(), "Heat resistance did nothing for a C-27")
+
+	robot.nutrition = NUTRITION_LEVEL_FED
+	robot.climate_exposure = CLIMATE_EXPOSURE_MAX
+	robot.climate_temp_offset = 100
+	robot.handle_climate()
+	TEST_ASSERT(robot.nutrition < NUTRITION_LEVEL_FED, "An overheating C-27 did not burn charge")
+
 /datum/unit_test/credit_ref_projectile
 	var/hits = 0
 

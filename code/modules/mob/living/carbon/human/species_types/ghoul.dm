@@ -114,6 +114,9 @@
 	sexes = 1
 	sharp_blunt_mod = 2
 	sharp_edged_mod = 2
+	// dead nerves barely register the cold, but dried-out skin cannot sweat
+	climate_cold_mod = 0.75
+	climate_heat_mod = 1.25
 	disliked_food = NONE
 	liked_food = NONE
 	var/info_text = "You are a <span class='danger'>Ghoul.</span> Your necrotic heart surges with power, but each use builds <b>feral instinct</b>. Manage your radiation and feral stacks carefully, or risk losing yourself to the wasteland."
