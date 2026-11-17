@@ -440,15 +440,14 @@
 	// all fight long, between frenzied surges and bouts where its ruined hide can't hold together.
 	var/flare_state = ABOM_FLARE_NORMAL
 	var/flare_timer_id
-	var/list/mob_armor_ruptured
+	var/datum/armor/mob_armor_ruptured
+	var/datum/armor/mob_armor_normal
 
 /mob/living/simple_animal/hostile/abomhorror/Initialize(mapload)
 	. = ..()
-	mob_armor_ruptured = list(
-		"melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0,
-		"bio" = 100, "rad" = 100, "fire" = 0, "acid" = 0, "wound" = 0,
-		"damage_threshold" = 0
-	)
+	// mob_armor is only a /datum/armor after the parent Initialize converts it, so both variants are built here
+	mob_armor_normal = mob_armor
+	mob_armor_ruptured = getArmor(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 100, fire = 0, acid = 0, wound = 0, damage_threshold = 0)
 	schedule_next_flare()
 
 /mob/living/simple_animal/hostile/abomhorror/Destroy()
@@ -497,7 +496,7 @@
 	if(QDELETED(src) || stat == DEAD)
 		return
 	color = initial(color)
-	mob_armor = initial(mob_armor)
+	mob_armor = mob_armor_normal
 	melee_damage_lower = initial(melee_damage_lower)
 	melee_damage_upper = initial(melee_damage_upper)
 	armour_penetration = initial(armour_penetration)
@@ -564,6 +563,12 @@
 /mob/living/simple_animal/hostile/abomhorror/nsb/Initialize()
 	. = ..()
 	abom_sounds = list('sound/voice/abomination1.ogg', 'sound/voice/abomscream.ogg', 'sound/voice/abommoan.ogg', 'sound/voice/abomscream2.ogg', 'sound/voice/abomscream3.ogg')
+
+/mob/living/simple_animal/hostile/abomhorror/nsb/CanAttack(atom/the_target)
+	// attack_same exists so it can turn on raiders and robots, not so the bunker's horrors maul each other
+	if(istype(the_target, /mob/living/simple_animal/hostile/abomhorror))
+		return FALSE
+	return ..()
 
 /mob/living/simple_animal/hostile/abomhorror/nsb/say(message, datum/language/language = null, list/spans = list(), sanitize, ignore_spam, forced = null, just_chat)
 	. = ..()

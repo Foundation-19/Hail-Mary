@@ -620,6 +620,21 @@
 	TEST_ASSERT(/datum/weather/rain in weights, "A free family was left out of the roll")
 	SSweather.weather_rolls = old_rolls
 
+/datum/unit_test/abomhorror_rupture_armor/Run()
+	var/mob/living/simple_animal/hostile/abomhorror/nsb/horror = allocate(/mob/living/simple_animal/hostile/abomhorror/nsb)
+	var/mob/living/simple_animal/hostile/abomhorror/nsb/sibling = allocate(/mob/living/simple_animal/hostile/abomhorror/nsb)
+	var/normal_dt = horror.getarmor(null, "damage_threshold")
+
+	horror.start_rupture()
+	TEST_ASSERT(istype(horror.mob_armor, /datum/armor), "Rupturing replaced the armor with something that isn't armor")
+	TEST_ASSERT_EQUAL(horror.getarmor(null, "melee"), 0, "A ruptured failed experiment kept its melee armor")
+	horror.end_flare()
+	TEST_ASSERT(istype(horror.mob_armor, /datum/armor), "Recovering from a rupture left something that isn't armor")
+	TEST_ASSERT_EQUAL(horror.getarmor(null, "damage_threshold"), normal_dt, "Armor was not restored after a rupture")
+	TEST_ASSERT(!horror.CanAttack(sibling), "Failed experiments target each other")
+	deltimer(horror.flare_timer_id)
+	deltimer(sibling.flare_timer_id)
+
 /datum/unit_test/acid_rain_exposure/Run()
 	var/mob/living/carbon/human/victim = allocate(/mob/living/carbon/human)
 	// A quick dash through the rain does nothing
