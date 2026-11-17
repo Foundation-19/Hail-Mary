@@ -30,7 +30,7 @@
 		reagents.add_reagent(reagent_id, tank_volume)
 	. = ..()
 
-/obj/structure/reagent_dispensers/proc/boom()
+/obj/structure/reagent_dispensers/proc/boom(mob/living/credit_to)
 	visible_message(span_danger("\The [src] ruptures!"))
 	chem_splash(loc, 5, list(reagents))
 	qdel(src)
@@ -142,8 +142,8 @@
 	icon_state = "fuel_high"
 	tank_volume = 3000
 
-/obj/structure/reagent_dispensers/fueltank/boom()
-	explosion(get_turf(src), 0, 1, 5, flame_range = 5)
+/obj/structure/reagent_dispensers/fueltank/boom(mob/living/credit_to)
+	explosion(get_turf(src), 0, 1, 5, flame_range = 5, credit_to = get_explosion_credit(credit_to))
 	qdel(src)
 
 /obj/structure/reagent_dispensers/fueltank/blob_act(obj/structure/blob/B)
@@ -168,7 +168,7 @@
 			GLOB.bombers += boom_message
 			message_admins(boom_message)
 			P.firer.log_message("triggered a fueltank explosion via projectile.", LOG_ATTACK)
-			boom()
+			boom(get_responsible_mob(P.firer))
 
 /obj/structure/reagent_dispensers/fueltank/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/weldingtool))
@@ -182,7 +182,7 @@
 			message_admins(message_admins)
 
 			user.log_message("triggered a fueltank explosion via welding tool.", LOG_ATTACK)
-			boom()
+			boom(user)
 		return
 	. = ..()
 

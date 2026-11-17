@@ -43,7 +43,8 @@
 		victim.pending_damager = null
 		return
 	var/lost = snapshot[2] - victim.health
-	if(lost <= 0 && ishuman(src) && (a_intent == INTENT_HARM || a_intent == INTENT_DISARM))
+	// Only unarmed attacks (no source) can be sleeping in an async attack_hand(); a bullet or item that dealt nothing was simply blocked
+	if(lost <= 0 && isnull(source) && (a_intent == INTENT_HARM || a_intent == INTENT_DISARM))
 		// The hit may still be sleeping in an async attack_hand(); attribute the damage if it lands shortly
 		victim.pending_damager = null
 		victim.watch_late_damage(src)
@@ -74,7 +75,14 @@
 	var/mob/living/attacker = RESOLVEWEAKREF(late_damager)
 	if(!attacker || QDELETED(attacker) || attacker == src)
 		return
+	// A sleeping unarmed attack lands within reach of its attacker, which rules out damage from something else far away
+	if(attacker.z != z || get_dist(attacker, src) > LATE_DAMAGE_CREDIT_RANGE)
+		return
 	var/dealt = forced ? damage : damage * (100 - min(blocked, ARMOR_CAP_DR)) / 100
+	if(dealt <= 0)
+		return
+	// One attack lands one hit, so the first damage ends the window and later damage is not mistaken for it
+	late_damager_until = 0
 	register_damage_from(attacker, dealt, attacker)
 
 /**

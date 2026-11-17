@@ -57,7 +57,7 @@
 	. = ..()
 	var/turf/location = get_turf(src)
 	if(location)
-		new /obj/effect/hotspot(location)
+		new /obj/effect/hotspot(location, null, null, null, get_responsible_mob(firer))
 		location.hotspot_expose(700, 50, 1)
 
 /obj/item/projectile/bullet/a84mm_chem

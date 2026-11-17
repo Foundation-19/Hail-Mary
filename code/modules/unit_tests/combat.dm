@@ -319,6 +319,116 @@
 	victim.apply_damage(5, BRUTE)
 	TEST_ASSERT_EQUAL(hits, 1, "Damage long after an attack was still attributed to the attacker")
 
+	// One attack lands one hit
+	victim.watch_late_damage(attacker)
+	victim.apply_damage(5, BRUTE)
+	victim.apply_damage(5, BRUTE)
+	TEST_ASSERT_EQUAL(hits, 2, "A single sleeping attack was credited with more than one hit")
+
+	// Damage from something out of reach is not the attack that was being waited on
+	victim.watch_late_damage(attacker)
+	attacker.forceMove(run_loc_top_right)
+	victim.forceMove(run_loc_bottom_left)
+	victim.apply_damage(5, BRUTE)
+	TEST_ASSERT_EQUAL(hits, 2, "Damage far from the attacker was credited to it")
+
+	// A bullet that was blocked or missed must not open a window for unrelated damage
+	victim.late_damager_until = 0
+	attacker.forceMove(run_loc_bottom_left)
+	var/list/blocked = attacker.start_attack_credit(victim)
+	attacker.end_attack_credit(blocked, attacker)
+	victim.apply_damage(5, BRUTE)
+	TEST_ASSERT_EQUAL(hits, 2, "A blocked attack with a weapon opened a late-damage window")
+
+/datum/unit_test/sunset_phases/Run()
+	TEST_ASSERT_EQUAL(SSnightcycle.phase_for_station_time(700000), NIGHTCYCLE_PHASE_LATEAFTERNOON, "Late afternoon is not reached by the clock")
+	TEST_ASSERT_EQUAL(SSnightcycle.phase_for_station_time(720000), NIGHTCYCLE_PHASE_SUNSET, "Sunset is not reached by the clock")
+	TEST_ASSERT_EQUAL(SSnightcycle.phase_for_station_time(790000), NIGHTCYCLE_PHASE_FULLSUNSET, "Full sunset is not reached by the clock")
+	TEST_ASSERT_EQUAL(SSnightcycle.phase_for_station_time(820000), NIGHTCYCLE_PHASE_NIGHTTIME, "Night does not follow full sunset")
+
+/datum/unit_test/explosion_credit
+	var/hits = 0
+
+/datum/unit_test/explosion_credit/proc/on_hit(datum/source, mob/living/victim, damage, atom/hit_source)
+	hits++
+
+/datum/unit_test/explosion_credit/proc/wait_for_hit()
+	for(var/i in 1 to 40)
+		if(hits)
+			return
+		sleep(5)
+
+/datum/unit_test/explosion_credit/Run()
+	var/mob/living/carbon/human/attacker = allocate(/mob/living/carbon/human)
+	var/mob/living/simple_animal/hostile/victim = allocate(/mob/living/simple_animal/hostile)
+	victim.maxHealth = 500
+	victim.health = 500
+	RegisterSignal(attacker, COMSIG_MOB_LANDED_HIT, PROC_REF(on_hit))
+	var/turf/arena = run_loc_bottom_left
+	attacker.forceMove(run_loc_top_right)
+
+	// Whoever last shot or hit a fuel tank owns the blast, even when something else detonates it
+	var/obj/structure/reagent_dispensers/fueltank/tank = allocate(/obj/structure/reagent_dispensers/fueltank, arena)
+	tank.take_damage(1, BRUTE, "melee", 0, attacked_by = attacker)
+	tank.boom()
+	wait_for_hit()
+	TEST_ASSERT(hits > 0, "A fuel tank blast was not credited to whoever damaged it")
+
+	// A blast set off by another explosion inherits that explosion's culprit
+	hits = 0
+	victim.health = 500
+	var/obj/structure/reagent_dispensers/fueltank/chained = allocate(/obj/structure/reagent_dispensers/fueltank, arena)
+	GLOB.explosion_chain_credit = WEAKREF(attacker)
+	chained.boom()
+	GLOB.explosion_chain_credit = null
+	wait_for_hit()
+	TEST_ASSERT(hits > 0, "A chained explosion did not inherit the credit of the blast that set it off")
+
+	// Reagent explosions can be credited too
+	hits = 0
+	victim.health = 500
+	var/datum/effect_system/reagents_explosion/boom = new
+	boom.set_up(4, arena, 0, 0)
+	boom.set_credit(attacker)
+	boom.start()
+	wait_for_hit()
+	TEST_ASSERT(hits > 0, "A reagent explosion was not credited")
+
+	// A mine nobody armed credits whoever set it off, or whoever shot it
+	var/obj/item/mine/explosive/mine = allocate(/obj/item/mine/explosive, arena)
+	TEST_ASSERT_EQUAL(mine.get_credit(attacker), attacker, "A map mine did not credit the one who stepped on it")
+	mine.note_damager(victim)
+	TEST_ASSERT_EQUAL(mine.get_credit(attacker), victim, "A map mine did not credit the one who shot it")
+
+	// A tank set off by a fire credits whoever started the fire
+	hits = 0
+	victim.health = 500
+	allocate(/obj/structure/reagent_dispensers/fueltank, arena)
+	new /obj/effect/hotspot(arena, null, null, null, attacker)
+	wait_for_hit()
+	TEST_ASSERT(hits > 0, "A fuel tank that blew up from a fire was not credited to whoever lit it")
+
+	// A tank shot long ago (well past the 30 second mark) still blames the shooter
+	hits = 0
+	victim.health = 500
+	var/obj/structure/reagent_dispensers/fueltank/stale = allocate(/obj/structure/reagent_dispensers/fueltank, arena)
+	stale.take_damage(1, BRUTE, "bullet", 0, attacked_by = attacker)
+	stale.damaged_by_time = world.time - 2 MINUTES
+	TEST_ASSERT(!stale.get_recent_damager(), "The 30 second damager window did not expire")
+	TEST_ASSERT_EQUAL(stale.get_explosion_credit(), attacker, "A tank that was shot minutes ago lost its blame")
+	stale.damaged_by_time = world.time - EXPLOSION_BLAME_WINDOW - 1 SECONDS
+	TEST_ASSERT(!stale.get_explosion_credit(), "An explosion blamed someone long after the window")
+
+	// The flamethrower stream credits whoever is holding it, both for the hit and for the fire it leaves
+	hits = 0
+	victim.health = 500
+	victim.forceMove(arena)
+	var/obj/item/ammo_casing/caseless/flamethrower/stream = allocate(/obj/item/ammo_casing/caseless/flamethrower)
+	stream.ignite_turf(arena, attacker)
+	TEST_ASSERT(hits > 0, "A flamethrower stream hit was not credited to its user")
+	var/obj/effect/hotspot/stream_fire = locate() in arena
+	TEST_ASSERT(stream_fire && RESOLVEWEAKREF(stream_fire.credit_ref) == attacker, "The fire a flamethrower stream leaves does not carry its user's credit")
+
 /datum/unit_test/weather_time_of_day/Run()
 	var/old_time = SSnightcycle.current_time
 	var/old_frozen = SSnightcycle.admin_frozen

@@ -21,6 +21,7 @@
 		log_game("Reagent explosion reaction occurred at [AREACOORD(T)]. Last Fingerprint: [lastkey ? lastkey : "N/A"]." )
 		var/datum/effect_system/reagents_explosion/e = new()
 		e.set_up(modifier + round(multiplier/strengthdiv, 1), T, 0, 0)
+		e.set_credit(holder.my_atom.get_blame_mob())
 		e.start()
 	holder.clear_reagents()
 
@@ -140,8 +141,9 @@
 
 /datum/chemical_reaction/clf3/on_reaction(datum/reagents/holder, multiplier)
 	var/turf/T = get_turf(holder.my_atom)
+	var/mob/living/blame = holder.my_atom?.get_blame_mob()
 	for(var/turf/turf in range(1,T))
-		new /obj/effect/hotspot(turf)
+		new /obj/effect/hotspot(turf, null, null, null, blame)
 	holder.chem_temp = 1000 // hot as shit
 
 /datum/chemical_reaction/reagent_explosion/methsplosion
@@ -155,8 +157,9 @@
 
 /datum/chemical_reaction/reagent_explosion/methsplosion/on_reaction(datum/reagents/holder, multiplier)
 	var/turf/T = get_turf(holder.my_atom)
+	var/mob/living/blame = holder.my_atom?.get_blame_mob()
 	for(var/turf/turf in range(1,T))
-		new /obj/effect/hotspot(turf)
+		new /obj/effect/hotspot(turf, null, null, null, blame)
 	holder.chem_temp = 1000 // hot as shit
 	..()
 

@@ -183,6 +183,12 @@
 #define KILL_CREDIT_WINDOW_DOT (20 SECONDS)
 /// How long after an unarmed attack that dealt nothing yet (it sleeps first) its damage is still attributed to the attacker
 #define LATE_DAMAGE_CREDIT_WINDOW (2 SECONDS)
+/// The attacker must still be within this many tiles of the victim for late damage to be attributed to them
+#define LATE_DAMAGE_CREDIT_RANGE 2
+/// How long after someone damaged or primed an explosive object (fuel tank, barrel) it still blames them when it goes off
+#define EXPLOSION_BLAME_WINDOW (5 MINUTES)
+/// Fingerprints only point at the culprit of something (a chemical reaction, a cigarette) if they were left this recently
+#define FINGERPRINT_BLAME_WINDOW (2 MINUTES)
 /// Shock Value cannot push a mob's morale below this on its own
 #define SHOCK_VALUE_MORALE_FLOOR 0.3
 /// Shock Value makes a melee mob flinch this long, and may do so once per cooldown. Ranged mobs just lose morale.

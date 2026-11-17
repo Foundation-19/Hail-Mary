@@ -45,7 +45,7 @@
 			STOP_PROCESSING(SSobj, src)
 
 /obj/item/bottlecap_mine/proc/boom()
-	explosion(src.loc,0,2,3, flame_range = 6, credit_to = RESOLVEWEAKREF(placer))
+	explosion(src.loc,0,2,3, flame_range = 6, credit_to = RESOLVEWEAKREF(placer) || get_explosion_credit())
 
 /obj/item/bottlecap_mine/process()
 	if(state != ACTIVE)
@@ -211,8 +211,18 @@
 	var/range_light = 2
 	var/range_flash = 3
 
+/// Whoever armed it, else whoever's blast or shot set it off, else whoever stepped on it
+/obj/item/mine/proc/get_credit(mob/victim)
+	var/mob/living/owner = RESOLVEWEAKREF(placer)
+	if(owner)
+		return owner
+	owner = get_explosion_credit()
+	if(owner)
+		return owner
+	return isliving(victim) ? victim : null
+
 /obj/item/mine/explosive/mineEffect(mob/victim)
-	explosion(loc, range_devastation, range_heavy, range_light, range_flash, credit_to = RESOLVEWEAKREF(placer))
+	explosion(loc, range_devastation, range_heavy, range_light, range_flash, credit_to = get_credit(victim))
 
 /obj/item/mine/explosive/random
 	random = TRUE
@@ -239,9 +249,9 @@
 
 /obj/item/mine/shrapnel/mineEffect(mob/victim)
 	var/datum/component/pellet_cloud/cloud = AddComponent(/datum/component/pellet_cloud, projectile_type=shrapnel_type, magnitude=shrapnel_magnitude)
-	var/mob/living/owner = RESOLVEWEAKREF(placer)
+	var/mob/living/owner = get_credit(victim)
 	if(cloud && owner)
-		cloud.credit_ref = placer
+		cloud.credit_ref = WEAKREF(owner)
 	explosion(loc, 0, 0, 2, 2, credit_to = owner)
 
 /obj/item/mine/shrapnel/random

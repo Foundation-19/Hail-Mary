@@ -206,9 +206,9 @@
 		return FALSE
 	. = ..()
 
-/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station/boom()
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station/boom(mob/living/credit_to)
 	// Holds far more fuel than a portable tank, so rupturing it is a bigger, deadlier fireball than a regular fueltank's
-	explosion(get_turf(src), 1, 2, 8, flame_range = 8)
+	explosion(get_turf(src), 1, 2, 8, flame_range = 8, credit_to = get_explosion_credit(credit_to))
 	qdel(src)
 
 /obj/structure/reagent_dispensers/fueltank/vehicle_gas_station/on_attack_hand(mob/living/user, act_intent, unarmed_attack_flags)

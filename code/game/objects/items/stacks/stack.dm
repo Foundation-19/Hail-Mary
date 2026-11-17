@@ -464,7 +464,7 @@
 		fingerprintshidden = from.fingerprintshidden.Copy()
 	if(from.fingerprintslast)
 		fingerprintslast = from.fingerprintslast
-
+		fingerprintslast_time = from.fingerprintslast_time
 /obj/item/stack/microwave_act(obj/machinery/microwave/M)
 	if(istype(M) && M.dirty < 100)
 		M.dirty += amount

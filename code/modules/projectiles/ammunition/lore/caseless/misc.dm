@@ -66,15 +66,17 @@
 	owner.apply_damage(tick_damage, BURN, null, blocked)
 
 //spawns the fire effect on a tile and burns/ignites everyone standing on it - shared by both the traced line and its widening tiles
-/obj/item/ammo_casing/caseless/flamethrower/proc/ignite_turf(turf/T)
-	new /obj/effect/hotspot(T, flame_volume, flame_temperature, FALSE) //burn_objects FALSE: the stream hurts people, it does not ash loot and furniture. turf/hotspot_expose() is stubbed out in this codebase, spawn the fire effect directly
+/obj/item/ammo_casing/caseless/flamethrower/proc/ignite_turf(turf/T, mob/living/user)
+	new /obj/effect/hotspot(T, flame_volume, flame_temperature, FALSE, user) //burn_objects FALSE: the stream hurts people, it does not ash loot and furniture. turf/hotspot_expose() is stubbed out in this codebase, spawn the fire effect directly
 	for(var/mob/living/L in T)
+		var/list/credit_snapshot = user?.start_attack_credit(L)
 		L.adjust_fire_stacks(ignite_fire_stacks)
 		L.IgniteMob()
 		L.apply_status_effect(/datum/status_effect/flame_afterburn)
 		//run through "fire" armor like any other damage source, instead of a flat adjustFireLoss() bypass - so fire-rated suits (hazmat, power armor) give real counterplay against being hosed
 		var/blocked = L.run_armor_check(null, "fire")
 		L.apply_damage(direct_burn_damage, BURN, null, blocked)
+		user?.end_attack_credit(credit_snapshot, src)
 
 //guaranteed line-of-fire, no RNG spread - a stream of napalm doesn't miss, it just has a short reach and stops at walls
 /obj/item/ammo_casing/caseless/flamethrower/fire_casing(atom/target, mob/living/user, params, distro, quiet, zone_override, spread, damage_multiplier = 1, penetration_multiplier = 1, projectile_speed_multiplier = 1, atom/fired_from)
@@ -136,7 +138,7 @@
 /obj/item/ammo_casing/caseless/flamethrower/proc/run_stream(mob/living/user, list/turf/stream_turfs)
 	var/datum/beam/stream_beam
 	for(var/turf/T as anything in stream_turfs)
-		ignite_turf(T)
+		ignite_turf(T, user)
 		if(!QDELETED(user))
 			QDEL_NULL(stream_beam)
 			//the turf-by-turf hotspots handle the game logic but look like disconnected blobs off-angle - a free-angle beam to the newest tile ties them together

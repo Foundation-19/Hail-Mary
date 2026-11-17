@@ -13,5 +13,5 @@
 	. = ..()
 	var/turf/location = get_turf(src)
 	if(location)
-		new /obj/effect/hotspot(location, null, null, FALSE)
+		new /obj/effect/hotspot(location, null, null, FALSE, get_responsible_mob(firer))
 		location.hotspot_expose(700, 5, 1)

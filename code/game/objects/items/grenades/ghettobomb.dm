@@ -198,11 +198,11 @@ GLOBAL_LIST_INIT(recent_primers, list())
 
 /obj/item/reagent_containers/food/drinks/bottle/molotov/bullet_act(obj/item/projectile/P)
 	. = ..()
-	make_boom()
+	make_boom(get_responsible_mob(P.firer) || RESOLVEWEAKREF(lighter))
 	qdel(src)
 
 /obj/item/reagent_containers/food/drinks/bottle/molotov/ex_act()
-	make_boom()
+	make_boom(get_explosion_credit() || RESOLVEWEAKREF(lighter))
 	. = ..()
 
 /obj/item/reagent_containers/food/drinks/bottle/molotov/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)

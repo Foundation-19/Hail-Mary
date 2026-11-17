@@ -64,6 +64,7 @@
 		fingerprintshidden[M.key] += " Last: [M.real_name]\[[current_time]\][hasgloves]. Ckey: [M.ckey]"
 
 	fingerprintslast = M.ckey
+	fingerprintslast_time = world.time
 
 //Set ignoregloves to add prints irrespective of the mob having gloves on.
 /atom/proc/add_fingerprint(mob/living/M, ignoregloves = FALSE)
@@ -102,3 +103,4 @@
 		LAZYINITLIST(A.fingerprintshidden)
 		A.fingerprintshidden |= fingerprintshidden    //admin
 	A.fingerprintslast = fingerprintslast
+	A.fingerprintslast_time = fingerprintslast_time

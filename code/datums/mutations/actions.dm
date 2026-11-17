@@ -65,13 +65,13 @@
 	var/turf/T = user.loc
 	if(!isturf(T))
 		return FALSE
-	firecone(T,user.dir,strength)
+	firecone(T,user.dir,strength,user)
 	remove_ranged_ability()
 	charge_counter = 0
 	start_recharge()
 	on_deactivation(user)
 
-/proc/firecone(loc,dir,length)
+/proc/firecone(loc,dir,length,mob/living/user)
 	var/addsides = FALSE
 	var/list/turf/recentturf = list(loc)
 	for (var/i = 0;i < length;i++)
@@ -96,7 +96,7 @@
 					h -= j
 					continue
 		for (var/turf/l in h)
-			new /obj/effect/hotspot(l)
+			new /obj/effect/hotspot(l, null, null, null, user)
 			l.hotspot_expose(700,50,1)
 		sleep(1)
 		recentturf = h

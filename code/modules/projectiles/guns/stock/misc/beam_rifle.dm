@@ -436,7 +436,7 @@
 		to_chat(L, span_userdanger("\The [src] sears you!"))
 	for(var/turf/T in range(aoe_fire_range, epicenter))		//handle aoe fire
 		if(prob(aoe_fire_chance))
-			new /obj/effect/hotspot(T)
+			new /obj/effect/hotspot(T, null, null, null, get_responsible_mob(firer))
 	for(var/obj/O in range(aoe_structure_range, epicenter))
 		if(!isitem(O))
 			if(O.level == 1)	//Please don't break underfloor items!

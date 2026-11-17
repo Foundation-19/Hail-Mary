@@ -88,6 +88,13 @@
 	var/flashing = 0			// does explosion creates flash effect?
 	var/flashing_factor = 0		// factor of how powerful the flash effect relatively to the explosion
 	var/explosion_message = 1				//whether we show a message to mobs.
+	/// Mob credited for the explosion, see explosion()
+	var/datum/weakref/credit_ref
+
+/// Credits the blast to a mob
+/datum/effect_system/reagents_explosion/proc/set_credit(mob/living/credit_to)
+	if(credit_to)
+		credit_ref = WEAKREF(credit_to)
 
 /datum/effect_system/reagents_explosion/set_up(amt, loca, flash = 0, flash_fact = 0, message = 1)
 	amount = amt
@@ -104,5 +111,5 @@
 	if(explosion_message)
 		location.visible_message(span_danger("The solution violently explodes!"), \
 								span_italic("You hear an explosion!"))
-	dyn_explosion(location, amount, flashing_factor)
+	dyn_explosion(location, amount, flashing_factor, credit_to = RESOLVEWEAKREF(credit_ref))
 

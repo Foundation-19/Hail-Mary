@@ -51,6 +51,8 @@ SUBSYSTEM_DEF(explosion_spam)
 	E.flame_range = flame_range
 	E.source = source
 	E.adminlog = adminlog
+	if(!credit_to)
+		credit_to = RESOLVEWEAKREF(GLOB.explosion_chain_credit)
 	if(credit_to)
 		E.credit_ref = WEAKREF(credit_to)
 	E.queued_time = world.time
