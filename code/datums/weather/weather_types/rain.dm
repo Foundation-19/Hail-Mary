@@ -17,6 +17,7 @@
 	end_message = "<span class='notice'><font size=2>You start to hear the last of the rain as the sky begins to clear up.</font></span>"
 	end_overlay = "rain_gathering"
 	tag_weather = WEATHER_RAIN
+	weather_family = "precipitation"
 	area_types = list(/area/f13/wasteland, /area/f13/desert, /area/f13/farm, /area/f13/forest)
 	protected_areas = list(/area/shuttle)
 	target_trait = ZTRAIT_STATION
@@ -32,6 +33,10 @@
 	visibility_mult = 0.85
 	wetness_rate = 3
 	extinguishes_fires = TRUE
+	// Rain falls from a cloud that drifts along with the wind
+	cell_radius_lower = 0.18
+	cell_radius_upper = 0.3
+	drift_speed = 0.12
 
 	var/datum/looping_sound/rain_sounds/sound_ao = new(list(), FALSE, TRUE)
 	var/datum/looping_sound/indoor_rain_sounds/sound_ai = new(list(), FALSE, TRUE)
@@ -42,6 +47,7 @@
 	target_trait = ZTRAIT_AWAY
 	weather_duration_lower = 18000
 	weather_duration_upper = 18000
+	localized = FALSE
 
 /datum/weather/rain/weather_act(mob/living/L)
 	if(iscarbon(L))
@@ -129,25 +135,9 @@
 
 
 
-/datum/weather/rain/telegraph()
-	. = ..()
-	var/list/inside_areas = list()
-	var/list/outside_areas = list()
-	var/list/eligible_areas = list()
-	for (var/z in impacted_z_levels)
-		eligible_areas += SSmapping.areas_in_z["[z]"]
-	for(var/i in 1 to eligible_areas.len)
-		var/area/place = eligible_areas[i]
-		if(!place)
-			WARNING("Null area in eligible areas: [eligible_areas]")
-			continue
-		if(place.outdoors)
-			outside_areas += place
-		else
-			inside_areas += place
-
-	sound_ao.output_atoms = outside_areas
-	sound_ai.output_atoms = inside_areas
+/datum/weather/rain/update_listeners(list/outside, list/inside)
+	sound_ao.output_atoms = outside
+	sound_ai.output_atoms = inside
 
 /datum/weather/rain/start()
 	. = ..()
@@ -158,8 +148,6 @@
 	. = ..()
 	sound_ao.stop()
 	sound_ai.stop()
-
-	return ..()
 
 //Fog
 /datum/weather/rain/fog
@@ -179,6 +167,7 @@
 	end_duration = 250
 	end_message = "<span class='notice'><font size=2>The blanket of fog finally lifts up.</font></span>"
 	end_overlay = "fog"
+	weather_family = "fog"
 	area_types = list(/area/f13/wasteland, /area/f13/desert, /area/f13/farm, /area/f13/forest)
 	protected_areas = list(/area/shuttle)
 	target_trait = ZTRAIT_STATION
@@ -193,5 +182,9 @@
 	visibility_mult = 0.6
 	wetness_rate = 1.5
 	extinguishes_fires = FALSE
+	// Fog pools in low ground and hangs there
+	cell_radius_lower = 0.12
+	cell_radius_upper = 0.22
+	drift_speed = 0.02
 	// Fog gathers in the cool hours around dawn
 	phase_weights = "3 2 0.8 0.4 0.4 0.6 1 1.2 1.5"

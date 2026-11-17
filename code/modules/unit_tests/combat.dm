@@ -209,8 +209,10 @@
 	var/mob/living/carbon/human/normal = allocate(/mob/living/carbon/human)
 	var/mob/living/carbon/human/intolerant = allocate(/mob/living/carbon/human)
 	intolerant.physiology.cold_mod = 1.4
-	normal.climate_temp_offset = -20
-	intolerant.climate_temp_offset = -20
+	// Whatever the time of day, aim for a fixed ambient temperature
+	var/base = normal.get_climate_ambient()
+	normal.climate_temp_offset = CLIMATE_COMFORT_MIN - 20 - base
+	intolerant.climate_temp_offset = CLIMATE_COMFORT_MIN - 20 - base
 
 	TEST_ASSERT(normal.get_climate_target() < 0, "A freezing ambient did not produce cold exposure")
 	TEST_ASSERT(intolerant.get_climate_target() < normal.get_climate_target(), "Cold Intolerant did not make cold exposure worse")
@@ -218,7 +220,7 @@
 	normal.handle_climate()
 	TEST_ASSERT(normal.climate_exposure < 0 && normal.bodytemperature < BODYTEMP_NORMAL, "Cold exposure did not chill the body")
 
-	normal.climate_temp_offset = 0
+	normal.climate_temp_offset = CLIMATE_INDOOR_TEMP - base
 	for(var/i in 1 to 200)
 		normal.handle_climate()
 	TEST_ASSERT_EQUAL(normal.climate_exposure, 0, "Exposure did not wear off in a comfortable ambient")
@@ -256,9 +258,41 @@
 	fire.fire()
 	TEST_ASSERT(victim.get_climate_ambient() > cold, "Relighting a refuelled campfire did not warm someone again")
 
+/datum/unit_test/climate_indoor_drift/Run()
+	var/mob/living/carbon/human/victim = allocate(/mob/living/carbon/human)
+	var/area/A = get_area(victim)
+	var/old_outdoors = A.outdoors
+	var/old_leak = A.climate_leak
+	var/old_lag = A.climate_lag
+	var/old_temp = A.climate_indoor_temp
+	var/old_stamp = A.climate_indoor_stamp
+	A.outdoors = FALSE
+
+	var/outdoor = climate_phase_temp(SSnightcycle.current_time)
+	A.climate_leak = 1
+	A.climate_lag = CLIMATE_LAG_DEFAULT
+	A.climate_indoor_temp = CLIMATE_INDOOR_TEMP
+	A.climate_indoor_stamp = world.time - 60 SECONDS
+	var/drifted = A.get_climate_temp()
+	if(outdoor != CLIMATE_INDOOR_TEMP)
+		TEST_ASSERT((drifted - CLIMATE_INDOOR_TEMP) * (outdoor - CLIMATE_INDOOR_TEMP) > 0, "A room did not drift towards the outdoor temperature")
+		TEST_ASSERT(abs(drifted - CLIMATE_INDOOR_TEMP) < abs(outdoor - CLIMATE_INDOOR_TEMP), "A room matched the outdoors instantly instead of lagging behind it")
+	TEST_ASSERT_EQUAL(victim.get_climate_ambient(), drifted + victim.climate_temp_offset + victim.get_climate_warmth(), "Someone indoors did not feel the temperature of the room")
+
+	A.climate_leak = 0
+	A.climate_indoor_temp = CLIMATE_INDOOR_TEMP
+	A.climate_indoor_stamp = world.time - 600 SECONDS
+	TEST_ASSERT_EQUAL(A.get_climate_temp(), CLIMATE_INDOOR_TEMP, "A sealed room changed temperature")
+
+	A.outdoors = old_outdoors
+	A.climate_leak = old_leak
+	A.climate_lag = old_lag
+	A.climate_indoor_temp = old_temp
+	A.climate_indoor_stamp = old_stamp
+
 /datum/unit_test/climate_wetness/Run()
 	var/mob/living/carbon/human/victim = allocate(/mob/living/carbon/human)
-	victim.climate_temp_offset = -20
+	victim.climate_temp_offset = CLIMATE_COMFORT_MIN - 10 - victim.get_climate_ambient()
 	var/dry_cold = victim.get_climate_target()
 	victim.adjust_climate_wetness(CLIMATE_WET_MAX * 2)
 	TEST_ASSERT_EQUAL(victim.climate_wetness, CLIMATE_WET_MAX, "Wetness went past its cap")
@@ -508,6 +542,83 @@
 
 	TEST_ASSERT(night[/datum/weather/cold_wave] > noon[/datum/weather/cold_wave] * 10, "Cold waves are not much likelier at night than at noon")
 	TEST_ASSERT(noon[/datum/weather/heat_wave] > night[/datum/weather/heat_wave] * 10, "Heat waves are not much likelier at noon than at night")
+
+/datum/unit_test/weather_cell_locality/Run()
+	var/turf/here = run_loc_bottom_left
+	var/datum/weather/storm = allocate(/datum/weather, list(here.z))
+	storm.impacted_areas = list(here.loc)
+	storm.stage = MAIN_STAGE
+	var/datum/weather_cell/cell = new(list(here.z), here.x, here.y, 10, 10, 0, 0)
+	cell.scale = 1
+	storm.cells = list("[here.z]" = cell)
+	storm.unique_cells = list(cell)
+	START_PROCESSING(SSweather, storm)
+
+	TEST_ASSERT(storm.in_cell(here), "The middle of a weather patch is not in it")
+	TEST_ASSERT_EQUAL(storm.get_intensity(here), 1, "The middle of a weather patch is not at full strength")
+	TEST_ASSERT(get_active_weather(here) == storm, "Weather is not felt under its patch")
+
+	// The edge is lumpy, so test well inside and well outside it
+	cell.x = here.x + 15
+	TEST_ASSERT(!storm.in_cell(here), "A turf outside the patch counted as in it")
+	TEST_ASSERT(storm.in_cell(here, 10), "The forecast range did not reach a turf just outside the patch")
+	TEST_ASSERT(isnull(get_active_weather(here)), "Weather is felt outside its patch")
+	TEST_ASSERT(findtext(storm.describe_position(here), "east"), "The weather patch was not described as lying to the east")
+	cell.radius_x = 20
+	cell.radius_y = 20
+	var/intensity = storm.get_intensity(here)
+	TEST_ASSERT(intensity > 0 && intensity < 1, "Weather is not weaker towards the edge of its patch")
+	cell.x = here.x + 100
+	TEST_ASSERT_EQUAL(storm.get_intensity(here), 0, "Weather has strength far outside its patch")
+
+	// Weather that is not a patch covers everyone
+	storm.localized = FALSE
+	TEST_ASSERT(storm.in_cell(here), "Weather that is not localized missed someone")
+	TEST_ASSERT_EQUAL(storm.get_intensity(here), 1, "Weather that is not localized was weak")
+
+	STOP_PROCESSING(SSweather, storm)
+
+/datum/unit_test/weather_concurrent/Run()
+	var/turf/here = run_loc_bottom_left
+	var/list/storms = list()
+	for(var/i in 1 to 2)
+		var/datum/weather/storm = allocate(/datum/weather, list(here.z))
+		storm.impacted_areas = list(here.loc)
+		storm.stage = MAIN_STAGE
+		var/datum/weather_cell/cell = new(list(here.z), here.x, here.y, 10, 10, 0, 0)
+		cell.scale = 1
+		storm.cells = list("[here.z]" = cell)
+		storm.unique_cells = list(cell)
+		START_PROCESSING(SSweather, storm)
+		storms += storm
+	var/datum/weather/outside = allocate(/datum/weather, list(here.z))
+	outside.impacted_areas = list(here.loc)
+	outside.stage = MAIN_STAGE
+	var/datum/weather_cell/far = new(list(here.z), here.x + 100, here.y, 10, 10, 0, 0)
+	far.scale = 1
+	outside.cells = list("[here.z]" = far)
+	outside.unique_cells = list(far)
+	START_PROCESSING(SSweather, outside)
+
+	TEST_ASSERT_EQUAL(length(get_active_weathers(here)), 2, "Weather patches overlapping a spot were not all counted")
+	TEST_ASSERT(!(outside in get_active_weathers(here)), "A patch somewhere else was counted over this spot")
+
+	// A patch winding down is no longer in full force
+	var/datum/weather/fading = storms[1]
+	fading.stage = WIND_DOWN_STAGE
+	TEST_ASSERT_EQUAL(length(get_active_weathers(here)), 1, "Weather winding down was still counted as in full force")
+
+	for(var/datum/weather/storm as anything in storms + outside)
+		STOP_PROCESSING(SSweather, storm)
+
+	// A system never forecasts two clouds of one family, and busy families are left out
+	var/old_rolls = SSweather.weather_rolls
+	SSweather.weather_rolls = list(/datum/weather/heat_wave = 10, /datum/weather/cold_wave = 10, /datum/weather/rain = 10)
+	TEST_ASSERT_EQUAL(get_weather_family(/datum/weather/heat_wave), get_weather_family(/datum/weather/cold_wave), "Heat and cold waves are not in the same family")
+	var/list/weights = SSweather.get_weather_weights(0, list(get_weather_family(/datum/weather/heat_wave)))
+	TEST_ASSERT(!(/datum/weather/heat_wave in weights) && !(/datum/weather/cold_wave in weights), "A busy family was still rolled")
+	TEST_ASSERT(/datum/weather/rain in weights, "A free family was left out of the roll")
+	SSweather.weather_rolls = old_rolls
 
 /datum/unit_test/acid_rain_exposure/Run()
 	var/mob/living/carbon/human/victim = allocate(/mob/living/carbon/human)

@@ -38,9 +38,14 @@
 	immunity_type = "rad"
 
 	var/radiation_intensity = 100
+	cell_radius_lower = 0.12
+	cell_radius_upper = 0.2
+	drift_speed = 0.1
 
 /datum/weather/rad_storm/telegraph()
 	..()
+	if(stage == END_STAGE) // never got going
+		return
 	status_alarm(TRUE)
 
 /datum/weather/rad_storm/weather_act(mob/living/L)

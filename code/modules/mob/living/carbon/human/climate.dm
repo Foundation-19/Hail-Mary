@@ -24,6 +24,9 @@ GLOBAL_LIST_EMPTY(climate_heat_sources)
 	var/climate_temp_offset = 0
 	/// 0 to CLIMATE_WET_MAX, soaked by rain and fog and dried by shelter, warmth and time
 	var/climate_wetness = 0
+	/// The last band of air temperature this person was told about, -2 (bitter) to 2 (punishing). See climate_feel_check
+	var/climate_feel = 0
+	var/climate_feel_next = 0
 	/// 0 to ACID_EXPOSURE_MAX, builds while standing in acid rain and washes off once sheltered
 	var/acid_exposure = 0
 	var/acid_last_exposed = 0
@@ -60,15 +63,50 @@ GLOBAL_LIST_EMPTY(climate_heat_sources)
 /mob/living/carbon/human/proc/climate_is_machine()
 	return !!dna?.species?.climate_machine
 
+/// Kelvin of the air in this area, before anything specific to whoever is standing in it. Outdoors that is the time of day.
+/// Indoors it is the temperature the room has settled at, which trails the outdoors since nothing heats or cools it any more
+/area/proc/get_climate_temp()
+	if(outdoors)
+		return climate_phase_temp(SSnightcycle.current_time)
+	if(isnull(climate_indoor_temp))
+		climate_indoor_temp = CLIMATE_INDOOR_TEMP
+		climate_indoor_stamp = world.time
+		return climate_indoor_temp
+	var/elapsed = world.time - climate_indoor_stamp
+	if(elapsed >= 1 SECONDS)
+		var/target = CLIMATE_INDOOR_TEMP + (climate_phase_temp(SSnightcycle.current_time) - CLIMATE_INDOOR_TEMP) * climate_leak
+		climate_indoor_temp += (target - climate_indoor_temp) * (1 - (1 - climate_lag) ** (elapsed / (1 SECONDS)))
+		climate_indoor_stamp = world.time
+	return climate_indoor_temp
+
+/area/f13/vault
+	climate_leak = CLIMATE_LEAK_SHELTERED
+	climate_lag = CLIMATE_LAG_SHELTERED
+
+/area/f13/bunker
+	climate_leak = CLIMATE_LEAK_SHELTERED
+	climate_lag = CLIMATE_LAG_SHELTERED
+
+/area/f13/underground
+	climate_leak = CLIMATE_LEAK_UNDERGROUND
+	climate_lag = CLIMATE_LAG_UNDERGROUND
+
+/area/f13/caves
+	climate_leak = CLIMATE_LEAK_UNDERGROUND
+	climate_lag = CLIMATE_LAG_UNDERGROUND
+
+/area/f13/tunnel
+	climate_leak = CLIMATE_LEAK_UNDERGROUND
+	climate_lag = CLIMATE_LAG_UNDERGROUND
+
 /// Kelvin of the air around this person
 /mob/living/carbon/human/proc/get_climate_ambient()
 	var/area/A = get_area(src)
-	. = CLIMATE_INDOOR_TEMP
+	. = A ? A.get_climate_temp() : CLIMATE_INDOOR_TEMP
 	if(A?.outdoors)
-		. = climate_phase_temp(SSnightcycle.current_time)
-		var/datum/weather/W = get_active_weather(src)
-		if(W && W.climate_temp_shift && !(W.immunity_type in weather_immunities))
-			. += W.climate_temp_shift
+		for(var/datum/weather/W as anything in get_active_weathers(src))
+			if(W.climate_temp_shift && !(W.immunity_type in weather_immunities))
+				. += W.climate_temp_shift * W.get_intensity(src) // the air only turns fully at the heart of the weather
 	. += climate_temp_offset
 	if(. >= CLIMATE_HEAT_SOURCE_CAP)
 		return
@@ -180,11 +218,46 @@ GLOBAL_LIST_EMPTY(climate_heat_sources)
 		stress *= 1 - CLIMATE_WET_HEAT_RELIEF * climate_wetness / CLIMATE_WET_MAX
 		return min(CLIMATE_EXPOSURE_MAX, stress)
 
+/// Tells this person when the air around them turns pleasant, harsh or punishing, so the change is felt rather than only seen in an alert
+/mob/living/carbon/human/proc/climate_feel_check()
+	if(!climate_applies() || world.time < climate_feel_next)
+		return
+	var/ambient = get_climate_ambient()
+	var/band = 0
+	if(ambient < CLIMATE_COMFORT_MIN - CLIMATE_FEEL_HARSH)
+		band = -2
+	else if(ambient < CLIMATE_COMFORT_MIN)
+		band = -1
+	else if(ambient > CLIMATE_COMFORT_MAX + CLIMATE_FEEL_HARSH)
+		band = 2
+	else if(ambient > CLIMATE_COMFORT_MAX)
+		band = 1
+	if(band == climate_feel)
+		return
+	var/area/feel_area = get_area(src)
+	var/outside = feel_area && feel_area.outdoors
+	var/message
+	switch(band)
+		if(-2)
+			message = outside ? "The air is bitterly cold." : "With nothing left to heat it, the cold has soaked deep into this place."
+		if(-1)
+			message = outside ? "There is a chill in the air." : "Without any heating, this place is giving up its warmth."
+		if(0)
+			message = outside ? "The air has turned comfortable." : "It is comfortable in here."
+		if(1)
+			message = outside ? "The air is getting hot." : "With no cooling left, the air in here has turned stuffy and warm."
+		if(2)
+			message = outside ? "The heat is oppressive." : "The heat is trapped in here with no way out, it is suffocating."
+	to_chat(src, span_notice("[message]"))
+	climate_feel = band
+	climate_feel_next = world.time + CLIMATE_FEEL_COOLDOWN
+
 /mob/living/carbon/human/proc/handle_climate()
 	if(stat == DEAD)
 		return
 	dry_off()
 	acid_decay()
+	climate_feel_check()
 	var/target = get_climate_target()
 	climate_exposure += (target - climate_exposure) * CLIMATE_EXPOSURE_RATE
 	if(!target && abs(climate_exposure) < 1)

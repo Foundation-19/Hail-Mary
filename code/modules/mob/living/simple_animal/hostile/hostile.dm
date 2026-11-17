@@ -1295,11 +1295,12 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 	. = get_base_vision_range(target)
 	if(!target || . <= 0)
 		return
-	// Fog, rain and sandstorms cut sight, but a light source still carries through
-	var/datum/weather/W = get_active_weather(target)
-	if(!W || W.visibility_mult >= 1)
+	// Fog, rain and sandstorms cut sight, but a light source still carries through. Overlapping weather compounds
+	var/mult = 1
+	for(var/datum/weather/W as anything in get_active_weathers(target))
+		mult *= W.visibility_mult
+	if(mult >= 1)
 		return
-	var/mult = W.visibility_mult
 	if(isliving(target))
 		var/mob/living/L = target
 		if(L.light_range > 0)

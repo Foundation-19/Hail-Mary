@@ -989,7 +989,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!weather_type)
 		return
 
-	SSweather.run_weather(weather_type)
+	var/turf/epicenter
+	var/turf/here = get_turf(mob)
+	if(here && alert("Form it over where you are standing?", "Weather", "Yes", "Random") == "Yes")
+		epicenter = here
+
+	SSweather.run_weather(weather_type, null, epicenter)
 
 	message_admins("[key_name_admin(usr)] started weather of type [weather_type].")
 	log_admin("[key_name(usr)] started weather of type [weather_type].")

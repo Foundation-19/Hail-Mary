@@ -752,33 +752,35 @@ GENETICS SCANNER
 
 		playsound(src, 'sound/effects/pop.ogg', 100)
 		var/area/user_area = T.loc
-		var/datum/weather/ongoing_weather = null
-
 		if(!user_area.outdoors)
 			to_chat(user, span_warning("[src]'s barometer function won't work indoors!"))
 			return
-
-		for(var/V in SSweather.processing)
-			var/datum/weather/W = V
-			if(W.barometer_predictable && (T.z in W.impacted_z_levels) && is_path_in_list(user_area.type, W.area_types) && !(W.stage == END_STAGE))
-				ongoing_weather = W
-				break
-
-		if(ongoing_weather)
-			if((ongoing_weather.stage == MAIN_STAGE) || (ongoing_weather.stage == WIND_DOWN_STAGE))
-				to_chat(user, span_warning("[src]'s barometer function can't trace anything while the storm is [ongoing_weather.stage == MAIN_STAGE ? "already here!" : "winding down."]"))
-				return
-
-			to_chat(user, span_notice("The next [ongoing_weather] will hit in [butchertime(ongoing_weather.next_hit_time - world.time)]."))
-			if(ongoing_weather.aesthetic)
-				to_chat(user, span_warning("[src]'s barometer function says that the next storm will breeze on by."))
-		else
-			var/next_hit = SSweather.next_hit_by_zlevel
-			var/fixed = next_hit ? next_hit - world.time : -1
-			if(fixed < 0)
-				to_chat(user, span_warning("[src]'s barometer function was unable to trace any weather patterns."))
+		var/found = FALSE
+		for(var/datum/weather/W as anything in SSweather.get_active_weathers())
+			if(!W.barometer_predictable || !(T.z in W.impacted_z_levels) || !is_path_in_list(user_area.type, W.area_types))
+				continue
+			found = TRUE
+			if(!W.in_cell(T))
+				to_chat(user, span_notice("[src]'s barometer function picks up [W.name] [W.describe_position(T)]."))
+			else if(W.stage == MAIN_STAGE || W.stage == WIND_DOWN_STAGE)
+				to_chat(user, span_warning("[src]'s barometer function can't trace the [W.name] while it is [W.stage == MAIN_STAGE ? "already here!" : "winding down."]"))
 			else
-				to_chat(user, span_warning("[src]'s barometer function says a storm will land in approximately [butchertime(fixed)]."))
+				to_chat(user, span_notice("The next [W.name] will hit in [butchertime(W.next_hit_time - world.time)]."))
+			if(W.aesthetic)
+				to_chat(user, span_warning("[src]'s barometer function says that the [W.name] will breeze on by."))
+		// Clouds still forming over the horizon
+		var/listed = 0
+		for(var/datum/weather_forecast/F as anything in SSweather.forecast)
+			var/datum/weather/forecast_type = F.weather_type
+			if(!initial(forecast_type.barometer_predictable))
+				continue
+			if(listed >= WEATHER_BAROMETER_FORECAST_MAX)
+				break
+			listed++
+			found = TRUE
+			to_chat(user, span_notice("[src]'s barometer function says [initial(forecast_type.name)] is gathering, landing in approximately [butchertime(F.hit_time - world.time)]."))
+		if(!found)
+			to_chat(user, span_warning("[src]'s barometer function was unable to trace any weather patterns."))
 		cooldown = TRUE
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/analyzer, ping)), cooldown_time)
 
@@ -851,6 +853,11 @@ GENETICS SCANNER
 	var/cached_scan_results = environment.analyzer_results
 
 	to_chat(user, "<span class='info'><B>Results:</B></span>")
+	var/area/climate_area = location.loc
+	if(istype(climate_area))
+		var/air_temp = climate_area.get_climate_temp()
+		var/comfortable = air_temp >= CLIMATE_COMFORT_MIN && air_temp <= CLIMATE_COMFORT_MAX
+		to_chat(user, comfortable ? span_info("Air temperature: [round(air_temp - T0C, 0.1)] &deg;C") : span_alert("Air temperature: [round(air_temp - T0C, 0.1)] &deg;C"))
 	if(abs(pressure - ONE_ATMOSPHERE) < 10)
 		to_chat(user, span_info("Pressure: [round(pressure, 0.01)] kPa"))
 	else

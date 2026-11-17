@@ -21,6 +21,7 @@
 	protected_areas = list(/area/shuttle)
 	target_trait = ZTRAIT_STATION
 	tag_weather = WEATHER_COLD
+	weather_family = "temperature"
 
 	immunity_type = "snow"
 
@@ -28,5 +29,9 @@
 
 	carbons_only = TRUE
 	climate_temp_shift = -22
+	// A cold front is a huge air mass that crawls along
+	cell_radius_lower = 0.3
+	cell_radius_upper = 0.45
+	drift_speed = 0.03
 	// Cold snaps favour the night and the hours around it, so one does not land at noon
 	phase_weights = "2 0.5 0.2 0.05 0.05 0.3 1.5 2 3"

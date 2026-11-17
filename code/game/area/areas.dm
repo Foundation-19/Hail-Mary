@@ -60,6 +60,13 @@ GLOBAL_LIST_INIT(area_weather_list, list(WEATHER_ALL))
 	/// For space, the asteroid, lavaland, etc. Used with blueprints to determine if we are adding a new area (vs editing a station room)
 	var/outdoors = FALSE
 
+	/// See climate.dm. How much of the outdoor temperature swing this area reaches in the end when it is not outdoors, 0 to 1
+	var/climate_leak = CLIMATE_LEAK_DEFAULT
+	/// Fraction of the gap to that temperature the air in here closes every second
+	var/climate_lag = CLIMATE_LAG_DEFAULT
+	var/climate_indoor_temp
+	var/climate_indoor_stamp
+
 	/// What weathers affect this area? If null, no weathers happen here, shrimple as
 	var/list/weather_tags = list()
 

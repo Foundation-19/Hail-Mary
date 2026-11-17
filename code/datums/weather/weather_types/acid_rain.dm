@@ -19,6 +19,7 @@
 	end_sound = 'sound/ambience/acidrain_end.ogg'
 
 	tag_weather = WEATHER_ACID
+	weather_family = "precipitation"
 	area_types = list(/area/f13/wasteland, /area/f13/desert, /area/f13/farm, /area/f13/forest)
 	target_trait = ZTRAIT_STATION
 	protect_indoors = TRUE
@@ -31,6 +32,10 @@
 	climate_temp_shift = 8
 	visibility_mult = 0.8
 	extinguishes_fires = TRUE
+	// A small, fast storm cell, so it can be outrun or waited out
+	cell_radius_lower = 0.1
+	cell_radius_upper = 0.17
+	drift_speed = 0.2
 
 /datum/weather/acid_rain/weather_act(mob/living/L)
 	if(ishuman(L))

@@ -5,6 +5,20 @@
 #define CLIMATE_COMFORT_MIN 283
 #define CLIMATE_COMFORT_MAX 308
 
+// Nothing heats or cools a building any more, so rooms slowly take on the outdoor temperature. An area's climate_leak is how much
+// of the outdoor swing around CLIMATE_INDOOR_TEMP it reaches in the end, and climate_lag the fraction of the remaining gap its air
+// closes every second. Thick walls and underground rooms keep to a milder temperature and are slower to change
+#define CLIMATE_LEAK_DEFAULT 0.8
+#define CLIMATE_LAG_DEFAULT 0.006
+#define CLIMATE_LEAK_SHELTERED 0.35
+#define CLIMATE_LAG_SHELTERED 0.003
+#define CLIMATE_LEAK_UNDERGROUND 0.25
+#define CLIMATE_LAG_UNDERGROUND 0.002
+
+// How far past the comfort band the air has to be before people are told it is harsh, and the least time between two such messages
+#define CLIMATE_FEEL_HARSH 8
+#define CLIMATE_FEEL_COOLDOWN (30 SECONDS)
+
 // Fires only warm people up to this temperature, so a fireplace takes the chill off without cooking anyone indoors
 #define CLIMATE_HEAT_SOURCE_CAP 300
 #define CLIMATE_HEAT_SOURCE_RADIUS 4
@@ -72,12 +86,12 @@
 #define ACID_DAMAGE_HEALTH_FLOOR 0.35 // acid rain alone never takes someone below this fraction of their max health
 
 // Ambient temperature outdoors by time of day, see SSnightcycle phases
-#define CLIMATE_TEMP_SUNRISE 283
+#define CLIMATE_TEMP_SUNRISE 281
 #define CLIMATE_TEMP_MORNING 293
-#define CLIMATE_TEMP_LATEMORN 303
-#define CLIMATE_TEMP_DAYTIME 312
-#define CLIMATE_TEMP_AFTERNOON 312
-#define CLIMATE_TEMP_LATEAFTERNOON 305
-#define CLIMATE_TEMP_SUNSET 297
-#define CLIMATE_TEMP_FULLSUNSET 288
-#define CLIMATE_TEMP_NIGHTTIME 275
+#define CLIMATE_TEMP_LATEMORN 304
+#define CLIMATE_TEMP_DAYTIME 316
+#define CLIMATE_TEMP_AFTERNOON 316
+#define CLIMATE_TEMP_LATEAFTERNOON 309
+#define CLIMATE_TEMP_SUNSET 298
+#define CLIMATE_TEMP_FULLSUNSET 286
+#define CLIMATE_TEMP_NIGHTTIME 272

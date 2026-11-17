@@ -156,7 +156,10 @@
 /mob/living/simple_animal/hostile/securitron/proc/self_destruct()
 	explosion(src, 1, 2, 4, 4)
 
-/mob/living/simple_animal/hostile/securitron/death()
+/mob/living/simple_animal/hostile/securitron/death(gibbed)
+	// A gibbed or deleted body is gone before any timer could fire, so don't schedule on it
+	if(gibbed || QDELETED(src))
+		return ..()
 	do_sparks(3, TRUE, src)
 	for(var/i in 1 to 3)
 		addtimer(CALLBACK(src, PROC_REF(do_death_beep)), i * 1 SECONDS)
