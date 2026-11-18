@@ -133,6 +133,15 @@
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
 	icon_state = "noise"
 
+/// The shadow a cloud casts on the ground, a flat black sheet faded to however dark it should be
+/obj/screen/fullscreen/cloud_shadow
+	icon = 'icons/mob/screen_gen.dmi'
+	screen_loc = "WEST,SOUTH to EAST,NORTH"
+	icon_state = "flash"
+	color = "#000000"
+	layer = FULLSCREEN_LAYER - 0.1
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
 /obj/screen/fullscreen/high
 	icon = 'icons/mob/screen_gen.dmi'
 	screen_loc = "WEST,SOUTH to EAST,NORTH"

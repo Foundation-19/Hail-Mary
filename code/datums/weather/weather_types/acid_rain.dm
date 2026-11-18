@@ -30,6 +30,9 @@
 
 	carbons_only = TRUE
 	climate_temp_shift = 8
+	cloud_shadow = 1
+	gust_message = span_warning("A sharp, acrid gust blows ahead of the dark cloud. Something tastes wrong in the air.")
+	lightning_rate = 0.03
 	visibility_mult = 0.8
 	extinguishes_fires = TRUE
 	// A small, fast storm cell, so it can be outrun or waited out

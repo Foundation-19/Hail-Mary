@@ -29,6 +29,8 @@
 
 	carbons_only = TRUE
 	climate_temp_shift = -22
+	cloud_shadow = 0.2
+	gust_message = span_warning("A bitter gust cuts across the wasteland, running ahead of the cold.")
 	// A cold front is a huge air mass that crawls along
 	cell_radius_lower = 0.3
 	cell_radius_upper = 0.45

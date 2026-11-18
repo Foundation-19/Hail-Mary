@@ -129,6 +129,24 @@
 	var/list/covered_mobs = list()
 	/// Players with the weather's blur applied
 	var/list/blurred_mobs = list()
+	/// Players with the ground darkened by the weather's cloud shadow
+	var/list/shaded_mobs = list()
+	/// Players who have already been told about the gust ahead of the patch on this approach
+	var/list/gusted_mobs = list()
+	/// When the main stage began, for working out how far through its life the weather is
+	var/main_started = 0
+	var/next_shelter_check = 0
+
+	/// Told to people out in the open as the gust ahead of the patch reaches them. Empty means this weather has no notable gust
+	var/gust_message = ""
+	/// Chance per second, at full vigor, of lightning striking somewhere under each patch
+	var/lightning_rate = 0
+	/// How dark the ground gets under the patch, 1 is the usual, 0 casts no shadow
+	var/cloud_shadow = 0.4
+	/// Deciseconds the ground stays wet after it has been rained on, 0 leaves it dry
+	var/wet_ground_time = 0
+	/// Tame animals out in this weather go looking for cover
+	var/animals_seek_shelter = FALSE
 
 /// Every weather in full force over this atom right now
 /proc/get_active_weathers(atom/A)
@@ -196,6 +214,14 @@
 	var/datum/weather_cell/C = cells["[T.z]"]
 	return C ? C.intensity(T) : 0
 
+/// How thick the weather looks from where this atom is, as an alpha, 0 when it is too far off to see
+/datum/weather/proc/get_screen_alpha(atom/A)
+	var/turf/T = get_turf(A)
+	if(!T)
+		return 0
+	var/datum/weather_cell/C = cells["[T.z]"]
+	return C ? C.screen_alpha(T) : 0
+
 /// Where the weather is relative to a turf, for barometers
 /datum/weather/proc/describe_position(turf/T)
 	var/datum/weather_cell/C = cells["[T.z]"]
@@ -217,7 +243,7 @@
 	if(epicenter && !(epicenter.z in impacted_z_levels))
 		impacted_z_levels |= epicenter.z
 	var/map_size = min(world.maxx, world.maxy)
-	var/heading = dir2angle(SSweather.wind_direction) + rand(-30, 30)
+	var/heading = SSweather.wind_angle + rand(-30, 30)
 	var/list/stacked = list()
 	for(var/z in impacted_z_levels)
 		if(z > world.maxz)
@@ -256,19 +282,32 @@
 		if(T && (T.loc in impacted_areas))
 			return T
 
-/// Grows, drifts and shrinks the patch of sky
+/// Grows, drifts and shrinks the patch of sky. It is steered by the wind, which swings over time, and strengthens towards the middle of the weather's life
 /datum/weather/proc/update_cells()
 	var/elapsed = (world.time - last_cell_update) * 0.1
 	last_cell_update = world.time
 	var/target_scale = 1
+	var/target_vigor = 1
 	switch(stage)
 		if(STARTUP_STAGE)
 			target_scale = WEATHER_CELL_FORMING_SCALE
+			target_vigor = 0.5
+		if(MAIN_STAGE)
+			var/progress = clamp((world.time - main_started) / max(1, weather_duration), 0, 1)
+			target_vigor = 0.75 + 0.25 * sin(180 * progress)
 		if(WIND_DOWN_STAGE)
 			target_scale = WEATHER_CELL_FADING_SCALE
+			target_vigor = 0.3
+	var/steer = min(1, WEATHER_CELL_STEER * elapsed)
+	var/wind_vx = sin(SSweather.wind_angle) * drift_speed
+	var/wind_vy = cos(SSweather.wind_angle) * drift_speed
 	for(var/datum/weather_cell/C as anything in unique_cells)
 		C.drift(elapsed)
 		C.scale += (target_scale - C.scale) * min(1, WEATHER_CELL_GROW_RATE * elapsed)
+		C.vigor += (target_vigor - C.vigor) * min(1, WEATHER_CELL_GROW_RATE * elapsed)
+		C.vx += (wind_vx - C.vx) * steer
+		C.vy += (wind_vy - C.vy) * steer
+		C.aim()
 
 /**
  * Telegraphs the beginning of the weather on the impacted z levels
@@ -331,6 +370,7 @@
 	if(stage >= MAIN_STAGE)
 		return
 	stage = MAIN_STAGE
+	main_started = world.time
 	update_areas()
 	alert_players(weather_message, weather_sound)
 	addtimer(CALLBACK(src, PROC_REF(wind_down)), weather_duration)
@@ -386,6 +426,12 @@
 	if(localized)
 		update_cells()
 	update_presence()
+	if(stage == MAIN_STAGE && localized)
+		if(lightning_rate)
+			lightning_tick()
+		if(animals_seek_shelter && world.time >= next_shelter_check)
+			next_shelter_check = world.time + WEATHER_SHELTER_INTERVAL
+			animals_find_shelter()
 	if(aesthetic || (stage != MAIN_STAGE))
 		return
 	if(affects_turfs)
@@ -433,10 +479,16 @@
 	var/list/outside = list()
 	var/list/inside = list()
 	var/list/covered = list()
+	var/list/watching = list()
 	if(stage != END_STAGE)
 		for(var/mob/M as anything in GLOB.player_list)
 			var/turf/T = get_turf(M)
-			if(!T || !in_cell(T))
+			if(!T)
+				continue
+			if(!in_cell(T))
+				// Someone out in the open near the patch can see it from where they stand
+				if(localized && (T.loc in impacted_areas) && in_cell(T, WEATHER_CELL_HALO))
+					watching += M
 				continue
 			covered += M
 			if(T.loc in impacted_areas)
@@ -444,11 +496,55 @@
 			else
 				inside += M
 	if(localized)
-		update_screens(outside, covered)
+		update_screens(outside, covered, watching)
+		update_gusts(watching)
 	update_listeners(outside, inside)
 
-/// Shows the weather's overlay to everyone out in it, blurs the sight of those caught in weather that obscures it, and tells people as the patch passes them
-/datum/weather/proc/update_screens(list/outside, list/covered)
+/// Tells people out in the open when the gust ahead of the patch reaches them, once for each time it comes at them
+/datum/weather/proc/update_gusts(list/watching)
+	var/list/gusting = list()
+	if(length(gust_message) && (stage == STARTUP_STAGE || stage == MAIN_STAGE))
+		for(var/mob/M as anything in watching)
+			if(get_gust(M) <= 0)
+				continue
+			gusting += M
+			if(!(M in gusted_mobs))
+				to_chat(M, gust_message)
+	gusted_mobs = gusting
+
+/// 0 to 1, how hard the gust ahead of the patch is blowing at this atom
+/datum/weather/proc/get_gust(atom/A)
+	if(!localized)
+		return 0
+	var/turf/T = get_turf(A)
+	if(!T)
+		return 0
+	var/datum/weather_cell/C = cells["[T.z]"]
+	return C ? C.gust(T) : 0
+
+/// Kelvin the gust ahead of the patch adds to the air at this atom: the patch's own shift carried ahead of it, weaker, to someone out in the open
+/datum/weather/proc/get_gust_shift(atom/A)
+	if(!climate_temp_shift || !localized || (stage != STARTUP_STAGE && stage != MAIN_STAGE))
+		return 0
+	if(!(get_area(A) in impacted_areas))
+		return 0
+	return climate_temp_shift * WEATHER_GUST_STRENGTH * get_gust(A)
+
+/// How much sun there is for a cloud to block, 0 at night and 1 in full day
+/datum/weather/proc/get_daylight()
+	switch(SSnightcycle.current_time)
+		if(NIGHTCYCLE_PHASE_SUNRISE, NIGHTCYCLE_PHASE_SUNSET)
+			return 0.5
+		if(NIGHTCYCLE_PHASE_MORNING, NIGHTCYCLE_PHASE_LATEAFTERNOON)
+			return 0.85
+		if(NIGHTCYCLE_PHASE_FULLSUNSET)
+			return 0.25
+		if(NIGHTCYCLE_PHASE_NIGHTTIME)
+			return 0
+	return 1
+
+/// Shows the weather's overlay to everyone out in it and, fainter, to those out in the open near it. Blurs the sight of those caught in weather that obscures it, and tells people as the patch passes them
+/datum/weather/proc/update_screens(list/outside, list/covered, list/watching = list())
 	var/new_state
 	switch(stage)
 		if(STARTUP_STAGE)
@@ -460,12 +556,16 @@
 	// Screens belong to the client, which can move to another body, so they are tracked by client
 	var/list/new_screens = list()
 	var/list/blurred = list()
-	for(var/mob/M as anything in outside)
+	var/list/shaded = list()
+	var/shade_scale = cloud_shadow * get_daylight()
+	for(var/mob/M as anything in outside + watching)
 		var/client/C = M.client
 		if(!C)
 			continue
-		// The edge of the patch is a gradient, the further in a player is the thicker the weather looks
-		var/fade = max(round(WEATHER_SCREEN_MAX_ALPHA * get_intensity(M)), WEATHER_SCREEN_MIN_ALPHA)
+		// The weather is a gradient: a haze out beyond the patch, thickening towards its heart
+		var/fade = get_screen_alpha(M)
+		if(fade <= 0)
+			continue
 		var/obj/screen/weather_overlay/S = client_screens[C]
 		if(S)
 			client_screens -= C
@@ -479,9 +579,20 @@
 		new_screens[C] = S
 		S.icon_state = new_state
 		animate(S, alpha = fade, time = 1 SECONDS)
-		if(obscures_sight && stage == MAIN_STAGE)
+		// The patch also shades the ground, and it is darker the thicker it is overhead
+		var/shade_alpha = round(WEATHER_SHADE_MAX_ALPHA * shade_scale * fade / WEATHER_SCREEN_MAX_ALPHA)
+		if(shade_alpha > 0)
+			var/obj/screen/fullscreen/shade = M.overlay_fullscreen("cloud_shadow_[type]", /obj/screen/fullscreen/cloud_shadow)
+			if(shade)
+				if(!(M in shaded_mobs))
+					shade.alpha = 0
+				animate(shade, alpha = shade_alpha, time = 1 SECONDS)
+				shaded += M
+		if(obscures_sight && stage == MAIN_STAGE && (M in outside))
 			var/obj/screen/fullscreen/blur = M.overlay_fullscreen("weather_[type]", /obj/screen/fullscreen/blurry)
 			if(blur)
+				if(!(M in blurred_mobs))
+					blur.alpha = 0
 				animate(blur, alpha = fade, time = 1 SECONDS)
 			blurred += M
 	for(var/client/C as anything in client_screens)
@@ -491,6 +602,8 @@
 		qdel(S)
 	for(var/mob/M as anything in blurred_mobs - blurred)
 		M?.clear_fullscreen("weather_[type]")
+	for(var/mob/M as anything in shaded_mobs - shaded)
+		M?.clear_fullscreen("cloud_shadow_[type]")
 	if(stage == MAIN_STAGE || stage == WIND_DOWN_STAGE)
 		for(var/mob/M as anything in covered - covered_mobs)
 			to_chat(M, span_notice("The [name] sweeps over you."))
@@ -499,8 +612,56 @@
 	client_screens = new_screens
 	covered_mobs = covered
 	blurred_mobs = blurred
+	shaded_mobs = shaded
 
-/// Called every second with the players out in the weather and the ones indoors under it, for weather with sound that should only reach them
+/// Lightning strikes somewhere under a patch now and then. Storms are livelier at their peak
+/datum/weather/proc/lightning_tick()
+	for(var/datum/weather_cell/C as anything in unique_cells)
+		if(!prob(lightning_rate * C.vigor * 100))
+			continue
+		var/turf/strike = C.random_point()
+		if(strike)
+			lightning_strike(strike)
+
+/// A flash for everyone out in the open who can see it and, after the time sound takes to travel, thunder for everyone in earshot, muffled indoors
+/datum/weather/proc/lightning_strike(turf/strike)
+	for(var/mob/M as anything in GLOB.player_list)
+		var/turf/T = get_turf(M)
+		if(!T || T.z != strike.z)
+			continue
+		var/dist = sqrt((T.x - strike.x) ** 2 + (T.y - strike.y) ** 2)
+		if(dist > WEATHER_LIGHTNING_RANGE)
+			continue
+		var/area/place = T.loc
+		var/outdoors = place.outdoors
+		if(outdoors && dist <= WEATHER_LIGHTNING_FLASH_RANGE)
+			var/obj/screen/fullscreen/flash = M.overlay_fullscreen("lightning", /obj/screen/fullscreen/flash)
+			if(flash)
+				flash.alpha = round(clamp(170 - dist * 3, 30, 170))
+				M.clear_fullscreen("lightning", 6)
+		var/volume = clamp(100 - dist * 1.1, 20, 100) * (outdoors ? 1 : 0.5)
+		addtimer(CALLBACK(M, TYPE_PROC_REF(/mob, playsound_local), strike, 'sound/weather/thunder.ogg', volume, TRUE), round(dist * WEATHER_THUNDER_DELAY))
+
+/// Tame animals caught out in this weather head for the nearest ground it does not reach
+/datum/weather/proc/animals_find_shelter()
+	for(var/mob/living/simple_animal/A as anything in GLOB.simple_animals[AI_ON])
+		if(ishostile(A) || A.client || A.mind || A.stat != CONSCIOUS || A.buckled || A.resting || length(A.buckled_mobs))
+			continue
+		if(!can_weather_act(A))
+			continue
+		var/turf/shelter
+		var/best = WEATHER_SHELTER_RANGE + 1
+		for(var/turf/open/T in view(WEATHER_SHELTER_RANGE, A))
+			if(T.loc in impacted_areas)
+				continue
+			var/dist = get_dist(A, T)
+			if(dist < best && !is_blocked_turf(T, TRUE))
+				best = dist
+				shelter = T
+		if(shelter)
+			walk_to(A, shelter, 0, max(2, round(A.movement_delay())))
+		CHECK_TICK
+
 /datum/weather/proc/update_listeners(list/outside, list/inside)
 	return
 
@@ -513,9 +674,13 @@
 		qdel(S)
 	for(var/mob/M as anything in blurred_mobs)
 		M?.clear_fullscreen("weather_[type]")
+	for(var/mob/M as anything in shaded_mobs)
+		M?.clear_fullscreen("cloud_shadow_[type]")
 	client_screens = list()
 	covered_mobs = list()
 	blurred_mobs = list()
+	shaded_mobs = list()
+	gusted_mobs = list()
 
 /**
  * Returns TRUE if the living mob can be affected by the weather

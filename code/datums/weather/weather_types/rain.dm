@@ -33,6 +33,11 @@
 	visibility_mult = 0.85
 	wetness_rate = 3
 	extinguishes_fires = TRUE
+	cloud_shadow = 1
+	gust_message = span_notice("A cool gust of damp air rushes ahead of the storm, smelling of wet earth.")
+	lightning_rate = 0.04
+	wet_ground_time = 5 MINUTES
+	animals_seek_shelter = TRUE
 	// Rain falls from a cloud that drifts along with the wind
 	cell_radius_lower = 0.18
 	cell_radius_upper = 0.3
@@ -125,6 +130,8 @@
 		tray.adjustWater(80)
 		CHECK_TICK
 
+	SSweather.wet_turf(T, wet_ground_time)
+
 /datum/weather/rain/proc/wash_obj(obj/O)
 	. = SEND_SIGNAL(O, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_WEAK)
 	O.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
@@ -182,6 +189,11 @@
 	visibility_mult = 0.6
 	wetness_rate = 1.5
 	extinguishes_fires = FALSE
+	cloud_shadow = 0.3
+	gust_message = span_notice("The air turns cold and damp as the fog creeps closer.")
+	lightning_rate = 0
+	wet_ground_time = 2 MINUTES
+	animals_seek_shelter = FALSE
 	// Fog pools in low ground and hangs there
 	cell_radius_lower = 0.12
 	cell_radius_upper = 0.22

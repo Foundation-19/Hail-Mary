@@ -15,8 +15,13 @@ PROCESSING_SUBSYSTEM_DEF(weather)
 	var/list/datum/weather_forecast/forecast = list()
 	/// direction the wind is blowing in
 	var/wind_direction = NORTH
+	/// Bearing the wind is blowing towards in degrees, 0 north and clockwise. It swings a little at a time so clouds are steered round rather than flipped
+	var/wind_angle = 0
 	/// wind direction stuff cooldown
 	COOLDOWN_DECLARE(wind_change_cooldown)
+	/// Ground that rain has soaked, turf = when it dries out. See wet_turf()
+	var/list/wet_turfs = list()
+	COOLDOWN_DECLARE(wet_check_cooldown)
 
 /// A cloud that has been forecast and is yet to form
 /datum/weather_forecast
@@ -41,7 +46,10 @@ PROCESSING_SUBSYSTEM_DEF(weather)
 	. = ..() //Active weather is handled by . = ..() processing subsystem base fire().
 	if(COOLDOWN_FINISHED(src, wind_change_cooldown))
 		set_wind_direction()
-		COOLDOWN_START(src, wind_change_cooldown, rand(5 MINUTES, 15 MINUTES))
+		COOLDOWN_START(src, wind_change_cooldown, rand(WEATHER_WIND_SHIFT_MIN, WEATHER_WIND_SHIFT_MAX))
+	if(length(wet_turfs) && COOLDOWN_FINISHED(src, wet_check_cooldown))
+		dry_turfs()
+		COOLDOWN_START(src, wet_check_cooldown, WEATHER_WET_CHECK_INTERVAL)
 	if(length(forecast) || !LAZYLEN(weather_rolls))
 		return FALSE
 	roll_forecast()
@@ -115,6 +123,7 @@ PROCESSING_SUBSYSTEM_DEF(weather)
 	return LAZYLEN(weights) ? weights : open
 
 /datum/controller/subsystem/processing/weather/Initialize(start_timeofday)
+	set_wind_direction(rand(0, 359))
 	for(var/V in subtypesof(/datum/weather))
 		var/datum/weather/W = V
 		var/probability = initial(W.probability)
@@ -158,8 +167,32 @@ PROCESSING_SUBSYSTEM_DEF(weather)
 			if(W.is_dangerous) // the worst of them is what matters
 				return
 
-/datum/controller/subsystem/processing/weather/proc/set_wind_direction()
-	var/list/possible_directions = list(NORTH, SOUTH, EAST, WEST)
-	wind_direction = pick(possible_directions)
+/// The wind swings a little each time rather than jumping to another quarter. The first shift picks any way to blow
+/datum/controller/subsystem/processing/weather/proc/set_wind_direction(swing = rand(-WEATHER_WIND_SWING, WEATHER_WIND_SWING))
+	wind_angle = SIMPLIFY_DEGREES(wind_angle + swing)
+	wind_direction = angle2dir_cardinal(wind_angle)
+
+/// Soaks a turf for a while, tinting it so the ground looks wet until it dries out
+/datum/controller/subsystem/processing/weather/proc/wet_turf(turf/T, duration)
+	if(!isturf(T) || duration <= 0)
+		return
+	if(!wet_turfs[T] && !T.color)
+		T.add_atom_colour(WEATHER_WET_COLOUR, TEMPORARY_COLOUR_PRIORITY)
+	wet_turfs[T] = world.time + duration * (0.8 + rand() * 0.4)
+
+/// Whether the ground here is still wet from rain
+/datum/controller/subsystem/processing/weather/proc/is_wet_ground(atom/A)
+	var/turf/T = get_turf(A)
+	return T && wet_turfs[T] > world.time
+
+/// Dries out every turf whose time is up
+/datum/controller/subsystem/processing/weather/proc/dry_turfs()
+	for(var/turf/T as anything in wet_turfs.Copy())
+		if(wet_turfs[T] > world.time && !QDELETED(T))
+			continue
+		wet_turfs -= T
+		if(!QDELETED(T))
+			T.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, WEATHER_WET_COLOUR)
+		CHECK_TICK
 
 

@@ -571,12 +571,106 @@
 	cell.x = here.x + 100
 	TEST_ASSERT_EQUAL(storm.get_intensity(here), 0, "Weather has strength far outside its patch")
 
+	// The overlay is a haze before the patch, and never a wall at its heart
+	TEST_ASSERT_EQUAL(storm.get_screen_alpha(here), 0, "A patch far away showed on the screen")
+	cell.x = here.x
+	var/heart = storm.get_screen_alpha(here)
+	TEST_ASSERT(heart > WEATHER_SCREEN_MIN_ALPHA && heart <= WEATHER_SCREEN_MAX_ALPHA, "The heart of a patch was not thicker than its edge, or went past the overlay's peak")
+	cell.x = here.x + 30
+	var/haze = storm.get_screen_alpha(here)
+	TEST_ASSERT(!storm.in_cell(here) && haze > 0 && haze < WEATHER_SCREEN_MIN_ALPHA, "Someone just outside a patch could not see it coming")
 	// Weather that is not a patch covers everyone
 	storm.localized = FALSE
 	TEST_ASSERT(storm.in_cell(here), "Weather that is not localized missed someone")
 	TEST_ASSERT_EQUAL(storm.get_intensity(here), 1, "Weather that is not localized was weak")
 
 	STOP_PROCESSING(SSweather, storm)
+
+/datum/unit_test/weather_realism/Run()
+	var/turf/here = run_loc_bottom_left
+	var/datum/weather/storm = allocate(/datum/weather, list(here.z))
+	storm.impacted_areas = list(here.loc)
+	storm.stage = MAIN_STAGE
+	// A long thin cloud heading east, with the test turf 20 tiles along its path from the middle
+	var/datum/weather_cell/cell = new(list(here.z), here.x - 20, here.y, 30, 6, 0.1, 0)
+	cell.scale = 1
+	storm.cells = list("[here.z]" = cell)
+	storm.unique_cells = list(cell)
+
+	TEST_ASSERT(cell.covers(here), "A cloud was not stretched along the way it is going")
+	cell.vx = 0
+	cell.vy = 0.1
+	cell.aim()
+	TEST_ASSERT(!cell.covers(here), "A cloud did not turn when it changed course")
+
+	// Fronts: the ground ahead of a cloud is told apart from the ground behind it
+	cell.x = here.x - 15
+	cell.y = here.y
+	cell.vx = 0.1
+	cell.vy = 0
+	cell.radius_x = 10
+	cell.radius_y = 10
+	cell.aim()
+	TEST_ASSERT(cell.trail(here) < 0, "The ground ahead of a cloud was counted as behind it")
+	TEST_ASSERT(cell.gust(here) > 0 && storm.get_gust(here) > 0, "No gust blew ahead of an approaching cloud")
+	cell.x = here.x + 15
+	TEST_ASSERT(cell.trail(here) > 0, "The ground behind a cloud was counted as ahead of it")
+	TEST_ASSERT_EQUAL(cell.gust(here), 0, "A gust blew behind a cloud that had passed")
+	cell.x = here.x - 15
+	cell.vx = 0
+	cell.aim()
+	TEST_ASSERT_EQUAL(cell.gust(here), 0, "A gust blew ahead of a cloud that is going nowhere")
+
+	// Clumps and gaps are bounded and never push the opacity out of range
+	cell.x = here.x
+	cell.radius_x = 20
+	cell.radius_y = 20
+	for(var/i in 1 to 24)
+		cell.churn = i * 31
+		var/patch = cell.patchiness(here)
+		TEST_ASSERT(patch >= 1 - WEATHER_CELL_PATCHINESS - 0.001 && patch <= 1 + WEATHER_CELL_PATCHINESS + 0.001, "Clumps in a cloud went past their bounds")
+		var/alpha = cell.screen_alpha(here)
+		TEST_ASSERT(alpha >= WEATHER_SCREEN_MIN_ALPHA && alpha <= WEATHER_SCREEN_MAX_ALPHA, "The opacity of a cloud went out of range")
+	cell.vigor = 0
+	TEST_ASSERT_EQUAL(cell.screen_alpha(here), WEATHER_SCREEN_MIN_ALPHA, "A spent cloud was still thick at its heart")
+
+	// Lightning falls inside the cloud
+	cell.radius_x = 30
+	cell.radius_y = 30
+	for(var/i in 1 to 20)
+		TEST_ASSERT(cell.covers(cell.random_point()), "Lightning struck outside its cloud")
+	storm.lightning_strike(here)
+
+	// The wind swings by degrees rather than jumping a quarter
+	var/old_angle = SSweather.wind_angle
+	SSweather.wind_angle = 350
+	SSweather.set_wind_direction(20)
+	TEST_ASSERT_EQUAL(SSweather.wind_angle, 10, "The wind did not swing round through north")
+	TEST_ASSERT_EQUAL(SSweather.wind_direction, NORTH, "The wind direction did not follow its angle")
+	SSweather.wind_angle = old_angle
+	SSweather.set_wind_direction(0)
+
+	// Rain leaves the ground wet for a while
+	var/old_colour = here.color
+	SSweather.wet_turf(here, 100)
+	TEST_ASSERT(SSweather.is_wet_ground(here), "Ground that was rained on is not wet")
+	SSweather.wet_turfs[here] = world.time - 1
+	SSweather.dry_turfs()
+	TEST_ASSERT(!SSweather.is_wet_ground(here), "Wet ground never dried")
+	TEST_ASSERT(!(here in SSweather.wet_turfs), "Dried ground was still kept track of")
+	TEST_ASSERT_EQUAL(here.color, old_colour, "The wet tint was left on ground that dried")
+
+	// A cloud casts no shadow at night
+	var/old_time = SSnightcycle.current_time
+	SSnightcycle.current_time = NIGHTCYCLE_PHASE_NIGHTTIME
+	TEST_ASSERT_EQUAL(storm.get_daylight(), 0, "A cloud had a shadow to cast at night")
+	SSnightcycle.current_time = NIGHTCYCLE_PHASE_DAYTIME
+	TEST_ASSERT_EQUAL(storm.get_daylight(), 1, "A cloud cast no shadow in broad daylight")
+	SSnightcycle.current_time = old_time
+
+	// Tame animals looking for cover must not choke on a spot with none
+	allocate(/mob/living/simple_animal, here)
+	storm.animals_find_shelter()
 
 /datum/unit_test/weather_concurrent/Run()
 	var/turf/here = run_loc_bottom_left

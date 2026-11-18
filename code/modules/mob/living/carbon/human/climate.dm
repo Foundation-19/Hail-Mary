@@ -107,6 +107,10 @@ GLOBAL_LIST_EMPTY(climate_heat_sources)
 		for(var/datum/weather/W as anything in get_active_weathers(src))
 			if(W.climate_temp_shift && !(W.immunity_type in weather_immunities))
 				. += W.climate_temp_shift * W.get_intensity(src) // the air only turns fully at the heart of the weather
+		// A gust runs ahead of an approaching patch and carries some of its weather before it
+		for(var/datum/weather/W as anything in SSweather.get_active_weathers())
+			if(!(W.immunity_type in weather_immunities))
+				. += W.get_gust_shift(src)
 	. += climate_temp_offset
 	if(. >= CLIMATE_HEAT_SOURCE_CAP)
 		return
