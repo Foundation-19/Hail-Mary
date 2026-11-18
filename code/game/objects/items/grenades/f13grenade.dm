@@ -84,7 +84,7 @@
 
 	// Queue the single explosion using saved values
 	if(saved_dev || saved_heavy || saved_light || saved_flame)
-		SSexplosion_spam.queue_explosion(epicenter, round(saved_dev * radius_mult), round(saved_heavy * radius_mult), round(saved_light * radius_mult), flash = 0, flame_range = round(saved_flame * radius_mult), source = null)
+		SSexplosion_spam.queue_explosion(epicenter, round(saved_dev * radius_mult), round(saved_heavy * radius_mult), round(saved_light * radius_mult), flash = 0, flame_range = round(saved_flame * radius_mult), source = null, credit_to = igniter)
 
 	qdel(src)
 

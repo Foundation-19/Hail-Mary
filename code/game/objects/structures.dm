@@ -17,9 +17,10 @@
 	//flags_ricochet = RICOCHET_HARD
 	//ricochet_chance_mod = 0.5
 
-/obj/structure/Initialize()
+/obj/structure/Initialize(mapload)
 	if (!armor)
 		armor = ARMOR_VALUE_LIGHT
+	build_map_loaded = mapload
 	. = ..()
 	if(smooth)
 		queue_smooth(src)
@@ -96,6 +97,8 @@
 
 /obj/structure/examine(mob/user)
 	. = ..()
+	if(build_owner_ckey)
+		. += span_notice("It looks like it belongs to someone.")
 	if(!(resistance_flags & INDESTRUCTIBLE))
 		if(resistance_flags & ON_FIRE)
 			. += span_warning("It's on fire!")

@@ -181,7 +181,7 @@ Difficulty: Medium
 	var/datum/weather/A
 	for(var/V in SSweather.processing)
 		var/datum/weather/W = V
-		if((user_turf.z in W.impacted_z_levels) && is_path_in_list(user_area.type, W.area_types))
+		if((user_turf.z in W.impacted_z_levels) && W.in_cell(user_turf) && is_path_in_list(user_area.type, W.area_types))
 			A = W
 			break
 
@@ -197,17 +197,17 @@ Difficulty: Medium
 			log_game("[user] ([key_name(user)]) has dispelled a storm at [AREACOORD(user_turf)]")
 			return
 	else
-		A = new storm_type(list(user_turf.z))
+		A = new storm_type(list(user_turf.z), null, user_turf)
+		if(A.stage == END_STAGE)
+			qdel(A)
+			to_chat(user, span_warning("Something is preventing you from using the staff here."))
+			return
 		A.name = "staff storm"
 		log_game("[user] ([key_name(user)]) has summoned [A] at [AREACOORD(user_turf)]")
 		if (is_special_character(user))
 			message_admins("[A] has been summoned in [ADMIN_VERBOSEJMP(user_turf)] by [user] ([key_name_admin(user)], a non-antagonist")
-		A.area_types = list(user_area.type)
-		A.telegraph_duration = 100
-		A.end_duration = 100
 
 	user.visible_message(span_warning("[user] holds [src] skywards as red lightning crackles into the sky!"), \
 	span_notice("You hold [src] skyward, calling down a terrible storm!"))
 	playsound(user, 'sound/magic/staff_change.ogg', 200, 0)
-	A.telegraph()
 	storm_cooldown = world.time + 200

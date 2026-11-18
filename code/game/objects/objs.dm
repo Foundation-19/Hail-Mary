@@ -42,6 +42,10 @@
 
 	var/renamedByPlayer = FALSE //set when a player uses a pen on a renamable object
 
+	/// Last mob to damage this object, so a blast it causes can be credited to them
+	var/datum/weakref/damaged_by
+	var/damaged_by_time = 0
+
 /obj/vv_edit_var(vname, vval)
 	switch(vname)
 		if("anchored")

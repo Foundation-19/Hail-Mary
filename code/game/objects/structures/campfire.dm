@@ -22,6 +22,13 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+	if(fired)
+		register_climate_heat_source(src)
+
+/obj/structure/campfire/get_climate_heat()
+	if(!fired || fuel <= 0)
+		return 0
+	return fuel > 1500 ? 28 : 22
 
 
 /obj/structure/campfire/Destroy()
@@ -66,6 +73,10 @@
 		INVOKE_ASYNC(src, PROC_REF(burn_process))
 
 /obj/structure/campfire/process()
+	if(is_rained_on(src))
+		visible_message(span_notice("The rain hisses as it drowns [src]."))
+		extinguish()
+		return
 	if(fuel <= 0)
 		extinguish()
 		return
@@ -83,12 +94,17 @@
 //		affected.temperature *= 1.01
 
 /obj/structure/campfire/proc/fire(mob/living/user)
+	if(is_rained_on(src))
+		if(user)
+			to_chat(user, span_warning("The rain keeps snuffing out the flame. You'll need to light [src] under cover."))
+		return
 
 //	BeginAmbient('sound/effects/comfyfire.ogg', 20, 12)
 
 	playsound(src, 'sound/items/welder.ogg', 25, 1, -3)
 	START_PROCESSING(SSobj, src)
 	fired = 1
+	register_climate_heat_source(src)
 	desc = "A warm, bright, and hopeful fire source."
 	if(user)
 		user.visible_message("[user] has lit a [src].", span_notice("You have lit a [src]."))
@@ -118,16 +134,17 @@
 //		overlays.Cut()
 	..()
 
-/*/obj/structure/campfire/extinguish()
-	name = "burned campfire"
-	desc = "It has burned to ashes..."
-	icon_state = initial(icon_state)
+/// A burnt out or rained on campfire is cold until someone lights it again, even if it is refuelled
+/obj/structure/campfire/extinguish()
+	if(!fired)
+		return
 	fired = 0
 	burned = 1
+	desc = initial(desc)
 	set_light(0)
-//	StopAmbient()
 	STOP_PROCESSING(SSobj, src)
-	update_icon()*/
+	unregister_climate_heat_source(src)
+	update_icon()
 
 /obj/structure/campfire/infinity
 	fired = 1

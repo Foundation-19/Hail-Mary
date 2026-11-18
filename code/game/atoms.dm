@@ -39,6 +39,8 @@
 
 	var/datum/proximity_monitor/proximity_monitor
 	var/fingerprintslast
+	/// world.time of the last fingerprint left by fingerprintslast
+	var/fingerprintslast_time
 
 	var/list/filter_data //For handling persistent filters
 

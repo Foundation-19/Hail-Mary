@@ -156,7 +156,10 @@
 /mob/living/simple_animal/hostile/securitron/proc/self_destruct()
 	explosion(src, 1, 2, 4, 4)
 
-/mob/living/simple_animal/hostile/securitron/death()
+/mob/living/simple_animal/hostile/securitron/death(gibbed)
+	// A gibbed or deleted body is gone before any timer could fire, so don't schedule on it
+	if(gibbed || QDELETED(src))
+		return ..()
 	do_sparks(3, TRUE, src)
 	for(var/i in 1 to 3)
 		addtimer(CALLBACK(src, PROC_REF(do_death_beep)), i * 1 SECONDS)
@@ -233,8 +236,11 @@
 	
 	// Pure ranged - gatling laser
 	combat_mode = COMBAT_MODE_RANGED
-	retreat_distance = 5
-	minimum_distance = 1
+	// Heavy armor plating is its counterweight: it closes to firing range and then holds ground, laying down
+	// fire instead of kiting away as the target closes in
+	retreat_distance = null
+	ai_can_retreat = FALSE
+	minimum_distance = 5
 	
 	ranged_cooldown_time = 40  // Brrrrrrrt
 	extra_projectiles = 2  // 3 shots per burst
@@ -271,6 +277,7 @@
 	desc = "A pre-war military robot armed with a modified breacher shotgun and covered in thick armor plating."
 	
 	retreat_distance = null  // Gets right in your face
+	minimum_distance = 1  // Breacher shotgun wants close range, not the base sentry's standoff distance
 	extra_projectiles = 0
 	
 	projectiletype = /obj/item/projectile/bullet/shotgun_beanbag
@@ -320,6 +327,7 @@
 	maxHealth = 900 //CHONK
 	obj_damage = 300
 	retreat_distance = 0
+	minimum_distance = 1  // Wall-obliterator rushdown - keep its original close engagement range
 	environment_smash = ENVIRONMENT_SMASH_RWALLS //wall-obliterator. perish.
 	color = "#780000"
 	aggro_vision_range = 8
@@ -379,6 +387,7 @@
 	extra_projectiles = 6
 	
 	retreat_distance = null  // Perish, mortal
+	minimum_distance = 1  // Keep its original close engagement range (also inherited by chew/strong)
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	
 	color = "#75FFE2"

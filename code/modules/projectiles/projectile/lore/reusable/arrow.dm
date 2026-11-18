@@ -117,7 +117,7 @@
 
 /obj/item/projectile/bullet/reusable/arrow/explosive/on_hit(atom/target, blocked = FALSE)
 	..()
-	explosion(target, 0, 0, 2, 0, adminlog = FALSE, flame_range = 0) //dynamite sized explosion, no cruel flash or fire to make pvp miserable
+	explosion(target, 0, 0, 2, 0, adminlog = FALSE, flame_range = 0, credit_to = isliving(firer) ? firer : null) //dynamite sized explosion, no cruel flash or fire to make pvp miserable
 
 
 /obj/item/projectile/bullet/reusable/arrow/jagged //oldcode serrated and broadhead combined

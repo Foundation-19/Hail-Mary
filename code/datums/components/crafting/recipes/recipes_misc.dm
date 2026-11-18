@@ -15,6 +15,8 @@
 /datum/crafting_recipe/ncrgate
 	name = "NCR reinforced door"
 	result = /obj/machinery/door/unpowered/secure_NCR
+	one_per_turf = TRUE
+	on_floor = TRUE
 	reqs = list(/obj/item/stack/sheet/metal = 20,
 				/obj/item/stack/sheet/mineral/wood = 20,)
 	time = 60
@@ -25,6 +27,8 @@
 /datum/crafting_recipe/legiongate
 	name = "Legion iron gate"
 	result = /obj/machinery/door/unpowered/secure_legion
+	one_per_turf = TRUE
+	on_floor = TRUE
 	reqs = list(/obj/item/stack/sheet/metal = 25)
 	time = 60
 	subcategory = CAT_MISCELLANEOUS
@@ -34,6 +38,8 @@
 /datum/crafting_recipe/gate_bos
 	name = "Brotherhood steel door"
 	result = /obj/machinery/door/unpowered/secure_bos
+	one_per_turf = TRUE
+	on_floor = TRUE
 	reqs = list(/obj/item/stack/sheet/metal = 35)
 	time = 60
 	subcategory = CAT_MISCELLANEOUS
@@ -43,6 +49,8 @@
 /datum/crafting_recipe/gate_khanate
 	name = "Khans steel-reinforced wood door"
 	result = /obj/machinery/door/unpowered/securedoor/khandoor
+	one_per_turf = TRUE
+	on_floor = TRUE
 	reqs = list(/obj/item/stack/sheet/metal = 5,
 				/obj/item/stack/sheet/mineral/wood = 10,)
 	time = 60
@@ -53,6 +61,8 @@
 /datum/crafting_recipe/gate_biker
 	name = "Hell's Nomad wood door"
 	result = /obj/machinery/door/unpowered/securedoor/bikerdoor
+	one_per_turf = TRUE
+	on_floor = TRUE
 	reqs = list(/obj/item/stack/sheet/metal = 5,
 				/obj/item/stack/sheet/mineral/wood = 10,)
 	time = 60
@@ -72,6 +82,8 @@
 /datum/crafting_recipe/toilet
 	name = "Toilet"
 	result = /obj/structure/toilet
+	one_per_turf = TRUE
+	on_floor = TRUE
 	reqs = list(/obj/item/stack/sheet/metal = 5,
 				/obj/item/stack/crafting/metalparts = 5)
 	time = 50
@@ -81,6 +93,8 @@
 /datum/crafting_recipe/sink
 	name = "Sink"
 	result = /obj/structure/sink
+	one_per_turf = TRUE
+	on_floor = TRUE
 	reqs = list(/obj/item/stack/sheet/metal = 5,
 				/obj/item/stack/crafting/metalparts = 5)
 	time = 50
@@ -90,6 +104,8 @@
 /datum/crafting_recipe/shower
 	name = "Shower"
 	result = /obj/machinery/shower
+	one_per_turf = TRUE
+	on_floor = TRUE
 	reqs = list(/obj/item/stack/sheet/metal = 10,
 				/obj/item/stack/crafting/metalparts = 10)
 	tools = list(TOOL_WRENCH, TOOL_SCREWDRIVER)
@@ -310,6 +326,8 @@
 				/obj/item/electronics/airlock = 1
 				)
 	result = /obj/machinery/door/poddoor/shutters/old/preopen
+	one_per_turf = TRUE
+	on_floor = TRUE
 	tools = list(TOOL_SCREWDRIVER, TOOL_MULTITOOL, TOOL_WIRECUTTER, TOOL_WELDER)
 	time = 15 SECONDS
 	subcategory = CAT_MISCELLANEOUS
@@ -322,6 +340,8 @@
 				/obj/item/electronics/airlock = 1
 				)
 	result = /obj/machinery/door/poddoor/preopen
+	one_per_turf = TRUE
+	on_floor = TRUE
 	tools = list(TOOL_SCREWDRIVER, TOOL_MULTITOOL, TOOL_WIRECUTTER, TOOL_WELDER)
 	time = 30 SECONDS
 	subcategory = CAT_MISCELLANEOUS
@@ -335,6 +355,8 @@
 				/obj/item/electronics/airlock = 1
 				)
 	result = /obj/machinery/door/poddoor/shutters/window/preopen
+	one_per_turf = TRUE
+	on_floor = TRUE
 	tools = list(TOOL_SCREWDRIVER, TOOL_MULTITOOL, TOOL_WIRECUTTER, TOOL_WELDER)
 	time = 15 SECONDS
 	subcategory = CAT_MISCELLANEOUS

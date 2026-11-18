@@ -21,7 +21,7 @@
 
 	overlay_layer = ABOVE_OPEN_TURF_LAYER //Covers floors only
 	immunity_type = "lava"
-
+	localized = FALSE
 
 /datum/weather/floor_is_lava/weather_act(mob/living/L)
 	if(issilicon(L))

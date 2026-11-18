@@ -16,6 +16,8 @@
 	obj_integrity = 80
 	max_integrity = 80
 	var/state = FALSE
+	/// Whoever armed it, credited with what it kills
+	var/datum/weakref/placer
 	layer = 10
 
 /obj/item/bottlecap_mine/attack_self(mob/user as mob)
@@ -26,6 +28,7 @@
 	switch(state)
 		if(DISABLED)
 			state = PREACTIVE
+			placer = WEAKREF(user)
 			update_icon()
 			spawn(50)
 				if(state == PREACTIVE)
@@ -42,7 +45,7 @@
 			STOP_PROCESSING(SSobj, src)
 
 /obj/item/bottlecap_mine/proc/boom()
-	explosion(src.loc,0,2,3, flame_range = 6)
+	explosion(src.loc,0,2,3, flame_range = 6, credit_to = RESOLVEWEAKREF(placer) || get_explosion_credit())
 
 /obj/item/bottlecap_mine/process()
 	if(state != ACTIVE)
@@ -107,6 +110,8 @@
 	var/random = FALSE //are our wires random?
 	/// We manually check to see if we've been triggered in case multiple atoms cross us in the time between the mine being triggered and it actually deleting, to avoid a race condition with multiple detonations
 	var/triggered = FALSE
+	/// Whoever dropped and armed this mine, credited with what it kills
+	var/datum/weakref/placer
 
 /obj/item/mine/ComponentInitialize()
 	. = ..()
@@ -135,6 +140,7 @@
 		to_chat(user, span_danger("The mine is already armed!")) //how did we get here
 	if(user.dropItemToGround(src))
 		anchored = TRUE
+		placer = WEAKREF(user)
 		addtimer(CALLBACK(src, PROC_REF(arm)), 5 SECONDS)
 		to_chat(user, span_notice("You drop the mine and activate the 5-second arming process."))
 		return
@@ -205,8 +211,18 @@
 	var/range_light = 2
 	var/range_flash = 3
 
+/// Whoever armed it, else whoever's blast or shot set it off, else whoever stepped on it
+/obj/item/mine/proc/get_credit(mob/victim)
+	var/mob/living/owner = RESOLVEWEAKREF(placer)
+	if(owner)
+		return owner
+	owner = get_explosion_credit()
+	if(owner)
+		return owner
+	return isliving(victim) ? victim : null
+
 /obj/item/mine/explosive/mineEffect(mob/victim)
-	explosion(loc, range_devastation, range_heavy, range_light, range_flash)
+	explosion(loc, range_devastation, range_heavy, range_light, range_flash, credit_to = get_credit(victim))
 
 /obj/item/mine/explosive/random
 	random = TRUE
@@ -232,8 +248,11 @@
 	var/shrapnel_magnitude = 3
 
 /obj/item/mine/shrapnel/mineEffect(mob/victim)
-	AddComponent(/datum/component/pellet_cloud, projectile_type=shrapnel_type, magnitude=shrapnel_magnitude)
-	explosion(loc, 0, 0, 2, 2)
+	var/datum/component/pellet_cloud/cloud = AddComponent(/datum/component/pellet_cloud, projectile_type=shrapnel_type, magnitude=shrapnel_magnitude)
+	var/mob/living/owner = get_credit(victim)
+	if(cloud && owner)
+		cloud.credit_ref = WEAKREF(owner)
+	explosion(loc, 0, 0, 2, 2, credit_to = owner)
 
 /obj/item/mine/shrapnel/random
 	random = TRUE

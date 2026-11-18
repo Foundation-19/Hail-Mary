@@ -123,7 +123,9 @@ GLOBAL_LIST_INIT(admin_verbs_fun, list(
 	/client/proc/smite,
 	/client/proc/admin_away,
 	/client/proc/cmd_admin_toggle_fov,
-	/client/proc/roll_dices					//CIT CHANGE - Adds dice verb
+	/client/proc/roll_dices,					//CIT CHANGE - Adds dice verb
+	/client/proc/set_daynight_phase,
+	/client/proc/resume_daynight_autocycle
 	))
 GLOBAL_PROTECT(admin_verbs_fun)
 GLOBAL_LIST_INIT(admin_verbs_spawn, list(/datum/admins/proc/spawn_atom, /datum/admins/proc/podspawn_atom, /datum/admins/proc/spawn_cargo, /datum/admins/proc/spawn_objasmob, /client/proc/respawn_character))
@@ -240,6 +242,8 @@ GLOBAL_LIST_INIT(admin_verbs_hideable, list(
 	/client/proc/get_dynex_power,
 	/client/proc/set_dynex_scale,
 	/client/proc/cinematic,
+	/client/proc/set_daynight_phase,
+	/client/proc/resume_daynight_autocycle,
 	/client/proc/cmd_admin_add_freeform_ai_law,
 	/client/proc/cmd_admin_create_centcom_report,
 	/client/proc/cmd_change_command_name,
@@ -546,18 +550,20 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	var/list/choices = list("Small Bomb (1, 2, 3, 3)", "Medium Bomb (2, 3, 4, 4)", "Big Bomb (3, 5, 7, 5)", "Maxcap", "Custom Bomb")
 	var/choice = input("What size explosion would you like to produce? NOTE: You can do all this rapidly and in an IC manner (using cruise missiles!) with the Config/Launch Supplypod verb. WARNING: These ignore the maxcap") as null|anything in choices
 	var/turf/epicenter = mob.loc
+	// A possessed living mob is credited so perks can be tested against admin blasts
+	var/mob/living/admin_credit = isliving(mob) ? mob : null
 
 	switch(choice)
 		if(null)
 			return 0
 		if("Small Bomb (1, 2, 3, 3)")
-			explosion(epicenter, 1, 2, 3, 3, TRUE, TRUE)
+			explosion(epicenter, 1, 2, 3, 3, TRUE, TRUE, credit_to = admin_credit)
 		if("Medium Bomb (2, 3, 4, 4)")
-			explosion(epicenter, 2, 3, 4, 4, TRUE, TRUE)
+			explosion(epicenter, 2, 3, 4, 4, TRUE, TRUE, credit_to = admin_credit)
 		if("Big Bomb (3, 5, 7, 5)")
-			explosion(epicenter, 3, 5, 7, 5, TRUE, TRUE)
+			explosion(epicenter, 3, 5, 7, 5, TRUE, TRUE, credit_to = admin_credit)
 		if("Maxcap")
-			explosion(epicenter, GLOB.MAX_EX_DEVESTATION_RANGE, GLOB.MAX_EX_HEAVY_RANGE, GLOB.MAX_EX_LIGHT_RANGE, GLOB.MAX_EX_FLASH_RANGE)
+			explosion(epicenter, GLOB.MAX_EX_DEVESTATION_RANGE, GLOB.MAX_EX_HEAVY_RANGE, GLOB.MAX_EX_LIGHT_RANGE, GLOB.MAX_EX_FLASH_RANGE, credit_to = admin_credit)
 		if("Custom Bomb")
 			var/devastation_range = input("Devastation range (in tiles):") as null|num
 			if(devastation_range == null)
@@ -575,7 +581,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 				if(alert("Bomb is bigger than the maxcap. Continue?",,"Yes","No") != "Yes")
 					return
 			epicenter = mob.loc //We need to reupdate as they may have moved again
-			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, TRUE, TRUE)
+			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, TRUE, TRUE, credit_to = admin_credit)
 	message_admins("[ADMIN_LOOKUPFLW(usr)] creating an admin explosion at [epicenter.loc].")
 	log_admin("[key_name(usr)] created an admin explosion at [epicenter.loc].")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Drop Bomb") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -588,7 +594,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	var/ex_power = input("Explosive Power:") as null|num
 	var/turf/epicenter = mob.loc
 	if(ex_power && epicenter)
-		dyn_explosion(epicenter, ex_power)
+		dyn_explosion(epicenter, ex_power, credit_to = isliving(mob) ? mob : null)
 		message_admins("[ADMIN_LOOKUPFLW(usr)] creating an admin explosion at [epicenter.loc].")
 		log_admin("[key_name(usr)] created an admin explosion at [epicenter.loc].")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Drop Dynamic Bomb") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

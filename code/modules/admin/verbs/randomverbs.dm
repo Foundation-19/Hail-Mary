@@ -681,7 +681,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			if (alert(src, "Are you sure you want to do this? It will laaag.", "Confirmation", "Yes", "No") == "No")
 				return
 
-		explosion(O, devastation, heavy, light, flash, null, null,flames)
+		explosion(O, devastation, heavy, light, flash, null, null, flames, credit_to = isliving(mob) ? mob : null)
 		log_admin("[key_name(usr)] created an explosion ([devastation],[heavy],[light],[flames]) at [AREACOORD(O)]")
 		message_admins("[key_name_admin(usr)] created an explosion ([devastation],[heavy],[light],[flames]) at [AREACOORD(O)]")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Explosion") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -989,7 +989,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!weather_type)
 		return
 
-	SSweather.run_weather(weather_type)
+	var/turf/epicenter
+	var/turf/here = get_turf(mob)
+	if(here && alert("Form it over where you are standing?", "Weather", "Yes", "Random") == "Yes")
+		epicenter = here
+
+	SSweather.run_weather(weather_type, null, epicenter)
 
 	message_admins("[key_name_admin(usr)] started weather of type [weather_type].")
 	log_admin("[key_name(usr)] started weather of type [weather_type].")

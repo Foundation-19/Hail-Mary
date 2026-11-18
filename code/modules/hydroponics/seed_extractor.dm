@@ -21,6 +21,8 @@
 			t_max = rand(1,4) * extractor.seed_multiplier
 		else
 			t_max = rand(1,4)
+		if(user?.green_thumb_roll())
+			t_max++
 
 	var/seedloc = O.loc
 	if(extractor)

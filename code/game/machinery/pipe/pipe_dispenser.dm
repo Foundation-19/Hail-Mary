@@ -10,6 +10,9 @@
 	var/wait = 0
 	var/piping_layer = PIPING_LAYER_DEFAULT
 
+/// Shared page head so every pipe button renders as an icon tile with its label underneath.
+#define PIPE_DISPENSER_STYLE "<STYLE>a.pipe{display:inline-block;width:84px;height:68px;margin:2px;padding:2px;border:1px solid #555;text-align:center;vertical-align:top;text-decoration:none;font-size:11px;overflow:hidden}a.pipe:hover{background:#334;border-color:#99f}a.pipe img{display:block;margin:0 auto 2px auto}</STYLE>"
+
 /obj/machinery/pipedispenser/attack_paw(mob/user)
 	return attack_hand(user)
 
@@ -21,15 +24,15 @@
 
 	for(var/category in recipes)
 		var/list/cat_recipes = recipes[category]
-		dat += "<b>[category]:</b><ul>"
+		dat += "<b>[category]:</b><br>"
 
 		for(var/i in cat_recipes)
 			var/datum/pipe_info/I = i
-			dat += I.Render(src)
+			dat += I.Render(src, user)
 
-		dat += "</ul>"
+		dat += "<br>"
 
-	user << browse("<HEAD><TITLE>[src]</TITLE></HEAD><TT>[dat]</TT>", "window=pipedispenser")
+	user << browse("<HEAD><TITLE>[src]</TITLE>[PIPE_DISPENSER_STYLE]</HEAD><TT>[dat]</TT>", "window=pipedispenser;size=480x560")
 	onclose(user, "pipedispenser")
 	return
 
@@ -120,15 +123,15 @@
 
 	for(var/category in recipes)
 		var/list/cat_recipes = recipes[category]
-		dat += "<b>[category]:</b><ul>"
+		dat += "<b>[category]:</b><br>"
 
 		for(var/i in cat_recipes)
 			var/datum/pipe_info/I = i
-			dat += I.Render(src)
+			dat += I.Render(src, user)
 
-		dat += "</ul>"
+		dat += "<br>"
 
-	user << browse("<HEAD><TITLE>[src]</TITLE></HEAD><TT>[dat]</TT>", "window=pipedispenser")
+	user << browse("<HEAD><TITLE>[src]</TITLE>[PIPE_DISPENSER_STYLE]</HEAD><TT>[dat]</TT>", "window=pipedispenser;size=480x420")
 	return
 
 
@@ -167,21 +170,29 @@
 
 
 /obj/machinery/pipedispenser/disposal/transit_tube/interact(mob/user)
+	var/static/list/tube_ids = list(
+		/obj/structure/c_transit_tube = TRANSIT_TUBE_STRAIGHT,
+		/obj/structure/c_transit_tube/crossing = TRANSIT_TUBE_STRAIGHT_CROSSING,
+		/obj/structure/c_transit_tube/curved = TRANSIT_TUBE_CURVED,
+		/obj/structure/c_transit_tube/diagonal = TRANSIT_TUBE_DIAGONAL,
+		/obj/structure/c_transit_tube/diagonal/crossing = TRANSIT_TUBE_DIAGONAL_CROSSING,
+		/obj/structure/c_transit_tube/junction = TRANSIT_TUBE_JUNCTION,
+		/obj/structure/c_transit_tube/station = TRANSIT_TUBE_STATION,
+		/obj/structure/c_transit_tube/station/reverse = TRANSIT_TUBE_TERMINUS,
+		/obj/structure/c_transit_tube_pod = TRANSIT_TUBE_POD,
+	)
 
-	var/dat = {"<B>Transit Tubes:</B><BR>
-<A href='?src=[REF(src)];tube=[TRANSIT_TUBE_STRAIGHT]'>Straight Tube</A><BR>
-<A href='?src=[REF(src)];tube=[TRANSIT_TUBE_STRAIGHT_CROSSING]'>Straight Tube with Crossing</A><BR>
-<A href='?src=[REF(src)];tube=[TRANSIT_TUBE_CURVED]'>Curved Tube</A><BR>
-<A href='?src=[REF(src)];tube=[TRANSIT_TUBE_DIAGONAL]'>Diagonal Tube</A><BR>
-<A href='?src=[REF(src)];tube=[TRANSIT_TUBE_DIAGONAL_CROSSING]'>Diagonal Tube with Crossing</A><BR>
-<A href='?src=[REF(src)];tube=[TRANSIT_TUBE_JUNCTION]'>Junction</A><BR>
-<b>Station Equipment:</b><BR>
-<A href='?src=[REF(src)];tube=[TRANSIT_TUBE_STATION]'>Through Tube Station</A><BR>
-<A href='?src=[REF(src)];tube=[TRANSIT_TUBE_TERMINUS]'>Terminus Tube Station</A><BR>
-<A href='?src=[REF(src)];tube=[TRANSIT_TUBE_POD]'>Transit Tube Pod</A><BR>
-"}
+	var/dat = ""
+	for(var/category in GLOB.transit_tube_recipes)
+		dat += "<b>[category]:</b><br>"
+		for(var/datum/pipe_info/I as anything in GLOB.transit_tube_recipes[category])
+			var/tube = tube_ids[I.id]
+			if(isnull(tube))
+				continue
+			dat += I.render_button(src, user, "tube=[tube]", I.name, I.dirtype == PIPE_ONEDIR ? SOUTH : NORTH)
+		dat += "<br>"
 
-	user << browse("<HEAD><TITLE>[src]</TITLE></HEAD><TT>[dat]</TT>", "window=pipedispenser")
+	user << browse("<HEAD><TITLE>[src]</TITLE>[PIPE_DISPENSER_STYLE]</HEAD><TT>[dat]</TT>", "window=pipedispenser;size=480x420")
 	return
 
 

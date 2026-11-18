@@ -612,7 +612,7 @@
 	faction = list(
 		"neutral", "silicon", "dog", "hostile", "pirate", "wastebot", "wolf",
 		"plants", "turret", "enclave", "ghoul", "cazador", "supermutant",
-		"gecko", "slime", "radscorpion", "skeleton", "carp", "bs", "bighorner"
+		"gecko", "slime", "radscorpion", "skeleton", "carp", "BOS", "bighorner" // was "bs" - that's the unrelated reputation system's id, not the mob-AI "BOS" faction tag used by actual Brotherhood troops
 	)
 	
 	speak = list(

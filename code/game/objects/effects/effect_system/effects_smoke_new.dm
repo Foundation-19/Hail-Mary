@@ -86,7 +86,7 @@
 	if(A?.outdoors)
 		driftdir = SSweather.wind_direction
 		// if weather's happening, we're going to be moving a lot faster and lasting less time
-		if(SSweather.current_weather)
+		if(length(get_active_weathers(src)))
 			driftdelay *= 0.5
 			lifetime *= 0.5
 	else // if we're indoors, we're going to drift in a random direction

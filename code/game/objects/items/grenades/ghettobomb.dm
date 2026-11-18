@@ -120,7 +120,7 @@ GLOBAL_LIST_INIT(recent_primers, list())
 	var/turf/epicenter = get_turf(src)
 	
 	// Queue explosion instead of immediate
-	SSexplosion_spam.queue_explosion(epicenter, 1, 2, 2, 3, flame_range = 1, source = null)
+	SSexplosion_spam.queue_explosion(epicenter, 1, 2, 2, 3, flame_range = 1, source = null, credit_to = lanced_by || primed_by)
 	qdel(src)
 
 
@@ -147,7 +147,7 @@ GLOBAL_LIST_INIT(recent_primers, list())
 	var/turf/epicenter = get_turf(src)
 	
 	// Queue explosion
-	SSexplosion_spam.queue_explosion(epicenter, -1, -1, 2, flame_range = 4, source = null)
+	SSexplosion_spam.queue_explosion(epicenter, -1, -1, 2, flame_range = 4, source = null, credit_to = lanced_by || primed_by)
 	qdel(src)
 
 
@@ -177,6 +177,8 @@ GLOBAL_LIST_INIT(recent_primers, list())
 		/datum/reagent/toxin/spore_burning = 7,
 		)
 	var/active = FALSE
+	/// Whoever lit it, credited with what it kills
+	var/datum/weakref/lighter
 
 // PREFILLED MOLOTOV for loadouts, mapping etc
 /obj/item/reagent_containers/food/drinks/bottle/molotov/filled
@@ -196,21 +198,22 @@ GLOBAL_LIST_INIT(recent_primers, list())
 
 /obj/item/reagent_containers/food/drinks/bottle/molotov/bullet_act(obj/item/projectile/P)
 	. = ..()
-	make_boom()
+	make_boom(get_responsible_mob(P.firer) || RESOLVEWEAKREF(lighter))
 	qdel(src)
 
 /obj/item/reagent_containers/food/drinks/bottle/molotov/ex_act()
-	make_boom()
+	make_boom(get_explosion_credit() || RESOLVEWEAKREF(lighter))
 	. = ..()
 
 /obj/item/reagent_containers/food/drinks/bottle/molotov/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	make_boom()
+	make_boom(isliving(throwingdatum?.thrower) ? throwingdatum.thrower : RESOLVEWEAKREF(lighter))
 	. = ..()
 	qdel(src)
 
 /obj/item/reagent_containers/food/drinks/bottle/molotov/attackby(obj/item/I, mob/user, params)
 	if(I.get_temperature() && !active)
 		active = TRUE
+		lighter = WEAKREF(user)
 		var/message = "[ADMIN_LOOKUP(user)] has primed a [name] for detonation at [ADMIN_VERBOSEJMP(user)]."
 		GLOB.bombers += message
 		message_admins(message)
@@ -225,7 +228,7 @@ GLOBAL_LIST_INIT(recent_primers, list())
 		if(!QDELETED(src))
 			addtimer(CALLBACK(src, PROC_REF(splash_and_boom)), 5 SECONDS)
 
-/obj/item/reagent_containers/food/drinks/bottle/molotov/proc/make_boom()
+/obj/item/reagent_containers/food/drinks/bottle/molotov/proc/make_boom(mob/living/credit_to)
 	var/boomsize
 	var/extra_boom = 0
 	for(var/datum/reagent/reagent_in_bottle as anything in reagents.reagent_list)
@@ -238,7 +241,7 @@ GLOBAL_LIST_INIT(recent_primers, list())
 		boomsize = accelerants[reagent_in_bottle.type] * (reagent_in_bottle.volume / volume)
 	if(boomsize >= 1 || extra_boom)
 		// Queue explosion instead of immediate
-		SSexplosion_spam.queue_explosion(get_turf(src), -1, -1, extra_boom, flame_range = (boomsize + extra_boom), source = src)
+		SSexplosion_spam.queue_explosion(get_turf(src), -1, -1, extra_boom, flame_range = (boomsize + extra_boom), source = src, credit_to = credit_to)
 
 /obj/item/reagent_containers/food/drinks/bottle/molotov/proc/splash_and_boom()
 	if(QDELETED(src) || !active || isnull(loc))
@@ -251,7 +254,7 @@ GLOBAL_LIST_INIT(recent_primers, list())
 				break
 	if(!isturf(target))
 		target = get_turf(target) // Too deep, let's just bypass to the end.
-	make_boom()
+	make_boom(RESOLVEWEAKREF(lighter))
 	if(!QDELETED(src))
 		SplashReagents(target)
 	qdel(src)

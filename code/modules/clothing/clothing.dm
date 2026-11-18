@@ -27,6 +27,11 @@
 	var/lighting_alpha
 	var/glass_colour_type //colors your vision when worn
 
+	/// Multiplier on how much this item keeps the cold out, see CLIMATE_INSULATION_*. Fur and winter wear is above 1, rags and plate below
+	var/climate_warmth = 1
+	/// Multiplier on how much this item traps heat. Breathable gear is below 1, sealed or plated gear above it
+	var/climate_heat_trap = 1
+
 
 	var/blocks_shove_knockdown = FALSE //Whether wearing the clothing item blocks the ability for shove to knock down.
 

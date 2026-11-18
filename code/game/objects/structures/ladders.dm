@@ -242,11 +242,11 @@
 
 /obj/structure/ladder/proc/is_other_side_dangerous()
 	if(up)
-		var/datum/weather/up_weather = SSweather.get_weather(get_area(up))
+		var/datum/weather/up_weather = SSweather.get_weather(up)
 		if(up_weather?.is_dangerous)
 			. |= UP_LADDER_WEATHER_IS_DANGEROUS
 	if(down)
-		var/datum/weather/down_weather = SSweather.get_weather(get_area(down))
+		var/datum/weather/down_weather = SSweather.get_weather(down)
 		if(down_weather?.is_dangerous)
 			. |= DOWN_LADDER_WEATHER_IS_DANGEROUS
 

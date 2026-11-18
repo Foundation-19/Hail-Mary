@@ -85,6 +85,11 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 	// generic traits tied to having the species
 	var/list/inherent_traits = list()
 	var/inherent_biotypes = MOB_ORGANIC|MOB_HUMANOID
+	/// How hard the cold and the heat hit this species, on top of quirks. 0 means immune
+	var/climate_cold_mod = 1
+	var/climate_heat_mod = 1
+	/// Machines feel no cold and overheat instead of getting heatstroke, which burns charge rather than stamina
+	var/climate_machine = FALSE
 
 	var/attack_verb = "punch"	// punch-specific attack verb
 	var/sound/attack_sound = 'sound/weapons/punch1.ogg'
@@ -1572,6 +1577,8 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		if(user.limb_destroyer)
 			target.dismembering_strike(user, affecting.body_zone)
 
+		var/health_before = target.health
+		target.prime_damage_credit(user)
 		if(atk_verb == ATTACK_EFFECT_KICK)//kicks deal 1.5x raw damage + 0.5x stamina damage
 			target.apply_damage(damage*1.5, attack_type, affecting, armor_block)
 			target.apply_damage(damage*0.5, STAMINA, affecting, armor_block)
@@ -1580,6 +1587,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 			target.apply_damage(damage, attack_type, affecting, armor_block)
 			target.apply_damage(damage*2, STAMINA, affecting, armor_block)
 			log_combat(user, target, "punched")
+		target.register_damage_from(user, health_before - target.health, user)
 
 		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
 			if((punchedstam > 50) && prob(punchedstam*0.5)) //If our punch victim has been hit above the threshold, and they have more than 50 stamina damage, roll for stun, probability of 1% per 2 stamina damage

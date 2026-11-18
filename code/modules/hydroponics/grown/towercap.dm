@@ -293,9 +293,10 @@
 	return TRUE
 
 /obj/structure/bonfire/proc/StartBurning()
-	if(!burning && CheckOxygen())
+	if(!burning && CheckOxygen() && !is_rained_on(src))
 		icon_state = burn_icon
 		burning = TRUE
+		register_climate_heat_source(src)
 		set_light(6)
 		Burn()
 		START_PROCESSING(SSobj, src)
@@ -339,6 +340,10 @@
 			new /obj/item/stack/sheet/mineral/coal(loc, 1)
 
 /obj/structure/bonfire/process()
+	if(is_rained_on(src))
+		visible_message(span_notice("The rain hisses as it drowns [src]."))
+		extinguish()
+		return
 	if(!CheckOxygen())
 		extinguish()
 		return
@@ -352,7 +357,11 @@
 		icon_state = "bonfire"
 		burning = 0
 		set_light(0)
+		unregister_climate_heat_source(src)
 		STOP_PROCESSING(SSobj, src)
+
+/obj/structure/bonfire/get_climate_heat()
+	return burning ? 22 : 0
 
 /obj/structure/bonfire/proc/attempt_smoke_signal(obj/item/stack/sheet/cloth/sheet, mob/living/user, )
 	if(!is_type_in_list(get_area(src), GLOB.outdoor_areas))

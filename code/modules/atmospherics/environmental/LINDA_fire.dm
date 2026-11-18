@@ -48,8 +48,10 @@
 	var/visual_update_tick = 0
 	/// FALSE for weapon fire: it still burns mobs but never ignites or destroys loot, structures and dropped items
 	var/burn_objects = TRUE
+	/// Whoever started this fire. Anything that explodes because of it (fuel tanks, barrels) credits the blast to them
+	var/datum/weakref/credit_ref
 
-/obj/effect/hotspot/Initialize(mapload, starting_volume, starting_temperature, starting_burn_objects)
+/obj/effect/hotspot/Initialize(mapload, starting_volume, starting_temperature, starting_burn_objects, mob/living/starting_credit)
 	. = ..()
 	// SSair.hotspots += src
 	if(!isnull(starting_volume))
@@ -58,6 +60,10 @@
 		temperature = starting_temperature
 	if(!isnull(starting_burn_objects))
 		burn_objects = starting_burn_objects
+	if(starting_credit)
+		credit_ref = WEAKREF(starting_credit)
+	else
+		credit_ref = GLOB.explosion_chain_credit
 	perform_exposure()
 	setDir(pick(GLOB.cardinals))
 	// air_update_turf()
@@ -87,12 +93,17 @@
 			location.assume_air(affected)
 	*/
 
+	// Fuel tanks and barrels that go off from this fire inherit its credit through the explosion chain credit
+	var/datum/weakref/previous_chain = GLOB.explosion_chain_credit
+	if(credit_ref)
+		GLOB.explosion_chain_credit = credit_ref
 	for(var/A in location)
 		var/atom/AT = A
 		if(!burn_objects && !isliving(AT))
 			continue
 		if(!QDELETED(AT) && AT != src) // It's possible that the item is deleted in temperature_expose
 			AT.fire_act(temperature, volume)
+	GLOB.explosion_chain_credit = previous_chain
 	return
 
 /obj/effect/hotspot/proc/gauss_lerp(x, x1, x2)

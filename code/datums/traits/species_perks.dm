@@ -74,6 +74,10 @@ GLOBAL_LIST_INIT(quirk_species_blacklist, build_quirk_species_blacklist())
 	var/list/robot_liabilities = list(
 		/datum/quirk/modular/squeamish,
 		/datum/quirk/modular/heat_intolerant,
+		/datum/quirk/modular/cold_intolerant,
+		/datum/quirk/modular/trait_hot_blooded,
+		/datum/quirk/modular/trait_cold_blooded,
+		/datum/quirk/coldresist,
 		/datum/quirk/modular/chronic_pain,
 		/datum/quirk/brainproblems,
 		/datum/quirk/paper_skin,

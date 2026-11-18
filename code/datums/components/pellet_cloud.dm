@@ -54,6 +54,8 @@
 	/// for if we're an ammo casing being fired
 	var/mob/living/shooter
 
+	/// Who armed or placed the parent when nobody is holding it (a mine), so its pellets still credit them
+	var/datum/weakref/credit_ref
 /datum/component/pellet_cloud/Initialize(projectile_type=/obj/item/shrapnel, magnitude=5)
 	if(!isammocasing(parent) && !isgrenade(parent) && !islandmine(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -243,6 +245,10 @@
 	P.original = target
 	P.fired_from = parent
 	P.firer = parent // don't hit ourself that would be really annoying
+	if(shooter)
+		P.credit_ref = WEAKREF(shooter)
+	else if(credit_ref)
+		P.credit_ref = credit_ref
 	LAZYADD(P.permutated, parent) // don't hit the target we hit already with the flak
 	P.suppressed = SUPPRESSED_VERY // set the projectiles to make no message so we can do our own aggregate message
 	P.preparePixelProjectile(target, parent)

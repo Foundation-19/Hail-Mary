@@ -9,7 +9,7 @@
 
 /obj/item/projectile/bullet/a40mm/he/on_hit(atom/target, blocked = FALSE)
 	..()
-	explosion(target, -1, -1, 3, 3, 0, flame_range = 3)
+	explosion(target, -1, -1, 3, 3, 0, flame_range = 3, credit_to = isliving(firer) ? firer : null)
 	new /obj/effect/temp_visual/explosion(get_turf(target))
 	return BULLET_ACT_HIT
 
@@ -22,6 +22,6 @@
 
 /obj/item/projectile/bullet/a40mm/hedp/on_hit(atom/target, blocked = FALSE)
 	..()
-	explosion(target, -1, -1, -1, 4, 0, flame_range = 4)
+	explosion(target, -1, -1, -1, 4, 0, flame_range = 4, credit_to = isliving(firer) ? firer : null)
 	new /obj/effect/temp_visual/explosion(get_turf(target))
 	return BULLET_ACT_HIT

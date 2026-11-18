@@ -304,6 +304,7 @@ GLOBAL_VAR_INIT(ai_doctrine_updates, 0)
 	return GLOB.ai_learning_enabled && ai_decision_enabled && !ckey
 
 /mob/living/simple_animal/hostile/proc/get_ai_doctrine()
+	RETURN_TYPE(/datum/ai_doctrine)
 	return ai_doctrine_for("[type]")
 
 /// Starts timing a stretch of one intent. learn is FALSE for stretches the mob did not choose itself.

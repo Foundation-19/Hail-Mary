@@ -40,7 +40,7 @@
 	for(var/obj/item/geiger_counter/geiger in view(src,1))
 		geiger.rad_act(5)
 
-/obj/structure/reagent_dispensers/barrel/boom()
+/obj/structure/reagent_dispensers/barrel/boom(mob/living/credit_to)
 	visible_message(span_danger("\The [src] ruptures!"))
 	chem_splash(loc, 0, list(reagents))
 	qdel(src)
@@ -53,8 +53,8 @@
 	reagent_id = /datum/reagent/fuel
 //	self_weight = 200
 
-/obj/structure/reagent_dispensers/barrel/explosive/boom()
-	explosion(get_turf(src), 0, 1, tank_volume/200, flame_range = tank_volume/200)
+/obj/structure/reagent_dispensers/barrel/explosive/boom(mob/living/credit_to)
+	explosion(get_turf(src), 0, 1, tank_volume/200, flame_range = tank_volume/200, credit_to = get_explosion_credit(credit_to))
 	qdel(src)
 
 /obj/structure/reagent_dispensers/barrel/explosive/blob_act(obj/structure/blob/B)
@@ -80,7 +80,7 @@ obj/structure/reagent_dispensers/barrel/explosive/bullet_act(obj/item/projectile
 			var/log_message = "triggered a fueltank explosion via projectile."
 			P.firer.log_message(log_message, INDIVIDUAL_ATTACK_LOG)
 			log_attack("[key_name(P.firer)] [log_message]")
-			boom()
+			boom(get_responsible_mob(P.firer))
 
 /obj/structure/reagent_dispensers/barrel/explosive/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/weldingtool))
@@ -106,7 +106,7 @@ obj/structure/reagent_dispensers/barrel/explosive/bullet_act(obj/item/projectile
 			user.log_message(message_log, INDIVIDUAL_ATTACK_LOG)
 			log_game("[key_name(user)] [message_log]")
 			log_attack("[key_name(user)] [message_log]")
-			boom()
+			boom(user)
 		return
 	return ..()
 

@@ -157,6 +157,10 @@
 		return TRUE
 	if(!meets_next_rank_special(L))
 		return TRUE
+	var/conflict = SSquirks.get_conflicting_quirk(L, rank_quirks[get_current_rank(L) + 1])
+	if(conflict)
+		to_chat(user, span_warning("This runs against everything your [conflict] has taught your body. You can't make it stick."))
+		return TRUE
 	return FALSE
 
 /obj/item/book/granter/trait/rank/on_reading_start(mob/user)
@@ -265,6 +269,15 @@
 	icon_state = "book2"
 	rank_quirks = list(/datum/quirk/sneak_rank1, /datum/quirk/sneak_rank2)
 	remarks = list("Roll your foot heel-to-toe, never flat...", "Watch the ground ahead, not your feet...", "A loose floorboard is worse than any guard dog...", "The last page is just a crude sketch of someone flattened against a wall.")
+
+/obj/item/book/granter/trait/rank/greenthumb
+	name = "The Dirt Under Your Nails"
+	desc = "A grubby, sun-faded gardening almanac, its margins full of notes on soil, seed saving and the knack of knowing when a plant is ready."
+	oneuse = TRUE
+	traitname = "farming"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/green_thumb)
+	remarks = list("Squeeze the soil: if it holds together and then crumbles, it's ready...", "Save seeds from your best plants, not your biggest...", "Compost everything that was ever alive and isn't a meat pie...", "A ripe plant tells you when it's ready, if you pay attention...", "The last page is a hand-drawn calendar, every square annotated with weather and yield.")
 
 /obj/item/book/granter/trait/rank/strongback
 	name = "Pack Mule's Pocket Guide"
@@ -590,6 +603,69 @@
 	icon_state = "book1"
 	rank_quirks = list(/datum/quirk/modular/wild_card)
 	remarks = list("Never fight the same way twice...", "A good hit makes room for a better one...", "When they're reeling, improvise...", "The margins are full of scribbled diagrams.")
+
+/obj/item/book/granter/trait/rank/redline
+	name = "Engines Don't Care About Warranties"
+	desc = "A backyard mechanic's dog-eared notes on squeezing one more mile out of anything with a motor."
+	oneuse = TRUE
+	traitname = "redlining machinery"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/redline)
+	remarks = list("A dry tank still has a few good swings left in it...", "The gauge on the dash is a suggestion, not a law...", "Run it hot, just know when to let go of the trigger...", "Grease-stained pages end mid-sentence.")
+
+/obj/item/book/granter/trait/rank/efficient_builder
+	name = "Waste Not"
+	desc = "A settlement scrapper's notebook on getting a wall out of half the lumber everyone else uses."
+	oneuse = TRUE
+	traitname = "efficient building"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/efficient_builder)
+	remarks = list("Measure twice, waste nothing...", "Every offcut is a future repair...", "A joint done right needs less to hold it...", "Sketches crowd every margin.")
+
+/obj/item/book/granter/trait/rank/fleet_footed
+	name = "Light on Your Feet"
+	desc = "A courier's pamphlet on staying quick over long, ugly ground. The spine is cracked from being carried everywhere."
+	oneuse = TRUE
+	traitname = "moving fast"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/fleet_footed)
+	remarks = list("Don't stomp, roll through the step...", "Weight on the balls of the feet, always...", "A runner who stops to look back gets caught...", "Someone has drawn footprints along every margin.")
+
+/obj/item/book/granter/trait/rank/adrenal_kill
+	name = "Blood Up"
+	desc = "A raider's crude field notes on turning a fresh kill into a second wind."
+	oneuse = TRUE
+	traitname = "killing rush"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/adrenal_kill)
+	remarks = list("The first one drops, the rest feel slower...", "Don't think, keep moving...", "Stand over a kill and you're already behind...", "The pages are stained brown at the edges.")
+
+/obj/item/book/granter/trait/rank/hunters_pursuit
+	name = "Never Let Them Run"
+	desc = "A slaver-hunter's guide to closing on wounded prey before it finds cover."
+	oneuse = TRUE
+	traitname = "hunting down the wounded"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/hunters_pursuit)
+	remarks = list("A bleeding target slows. Be there when it does...", "Read the stumble, then take the step...", "Wounded things run in straight lines...", "A tally of marks is scratched inside the cover.")
+
+/obj/item/book/granter/trait/rank/shock_value
+	name = "The Look of a Madman"
+	desc = "A brawler's treatise on putting the fear of God into whoever is standing in front of you."
+	oneuse = TRUE
+	traitname = "intimidation"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/shock_value)
+	remarks = list("Fear is a weapon that never needs reloading...", "Hit loud, hit first, keep hitting...", "A man who flinches has already lost...", "Margin notes: 'worked on the raiders, didn't work on the brahmin.'")
+
+/obj/item/book/granter/trait/rank/shoulder_check
+	name = "Through the Crowd"
+	desc = "A gang enforcer's handbook on using your whole body to move people who don't want to be moved."
+	oneuse = TRUE
+	traitname = "shoulder charging"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/shoulder_check)
+	remarks = list("Lead with the shoulder, never the head...", "Momentum is a weapon, spend it wisely...", "Hit them while they're stepping back...", "A bruised-up diagram shows exactly where to hit.")
 
 /obj/item/book/granter/trait/rank/pa_advanced
 	name = "US Army: Advanced Mechanized Systems Manual"

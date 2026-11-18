@@ -84,6 +84,7 @@
 	stop_pulling()
 
 	var/signal = SEND_SIGNAL(src, COMSIG_MOB_DEATH, gibbed)
+	credit_kill()
 
 	var/turf/T = get_turf(src)
 	if(mind && mind.name && mind.active && !istype(T.loc, /area/ctf) && !(signal & COMPONENT_BLOCK_DEATH_BROADCAST))

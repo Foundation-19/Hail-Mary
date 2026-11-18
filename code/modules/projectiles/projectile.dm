@@ -24,6 +24,8 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/def_zone = ""	//Aiming at
 	var/atom/movable/firer = null//Who shot it
+	/// Weakref to the mob credited with hits when the firer is not a mob (shrapnel from a mine or grenade), see deliver_to()
+	var/datum/weakref/credit_ref
 	var/atom/fired_from = null // the atom that the projectile was fired from (gun, turret)	var/suppressed = FALSE	//Attack message
 	var/suppressed = FALSE	//Attack message
 	var/candink = FALSE //Can this projectile play the dink sound when hitting the head?
@@ -407,7 +409,7 @@
 	if(!prehit(target))
 		return process_hit(T, select_target(T), qdel_self, hit_something)		//Hit whatever else we can since that didn't work.
 	SEND_SIGNAL(target, COMSIG_PROJECTILE_PREHIT, args)
-	var/result = target.bullet_act(src, def_zone)
+	var/result = deliver_to(target, def_zone)
 	if(result == BULLET_ACT_FORCE_PIERCE)
 		if(!CHECK_BITFIELD(movement_type, UNSTOPPABLE))
 			temporary_unstoppable_movement = TRUE
@@ -421,6 +423,19 @@
 	if((qdel_self == FORCE_QDEL) || ((qdel_self == QDEL_SELF) && !temporary_unstoppable_movement && !CHECK_BITFIELD(movement_type, UNSTOPPABLE)))
 		qdel(src)
 	return hit_something
+
+/**
+ * Calls bullet_act() on the target and attributes the hit to the shooter. Mob types that override bullet_act() without
+ * calling the parent (renegades, bots, megafauna, ...) never reach the shared attribution, so it happens here too;
+ * the damage_credit_serial check keeps a hit that was already attributed from being signalled twice.
+ */
+/obj/item/projectile/proc/deliver_to(atom/target, def_zone)
+	var/mob/living/shooter = isliving(firer) ? firer : RESOLVEWEAKREF(credit_ref)
+	if(QDELETED(shooter) || QDELETED(target) || !isliving(target))
+		return target.bullet_act(src, def_zone)
+	var/list/credit = shooter.start_attack_credit(target)
+	. = target.bullet_act(src, def_zone)
+	shooter.end_attack_credit(credit, src)
 
 /// Check if the projectile is Super Effective on the target!
 /obj/item/projectile/proc/is_supereffective(atom/target)
@@ -567,7 +582,7 @@
 		log_combat(firer, original, "fired at", src, "from [get_area_name(src, TRUE)]")
 	if(direct_target)
 		if(prehit(direct_target))
-			direct_target.bullet_act(src, def_zone)
+			deliver_to(direct_target, def_zone)
 			qdel(src)
 			return
 	if(isnum(angle))

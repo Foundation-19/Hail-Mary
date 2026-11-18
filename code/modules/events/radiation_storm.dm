@@ -16,4 +16,9 @@
 	//sound not longer matches the text, but an audible warning is probably good
 
 /datum/round_event/radiation_storm/start()
-	SSweather.run_weather(/datum/weather/rad_storm)
+	// The storm forms over a random survivor so someone is guaranteed to meet it
+	var/list/survivors = list()
+	for(var/mob/living/L in GLOB.player_list)
+		if(L.stat != DEAD && get_turf(L))
+			survivors += L
+	SSweather.run_weather(/datum/weather/rad_storm, null, length(survivors) ? get_turf(pick(survivors)) : null)

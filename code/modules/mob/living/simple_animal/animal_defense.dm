@@ -44,9 +44,12 @@
 							span_userdanger("[M] [response_harm_continuous] you!"), null, COMBAT_MESSAGE_RANGE, null, \
 							M, span_danger("You [response_harm_simple] [src]!"))
 			playsound(loc, attacked_sound, 25, 1, -1)
+			var/health_before = health
+			prime_damage_credit(M)
 			attack_threshold_check(M.dna?.species.punchdamagehigh, M.dna?.species.attack_type, "melee")
 			log_combat(M, src, "attacked")
 			updatehealth()
+			register_damage_from(M, health_before - health, M)
 			return TRUE
 
 /mob/living/simple_animal/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
@@ -135,6 +138,9 @@
 	return TRUE
 
 /mob/living/simple_animal/bullet_act(obj/item/projectile/P)
+	var/health_before = health
+	if(ismob(P.firer))
+		prime_damage_credit(P.firer)
 	var/totaldamage = P.damage
 	var/staminadamage = P.stamina
 	var/final_percent = 0
@@ -144,6 +150,8 @@
 		apply_damage(totaldamage, P.damage_type, null, armor, null, null, null, damage_threshold = dt)
 		if(staminadamage)
 			apply_damage(staminadamage, STAMINA, null, armor, null, null, null, damage_threshold = dt)
+		if(ismob(P.firer))
+			register_damage_from(P.firer, health_before - health, P)
 	var/missing = 100 - final_percent
 	var/armor_ratio = armor * 0.01
 	if(missing > 0)

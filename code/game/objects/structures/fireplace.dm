@@ -143,11 +143,15 @@
 
 /obj/structure/fireplace/proc/ignite()
 	lit = TRUE
+	register_climate_heat_source(src)
 	desc = "A large stone brick fireplace, warm and cozy."
 	flame_expiry_timer = world.time + fuel_added
 	fuel_added = 0
 	update_icon()
 	adjust_light()
+
+/obj/structure/fireplace/get_climate_heat()
+	return lit ? 24 : 0
 
 /obj/structure/fireplace/proc/put_out()
 	lit = FALSE

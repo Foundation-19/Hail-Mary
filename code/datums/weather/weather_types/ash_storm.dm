@@ -32,6 +32,10 @@
 
 	barometer_predictable = TRUE
 
+	cell_radius_lower = 0.12
+	cell_radius_upper = 0.25
+	drift_speed = 0.25
+
 	var/datum/looping_sound/active_outside_ashstorm/sound_ao = new(list(), FALSE, TRUE)
 	var/datum/looping_sound/active_inside_ashstorm/sound_ai = new(list(), FALSE, TRUE)
 	var/datum/looping_sound/weak_outside_ashstorm/sound_wo = new(list(), FALSE, TRUE)
@@ -39,28 +43,16 @@
 
 /datum/weather/ash_storm/telegraph()
 	. = ..()
-	var/list/inside_areas = list()
-	var/list/outside_areas = list()
-	var/list/eligible_areas = list()
-	for (var/z in impacted_z_levels)
-		var/list/z_areas = SSmapping.areas_in_z["[z]"]
-		if(z_areas)
-			eligible_areas += z_areas
-	for(var/i in 1 to eligible_areas.len)
-		var/area/place = eligible_areas[i]
-		if(place.outdoors)
-			outside_areas += place
-		else
-			inside_areas += place
-		CHECK_TICK
-
-	sound_ao.output_atoms = outside_areas
-	sound_ai.output_atoms = inside_areas
-	sound_wo.output_atoms = outside_areas
-	sound_wi.output_atoms = inside_areas
-
+	if(stage == END_STAGE) // never got going
+		return
 	sound_wo.start()
 	sound_wi.start()
+
+/datum/weather/ash_storm/update_listeners(list/outside, list/inside)
+	sound_ao.output_atoms = outside
+	sound_ai.output_atoms = inside
+	sound_wo.output_atoms = outside
+	sound_wi.output_atoms = inside
 
 /datum/weather/ash_storm/start()
 	. = ..()
@@ -123,7 +115,9 @@
 
 	aesthetic = TRUE
 	obscures_sight = TRUE // try seeing stuff now! YOU CANT!
-
+	visibility_mult = 0.5
+	// A haboob races ahead of the wind
+	drift_speed = 0.3
 	target_trait = ZTRAIT_STATION
 
 /datum/weather/ash_storm/dust_event
@@ -148,6 +142,9 @@
 	target_trait = ZTRAIT_STATION
 
 	probability = 0
+	cell_radius_lower = 0.2
+	cell_radius_upper = 0.3
+	drift_speed = 0.005
 
 /datum/weather/ash_storm/dust_event/weather_act(mob/living/L)
 	if(is_ash_immune(L))

@@ -40,7 +40,7 @@
 			visible_message("<span class='warning'>[src] is badly damaged, the engine has burst into flames!</span>")
 			fuel_wasting += 2
 			if(prob(50)) //MOAR FIRE
-				dyn_explosion(epicenter = src, power = fuel_holder.reagents.get_reagent_amount("welding_fuel")/10, flash_range = 2, adminlog = 0, flame_range = 5 ,silent = 1)
+				dyn_explosion(epicenter = src, power = fuel_holder.reagents.get_reagent_amount("welding_fuel")/10, flash_range = 2, adminlog = 0, flame_range = 5 ,silent = 1, credit_to = get_explosion_credit())
 
 	fuel_holder.reagents.remove_reagent("welding_fuel",fuel_wasting)
 
@@ -93,6 +93,8 @@
 	var/open_tap = FALSE
 	var/raggeted = FALSE
 	var/active = FALSE
+	/// Who lit the rag, credited for the blast
+	var/datum/weakref/lighter
 
 // Pre-filled variant for easy testing/spawning; the base jerrycan's list_reagents has no amount so it spawns empty
 /obj/item/reagent_containers/jerrycan/full
@@ -100,7 +102,7 @@
 
 /obj/item/reagent_containers/jerrycan/bullet_act(obj/item/projectile/P)
 	. = ..()
-	make_boom()
+	make_boom(get_responsible_mob(P.firer))
 	qdel(src)
 
 /obj/item/reagent_containers/jerrycan/ex_act()
@@ -116,6 +118,7 @@
 /obj/item/reagent_containers/jerrycan/attackby(obj/item/I, mob/user, params)
 	if(I.get_temperature() && !active && raggeted)
 		active = TRUE
+		lighter = WEAKREF(user)
 		var/message = "[ADMIN_LOOKUP(user)] has primed a [name] for detonation at [ADMIN_VERBOSEJMP(user)]."
 		GLOB.bombers += message
 		message_admins(message)
@@ -130,7 +133,7 @@
 			to_chat(usr, span_notice("You insert a cloth rag into the jerrycan."))
 			I.use(1)
 
-/obj/item/reagent_containers/jerrycan/proc/make_boom()
+/obj/item/reagent_containers/jerrycan/proc/make_boom(mob/living/credit_to)
 	var/boomsize
 	var/extra_boom = 1
 	for(var/datum/reagent/reagent_in_bottle as anything in reagents.reagent_list)
@@ -140,7 +143,7 @@
 			continue
 		boomsize = 5 * (reagent_in_bottle.volume / volume)
 	if(boomsize >= 1 || extra_boom)
-		explosion(get_turf(src),-1, -1, extra_boom, flame_range = (boomsize + extra_boom))
+		explosion(get_turf(src),-1, -1, extra_boom, flame_range = (boomsize + extra_boom), credit_to = get_explosion_credit(credit_to))
 		reagents.remove_all(reagents.total_volume)
 
 
@@ -155,7 +158,7 @@
 				break
 	if(!isturf(target))
 		target = get_turf(target) // Too deep, let's just bypass to the end.
-	make_boom()
+	make_boom(RESOLVEWEAKREF(lighter))
 	if(!QDELETED(src))
 		SplashReagents(target)
 

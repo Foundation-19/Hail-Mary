@@ -12,6 +12,8 @@
 	if(damage_amount < DAMAGE_PRECISION)
 		return
 	. = damage_amount
+	if(attacked_by)
+		note_damager(attacked_by)
 	obj_integrity = max(obj_integrity - damage_amount, 0)
 	//BREAKING FIRST
 	if(integrity_failure && obj_integrity <= integrity_failure * max_integrity)
@@ -19,6 +21,55 @@
 	//DESTROYING SECOND
 	if(obj_integrity <= 0)
 		obj_destruction(damage_flag)
+
+/// The mob behind an attack source: the mob itself, the thrower of an item, or whoever carries it
+/proc/get_responsible_mob(atom/source)
+	if(isliving(source))
+		return source
+	if(isitem(source))
+		var/obj/item/I = source
+		if(isliving(I.thrownby))
+			return I.thrownby
+		if(isliving(I.loc))
+			return I.loc
+	return null
+
+/obj/proc/note_damager(atom/source)
+	var/mob/living/responsible = get_responsible_mob(source)
+	if(!responsible)
+		return
+	damaged_by = WEAKREF(responsible)
+	damaged_by_time = world.time
+
+/// Mob that damaged or primed this object within the last window deciseconds, if any
+/obj/proc/get_recent_damager(window = 30 SECONDS)
+	if(!damaged_by || world.time - damaged_by_time > window)
+		return null
+	var/mob/living/responsible = RESOLVEWEAKREF(damaged_by)
+	if(responsible && !QDELETED(responsible))
+		return responsible
+	return null
+
+/// Mob to blame for an explosion this object causes: the explicit culprit, else whoever's blast set it off, else whoever damaged or primed it (within a long window, since a shot tank can sit a while), else whoever holds or threw it. Fingerprints are deliberately ignored: touching a tank is not setting it off
+/obj/proc/get_explosion_credit(mob/living/credit_to)
+	if(credit_to && !QDELETED(credit_to))
+		return credit_to
+	var/mob/living/chain = RESOLVEWEAKREF(GLOB.explosion_chain_credit)
+	if(chain && !QDELETED(chain))
+		return chain
+	return get_recent_damager(EXPLOSION_BLAME_WINDOW) || get_responsible_mob(src)
+
+/// Best guess at who is responsible for something happening to this atom: itself, its thrower or carrier, whoever last damaged it, or whoever left fingerprints on it very recently
+/atom/proc/get_blame_mob()
+	var/mob/living/responsible = get_responsible_mob(src)
+	if(!responsible && isobj(src))
+		var/obj/O = src
+		responsible = O.get_recent_damager()
+	if(!responsible && fingerprintslast && world.time - fingerprintslast_time <= FINGERPRINT_BLAME_WINDOW)
+		var/mob/toucher = get_mob_by_key(fingerprintslast)
+		if(isliving(toucher))
+			responsible = toucher
+	return responsible
 
 //returns the damage value of the attack after processing the obj's various armor protections
 /obj/proc/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration = 0)

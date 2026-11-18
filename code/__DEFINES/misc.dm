@@ -429,6 +429,12 @@ GLOBAL_LIST_INIT(pda_reskins, list(PDA_SKIN_CLASSIC = 'icons/obj/pda.dmi'))
 #define STACK_CHECK_CARDINALS "cardinals" //checks if there is an object of the result type in any of the cardinal directions
 #define STACK_CHECK_ADJACENT "adjacent" //checks if there is an object of the result type within one tile
 
+//the shortest channel time for building a structure, and how far the cost of one can push it up (deciseconds)
+#define BUILD_MIN_TIME 15
+#define BUILD_MAX_MIN_TIME 60
+/// What TRAIT_QUICK_BUILD (builders) multiplies a build time by
+#define BUILD_QUICK_MODIFIER 0.75
+
 //text files
 #define ION_FILE "ion_laws.json"
 #define REDPILL_FILE "redpill.json"

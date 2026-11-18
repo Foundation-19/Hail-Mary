@@ -1582,22 +1582,24 @@
 		"damage_threshold" = 15)
 
 /* Horror armor
- * Failed FEV experiment
- * Heavy armor coverage
- * High DT, dangerous melee combatant
+ * Failed FEV experiment - a botched, lesser offshoot of a true abomination
+ * Patchy, uneven coverage, well below a real abomination's plating
+ * Modest DT - dangerous up close, but not a walking tank
+ * Rebalanced: was melee 50/bullet 45/DT 12, matching or beating boss-tier deathclaws despite being a
+ * regular (non-unique) spawn - see player feedback on abomhorror/nsb killing endgame-geared players
  * * * * * * * * * * * */
 #define ARMOR_VALUE_HORROR list(\
-		"melee" = 50, \
-		"bullet" = 45, \
-		"laser" = 30, \
-		"energy" = 30, \
-		"bomb" = 20, \
+		"melee" = 30, \
+		"bullet" = 25, \
+		"laser" = 15, \
+		"energy" = 15, \
+		"bomb" = 5, \
 		"bio" = 100, \
 		"rad" = 100, \
-		"fire" = 15, \
-		"acid" = 40, \
-		"wound" = 20, \
-		"damage_threshold" = 12)
+		"fire" = 10, \
+		"acid" = 20, \
+		"wound" = 10, \
+		"damage_threshold" = 6)
 
 /* * * * * * * * * * * * * * *
  * FACTION NPC ARMOR VALUES *

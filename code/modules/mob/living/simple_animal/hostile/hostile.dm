@@ -1292,6 +1292,22 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 /// Calculate effective vision range based on lighting AND directional cone
 /// Front cone: Better dark vision (5 tiles in darkness vs 3 in peripheral, 0 in rear)
 /mob/living/simple_animal/hostile/proc/get_effective_vision_range(atom/target)
+	. = get_base_vision_range(target)
+	if(!target || . <= 0)
+		return
+	// Fog, rain and sandstorms cut sight, but a light source still carries through. Overlapping weather compounds
+	var/mult = 1
+	for(var/datum/weather/W as anything in get_active_weathers(target))
+		mult *= W.visibility_mult
+	if(mult >= 1)
+		return
+	if(isliving(target))
+		var/mob/living/L = target
+		if(L.light_range > 0)
+			mult = (1 + mult) / 2
+	. = min(., max(round(. * mult), 2))
+
+/mob/living/simple_animal/hostile/proc/get_base_vision_range(atom/target)
 	if(!target)
 		return vision_range
 	
@@ -2079,6 +2095,8 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 		GainPatience()
 
 /mob/living/simple_animal/hostile/proc/CheckAndAttack()
+	if(world.time < ai_stagger_until)
+		return
 	if(target && targets_from && isturf(targets_from.loc) && target.Adjacent(targets_from) && !incapacitated())
 		// Don't attack dead or unconscious targets (handles rapid-melee timers that fire after death)
 		if(isliving(target))
@@ -3029,6 +3047,8 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 					Goto(destruction_location, move_to_delay, 0)
 
 /mob/living/simple_animal/hostile/proc/AttackingTarget()
+	if(world.time < ai_stagger_until)
+		return FALSE
 	SEND_SIGNAL(src, COMSIG_HOSTILE_ATTACKINGTARGET, target)
 	in_melee = TRUE
 	if(prob(alternate_attack_prob) && AlternateAttackingTarget(target))
@@ -4959,6 +4979,8 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 	return best
 
 /mob/living/simple_animal/hostile/proc/OpenFire(atom/A)
+	if(world.time < ai_stagger_until)
+		return FALSE
 	// CRITICAL: Check if we actually have line of sight before shooting
 	// Exception: Allow close-range shooting (within 2 tiles) even without perfect LOS
 	var/dist_to_target = get_dist(src, A)
@@ -5059,6 +5081,8 @@ GLOBAL_VAR_INIT(ai_purge_pending, FALSE)
 			casingtype = vary_from_list(variation_list[MOB_CASING], TRUE)
 
 /mob/living/simple_animal/hostile/proc/Shoot(atom/targeted_atom)
+	if(world.time < ai_stagger_until) // also drops the rest of a burst that was already queued
+		return
 	if( QDELETED(targeted_atom) || targeted_atom == targets_from.loc || targeted_atom == targets_from )
 		return
 	var/turf/startloc = get_turf(targets_from)

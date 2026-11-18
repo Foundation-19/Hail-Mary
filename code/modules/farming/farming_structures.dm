@@ -290,7 +290,7 @@
 		if(user.transferItemToLoc(W, src))
 			to_chat(user, span_notice("You load the [W] into the [src]."))
 			playsound(loc, 'sound/effects/blobattack.ogg', 25, 1, -1)
-			process_compost()
+			process_compost(user)
 		else
 			to_chat(user, span_warning("That's not compostable! Try organic foods instead."))
 	else if(istype(W, /obj/item/storage/bag/plants))
@@ -299,7 +299,7 @@
 			if(SEND_SIGNAL(PB, COMSIG_TRY_STORAGE_TAKE, G, src))
 				to_chat(user, span_info("You empty the [PB] into the [src]."))
 				playsound(loc, 'sound/effects/blobattack.ogg', 25, 1, -1)
-				process_compost()
+				process_compost(user)
 	else if(istype(W, /obj/item/reagent_containers/food))
 		var/obj/item/reagent_containers/food/F = W
 		// Check if the food is good for compost
@@ -307,27 +307,28 @@
 			if(user.transferItemToLoc(W, src))
 				to_chat(user, span_notice("You load the [W] into the [src]."))
 				playsound(loc, 'sound/effects/blobattack.ogg', 25, 1, -1)
-				process_compost()
+				process_compost(user)
 			else
 				to_chat(user, span_warning("That's not compostable! Try organic foods instead."))
 		else
 			to_chat(user, span_warning("That's not compostable! Try organic foods instead."))
 
-/obj/structure/reagent_dispensers/compostbin/proc/process_compost()
+/obj/structure/reagent_dispensers/compostbin/proc/process_compost(mob/user)
+	var/compost_mult = 1 + (user ? user.get_green_thumb_chance() : 0) / 100
 	for(var/obj/item/C in contents)
 		if(istype(C, /obj/item/seeds))
 			var/obj/item/seeds/S = C
-			reagents.add_reagent(/datum/reagent/compost, S.potency ? S.potency * seed_to_compost_scale : seed_default_value)
+			reagents.add_reagent(/datum/reagent/compost, (S.potency ? S.potency * seed_to_compost_scale : seed_default_value) * compost_mult)
 		else if(istype(C, /obj/item/reagent_containers/food/snacks/grown))
 			var/obj/item/reagent_containers/food/snacks/grown/G = C
-			reagents.add_reagent(/datum/reagent/compost, G.seed ? G.seed.potency * food_to_compost_scale : produce_default_value)
+			reagents.add_reagent(/datum/reagent/compost, (G.seed ? G.seed.potency * food_to_compost_scale : produce_default_value) * compost_mult)
 		else if(istype(C, /obj/item/reagent_containers/food))
 			if(istype(C, /obj/item/reagent_containers/food/snacks))
 				var/obj/item/reagent_containers/food/snacks/S = C
 				if(S.trash)
 					S.generate_trash(loc)
 			var/obj/item/reagent_containers/food/F = C
-			reagents.add_reagent(/datum/reagent/compost, F.food_quality * food_to_compost_scale)
+			reagents.add_reagent(/datum/reagent/compost, F.food_quality * food_to_compost_scale * compost_mult)
 		qdel(C)
 
 
@@ -362,6 +363,8 @@
 	var/t_amount = 0
 	if(t_max == -1)
 		t_max = rand(1,2) //Slightly worse than the actual thing
+		if(user?.green_thumb_roll())
+			t_max++
 
 	var/atom/seedloc = src.drop_location()
 

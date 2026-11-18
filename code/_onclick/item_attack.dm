@@ -16,6 +16,12 @@
 		if(min_reach && GET_DIST_EUCLIDEAN(user, target) < min_reach)
 			return
 	. = attackchain_flags
+	if(tool_behaviour && isstructure(target))
+		var/obj/structure/guarded = target
+		var/refusal = guarded.deconstruct_blocked(user, src)
+		if(refusal)
+			to_chat(user, span_warning(refusal))
+			return STOP_ATTACK_PROC_CHAIN
 	if(tool_behaviour && ((. |= target.tool_act(user, src, tool_behaviour)) & STOP_ATTACK_PROC_CHAIN))
 		return
 	if((. |= pre_attack(target, user, params, ., damage_multiplier)) & STOP_ATTACK_PROC_CHAIN)
@@ -68,7 +74,11 @@
 	. = ..()
 	if(. & STOP_ATTACK_PROC_CHAIN)
 		return
+	// Wrapped here rather than in attack() so items that override attack() without calling the parent (power fists, batons) still count
+	var/health_before = health
+	prime_damage_credit(user)
 	. |= I.attack(src, user, attackchain_flags, damage_multiplier)
+	register_damage_from(user, health_before - health, I)
 	if(!(. & NO_AUTO_CLICKDELAY_HANDLING))	// SAFETY NET - unless the proc tells us we should not handle this, give them the basic melee cooldown!
 		I.ApplyAttackCooldown(user, src, attackchain_flags)
 

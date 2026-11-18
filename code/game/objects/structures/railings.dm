@@ -21,6 +21,10 @@
 	density = FALSE
 	climbable = FALSE
 
+/obj/structure/railing/set_build_dir(new_dir)
+	..()
+	ini_dir = dir
+
 /obj/structure/railing/Initialize(mapload)
 	. = ..()
 	ini_dir = dir

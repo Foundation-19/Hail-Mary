@@ -26,6 +26,7 @@
 	var/potency = 10				// The 'power' of a plant. Generally effects the amount of reagent in a plant, also used in other ways.
 	var/growthstages = 6			// Amount of growth sprites the plant has.
 	var/instability = 5             //Chance that a plant will mutate in each stage of it's life.
+	var/harvest_bonus = 0 //Extra items from the current harvest (Green Thumb), reported by update_tray()
 	var/rarity = 0					// How rare the plant is. Used for giving points to cargo when shipping off to CentCom.
 	var/list/mutatelist = list()	// The type of plants that this plant can mutate into.
 	var/list/genes = list()			// Plant genes are stored here, see plant_genes.dm for more info.
@@ -188,6 +189,10 @@ obj/item/seeds/proc/is_gene_forbidden(typepath)
 	var/product_name
 	///The Number of products produced by the plant, typically the yield.
 	var/product_count = getYield()
+	harvest_bonus = 0
+	if(product_count > 0 && user?.green_thumb_roll())
+		harvest_bonus = 1
+		product_count += harvest_bonus
 
 	while(t_amount < product_count)
 		var/obj/item/reagent_containers/food/snacks/grown/t_prod
@@ -223,7 +228,7 @@ obj/item/seeds/proc/is_gene_forbidden(typepath)
 		t_amount++
 		product_name = parent.myseed.plantname
 	if(getYield() >= 1)
-		SSblackbox.record_feedback("tally", "food_harvested", getYield(), product_name)
+		SSblackbox.record_feedback("tally", "food_harvested", getYield() + harvest_bonus, product_name)
 	parent.update_tray(user)
 
 	return result

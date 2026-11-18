@@ -1,7 +1,7 @@
 /datum/weather/heat_wave
 	name = "heat wave"
 	desc = "Harsh heat wave will grip an entire area."
-	probability = 0
+	probability = 8
 
 	telegraph_message = span_notice("The temperature outside starts to rise unfavorably.")
 	telegraph_duration = 300
@@ -18,6 +18,7 @@
 	end_message = span_notice("The heat outside seems to wane to a more bearable degree. You feel as though the outdoors may be viable once more.")
 
 	tag_weather = WEATHER_HEAT
+	weather_family = "temperature"
 	area_types = list(/area/f13/wasteland, /area/f13/desert, /area/f13/farm, /area/f13/forest)
 	protected_areas = list(/area/shuttle)
 	target_trait = ZTRAIT_STATION
@@ -27,6 +28,13 @@
 	barometer_predictable = TRUE
 
 	carbons_only = TRUE
-
-/datum/weather/heat_wave/weather_act(mob/living/L)
-	L.adjust_bodytemperature(rand(10, 20))
+	climate_temp_shift = 12
+	// Clear sky, so no shade, but the air ahead of it blows hot
+	cloud_shadow = 0
+	gust_message = span_warning("A hot, dry gust rolls in off the wasteland ahead of the heat.")
+	// A heat dome is a huge air mass that barely moves
+	cell_radius_lower = 0.3
+	cell_radius_upper = 0.45
+	drift_speed = 0.03
+	// Heat waves favour the middle of the day and almost never happen at night
+	phase_weights = "0.1 1 2 3 3 2 0.5 0.2 0.02"

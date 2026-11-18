@@ -87,9 +87,22 @@
 		if(O.stat != DEAD && O.client)
 			.++
 
+/// Living hostile mobs in sight of the holder that currently have the holder as their target
+/datum/quirk/modular/proc/hostile_threats(range = 7)
+	. = list()
+	for(var/mob/living/simple_animal/hostile/M in view(range, quirk_holder))
+		if(M.stat != DEAD && M.target == quirk_holder)
+			. += M
+
 /datum/quirk/modular/proc/health_fraction()
 	var/mob/living/carbon/human/H = quirk_holder
 	return H.maxHealth > 0 ? H.health / H.maxHealth : 1
+
+/// Remaining stamina as a 0..1 fraction. getStaminaLoss() has no hard max var, but 100 is the conventional
+/// stamcrit ceiling used throughout the codebase (see CHECK_STAMCRIT callers), so it doubles as "full stamina".
+/datum/quirk/modular/proc/stamina_fraction()
+	var/mob/living/carbon/human/H = quirk_holder
+	return CLAMP(1 - (H.getStaminaLoss() / 100), 0, 1)
 
 /* ------------------------------ Free Wasteland Traits ------------------------------ */
 
@@ -190,6 +203,308 @@
 	if(frac < 0.25 && prob(8))
 		to_chat(quirk_holder, span_userdanger("You lose yourself to the pain and lash out blindly!"))
 		step(quirk_holder, pick(GLOB.alldirs))
+
+/datum/quirk/modular/trait_volatile_temper
+	name = "Volatile Temper"
+	desc = "Your nerves run hot and cold with no warning. While you're hurt, you'll randomly swing between bursts of steely calm (tougher, harder to stun) and fits of shakes (more fragile, easier to stun) - you never know which one you'll get next."
+	value = 0
+	is_trait = TRUE
+	gain_text = span_notice("Your moods have always come and gone like weather.")
+	lose_text = span_danger("Your temper settles down.")
+	medical_record_text = "Patient shows erratic but otherwise harmless adrenaline swings when hurt."
+	var/swing_active = FALSE
+	var/next_swing = 0
+
+/datum/quirk/modular/trait_volatile_temper/on_process()
+	if(health_fraction() >= 0.9)
+		if(swing_active)
+			swing_active = FALSE
+			set_dyn(null)
+		return
+	if(swing_active || world.time < next_swing)
+		return
+	swing_active = TRUE
+	next_swing = world.time + rand(10 SECONDS, 18 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(end_swing)), 6 SECONDS)
+	if(prob(50))
+		to_chat(quirk_holder, span_notice("A wave of steely calm washes over you."))
+		set_dyn(list("damage_resistance" = 10, "stun_mod" = -0.25))
+	else
+		to_chat(quirk_holder, span_warning("Your hands start shaking uncontrollably!"))
+		set_dyn(list("damage_resistance" = -10, "stun_mod" = 0.35))
+
+/datum/quirk/modular/trait_volatile_temper/proc/end_swing()
+	swing_active = FALSE
+	set_dyn(null)
+
+/datum/quirk/modular/trait_volatile_temper/remove()
+	swing_active = FALSE
+	return ..()
+
+// Designed for an actual berserk-and-crash loop: a temporary rage window
+// with real teeth (melee damage + a flat damage threshold bump, like adrenaline blunting pain), paid for
+// with the muscle damage and weakness of pushing your body that hard, on a cooldown so it can't be chained.
+// Reuses TRAIT_LITTLE_LEAGUES (the existing +20% melee force tier) and /datum/armor/modifyRating() for the DT
+// bump - NOT direct var edits, since /datum/armor instances are interned/shared by value (see datums/armor.dm),
+// so mutating one in place would silently buff every other mob or item that happens to share that armor profile.
+/datum/quirk/modular/trait_berserker
+	name = "Berserker"
+	desc = "Pain doesn't stop you, it ignites you. Whenever your health drops below 25% (and you're off cooldown), you go berserk for 8 seconds: +20% melee damage and +8 damage threshold. When the rage fades, your overworked muscles tear - a burst of brute damage, then a weaker, more fragile state for 20 seconds before a 90-second cooldown until you can go berserk again."
+	value = 0
+	is_trait = TRUE
+	gain_text = span_notice("You can feel a rage simmering just under your skin, waiting for pain to light it.")
+	lose_text = span_danger("That simmering rage goes quiet.")
+	medical_record_text = "Patient displays a pronounced berserker response to pain, with a costly physiological crash afterward."
+	var/berserk_active = FALSE
+	var/weakened_active = FALSE
+	var/next_berserk = 0
+	var/datum/armor/base_armor
+
+/datum/quirk/modular/trait_berserker/on_process()
+	if(berserk_active || weakened_active || world.time < next_berserk)
+		return
+	if(health_fraction() >= 0.25)
+		return
+	start_berserk()
+
+/datum/quirk/modular/trait_berserker/proc/start_berserk()
+	var/mob/living/carbon/human/H = quirk_holder
+	berserk_active = TRUE
+	next_berserk = world.time + 90 SECONDS
+	to_chat(H, span_userdanger("Pain turns to rage - you go berserk!"))
+	ADD_TRAIT(H, TRAIT_LITTLE_LEAGUES, "[type]")
+	base_armor = H.physiology.armor
+	H.physiology.armor = base_armor.modifyRating(damage_threshold = 8)
+	addtimer(CALLBACK(src, PROC_REF(end_berserk)), 8 SECONDS)
+
+/datum/quirk/modular/trait_berserker/proc/end_berserk()
+	berserk_active = FALSE
+	var/mob/living/carbon/human/H = quirk_holder
+	if(QDELETED(H))
+		return
+	REMOVE_TRAIT(H, TRAIT_LITTLE_LEAGUES, "[type]")
+	if(base_armor)
+		H.physiology.armor = base_armor
+	base_armor = null
+	to_chat(H, span_userdanger("The rage fades, and your overworked muscles tear!"))
+	H.apply_damage(10, BRUTE)
+	weakened_active = TRUE
+	set_dyn(list("damage_resistance" = -10, "stamina_mod" = 0.2))
+	addtimer(CALLBACK(src, PROC_REF(end_weakness)), 20 SECONDS)
+
+/datum/quirk/modular/trait_berserker/proc/end_weakness()
+	if(!weakened_active)
+		return
+	weakened_active = FALSE
+	set_dyn(null)
+	if(!QDELETED(quirk_holder))
+		to_chat(quirk_holder, span_notice("You feel steady again."))
+
+/datum/quirk/modular/trait_berserker/remove()
+	var/mob/living/carbon/human/H = quirk_holder
+	if(!QDELETED(H) && berserk_active)
+		REMOVE_TRAIT(H, TRAIT_LITTLE_LEAGUES, "[type]")
+		if(base_armor)
+			H.physiology.armor = base_armor
+	berserk_active = FALSE
+	weakened_active = FALSE
+	return ..()
+
+/datum/quirk/modular/trait_night_terror
+	name = "Night Terror"
+	desc = "The dark doesn't scare you, light does. In near-darkness you move with real confidence: +10 damage resistance and 20% less stun duration. Out somewhere brightly lit, you're exposed and twitchy: -10 damage resistance and 25% more stun duration."
+	value = 0
+	is_trait = TRUE
+	gain_text = span_notice("Shadows start to feel like home.")
+	lose_text = span_danger("The dark stops feeling like an advantage.")
+	medical_record_text = "Patient shows markedly different confidence and reaction time depending on ambient lighting."
+
+/datum/quirk/modular/trait_night_terror/on_process()
+	var/turf/T = get_turf(quirk_holder)
+	if(!T)
+		return
+	var/lums = T.get_lumcount()
+	if(lums <= 0.3)
+		set_dyn(list("damage_resistance" = 10, "stun_mod" = -0.2))
+	else if(lums >= 0.6)
+		set_dyn(list("damage_resistance" = -10, "stun_mod" = 0.25))
+	else
+		set_dyn(null) // dusk/indoor lighting is a dead zone so it doesn't flicker right at the thresholds
+
+/datum/quirk/modular/trait_running_on_empty
+	name = "Running on Empty"
+	desc = "Exhaustion doesn't slow you down the way it should - but it costs you elsewhere. Below 30% stamina, stamina damage hits you 20% less, but you're sloppier and take 10% more physical damage with nothing left to brace with."
+	value = 0
+	is_trait = TRUE
+	gain_text = span_notice("You've learned to push past the point where your body wants to quit.")
+	lose_text = span_danger("Exhaustion starts hitting you like it should again.")
+	medical_record_text = "Patient shows an unusual tolerance for exhaustion, offset by poor reflexes once truly spent."
+
+/datum/quirk/modular/trait_running_on_empty/on_process()
+	if(stamina_fraction() <= 0.3)
+		set_dyn(list("stamina_mod" = -0.2, "damage_resistance" = -10))
+	else
+		set_dyn(null)
+
+// MOMENTUM, flipped around: build composure the longer you go WITHOUT being hit, and lose it all instantly the
+// moment something connects. (COMSIG_MOB_APPLY_DAMAGE only fires on the victim; for "on hit" / "on kill" perks
+// see COMSIG_MOB_LANDED_HIT and COMSIG_MOB_KILLED_MOB further down.)
+/datum/quirk/modular/trait_flow_state
+	name = "Flow State"
+	desc = "The longer a fight goes without you taking a hit, the more in control you feel: damage resistance climbs the longer you stay untouched, capping at +15 after 10 seconds. The instant something connects, it's gone - you're right back to square one."
+	value = 0
+	is_trait = TRUE
+	gain_text = span_notice("You can feel yourself settling into a rhythm whenever nothing's touching you.")
+	lose_text = span_danger("That sense of rhythm fades.")
+	medical_record_text = "Patient shows a building composure effect the longer they go without taking damage, resetting sharply on injury."
+	var/streak_start = 0
+
+/datum/quirk/modular/trait_flow_state/add()
+	. = ..()
+	streak_start = world.time
+	RegisterSignal(quirk_holder, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(on_damage_taken))
+
+/datum/quirk/modular/trait_flow_state/remove()
+	if(quirk_holder)
+		UnregisterSignal(quirk_holder, COMSIG_MOB_APPLY_DAMAGE)
+	return ..()
+
+/datum/quirk/modular/trait_flow_state/proc/on_damage_taken(mob/living/source, damage)
+	SIGNAL_HANDLER
+	if(damage > 0)
+		streak_start = world.time
+
+/datum/quirk/modular/trait_flow_state/on_process()
+	var/elapsed = world.time - streak_start
+	var/bonus = min(15, (elapsed / 10 SECONDS) * 15)
+	if(bonus > 0)
+		set_dyn(list("damage_resistance" = bonus))
+	else
+		set_dyn(null)
+
+// AMMO DESPERATION, built on COMSIG_LIVING_GUN_PROCESS_FIRE - already fired on the shooter right after a shot
+// resolves (gun.dm's process_fire()), so checking the gun's own get_ammo() there is the only reliable way to
+// catch "that was the last round" without the same attacker-reference problem as Flow State above. Scoped to
+// ballistic guns only, matching gun_malfunction.dm's existing split between ballistic and energy weapons.
+/datum/quirk/modular/trait_empty_chamber
+	name = "Empty Chamber"
+	desc = "Running dry doesn't rattle you, it focuses you. The instant a ballistic gun's last round fires, you get a 4-second surge: +15 damage resistance and 30% less stun duration, so you can handle whatever's coming while you reload or draw steel. When it fades, the adrenaline dump leaves you shaky for 10 seconds: -10 damage resistance."
+	value = 0
+	is_trait = TRUE
+	gain_text = span_notice("Running dry has never been the problem - it's what comes after that counts.")
+	lose_text = span_danger("An empty gun just feels like an empty gun again.")
+	medical_record_text = "Patient shows a sharp adrenaline spike when a weapon runs dry, followed by a pronounced crash."
+	var/surging = FALSE
+	var/crashing = FALSE
+
+/datum/quirk/modular/trait_empty_chamber/add()
+	. = ..()
+	RegisterSignal(quirk_holder, COMSIG_LIVING_GUN_PROCESS_FIRE, PROC_REF(on_gun_fired))
+
+/datum/quirk/modular/trait_empty_chamber/remove()
+	if(quirk_holder)
+		UnregisterSignal(quirk_holder, COMSIG_LIVING_GUN_PROCESS_FIRE)
+	surging = FALSE
+	crashing = FALSE
+	return ..()
+
+/datum/quirk/modular/trait_empty_chamber/proc/on_gun_fired(mob/living/source)
+	SIGNAL_HANDLER
+	if(surging || crashing)
+		return
+	var/obj/item/gun/ballistic/G = source.get_active_held_item()
+	if(!istype(G) || G.get_ammo())
+		return
+	start_surge()
+
+/datum/quirk/modular/trait_empty_chamber/proc/start_surge()
+	surging = TRUE
+	to_chat(quirk_holder, span_userdanger("Dry! Every instinct you have sharpens."))
+	set_dyn(list("damage_resistance" = 15, "stun_mod" = -0.3))
+	addtimer(CALLBACK(src, PROC_REF(end_surge)), 4 SECONDS)
+
+/datum/quirk/modular/trait_empty_chamber/proc/end_surge()
+	surging = FALSE
+	crashing = TRUE
+	set_dyn(list("damage_resistance" = -10))
+	if(!QDELETED(quirk_holder))
+		to_chat(quirk_holder, span_warning("The rush drains out of you all at once."))
+	addtimer(CALLBACK(src, PROC_REF(end_crash)), 10 SECONDS)
+
+/datum/quirk/modular/trait_empty_chamber/proc/end_crash()
+	crashing = FALSE
+	set_dyn(null)
+
+// CLOSE QUARTERS / OPENING CHARGE: rushdown traits. Hostile mob AI falls back, flanks and advances cover-to-cover,
+// so the dangerous part of a rush is the approach. These pay out for closing the gap and cost you for lingering
+// at range. "Threat" means a living hostile mob in sight whose current target is the holder (see hostile_threats()).
+/datum/quirk/modular/trait_close_quarters
+	name = "Close Quarters"
+	desc = "You fight best in the thick of it. While a hostile mob targeting you is within 2 tiles you gain +10 damage resistance. But while every mob targeting you is 6 or more tiles away and in sight, you feel exposed and take -10 damage resistance."
+	value = 0
+	is_trait = TRUE
+	gain_text = span_notice("Distance makes your skin crawl. Up close, you know exactly what to do.")
+	lose_text = span_danger("Distance stops bothering you.")
+	medical_record_text = "Patient is visibly calmer in melee range and anxious under fire from a distance."
+
+/datum/quirk/modular/trait_close_quarters/on_process()
+	var/closest = 0
+	for(var/mob/living/simple_animal/hostile/M in hostile_threats(7))
+		var/dist = get_dist(quirk_holder, M)
+		if(!closest || dist < closest)
+			closest = dist
+	if(!closest)
+		set_dyn(null)
+	else if(closest <= 2)
+		set_dyn(list("damage_resistance" = 10))
+	else if(closest >= 6)
+		set_dyn(list("damage_resistance" = -10))
+	else
+		set_dyn(null)
+
+/datum/quirk/modular/trait_opening_charge
+	name = "Opening Charge"
+	desc = "You hit the ground running. When a hostile mob first picks you as its target, you get a 5-second surge: +15 damage resistance and 30% less stun duration, so you can close the distance. The adrenaline then leaves you shaky for 8 seconds (-5 damage resistance), and it can't trigger again for 60 seconds."
+	value = 0
+	is_trait = TRUE
+	gain_text = span_notice("The moment something notices you, your legs are already moving.")
+	lose_text = span_danger("You stop leaping into fights.")
+	medical_record_text = "Patient shows a sharp adrenaline spike when threatened, followed by a short crash."
+	var/surging = FALSE
+	var/crashing = FALSE
+	var/next_charge = 0
+
+/datum/quirk/modular/trait_opening_charge/on_process()
+	if(surging || crashing || world.time < next_charge)
+		return
+	if(!length(hostile_threats(7)))
+		return
+	surging = TRUE
+	next_charge = world.time + 60 SECONDS
+	to_chat(quirk_holder, span_userdanger("Something has noticed you - charge!"))
+	set_dyn(list("damage_resistance" = 15, "stun_mod" = -0.3))
+	addtimer(CALLBACK(src, PROC_REF(end_surge)), 5 SECONDS)
+
+/datum/quirk/modular/trait_opening_charge/proc/end_surge()
+	if(!surging)
+		return
+	surging = FALSE
+	crashing = TRUE
+	set_dyn(list("damage_resistance" = -5))
+	if(!QDELETED(quirk_holder))
+		to_chat(quirk_holder, span_warning("The rush fades and your hands start to shake."))
+	addtimer(CALLBACK(src, PROC_REF(end_crash)), 8 SECONDS)
+
+/datum/quirk/modular/trait_opening_charge/proc/end_crash()
+	if(!crashing)
+		return
+	crashing = FALSE
+	set_dyn(null)
+
+/datum/quirk/modular/trait_opening_charge/remove()
+	surging = FALSE
+	crashing = FALSE
+	return ..()
 
 /datum/quirk/modular/trait_gifted
 	name = "Gifted"
@@ -664,6 +979,17 @@
 	gain_text = span_notice("You can make every grain of powder count.")
 	lose_text = span_danger("You waste powder again.")
 
+/datum/quirk/modular/efficient_builder
+	name = "Efficient Builder"
+	desc = "You get more out of what you've got. Stack recipes built through the Build Menu use 15% less material."
+	value = 2
+	trait_flags = list(TRAIT_EFFICIENT_BUILDER)
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 5
+	gain_text = span_notice("You can see exactly how little you need to get the job done.")
+	lose_text = span_danger("You start overbuilding again.")
+
 /* ------------------------------ Combat Modifiers (Batch B) ------------------------------ */
 
 /datum/quirk/modular/sniper_rank1
@@ -1118,7 +1444,7 @@
 
 /datum/quirk/modular/weapon_maintenance
 	name = "Weapon Maintenance"
-	desc = "Jams wear your guns 40% less, and servicing a gun restores 30% more condition."
+	desc = "Jams and mechanical wear hurt your guns, chainsaws, saws and axes 40% less, and servicing any of them restores 30% more condition."
 	value = 2
 	trait_flags = list(TRAIT_WEAPON_MAINTENANCE)
 	required_special_stat = "special_i"
@@ -1126,6 +1452,17 @@
 	required_special_value = 5
 	gain_text = span_notice("You treat your weapons with care.")
 	lose_text = span_danger("You get sloppy with your weapons.")
+
+/datum/quirk/modular/redline
+	name = "Redline"
+	desc = "The opposite of careful. While a fuel-powered melee tool in your hands is running low on fuel or badly worn, every landed hit adds a free bonus hit on top - but it also wears out and stalls out much faster while you push it like that."
+	value = 2
+	trait_flags = list(TRAIT_REDLINE)
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 5
+	gain_text = span_notice("You've never met a machine you couldn't push past its limits.")
+	lose_text = span_danger("You start babying machinery again.")
 
 /datum/quirk/modular/steady_hands
 	name = "Steady Hands"
@@ -1580,6 +1917,179 @@
 	else
 		set_dyn(null)
 
+// FLEET FOOTED: damage is what triggers it (same victim-side signal as Flow State), so being hit is what
+// gives a charging fighter the burst of speed to finish closing on a mob that is backing away.
+/datum/quirk/modular/fleet_footed
+	name = "Fleet Footed"
+	desc = "Pain puts a spring in your step: for 3 seconds after you take a real wound (3+ brute or burn damage) you move noticeably faster, letting you run down mobs that keep falling back. It can trigger once every 6 seconds."
+	value = 3
+	required_special_stat = "special_a"
+	required_special_name = "Agility"
+	required_special_value = 6
+	gain_text = span_notice("Every hit just makes you want to move faster.")
+	lose_text = span_danger("Getting hit slows you down again.")
+	var/next_burst = 0
+
+/datum/quirk/modular/fleet_footed/add()
+	. = ..()
+	RegisterSignal(quirk_holder, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(on_damage_taken))
+
+/datum/quirk/modular/fleet_footed/remove()
+	if(quirk_holder)
+		UnregisterSignal(quirk_holder, COMSIG_MOB_APPLY_DAMAGE)
+		quirk_holder.remove_movespeed_modifier(/datum/movespeed_modifier/fleet_footed)
+	return ..()
+
+/datum/quirk/modular/fleet_footed/proc/on_damage_taken(mob/living/source, damage, damagetype)
+	SIGNAL_HANDLER
+	// Only real wounds count, and a refractory period stops fire, bleeding or self-harm from holding the burst on permanently
+	if(damage < 3 || (damagetype != BRUTE && damagetype != BURN) || world.time < next_burst)
+		return
+	next_burst = world.time + 6 SECONDS
+	source.add_movespeed_modifier(/datum/movespeed_modifier/fleet_footed)
+	addtimer(CALLBACK(src, PROC_REF(end_burst)), 3 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+
+/datum/quirk/modular/fleet_footed/proc/end_burst()
+	quirk_holder?.remove_movespeed_modifier(/datum/movespeed_modifier/fleet_footed)
+
+// The perks below are built on the attacker-side hooks from living/damage_procs.dm: COMSIG_MOB_LANDED_HIT (victim, damage, source)
+// fires on whoever just damaged something with a melee item, bare hands or a projectile, and COMSIG_MOB_KILLED_MOB (victim)
+// fires on the last mob that damaged a victim within KILL_CREDIT_WINDOW when it dies. New "on hit" / "on kill" perks should
+// listen to those instead of adding new hooks to combat code.
+
+/datum/quirk/modular/adrenal_kill
+	name = "Adrenal Kill"
+	desc = "Every kill feeds the rush: killing a hostile mob recovers stamina and heals 3% of your maximum health, at most once every 8 seconds. Only sturdy mobs (30+ health) count, so vermin don't feed it."
+	value = 3
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 6
+	gain_text = span_notice("Every kill leaves you hungry for the next one.")
+	lose_text = span_danger("Kills just feel like kills again.")
+	/// Spawners and nests can feed kills endlessly, so the rush only triggers this often
+	var/next_rush = 0
+
+/datum/quirk/modular/adrenal_kill/add()
+	. = ..()
+	RegisterSignal(quirk_holder, COMSIG_MOB_KILLED_MOB, PROC_REF(on_kill))
+
+/datum/quirk/modular/adrenal_kill/remove()
+	if(quirk_holder)
+		UnregisterSignal(quirk_holder, COMSIG_MOB_KILLED_MOB)
+	return ..()
+
+/datum/quirk/modular/adrenal_kill/proc/on_kill(mob/living/source, mob/living/victim)
+	SIGNAL_HANDLER
+	var/mob/living/simple_animal/hostile/M = victim
+	if(!istype(M) || M.ckey || M.maxHealth < 30 || M.faction_check_mob(source) || world.time < next_rush)
+		return
+	next_rush = world.time + 8 SECONDS
+	var/heal = source.maxHealth * 0.03
+	source.adjustStaminaLoss(-10)
+	source.adjustStaminaLossBuffered(-10)
+	var/brute_heal = min(heal, source.getBruteLoss())
+	source.adjustBruteLoss(-brute_heal)
+	source.adjustFireLoss(-(heal - brute_heal))
+	to_chat(source, span_notice("The kill sends a rush through you."))
+
+/datum/quirk/modular/hunters_pursuit
+	name = "Hunter's Pursuit"
+	desc = "You can smell blood. After you hit a hostile mob that is below 40% health or trying to fall back, you move faster for 4 seconds so it can't get away."
+	value = 2
+	required_special_stat = "special_p"
+	required_special_name = "Perception"
+	required_special_value = 5
+	gain_text = span_notice("Wounded prey is easy prey.")
+	lose_text = span_danger("You lose the scent.")
+
+/datum/quirk/modular/hunters_pursuit/add()
+	. = ..()
+	RegisterSignal(quirk_holder, COMSIG_MOB_LANDED_HIT, PROC_REF(on_hit))
+
+/datum/quirk/modular/hunters_pursuit/remove()
+	if(quirk_holder)
+		UnregisterSignal(quirk_holder, COMSIG_MOB_LANDED_HIT)
+		quirk_holder.remove_movespeed_modifier(/datum/movespeed_modifier/hunters_pursuit)
+	return ..()
+
+/datum/quirk/modular/hunters_pursuit/proc/on_hit(mob/living/source, mob/living/victim, damage, atom/hit_source)
+	SIGNAL_HANDLER
+	var/mob/living/simple_animal/hostile/M = victim
+	if(!istype(M) || M.stat == DEAD || M.faction_check_mob(source))
+		return
+	if(!M.ai_is_retreating() && (M.maxHealth <= 0 || M.health / M.maxHealth >= 0.4))
+		return
+	source.add_movespeed_modifier(/datum/movespeed_modifier/hunters_pursuit)
+	addtimer(CALLBACK(src, PROC_REF(end_pursuit)), 4 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+
+/datum/quirk/modular/hunters_pursuit/proc/end_pursuit()
+	quirk_holder?.remove_movespeed_modifier(/datum/movespeed_modifier/hunters_pursuit)
+
+/datum/quirk/modular/shock_value
+	name = "Shock Value"
+	desc = "Your violence is hard to stomach. Every hit you land on a hostile mob drains an extra chunk of its morale, so mobs falter sooner. Melee mobs also flinch for a fraction of a second (once every 12 seconds per mob) and, for a few seconds, may fall back toward their pack the way ranged mobs do. It cannot rout a mob by itself (morale never drops below 30% from it) and it does nothing to one that is already falling back, so it will not make fleeing mobs harder to catch."
+	value = 2
+	required_special_stat = "special_c"
+	required_special_name = "Charisma"
+	required_special_value = 5
+	gain_text = span_notice("Even the wasteland's worst flinch when you swing.")
+	lose_text = span_danger("Nothing flinches when you swing anymore.")
+	/// Shotgun pellets and rapid fire land many hits at once; shock only registers this often
+	var/next_shock = 0
+
+/datum/quirk/modular/shock_value/add()
+	. = ..()
+	RegisterSignal(quirk_holder, COMSIG_MOB_LANDED_HIT, PROC_REF(on_hit))
+
+/datum/quirk/modular/shock_value/remove()
+	if(quirk_holder)
+		UnregisterSignal(quirk_holder, COMSIG_MOB_LANDED_HIT)
+	return ..()
+
+/datum/quirk/modular/shock_value/proc/on_hit(mob/living/source, mob/living/victim, damage, atom/hit_source)
+	SIGNAL_HANDLER
+	if(world.time < next_shock)
+		return
+	var/mob/living/simple_animal/hostile/M = victim
+	if(!istype(M) || M.stat == DEAD || M.faction_check_mob(source) || M.ai_is_retreating())
+		return
+	next_shock = world.time + 5
+	M.adjust_ai_morale(-min(0.08, max(M.get_ai_morale() - SHOCK_VALUE_MORALE_FLOOR, 0)), "shock_value")
+	if(!M.ranged)
+		M.ai_get_shaken(SHOCK_VALUE_SHAKEN_TIME, SHOCK_VALUE_FLINCH)
+
+/datum/quirk/modular/shoulder_check
+	name = "Shoulder Check"
+	desc = "Run into a hostile mob and you barrel it off its stride: for 1.5 seconds it cannot attack, melee or ranged, and any swings or shots it had lined up are dropped. It costs you some stamina, and you can only do it once every 10 seconds."
+	value = 3
+	required_special_stat = "special_s"
+	required_special_name = "Strength"
+	required_special_value = 6
+	gain_text = span_notice("You've learned to lead with your shoulder.")
+	lose_text = span_danger("You stop leading with your shoulder.")
+	var/next_check = 0
+
+/datum/quirk/modular/shoulder_check/add()
+	. = ..()
+	RegisterSignal(quirk_holder, COMSIG_MOVABLE_BUMP, PROC_REF(on_bump))
+
+/datum/quirk/modular/shoulder_check/remove()
+	if(quirk_holder)
+		UnregisterSignal(quirk_holder, COMSIG_MOVABLE_BUMP)
+	return ..()
+
+/datum/quirk/modular/shoulder_check/proc/on_bump(mob/living/source, atom/bumped)
+	SIGNAL_HANDLER
+	if(world.time < next_check || source.m_intent != MOVE_INTENT_RUN || source.stat != CONSCIOUS || source.throwing)
+		return
+	var/mob/living/simple_animal/hostile/M = bumped
+	if(!istype(M) || M.stat == DEAD || M.ckey || M.faction_check_mob(source))
+		return
+	next_check = world.time + 10 SECONDS
+	source.adjustStaminaLossBuffered(8)
+	M.ai_stagger(15)
+	source.visible_message(span_danger("[source] slams [M] with a shoulder!"), span_danger("You slam [M] with your shoulder!"), vision_distance = COMBAT_MESSAGE_RANGE)
+
 /* ------------------------------ Liabilities (give Perk Points back) ------------------------------ */
 
 /datum/quirk/modular/hemophilia
@@ -1593,7 +2103,7 @@
 
 /datum/quirk/modular/heat_intolerant
 	name = "Heat Intolerant"
-	desc = "Heat and fire hurt you 40% more, and you sweat out water 40% faster in the heat."
+	desc = "Hot days hit you harder: heat exposure builds up 40% faster, bringing fatigue, a worse mood and eventually heatstroke when you stay out in the sun, and you sweat out water 40% faster in the heat. Shade, a hat and a cool indoor space help."
 	value = -1
 	physio_mult = list("heat_mod" = 1.4)
 	gain_text = span_danger("You feel the heat more than most.")
@@ -1601,7 +2111,7 @@
 
 /datum/quirk/modular/cold_intolerant
 	name = "Cold Intolerant"
-	desc = "Cold hurts you 40% more."
+	desc = "Cold exposure builds up 40% faster: on cold nights and in cold snaps outdoors you shiver, slow down and eventually get frostbite unless you wear warm clothing or sit by a fire."
 	value = -1
 	physio_mult = list("cold_mod" = 1.4)
 	gain_text = span_danger("You feel the cold more than most.")
@@ -1818,7 +2328,7 @@
 
 /datum/quirk/modular/slow_poke
 	name = "Slow Poke"
-	desc = "You just aren't fast: you move a little slower than everyone else. Can't be taken with Speed Walker or the Mobility traits."
+	desc = "You just aren't fast: you move a little slower than everyone else. 	Can't be taken with Speed Walker, Fleet Footed or the Mobility traits."
 	value = -2
 	gain_text = span_danger("Your legs feel like lead.")
 	lose_text = span_notice("Your legs feel light again.")

@@ -2352,7 +2352,8 @@
 	icon_state = "book_loot"
 	lootcount = 1
 	// gunsmith_three/four dropped to pa_wear-tier rarity - this spawner is placed 228 times across the maps, so any higher weight makes top-tier gunsmithing common instead of scarce.
-	loot = list(/obj/item/book/granter/trait/lowsurgery = 10,
+	loot = list(/obj/item/book/granter/trait/rank/greenthumb = 1,
+				/obj/item/book/granter/trait/lowsurgery = 10,
 				/obj/item/book/granter/trait/chemistry = 10,
 				/obj/item/book/granter/trait/trekking = 10,
 				/obj/item/book/granter/trait/techno = 10,
@@ -2410,6 +2411,13 @@
 				/obj/item/book/granter/trait/rank/vein_finder = 1,
 				/obj/item/book/granter/trait/rank/gamblers_eye = 1,
 				/obj/item/book/granter/trait/rank/wild_card = 1,
+				/obj/item/book/granter/trait/rank/redline = 1,
+				/obj/item/book/granter/trait/rank/efficient_builder = 1,
+				/obj/item/book/granter/trait/rank/fleet_footed = 1,
+				/obj/item/book/granter/trait/rank/adrenal_kill = 1,
+				/obj/item/book/granter/trait/rank/hunters_pursuit = 1,
+				/obj/item/book/granter/trait/rank/shock_value = 1,
+				/obj/item/book/granter/trait/rank/shoulder_check = 1,
 //				/obj/item/book/granter/crafting_recipe/gunsmith_five = 5
 				)
 
@@ -2417,7 +2425,8 @@
 //no GnB5
 	name = "cargo  trait book spawner"
 	lootcount = 1
-	loot = list(/obj/item/book/granter/trait/lowsurgery = 10,
+	loot = list(/obj/item/book/granter/trait/rank/greenthumb = 1,
+				/obj/item/book/granter/trait/lowsurgery = 10,
 				/obj/item/book/granter/trait/chemistry = 10,
 				/obj/item/book/granter/trait/trekking = 10,
 				/obj/item/book/granter/trait/techno = 10,
@@ -2475,7 +2484,14 @@
 				/obj/item/book/granter/trait/rank/lucky_catch = 1,
 				/obj/item/book/granter/trait/rank/vein_finder = 1,
 				/obj/item/book/granter/trait/rank/gamblers_eye = 1,
-				/obj/item/book/granter/trait/rank/wild_card = 1,)
+				/obj/item/book/granter/trait/rank/wild_card = 1,
+				/obj/item/book/granter/trait/rank/redline = 1,
+				/obj/item/book/granter/trait/rank/efficient_builder = 1,
+				/obj/item/book/granter/trait/rank/fleet_footed = 1,
+				/obj/item/book/granter/trait/rank/adrenal_kill = 1,
+				/obj/item/book/granter/trait/rank/hunters_pursuit = 1,
+				/obj/item/book/granter/trait/rank/shock_value = 1,
+				/obj/item/book/granter/trait/rank/shoulder_check = 1,)
 
 /obj/effect/spawner/lootdrop/f13/traitbooks/low
 	name = "low trait book spawner"
@@ -2498,7 +2514,8 @@
 	icon_state = "book_loot"
 	lootcount = 1
 	respawn_time = 45 MINUTES
-	loot = list(/obj/item/book/granter/trait/lowsurgery = 10,
+	loot = list(/obj/item/book/granter/trait/rank/greenthumb = 1,
+				/obj/item/book/granter/trait/lowsurgery = 10,
 				/obj/item/book/granter/trait/chemistry = 10,
 				/obj/item/book/granter/trait/trekking = 10,
 				/obj/item/book/granter/trait/techno = 10,
@@ -2556,6 +2573,13 @@
 				/obj/item/book/granter/trait/rank/vein_finder = 1,
 				/obj/item/book/granter/trait/rank/gamblers_eye = 1,
 				/obj/item/book/granter/trait/rank/wild_card = 1,
+				/obj/item/book/granter/trait/rank/redline = 1,
+				/obj/item/book/granter/trait/rank/efficient_builder = 1,
+				/obj/item/book/granter/trait/rank/fleet_footed = 1,
+				/obj/item/book/granter/trait/rank/adrenal_kill = 1,
+				/obj/item/book/granter/trait/rank/hunters_pursuit = 1,
+				/obj/item/book/granter/trait/rank/shock_value = 1,
+				/obj/item/book/granter/trait/rank/shoulder_check = 1,
 				)
 
 /obj/effect/spawner/lootdrop/f13/blueprintLow
