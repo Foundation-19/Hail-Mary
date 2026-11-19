@@ -35,6 +35,8 @@
 	lightning_rate = 0.03
 	visibility_mult = 0.8
 	extinguishes_fires = TRUE
+	soak_rate = 8
+	vegetation_harm = 3
 	// A small, fast storm cell, so it can be outrun or waited out
 	cell_radius_lower = 0.1
 	cell_radius_upper = 0.17

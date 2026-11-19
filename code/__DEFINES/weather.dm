@@ -1,3 +1,9 @@
+/// Stages a weather goes through, see datum/weather
+#define STARTUP_STAGE 1
+#define MAIN_STAGE 2
+#define WIND_DOWN_STAGE 3
+#define END_STAGE 4
+
 /// Z levels that are more or less above ground and can see the sky
 /// For telling players about the weather
 #define Z_LEVEL_EASTWOOD_UNDERGROUND 3

@@ -111,6 +111,7 @@ GLOBAL_LIST_EMPTY(climate_heat_sources)
 		for(var/datum/weather/W as anything in SSweather.get_active_weathers())
 			if(!(W.immunity_type in weather_immunities))
 				. += W.get_gust_shift(src)
+		. += SSgeoclimate.get_thermal_moderation(src, .)
 	. += climate_temp_offset
 	if(. >= CLIMATE_HEAT_SOURCE_CAP)
 		return
@@ -259,6 +260,7 @@ GLOBAL_LIST_EMPTY(climate_heat_sources)
 /mob/living/carbon/human/proc/handle_climate()
 	if(stat == DEAD)
 		return
+	handle_ground_radiation()
 	dry_off()
 	acid_decay()
 	climate_feel_check()
@@ -269,6 +271,15 @@ GLOBAL_LIST_EMPTY(climate_heat_sources)
 	if(!on_fire)
 		bodytemperature = BODYTEMP_NORMAL + climate_exposure * CLIMATE_BODYTEMP_PER_EXPOSURE
 	apply_climate_effects()
+
+/// Rads this person's own ground gives off every life tick, for land a storm has left hot. Builds slowly, nothing like standing in the storm itself
+/mob/living/carbon/human/proc/handle_ground_radiation()
+	var/area/A = get_area(src)
+	if(!A?.outdoors)
+		return
+	var/level = SSgeoclimate.get_radiation_level(src)
+	if(level > 0)
+		rad_act(level * GEO_RADIATION_EXPOSURE)
 
 /mob/living/carbon/human/proc/apply_climate_effects()
 	var/hot = climate_exposure > 0

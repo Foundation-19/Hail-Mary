@@ -65,10 +65,9 @@
 	/// The list of z-levels that can reasonably see the weather coming and get messages about it
 	var/list/impacted_z_levels = ABOVE_GROUND_Z_LEVELS
 
-	/// Since it's above everything else, this is the layer used by default. TURF_LAYER is below mobs and walls if you need to use that. 
-	var/overlay_layer = AREA_LAYER 
-	/// Plane for the overlay
-	var/overlay_plane = BLACKNESS_PLANE
+	/// Since it's above everything else, this is the layer used by default. TURF_LAYER is below mobs and walls if you need to use that.
+	/// Only used for the non-localized /area overlay in update_areas(); the localized screen haze keeps its own FULLSCREEN plane and layer
+	var/overlay_layer = AREA_LAYER
 	/// If the weather has no purpose but aesthetics. 
 	var/aesthetic = FALSE
 	/// Used by mobs to prevent them from being affected by the weather 
@@ -145,6 +144,12 @@
 	var/cloud_shadow = 0.4
 	/// Deciseconds the ground stays wet after it has been rained on, 0 leaves it dry
 	var/wet_ground_time = 0
+	/// Moisture per minute the ground takes up at the heart of the weather, see geoclimate. 0 leaves the land as dry as it was
+	var/soak_rate = 0
+	/// Vegetation per minute the weather kills off at its heart, for blight and acid
+	var/vegetation_harm = 0
+	/// Rads per minute the ground soaks up at the heart of the weather, see geoclimate. 0 leaves the land clean
+	var/ground_contamination_rate = 0
 	/// Tame animals out in this weather go looking for cover
 	var/animals_seek_shelter = FALSE
 
@@ -571,8 +576,6 @@
 			client_screens -= C
 		else
 			S = new
-			S.plane = overlay_plane
-			S.layer = overlay_layer
 			S.color = weather_color
 			S.alpha = 0
 			C.screen += S

@@ -24,4 +24,5 @@
 
 	barometer_predictable = TRUE
 	climate_temp_shift = -35
+	soak_rate = 3
 

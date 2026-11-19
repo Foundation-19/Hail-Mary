@@ -1,3 +1,13 @@
+// A tray standing in the open answers to the ground's own moisture and whatever a radiation storm has left soaking into it, see geoclimate
+/// Ground has to be at least this wet before an outdoor tray bothers drawing from it
+#define HYDRO_RAIN_MOISTURE_FLOOR 35
+/// Water an outdoor tray gains per cycle for every point of ground moisture above the floor
+#define HYDRO_RAIN_WATER_FACTOR 0.15
+/// Toxins an outdoor tray's roots pull up from its soil per cycle, for every point of lingering ground radiation
+#define HYDRO_RADIATION_TOXIN_FACTOR 0.02
+/// Percent chance per cycle that standing in mud breeds a pest
+#define HYDRO_MUD_PEST_CHANCE 10
+
 /obj/machinery/hydroponics
 	name = "hydroponics tray"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
@@ -160,6 +170,20 @@
 					adjustWeeds(myseed.weed_rate)
 				else if(prob(2))  //5 percent chance the weed population will increase
 					adjustWeeds(1 / rating)
+
+//Outdoor ground///////////////////////////////////////////////////////
+			// A tray standing in the open drinks straight from the rain-soaked ground, and its soil leaches up whatever a storm has left behind
+			if(isopenturf(loc))
+				var/turf/open/outdoor_turf = loc
+				if(outdoor_turf.geo_outdoors())
+					var/ground_moisture = SSgeoclimate.get_ground_moisture(src)
+					if(ground_moisture > HYDRO_RAIN_MOISTURE_FLOOR)
+						adjustWater((ground_moisture - HYDRO_RAIN_MOISTURE_FLOOR) * HYDRO_RAIN_WATER_FACTOR)
+					var/ground_radiation = SSgeoclimate.get_radiation_level(src)
+					if(ground_radiation > 0)
+						adjustToxic(ground_radiation * HYDRO_RADIATION_TOXIN_FACTOR)
+					if(outdoor_turf.geo_mud && prob(HYDRO_MUD_PEST_CHANCE))
+						adjustPests(1 / rating)
 
 //Toxins/////////////////////////////////////////////////////////////////
 
@@ -870,3 +894,8 @@
 	visible_message(span_boldnotice("[src] begins to glow with a beautiful light!"))
 	self_sustaining = TRUE
 	update_icon()
+
+#undef HYDRO_RAIN_MOISTURE_FLOOR
+#undef HYDRO_RAIN_WATER_FACTOR
+#undef HYDRO_RADIATION_TOXIN_FACTOR
+#undef HYDRO_MUD_PEST_CHANCE

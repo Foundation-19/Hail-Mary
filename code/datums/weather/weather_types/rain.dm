@@ -37,6 +37,7 @@
 	gust_message = span_notice("A cool gust of damp air rushes ahead of the storm, smelling of wet earth.")
 	lightning_rate = 0.04
 	wet_ground_time = 5 MINUTES
+	soak_rate = 14
 	animals_seek_shelter = TRUE
 	// Rain falls from a cloud that drifts along with the wind
 	cell_radius_lower = 0.18
@@ -193,6 +194,7 @@
 	gust_message = span_notice("The air turns cold and damp as the fog creeps closer.")
 	lightning_rate = 0
 	wet_ground_time = 2 MINUTES
+	soak_rate = 4
 	animals_seek_shelter = FALSE
 	// Fog pools in low ground and hangs there
 	cell_radius_lower = 0.12
