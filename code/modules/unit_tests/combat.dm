@@ -466,6 +466,7 @@
 	RegisterSignal(attacker, COMSIG_MOB_LANDED_HIT, PROC_REF(on_hit))
 	var/turf/arena = run_loc_bottom_left
 	attacker.forceMove(run_loc_top_right)
+	victim.forceMove(arena)
 
 	// Whoever last shot or hit a fuel tank owns the blast, even when something else detonates it
 	var/obj/structure/reagent_dispensers/fueltank/tank = allocate(/obj/structure/reagent_dispensers/fueltank, arena)
@@ -477,6 +478,7 @@
 	// A blast set off by another explosion inherits that explosion's culprit
 	hits = 0
 	victim.health = 500
+	victim.forceMove(arena) // explosions can knock the victim off the epicenter turf, so put it back before the next blast
 	var/obj/structure/reagent_dispensers/fueltank/chained = allocate(/obj/structure/reagent_dispensers/fueltank, arena)
 	GLOB.explosion_chain_credit = WEAKREF(attacker)
 	chained.boom()
@@ -487,6 +489,7 @@
 	// Reagent explosions can be credited too
 	hits = 0
 	victim.health = 500
+	victim.forceMove(arena)
 	var/datum/effect_system/reagents_explosion/boom = new
 	boom.set_up(4, arena, 0, 0)
 	boom.set_credit(attacker)
@@ -503,6 +506,7 @@
 	// A tank set off by a fire credits whoever started the fire
 	hits = 0
 	victim.health = 500
+	victim.forceMove(arena)
 	allocate(/obj/structure/reagent_dispensers/fueltank, arena)
 	new /obj/effect/hotspot(arena, null, null, null, attacker)
 	wait_for_hit()
