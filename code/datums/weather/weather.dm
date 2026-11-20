@@ -127,6 +127,8 @@
 	var/list/turfs_done = list()
 	/// Turf to the overlay image shown on it right now, so the weather itself can be seen on the ground by anyone with line of sight, not only felt by people standing in or near it
 	var/list/turf/turf_overlays = list()
+	/// Bumped every time update_turf_visuals() is entered, so a call that yielded mid-repaint (CHECK_TICK) can tell a newer call - from a timer-driven end()/wind_down() firing while it slept, say - has already settled turf_overlays, and bail out instead of clobbering that with its own stale result
+	var/turf_visual_epoch = 0
 	/// The overlay of every client of the players who were out in the open under the patch on the last update. Each client gets its own so it can fade with how deep in the patch they stand
 	var/list/client_screens = list()
 	/// Players who were somewhere under the patch, indoors or out, on the last update
@@ -504,6 +506,9 @@
 /datum/weather/proc/update_turf_visuals()
 	if(!localized)
 		return
+	// process() and end()/wind_down() can both reach this proc for the same weather on separate call stacks (a per-tick call versus a timer firing),
+	// and CHECK_TICK below can let either one sleep mid-repaint. Claim this epoch so a stale call that resumes after a newer one already finished knows to stand down
+	var/my_epoch = ++turf_visual_epoch
 	var/new_state
 	if(stage != END_STAGE)
 		switch(stage)
@@ -531,6 +536,8 @@
 					if(alpha > 0)
 						covered[T] = alpha
 					CHECK_TICK
+					if(my_epoch != turf_visual_epoch)
+						return
 	var/list/turf/new_overlays = list()
 	for(var/turf/T as anything in covered)
 		var/image/I = turf_overlays[T]
@@ -545,11 +552,15 @@
 		new_overlays[T] = I
 		// A big patch (a heat wave's huge dome, say) can cover thousands of turfs - spread the add_overlay() calls across ticks instead of doing them all in one go, or the whole server hitches every repaint no matter how rarely it happens
 		CHECK_TICK
+		if(my_epoch != turf_visual_epoch)
+			return
 	for(var/turf/T as anything in turf_overlays)
 		var/image/I = turf_overlays[T]
 		if(T && I)
 			T.cut_overlay(I)
 		CHECK_TICK
+		if(my_epoch != turf_visual_epoch)
+			return
 	turf_overlays = new_overlays
 
 /**
