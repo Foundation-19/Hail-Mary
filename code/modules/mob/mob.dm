@@ -1148,6 +1148,10 @@ GLOBAL_VAR_INIT(exploit_warn_spam_prevention, 0)
 
 	sync_lighting_plane_alpha()
 
+/// Whether this mob is currently wearing enough eye protection to keep blinding dust/sand weather from reducing its sight range. Lives on base /mob since ghosts and other non-living observers can be caught watching a weather patch too
+/mob/proc/has_dust_eye_protection()
+	return FALSE
+
 /mob/proc/sync_lighting_plane_alpha()
 	if(hud_used)
 		var/obj/screen/plane_master/lighting/L = hud_used.plane_masters["[LIGHTING_PLANE]"]

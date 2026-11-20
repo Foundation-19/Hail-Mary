@@ -37,6 +37,8 @@
 	var/weather_overlay
 	/// Color to apply to the area while weather is occuring
 	var/weather_color = null
+	/// Color applied to the fullscreen blur shown to anyone caught in weather that obscures_sight. Left null, the blur is a flat white "whiteout" - set this so a sandstorm reads as a wall of dust rather than snow
+	var/obscure_color = null
 
 	/// Displayed once the weather is over
 	var/end_message = span_danger("The wind relents its assault.")
@@ -133,6 +135,8 @@
 	var/list/blurred_mobs = list()
 	/// Players with the ground darkened by the weather's cloud shadow
 	var/list/shaded_mobs = list()
+	/// Players whose sight range is currently reduced by this weather's obscures_sight, so it can be restored once they leave, gain protection, or the weather ends
+	var/list/view_reduced_mobs = list()
 	/// Players who have already been told about the gust ahead of the patch on this approach
 	var/list/gusted_mobs = list()
 	/// When the main stage began, for working out how far through its life the weather is
@@ -620,6 +624,7 @@
 	var/list/new_screens = list()
 	var/list/blurred = list()
 	var/list/shaded = list()
+	var/list/view_reduced = list()
 	var/shade_scale = cloud_shadow * get_daylight()
 	for(var/mob/M as anything in outside + watching)
 		var/client/C = M.client
@@ -650,12 +655,19 @@
 				animate(shade, alpha = shade_alpha, time = 1 SECONDS)
 				shaded += M
 		if(obscures_sight && stage == MAIN_STAGE && (M in outside))
+			var/protected = M.has_dust_eye_protection()
 			var/obj/screen/fullscreen/blur = M.overlay_fullscreen("weather_[type]", /obj/screen/fullscreen/blurry)
 			if(blur)
+				blur.color = obscure_color
 				if(!(M in blurred_mobs))
 					blur.alpha = 0
-				animate(blur, alpha = fade, time = 1 SECONDS)
+				animate(blur, alpha = protected ? 0 : fade, time = 1 SECONDS)
 			blurred += M
+			// Goggles or a mask keep your view clear - anyone else caught out in it unprotected has their sight range cut down, same as walking into a wall of smoke
+			if(C && !protected)
+				if(C.view == CONFIG_GET(string/default_view))
+					C.change_view(get_reduced_view())
+				view_reduced += M
 	for(var/client/C as anything in client_screens)
 		var/obj/screen/weather_overlay/S = client_screens[C]
 		if(C)
@@ -665,6 +677,10 @@
 		M?.clear_fullscreen("weather_[type]")
 	for(var/mob/M as anything in shaded_mobs - shaded)
 		M?.clear_fullscreen("cloud_shadow_[type]")
+	for(var/mob/M as anything in view_reduced_mobs - view_reduced)
+		var/client/C = M?.client
+		if(C && C.view == get_reduced_view())
+			C.change_view(CONFIG_GET(string/default_view))
 	if(stage == MAIN_STAGE || stage == WIND_DOWN_STAGE)
 		for(var/mob/M as anything in covered - covered_mobs)
 			to_chat(M, span_notice("The [name] sweeps over you."))
@@ -674,6 +690,18 @@
 	covered_mobs = covered
 	blurred_mobs = blurred
 	shaded_mobs = shaded
+	view_reduced_mobs = view_reduced
+
+/// How tightly a dust-blinded mob's sight should close in while caught unprotected in this weather, scaled off visibility_mult relative to the server's normal view size
+/datum/weather/proc/get_reduced_view()
+	var/list/base_view = getviewsize(CONFIG_GET(string/default_view))
+	var/view_x = max(5, round(base_view[1] * visibility_mult))
+	var/view_y = max(5, round(base_view[2] * visibility_mult))
+	if(!(view_x % 2))
+		view_x++
+	if(!(view_y % 2))
+		view_y++
+	return "[view_x]x[view_y]"
 
 /// Lightning strikes somewhere under a patch now and then. Storms are livelier at their peak
 /datum/weather/proc/lightning_tick()
@@ -737,6 +765,10 @@
 		M?.clear_fullscreen("weather_[type]")
 	for(var/mob/M as anything in shaded_mobs)
 		M?.clear_fullscreen("cloud_shadow_[type]")
+	for(var/mob/M as anything in view_reduced_mobs)
+		var/client/C = M?.client
+		if(C && C.view == get_reduced_view())
+			C.change_view(CONFIG_GET(string/default_view))
 	for(var/turf/T as anything in turf_overlays)
 		var/image/I = turf_overlays[T]
 		if(T && I)
@@ -745,6 +777,7 @@
 	covered_mobs = list()
 	blurred_mobs = list()
 	shaded_mobs = list()
+	view_reduced_mobs = list()
 	gusted_mobs = list()
 	turf_overlays = list()
 

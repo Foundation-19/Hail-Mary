@@ -115,6 +115,7 @@
 
 	aesthetic = TRUE
 	obscures_sight = TRUE // try seeing stuff now! YOU CANT!
+	obscure_color = "#926D42" // same sandy tan as the ash_storm ground overlay, so it reads as a wall of dust rather than a snowy whiteout
 	visibility_mult = 0.5
 	// A haboob races ahead of the wind
 	drift_speed = 0.3

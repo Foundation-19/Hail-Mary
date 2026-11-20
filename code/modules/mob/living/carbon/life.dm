@@ -136,6 +136,13 @@
 		return TRUE
 	return FALSE
 
+/mob/living/carbon/has_dust_eye_protection()
+	if(glasses && glasses.blocks_dust_vision && !glasses.up)
+		return TRUE
+	if(wear_mask && wear_mask.blocks_dust_vision && !wear_mask.up)
+		return TRUE
+	return FALSE
+
 
 //Third link in a breath chain, calls handle_breath_temperature()
 /mob/living/carbon/proc/check_breath()
