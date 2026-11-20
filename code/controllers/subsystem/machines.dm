@@ -55,6 +55,8 @@ SUBSYSTEM_DEF(machines)
 			processing -= thing
 			if (!QDELETED(thing))
 				thing.datum_flags &= ~DF_ISPROCESSING
+		if (MC_TICK_CHECK)
+			return
 
 /datum/controller/subsystem/machines/proc/setup_template_powernets(list/cables)
 	for(var/A in cables)

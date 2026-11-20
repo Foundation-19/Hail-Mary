@@ -73,7 +73,7 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 				busy += "[SS.name]=sleeping"
 		if(SS.tick_overrun >= 25)
 			overrunning += "[SS.name]=[round(SS.tick_overrun, 0.1)]"
-	log_game("FailSafe: MC stalled (DEFCON [defcon_pretty()], iteration [Master.iteration]). last_processed=[Master.last_type_processed || "none"] world.time=[world.time] runlevel=[Master.current_runlevel] ticklimit=[Master.current_ticklimit] cpu=[round(world.cpu, 1)] tick_usage=[round(world.tick_usage, 1)] clients=[length(GLOB.clients)] ai_on=[length(GLOB.simple_animals[AI_ON])] ai_idle=[length(GLOB.simple_animals[AI_IDLE])] timers=[length(SStimer.timer_id_dict)](second_queue=[length(SStimer.second_queue)],buckets=[SStimer.bucket_count]) not_idle_ss=[busy.Join(", ") || "none"] overrunning_ss=[overrunning.Join(", ") || "none"] costly_ss=[costly.Join(", ")]")
+	log_game("FailSafe: MC stalled (DEFCON [defcon_pretty()], iteration [Master.iteration]). last_processed=[Master.last_type_processed || "none"] world.time=[world.time] runlevel=[Master.current_runlevel] ticklimit=[Master.current_ticklimit] sleep_delta=[round(Master.sleep_delta, 0.1)] cpu=[round(world.cpu, 1)] tick_usage=[round(world.tick_usage, 1)] clients=[length(GLOB.clients)] ai_on=[length(GLOB.simple_animals[AI_ON])] ai_idle=[length(GLOB.simple_animals[AI_IDLE])] timers=[length(SStimer.timer_id_dict)](second_queue=[length(SStimer.second_queue)],buckets=[SStimer.bucket_count]) not_idle_ss=[busy.Join(", ") || "none"] overrunning_ss=[overrunning.Join(", ") || "none"] costly_ss=[costly.Join(", ")]")
 
 /datum/controller/failsafe/proc/Loop()
 	while(running)
