@@ -540,12 +540,16 @@
 		I = image(icon = 'icons/effects/weather_effects.dmi', icon_state = new_state, layer = overlay_layer)
 		I.color = weather_color
 		I.alpha = covered[T]
+		I.plane = MOB_PLANE // mobs/items/vehicles sit on their own higher planes, so without this the weather would render behind them instead of covering them, same as smoke (effects_smoke_new.dm)
 		T.add_overlay(I)
 		new_overlays[T] = I
+		// A big patch (a heat wave's huge dome, say) can cover thousands of turfs - spread the add_overlay() calls across ticks instead of doing them all in one go, or the whole server hitches every repaint no matter how rarely it happens
+		CHECK_TICK
 	for(var/turf/T as anything in turf_overlays)
 		var/image/I = turf_overlays[T]
 		if(T && I)
 			T.cut_overlay(I)
+		CHECK_TICK
 	turf_overlays = new_overlays
 
 /**
