@@ -228,14 +228,21 @@ GLOBAL_LIST_EMPTY(climate_heat_sources)
 	if(!climate_applies() || world.time < climate_feel_next)
 		return
 	var/ambient = get_climate_ambient()
+	// Bias the reading back toward whichever band was last reported, so a temperature sitting right on a threshold cannot
+	// flip the message back and forth every cooldown. Leaving a band still takes the real temperature actually clearing it.
+	var/biased = ambient
+	if(climate_feel > 0)
+		biased += CLIMATE_FEEL_HYSTERESIS
+	else if(climate_feel < 0)
+		biased -= CLIMATE_FEEL_HYSTERESIS
 	var/band = 0
-	if(ambient < CLIMATE_COMFORT_MIN - CLIMATE_FEEL_HARSH)
+	if(biased < CLIMATE_COMFORT_MIN - CLIMATE_FEEL_HARSH)
 		band = -2
-	else if(ambient < CLIMATE_COMFORT_MIN)
+	else if(biased < CLIMATE_COMFORT_MIN)
 		band = -1
-	else if(ambient > CLIMATE_COMFORT_MAX + CLIMATE_FEEL_HARSH)
+	else if(biased > CLIMATE_COMFORT_MAX + CLIMATE_FEEL_HARSH)
 		band = 2
-	else if(ambient > CLIMATE_COMFORT_MAX)
+	else if(biased > CLIMATE_COMFORT_MAX)
 		band = 1
 	if(band == climate_feel)
 		return

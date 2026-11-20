@@ -538,30 +538,37 @@
 					CHECK_TICK
 					if(my_epoch != turf_visual_epoch)
 						return
-	var/list/turf/new_overlays = list()
+	// Published straight into turf_overlays turf-by-turf as each one is actually touched, instead of being batched into a
+	// throwaway local and swapped in only once every turf is done. A call that gets superseded mid-loop (CHECK_TICK below
+	// can let that happen) still leaves every turf it already repainted correctly tracked, so nothing it already applied
+	// is ever orphaned - stuck on the ground with no record of it left for a later cleanup pass to find and remove
 	for(var/turf/T as anything in covered)
-		var/image/I = turf_overlays[T]
-		if(I)
-			turf_overlays -= T
-			T.cut_overlay(I)
-		I = image(icon = 'icons/effects/weather_effects.dmi', icon_state = new_state, layer = overlay_layer)
+		var/image/existing = turf_overlays[T]
+		if(existing)
+			T.cut_overlay(existing)
+		var/image/I = image(icon = 'icons/effects/weather_effects.dmi', icon_state = new_state, layer = overlay_layer)
 		I.color = weather_color
 		I.alpha = covered[T]
 		I.plane = MOB_PLANE // mobs/items/vehicles sit on their own higher planes, so without this the weather would render behind them instead of covering them, same as smoke (effects_smoke_new.dm)
 		T.add_overlay(I)
-		new_overlays[T] = I
+		turf_overlays[T] = I
 		// A big patch (a heat wave's huge dome, say) can cover thousands of turfs - spread the add_overlay() calls across ticks instead of doing them all in one go, or the whole server hitches every repaint no matter how rarely it happens
 		CHECK_TICK
 		if(my_epoch != turf_visual_epoch)
 			return
-	for(var/turf/T as anything in turf_overlays)
+	// Anything still tracked that fell out of the covered set (the patch moved on or is winding down) gets cut. Copy first:
+	// turf_overlays was just written to above, and removing keys from it while iterating it directly is not safe
+	var/list/turf/stale = turf_overlays.Copy()
+	for(var/turf/T in covered)
+		stale -= T
+	for(var/turf/T as anything in stale)
 		var/image/I = turf_overlays[T]
 		if(T && I)
 			T.cut_overlay(I)
+		turf_overlays -= T
 		CHECK_TICK
 		if(my_epoch != turf_visual_epoch)
 			return
-	turf_overlays = new_overlays
 
 /**
  * Works out who is out in the weather and keeps what they see, hear and are told in step with it

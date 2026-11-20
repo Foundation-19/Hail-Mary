@@ -18,6 +18,9 @@
 // How far past the comfort band the air has to be before people are told it is harsh, and the least time between two such messages
 #define CLIMATE_FEEL_HARSH 8
 #define CLIMATE_FEEL_COOLDOWN (30 SECONDS)
+// Once a band has been reported, the air has to retreat this much further back into comfort before it is reported as having
+// eased off, so hovering right on a threshold does not flip the message back and forth every cooldown
+#define CLIMATE_FEEL_HYSTERESIS 3
 
 // Fires only warm people up to this temperature, so a fireplace takes the chill off without cooking anyone indoors
 #define CLIMATE_HEAT_SOURCE_CAP 300
