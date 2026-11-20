@@ -10,6 +10,24 @@ GLOBAL_VAR(explosion_chain_credit)
 /proc/explosion(atom/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = TRUE, ignorecap = FALSE, flame_range = 0, silent = FALSE, smoke = FALSE, mob/living/credit_to)
 	return new /datum/explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog, ignorecap, flame_range, silent, smoke, credit_to)
 
+/**
+ * ex_act() has `set waitfor = FALSE`, so a CHECK_TICK sleep deeper in its call chain (more likely under load) can let it
+ * return before the hit it is dealing actually lands, which makes a health check taken right after it unreliable.
+ * Different mob types also apply damage through different procs (not all of them route through apply_damage(), so a
+ * signal is not a reliable catch-all either), so this polls health directly instead, for up to LATE_DAMAGE_CREDIT_WINDOW.
+ */
+/proc/watch_late_explosion_damage(mob/living/L, mob/living/credit, starting_health, atom/explosion_source)
+	set waitfor = FALSE
+	var/deadline = world.time + LATE_DAMAGE_CREDIT_WINDOW
+	while(world.time < deadline)
+		sleep(1)
+		if(QDELETED(L) || QDELETED(credit))
+			return
+		var/dealt = starting_health - L.health
+		if(dealt > 0)
+			L.register_damage_from(credit, dealt, explosion_source)
+			return
+
 //This datum creates 3 async tasks
 //1 GatherSpiralTurfsProc runs spiral_range_turfs(tick_checked = TRUE) to populate the affected_turfs list
 //2 CaculateExplosionBlock adds the blockings to the cached_exp_block list
@@ -243,7 +261,14 @@ GLOBAL_VAR(explosion_chain_credit)
 			T.ex_act(dist)
 			GLOB.explosion_chain_credit = previous_chain
 			for(var/mob/living/L as anything in credit_health)
-				L.register_damage_from(credit, credit_health[L] - L.health, explosion_source)
+				var/dealt = credit_health[L] - L.health
+				if(dealt > 0)
+					L.register_damage_from(credit, dealt, explosion_source)
+				else
+					// ex_act() has waitfor = FALSE, so its damage can land after this call returns (e.g. a CHECK_TICK
+					// sleep deeper in the chain, more likely under load); health read right now can still be stale.
+					// Keep watching it for a short window instead of silently dropping the credit.
+					watch_late_explosion_damage(L, credit, credit_health[L], explosion_source)
 			exploded_this_tick += T
 
 		//--- THROW ITEMS AROUND ---
