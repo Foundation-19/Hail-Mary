@@ -442,7 +442,7 @@
 	if(localized)
 		update_cells()
 		if(world.time >= next_turf_visual_update)
-			next_turf_visual_update = world.time + WEATHER_TURF_VISUAL_INTERVAL
+			next_turf_visual_update = world.time + get_turf_visual_interval()
 			update_turf_visuals()
 	update_presence()
 	if(stage == MAIN_STAGE && localized)
@@ -488,6 +488,17 @@
 				turfs_done[T] = TRUE
 				weather_act_turf(T)
 				CHECK_TICK
+
+/// How long to wait before the next turf-visual repaint. A patch's bounding box can be many times bigger than another's (a heat wave's huge, barely-moving dome versus a small, fast-drifting rain cell), so this scales the wait with how many tiles a repaint would actually have to scan, instead of re-scanning a massive area just as often as a small one
+/datum/weather/proc/get_turf_visual_interval()
+	var/tiles = 0
+	for(var/datum/weather_cell/C as anything in unique_cells)
+		var/reach_x = round(C.radius_x * C.scale * (1 + WEATHER_CELL_LUMP)) + 1
+		var/reach_y = round(C.radius_y * C.scale * (1 + WEATHER_CELL_LUMP)) + 1
+		tiles += (2 * reach_x + 1) * (2 * reach_y + 1) * length(C.z_levels)
+	if(tiles <= WEATHER_TURF_VISUAL_BASELINE_TILES)
+		return WEATHER_TURF_VISUAL_INTERVAL
+	return min(WEATHER_TURF_VISUAL_INTERVAL * (tiles / WEATHER_TURF_VISUAL_BASELINE_TILES), WEATHER_TURF_VISUAL_INTERVAL_MAX)
 
 /// Paints the weather's overlay directly onto every turf the patch currently covers, the same way update_areas() does for weather that blankets a whole area, so the storm itself is visible to anyone looking at those tiles, not only to people standing in or watching near it
 /datum/weather/proc/update_turf_visuals()
