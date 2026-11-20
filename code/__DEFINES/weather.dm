@@ -73,6 +73,8 @@
 #define WEATHER_CELL_GROW_RATE 0.04
 /// Seconds between sweeps for turf effects as a patch drifts over new ground
 #define WEATHER_TURF_SWEEP_INTERVAL 10 SECONDS
+/// Seconds between refreshing which turfs show the weather happening on them, as the patch drifts
+#define WEATHER_TURF_VISUAL_INTERVAL 3 SECONDS
 /// Opacity of the weather overlay at the heart of a patch, kept well under solid so the middle of a storm is still readable
 #define WEATHER_SCREEN_MAX_ALPHA 150
 /// Opacity of the weather overlay at the very fringe of a patch, so the edge never reads as a hard line

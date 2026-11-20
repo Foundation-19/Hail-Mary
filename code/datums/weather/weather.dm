@@ -66,7 +66,7 @@
 	var/list/impacted_z_levels = ABOVE_GROUND_Z_LEVELS
 
 	/// Since it's above everything else, this is the layer used by default. TURF_LAYER is below mobs and walls if you need to use that.
-	/// Only used for the non-localized /area overlay in update_areas(); the localized screen haze keeps its own FULLSCREEN plane and layer
+	/// Used for the non-localized /area overlay in update_areas() and the localized turf-by-turf overlay in update_turf_visuals(); the screen haze some one standing near it sees keeps its own FULLSCREEN plane and layer
 	var/overlay_layer = AREA_LAYER
 	/// If the weather has no purpose but aesthetics. 
 	var/aesthetic = FALSE
@@ -120,8 +120,11 @@
 	var/turf/epicenter
 	var/last_cell_update = 0
 	var/next_turf_sweep = 0
+	var/next_turf_visual_update = 0
 	/// Turfs a drifting patch has already acted on, so nothing is done twice
 	var/list/turfs_done = list()
+	/// Turf to the overlay image shown on it right now, so the weather itself can be seen on the ground by anyone with line of sight, not only felt by people standing in or near it
+	var/list/turf/turf_overlays = list()
 	/// The overlay of every client of the players who were out in the open under the patch on the last update. Each client gets its own so it can fade with how deep in the patch they stand
 	var/list/client_screens = list()
 	/// Players who were somewhere under the patch, indoors or out, on the last update
@@ -356,6 +359,7 @@
 	next_hit_time = world.time + telegraph_duration
 	START_PROCESSING(SSweather, src) //The reason this doesn't start and stop at main stage is because processing list is also used to see active running weathers (for example, you wouldn't want two ash storms starting at once.)
 	update_areas()
+	update_turf_visuals()
 	update_presence()
 	alert_players(telegraph_message, telegraph_sound, forecast_range)
 	addtimer(CALLBACK(src, PROC_REF(start)), telegraph_duration)
@@ -377,6 +381,7 @@
 	stage = MAIN_STAGE
 	main_started = world.time
 	update_areas()
+	update_turf_visuals()
 	alert_players(weather_message, weather_sound)
 	addtimer(CALLBACK(src, PROC_REF(wind_down)), weather_duration)
 
@@ -392,6 +397,7 @@
 		return
 	stage = WIND_DOWN_STAGE
 	update_areas()
+	update_turf_visuals()
 	alert_players(end_message, end_sound)
 	addtimer(CALLBACK(src, PROC_REF(end)), end_duration)
 
@@ -420,6 +426,7 @@
 	stage = END_STAGE
 	STOP_PROCESSING(SSweather, src)
 	update_areas()
+	update_turf_visuals()
 	clear_presence()
 	if(forced)
 		alert_players(end_message, end_sound)
@@ -430,6 +437,9 @@
 		return
 	if(localized)
 		update_cells()
+		if(world.time >= next_turf_visual_update)
+			next_turf_visual_update = world.time + WEATHER_TURF_VISUAL_INTERVAL
+			update_turf_visuals()
 	update_presence()
 	if(stage == MAIN_STAGE && localized)
 		if(lightning_rate)
@@ -474,6 +484,54 @@
 				turfs_done[T] = TRUE
 				weather_act_turf(T)
 				CHECK_TICK
+
+/// Paints the weather's overlay directly onto every turf the patch currently covers, the same way update_areas() does for weather that blankets a whole area, so the storm itself is visible to anyone looking at those tiles, not only to people standing in or watching near it
+/datum/weather/proc/update_turf_visuals()
+	if(!localized)
+		return
+	var/new_state
+	if(stage != END_STAGE)
+		switch(stage)
+			if(STARTUP_STAGE)
+				new_state = telegraph_overlay
+			if(MAIN_STAGE)
+				new_state = weather_overlay
+			if(WIND_DOWN_STAGE)
+				new_state = end_overlay
+	var/list/turf/covered = list()
+	if(new_state)
+		for(var/datum/weather_cell/C as anything in unique_cells)
+			var/reach_x = round(C.radius_x * C.scale * (1 + WEATHER_CELL_LUMP)) + 1
+			var/reach_y = round(C.radius_y * C.scale * (1 + WEATHER_CELL_LUMP)) + 1
+			var/min_x = clamp(round(C.x) - reach_x, 1, world.maxx)
+			var/max_x = clamp(round(C.x) + reach_x, 1, world.maxx)
+			var/min_y = clamp(round(C.y) - reach_y, 1, world.maxy)
+			var/max_y = clamp(round(C.y) + reach_y, 1, world.maxy)
+			for(var/z in C.z_levels)
+				for(var/turf/T as anything in block(locate(min_x, min_y, z), locate(max_x, max_y, z)))
+					if(!(T.loc in impacted_areas) || !C.covers(T))
+						continue
+					// Same strength it would show on the screen of someone stood right there, so the view from outside matches what it feels like from within
+					var/alpha = C.screen_alpha(T)
+					if(alpha > 0)
+						covered[T] = alpha
+					CHECK_TICK
+	var/list/turf/new_overlays = list()
+	for(var/turf/T as anything in covered)
+		var/image/I = turf_overlays[T]
+		if(I)
+			turf_overlays -= T
+			T.cut_overlay(I)
+		I = image(icon = 'icons/effects/weather_effects.dmi', icon_state = new_state, layer = overlay_layer)
+		I.color = weather_color
+		I.alpha = covered[T]
+		T.add_overlay(I)
+		new_overlays[T] = I
+	for(var/turf/T as anything in turf_overlays)
+		var/image/I = turf_overlays[T]
+		if(T && I)
+			T.cut_overlay(I)
+	turf_overlays = new_overlays
 
 /**
  * Works out who is out in the weather and keeps what they see, hear and are told in step with it
@@ -679,11 +737,16 @@
 		M?.clear_fullscreen("weather_[type]")
 	for(var/mob/M as anything in shaded_mobs)
 		M?.clear_fullscreen("cloud_shadow_[type]")
+	for(var/turf/T as anything in turf_overlays)
+		var/image/I = turf_overlays[T]
+		if(T && I)
+			T.cut_overlay(I)
 	client_screens = list()
 	covered_mobs = list()
 	blurred_mobs = list()
 	shaded_mobs = list()
 	gusted_mobs = list()
+	turf_overlays = list()
 
 /**
  * Returns TRUE if the living mob can be affected by the weather

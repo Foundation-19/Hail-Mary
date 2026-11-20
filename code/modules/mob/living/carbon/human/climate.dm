@@ -313,7 +313,8 @@ GLOBAL_LIST_EMPTY(climate_heat_sources)
 		else
 			adjustStaminaLossBuffered(CLIMATE_HEAT_STAMINA * (0.5 + 0.5 * frac))
 		if(prob(4))
-			to_chat(src, span_warning(machine ? "Your cooling fans are running flat out." : "The heat is wearing you down."))
+			// span_warning() is a textual macro, so the ternary needs its own parentheses or + binds before ?: and throws a type mismatch
+			to_chat(src, span_warning((machine ? "Your cooling fans are running flat out." : "The heat is wearing you down.")))
 	else
 		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/cold, multiplicative_slowdown = CLIMATE_COLD_SLOWDOWN_MAX * (0.2 + 0.8 * frac))
 		if(prob(4))
