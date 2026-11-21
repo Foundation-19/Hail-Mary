@@ -550,6 +550,7 @@
 		I.color = weather_color
 		I.alpha = covered[T]
 		I.plane = MOB_PLANE // mobs/items/vehicles sit on their own higher planes, so without this the weather would render behind them instead of covering them, same as smoke (effects_smoke_new.dm)
+		I.mouse_opacity = MOUSE_OPACITY_TRANSPARENT // purely visual - without this, sitting on top of items/mobs in the click stack steals clicks for the turf instead of whatever is actually there, same as smoke
 		T.add_overlay(I)
 		turf_overlays[T] = I
 		// A big patch (a heat wave's huge dome, say) can cover thousands of turfs - spread the add_overlay() calls across ticks instead of doing them all in one go, or the whole server hitches every repaint no matter how rarely it happens
