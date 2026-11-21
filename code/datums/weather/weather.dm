@@ -801,11 +801,17 @@
 			C.screen -= S
 		qdel(S)
 	for(var/mob/M as anything in blurred_mobs)
-		M?.clear_fullscreen("weather_[type]")
+		if(QDELETED(M))
+			continue
+		M.clear_fullscreen("weather_[type]")
 	for(var/mob/M as anything in shaded_mobs)
-		M?.clear_fullscreen("cloud_shadow_[type]")
+		if(QDELETED(M))
+			continue
+		M.clear_fullscreen("cloud_shadow_[type]")
 	for(var/mob/M as anything in view_reduced_mobs)
-		var/client/C = M?.client
+		if(QDELETED(M))
+			continue
+		var/client/C = M.client
 		if(C && C.view == get_reduced_view())
 			C.change_view(CONFIG_GET(string/default_view))
 	for(var/turf/T as anything in turf_overlays)
