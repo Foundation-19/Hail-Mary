@@ -129,8 +129,6 @@
 	var/list/turf/turf_overlays = list()
 	/// Bumped every time update_turf_visuals() is entered, so a call that yielded mid-repaint (CHECK_TICK) can tell a newer call - from a timer-driven end()/wind_down() firing while it slept, say - has already settled turf_overlays, and bail out instead of clobbering that with its own stale result
 	var/turf_visual_epoch = 0
-	/// The overlay of every client of the players who were out in the open under the patch on the last update. Each client gets its own so it can fade with how deep in the patch they stand
-	var/list/client_screens = list()
 	/// Players who were somewhere under the patch, indoors or out, on the last update
 	var/list/covered_mobs = list()
 	/// Players with the weather's blur applied
@@ -187,14 +185,6 @@
 		if(W.extinguishes_fires)
 			return TRUE
 	return FALSE
-
-/// A purely visual layer for people standing under a localized weather
-/obj/screen/weather_overlay
-	icon = 'icons/effects/weather_effects.dmi'
-	screen_loc = "WEST,SOUTH to EAST,NORTH"
-	plane = FULLSCREEN_PLANE
-	layer = FULLSCREEN_LAYER - 0.05
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /datum/weather/New(list/z_levels, duration, turf/epicenter)
 	..()
@@ -663,18 +653,8 @@
 			return 0
 	return 1
 
-/// Shows the weather's overlay to everyone out in it and, fainter, to those out in the open near it. Blurs the sight of those caught in weather that obscures it, and tells people as the patch passes them
+/// Blurs the sight of those caught in weather that obscures it, shades the ground under the patch, and tells people as it passes them
 /datum/weather/proc/update_screens(list/outside, list/covered, list/watching = list())
-	var/new_state
-	switch(stage)
-		if(STARTUP_STAGE)
-			new_state = telegraph_overlay
-		if(MAIN_STAGE)
-			new_state = weather_overlay
-		if(WIND_DOWN_STAGE)
-			new_state = end_overlay
-	// Screens belong to the client, which can move to another body, so they are tracked by client
-	var/list/new_screens = list()
 	var/list/blurred = list()
 	var/list/shaded = list()
 	var/list/view_reduced = list()
@@ -687,17 +667,6 @@
 		var/fade = get_screen_alpha(M)
 		if(fade <= 0)
 			continue
-		var/obj/screen/weather_overlay/S = client_screens[C]
-		if(S)
-			client_screens -= C
-		else
-			S = new
-			S.color = weather_color
-			S.alpha = 0
-			C.screen += S
-		new_screens[C] = S
-		S.icon_state = new_state
-		animate(S, alpha = fade, time = 1 SECONDS)
 		// The patch also shades the ground, and it is darker the thicker it is overhead
 		var/shade_alpha = round(WEATHER_SHADE_MAX_ALPHA * shade_scale * fade / WEATHER_SCREEN_MAX_ALPHA)
 		if(shade_alpha > 0)
@@ -721,11 +690,6 @@
 				if(C.view == CONFIG_GET(string/default_view))
 					C.change_view(get_reduced_view())
 				view_reduced += M
-	for(var/client/C as anything in client_screens)
-		var/obj/screen/weather_overlay/S = client_screens[C]
-		if(C)
-			C.screen -= S
-		qdel(S)
 	for(var/mob/M as anything in blurred_mobs - blurred)
 		if(QDELETED(M))
 			continue
@@ -745,7 +709,6 @@
 			to_chat(M, span_notice("The [name] sweeps over you."))
 		for(var/mob/M as anything in covered_mobs - covered)
 			to_chat(M, span_notice("The [name] has moved past you."))
-	client_screens = new_screens
 	covered_mobs = covered
 	blurred_mobs = blurred
 	shaded_mobs = shaded
@@ -813,13 +776,8 @@
 /datum/weather/proc/update_listeners(list/outside, list/inside)
 	return
 
-/// Takes the weather's overlay and blur off everyone who has them
+/// Takes the weather's blur and shading off everyone who has them
 /datum/weather/proc/clear_presence()
-	for(var/client/C as anything in client_screens)
-		var/obj/screen/weather_overlay/S = client_screens[C]
-		if(C)
-			C.screen -= S
-		qdel(S)
 	for(var/mob/M as anything in blurred_mobs)
 		if(QDELETED(M))
 			continue
@@ -838,7 +796,6 @@
 		var/image/I = turf_overlays[T]
 		if(T && I)
 			T.cut_overlay(I)
-	client_screens = list()
 	covered_mobs = list()
 	blurred_mobs = list()
 	shaded_mobs = list()

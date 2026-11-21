@@ -4,7 +4,12 @@
 	probability = 2
 
 	telegraph_duration = 700
-	telegraph_overlay = "acid_rain"
+	// Ordinary-looking rain gathering overhead, same sprite the base rain type warns with.
+	// There's no distinct "light acid rain" sprite, and painting the full acid_rain overlay
+	// here would make the 70-second warning phase look identical to the real storm even
+	// though acid_rain_tick() doesn't fire until MAIN_STAGE. A plain rain visual still reads
+	// as "something's coming" without falsely implying it's already burning you.
+	telegraph_overlay = "rain_gathering"
 	telegraph_message = span_userdanger("Thunder rumbles far above. Droplets start to land around you and fizz as they touch the ground.. acid rain is coming. You have a minute to get under cover.")
 	telegraph_sound = 'sound/ambience/acidrain_start.ogg'
 
