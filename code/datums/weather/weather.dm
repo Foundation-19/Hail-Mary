@@ -153,7 +153,8 @@
 	var/cloud_shadow = 0.4
 	/// Deciseconds the ground stays wet after it has been rained on, 0 leaves it dry
 	var/wet_ground_time = 0
-	/// Moisture per minute the ground takes up at the heart of the weather, see geoclimate. 0 leaves the land as dry as it was
+	/// Deciseconds before a turf the weather already acted on is acted on again while it is still under the patch. 0 acts once per turf, which would let wet ground dry out under a storm that outlasts wet_ground_time
+	var/turf_reapply_interval = 0	/// Moisture per minute the ground takes up at the heart of the weather, see geoclimate. 0 leaves the land as dry as it was
 	var/soak_rate = 0
 	/// Vegetation per minute the weather kills off at its heart, for blight and acid
 	var/vegetation_harm = 0
@@ -199,10 +200,17 @@
 	..()
 	impacted_z_levels = z_levels ? z_levels.Copy() : list()
 	src.epicenter = epicenter
+	if(duration)
+		weather_duration_lower = duration
+		weather_duration_upper = duration
 	telegraph()
 
 /datum/weather/Destroy(force, ...)
+	STOP_PROCESSING(SSweather, src)
 	clear_presence()
+	if(stage != END_STAGE) // deleted mid-run, so end() never restored the area overlays
+		stage = END_STAGE
+		update_areas()
 	cells = null
 	unique_cells = null
 	epicenter = null
@@ -354,6 +362,10 @@
 	if(!LAZYLEN(impacted_areas))
 		abort()
 		return
+	filter_impacted_areas()
+	if(!LAZYLEN(impacted_areas))
+		abort()
+		return
 	if(localized)
 		form_cells()
 		if(!length(unique_cells))
@@ -373,6 +385,10 @@
 /// The weather has nowhere to happen. It never ran, so whoever made it has to throw it away
 /datum/weather/proc/abort()
 	stage = END_STAGE
+
+/// Lets a weather narrow the areas it picked up from its tag, before cells are formed
+/datum/weather/proc/filter_impacted_areas()
+	return
 
 /**
  * Starts the actual weather and effects from it
@@ -485,9 +501,12 @@
 		var/max_y = clamp(round(C.y) + reach_y, 1, world.maxy)
 		for(var/z in C.z_levels)
 			for(var/turf/T as anything in block(locate(min_x, min_y, z), locate(max_x, max_y, z)))
-				if(turfs_done[T] || !(T.loc in impacted_areas) || !C.covers(T))
+				if(!(T.loc in impacted_areas) || !C.covers(T))
 					continue
-				turfs_done[T] = TRUE
+				var/last_acted = turfs_done[T]
+				if(last_acted && (!turf_reapply_interval || world.time < last_acted + turf_reapply_interval))
+					continue
+				turfs_done[T] = world.time
 				weather_act_turf(T)
 				CHECK_TICK
 

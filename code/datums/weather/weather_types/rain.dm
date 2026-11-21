@@ -37,6 +37,7 @@
 	gust_message = span_notice("A cool gust of damp air rushes ahead of the storm, smelling of wet earth.")
 	lightning_rate = 0.04
 	wet_ground_time = 5 MINUTES
+	turf_reapply_interval = 4 MINUTES
 	soak_rate = 14
 	animals_seek_shelter = TRUE
 	// Rain falls from a cloud that drifts along with the wind
@@ -47,6 +48,11 @@
 	var/datum/looping_sound/rain_sounds/sound_ao = new(list(), FALSE, TRUE)
 	var/datum/looping_sound/indoor_rain_sounds/sound_ai = new(list(), FALSE, TRUE)
 
+/datum/weather/rain/Destroy()
+	QDEL_NULL(sound_ao)
+	QDEL_NULL(sound_ai)
+	return ..()
+
 /datum/weather/rain/eventarea
 	area_types = list(/area/f13/wasteland/event)
 	probability = 0
@@ -54,6 +60,12 @@
 	weather_duration_lower = 18000
 	weather_duration_upper = 18000
 	localized = FALSE
+
+/// Only the event zone gets this rain, not every area tagged for rain
+/datum/weather/rain/eventarea/filter_impacted_areas()
+	for(var/area/A as anything in impacted_areas.Copy())
+		if(!is_path_in_list(A.type, area_types))
+			impacted_areas -= A
 
 /datum/weather/rain/weather_act(mob/living/L)
 	if(iscarbon(L))
@@ -149,13 +161,13 @@
 
 /datum/weather/rain/start()
 	. = ..()
-	sound_ao.start()
-	sound_ai.start()
+	sound_ao?.start()
+	sound_ai?.start()
 
 /datum/weather/rain/end()
 	. = ..()
-	sound_ao.stop()
-	sound_ai.stop()
+	sound_ao?.stop()
+	sound_ai?.stop()
 
 //Fog
 /datum/weather/rain/fog
@@ -197,6 +209,7 @@
 	gust_message = span_notice("The air turns cold and damp as the fog creeps closer.")
 	lightning_rate = 0
 	wet_ground_time = 2 MINUTES
+	turf_reapply_interval = 90 SECONDS
 	soak_rate = 4
 	animals_seek_shelter = FALSE
 	// Fog pools in low ground and hangs there
@@ -205,3 +218,19 @@
 	drift_speed = 0.02
 	// Fog gathers in the cool hours around dawn
 	phase_weights = "3 2 0.8 0.4 0.4 0.6 1 1.2 1.5"
+	// Fog is damp air, not falling water: no rain loops
+	sound_ao = null
+	sound_ai = null
+
+/// Fog only dampens people; it doesn't wash, douse or soak them the way falling rain does
+/datum/weather/rain/fog/weather_act(mob/living/L)
+	if(ishuman(L))
+		var/mob/living/carbon/human/H = L
+		H.adjust_climate_wetness(wetness_rate)
+
+/// Fog leaves the ground damp but doesn't clean blood or water trays
+/datum/weather/rain/fog/weather_act_turf(turf/open/T)
+	SSweather.wet_turf(T, wet_ground_time)
+
+/datum/weather/rain/fog/update_listeners(list/outside, list/inside)
+	return

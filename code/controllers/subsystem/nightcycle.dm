@@ -1,9 +1,10 @@
-/*  6:00 AM 	- 	21600
-	6:45 AM 	- 	24300
-	11:45 AM 	- 	42300
-	4:45 PM 	- 	60300
-	9:45 PM 	- 	78300
-	10:30 PM 	- 	81000 */
+/*  Times below are in deciseconds of station time (1 second = 10 deciseconds)
+	6:00 AM 	- 	216000
+	6:45 AM 	- 	243000
+	11:45 AM 	- 	423000
+	4:45 PM 	- 	603000
+	9:45 PM 	- 	783000
+	10:30 PM 	- 	810000 */
 #define CYCLE_SUNRISE 	216000
 #define CYCLE_MORNING 	243000
 #define CYCLE_LATEMORN	333000
@@ -24,6 +25,9 @@
 #define NIGHTCYCLE_PHASE_FULLSUNSET 7
 #define NIGHTCYCLE_PHASE_NIGHTTIME 8
 #define NIGHTCYCLE_PHASE_DAY_END 9
+
+/// How long the shared sunlight objects take to fade to the next phase's color and power
+#define NIGHTCYCLE_TRANSITION_TIME (10 SECONDS)
 
 SUBSYSTEM_DEF(nightcycle)
 	name = "Day/Night Cycle"
@@ -87,7 +91,8 @@ SUBSYSTEM_DEF(nightcycle)
 		if (new_time == current_time)
 			return
 
-	set_phase(new_time)
+	log_game("Day/night cycle advanced to phase [new_time].")
+	set_phase(new_time, announce = FALSE)
 	CHECK_TICK
 
 /// The NIGHTCYCLE_PHASE_* a STATION_TIME value falls in
@@ -133,6 +138,8 @@ SUBSYSTEM_DEF(nightcycle)
 			current_sun_color = morning_sun_color
 			current_sun_power = morning_sun_power
 		if (NIGHTCYCLE_PHASE_LATEMORN)
+			if(announce)
+				message_admins("Transitioning into late morning...")
 			current_sun_color = latemorn_sun_color
 			current_sun_power = latemorn_sun_power
 		if (NIGHTCYCLE_PHASE_DAYTIME)
@@ -147,7 +154,7 @@ SUBSYSTEM_DEF(nightcycle)
 			current_sun_power = afternoon_sun_power
 		if (NIGHTCYCLE_PHASE_LATEAFTERNOON)
 			if(announce)
-				message_admins("Transitioning into midafternoon...")
+				message_admins("Transitioning into late afternoon...")
 			current_sun_color = lateafternoon_sun_color
 			current_sun_power = lateafternoon_sun_power
 		if (NIGHTCYCLE_PHASE_SUNSET)
@@ -169,16 +176,15 @@ SUBSYSTEM_DEF(nightcycle)
 			CRASH("Invalid new_time passed to set_phase()")
 
 	current_time = new_time
-	INVOKE_ASYNC(src, PROC_REF(AnimateTransition))
+	AnimateTransition()
 
 /datum/controller/subsystem/nightcycle/proc/AnimateTransition()
-	var/atom/movable/sunlight/light_object = sunlight_source_object
-	light_object.alpha = current_sun_power
-	light_object.color = current_sun_color
+	// The light objects are shared through vis_contents, so animating them fades every turf's light at once instead of snapping at the phase boundary
+	animate(sunlight_source_object, alpha = current_sun_power, color = current_sun_color, time = NIGHTCYCLE_TRANSITION_TIME)
 	for(var/key in sunlight_border_objects)
-		sunlight_border_objects[key]?.alpha = current_sun_power
-		sunlight_border_objects[key]?.color = current_sun_color
-
+		var/atom/movable/sunlight/border = sunlight_border_objects[key]
+		if(border)
+			animate(border, alpha = current_sun_power, color = current_sun_color, time = NIGHTCYCLE_TRANSITION_TIME)
 
 /datum/controller/subsystem/nightcycle/proc/get_border_object(object_key)
 	. = sunlight_border_objects["[object_key]"]
@@ -218,7 +224,7 @@ SUBSYSTEM_DEF(nightcycle)
 	luminosity = 1
 	for(var/dir in GLOB.alldirs)
 		var/turf/neighbor = get_step(src, dir)
-		if(!neighbor || !neighbor.type || neighbor?.sunlight_state && neighbor?.sunlight_state != NO_SUNLIGHT)
+		if(!neighbor || neighbor?.sunlight_state && neighbor?.sunlight_state != NO_SUNLIGHT)
 			continue
 		neighbor.sunlight_state = SUNLIGHT_BORDER
 		if(neighbor.flags_1 & INITIALIZED_1)
@@ -253,6 +259,7 @@ SUBSYSTEM_DEF(nightcycle)
 	if(!isnull(border_neighbors)) // Different and non-null, there was a change.
 		vis_contents -= SSnightcycle.get_border_object(border_neighbors)
 	if(new_junction == NONE)
+		border_neighbors = null // otherwise the same junction coming back later reads as "no change" and never gets its border object back
 		if(sunlight_state == SUNLIGHT_BORDER)
 			sunlight_state = NO_SUNLIGHT
 		if(lighting_object)

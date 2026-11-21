@@ -41,6 +41,12 @@
 	var/datum/looping_sound/weak_outside_ashstorm/sound_wo = new(list(), FALSE, TRUE)
 	var/datum/looping_sound/weak_inside_ashstorm/sound_wi = new(list(), FALSE, TRUE)
 
+/datum/weather/ash_storm/Destroy()
+	QDEL_NULL(sound_ao)
+	QDEL_NULL(sound_ai)
+	QDEL_NULL(sound_wo)
+	QDEL_NULL(sound_wi)
+	return ..()
 /datum/weather/ash_storm/telegraph()
 	. = ..()
 	if(stage == END_STAGE) // never got going

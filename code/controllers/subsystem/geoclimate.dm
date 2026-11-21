@@ -106,8 +106,8 @@ SUBSYSTEM_DEF(geoclimate)
 				. += N
 
 /datum/controller/subsystem/geoclimate/fire(resumed = FALSE)
-	process_mud()
 	if(!resumed)
+		process_mud()
 		currentrun = parcels.Copy()
 		prepare_tick()
 	var/list/run = currentrun
@@ -117,7 +117,9 @@ SUBSYSTEM_DEF(geoclimate)
 		run.len--
 		update_parcel(P)
 		done_this_tick++
+		// pausing (not just returning) is what makes the next fire resume this list instead of restarting it
 		if(done_this_tick >= GEO_PARCELS_PER_TICK)
+			pause()
 			return
 		if(MC_TICK_CHECK)
 			return

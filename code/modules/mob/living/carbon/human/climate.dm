@@ -147,12 +147,14 @@ GLOBAL_LIST_EMPTY(climate_heat_sources)
 	else if(was_drenched && climate_wetness < CLIMATE_WET_DRENCHED)
 		to_chat(src, span_notice("You've dried off a bit."))
 
-/mob/living/carbon/human/proc/dry_off()
+/mob/living/carbon/human/proc/dry_off(ambient)
 	if(climate_wetness <= 0)
 		return
 	var/area/A = get_area(src)
 	var/drying = A?.outdoors ? CLIMATE_WET_DRY_OUTDOORS : CLIMATE_WET_DRY_INDOORS
-	if(get_climate_warmth() > 0 || get_climate_ambient() > CLIMATE_COMFORT_MAX)
+	if(isnull(ambient))
+		ambient = get_climate_ambient()
+	if(get_climate_warmth() > 0 || ambient > CLIMATE_COMFORT_MAX)
 		drying += CLIMATE_WET_DRY_WARM
 	adjust_climate_wetness(-drying)
 
@@ -200,12 +202,13 @@ GLOBAL_LIST_EMPTY(climate_heat_sources)
 /mob/living/carbon/human/proc/get_climate_heat_trap()
 	return min(get_climate_layers(TRUE), CLIMATE_HEAT_TRAP_MAX)
 
-/// Signed exposure this person is heading towards right now
-/mob/living/carbon/human/proc/get_climate_target()
+/// Signed exposure this person is heading towards right now. Pass an ambient already worked out this tick to skip recomputing it
+/mob/living/carbon/human/proc/get_climate_target(ambient)
 	. = 0
 	if(!climate_applies())
 		return
-	var/ambient = get_climate_ambient()
+	if(isnull(ambient))
+		ambient = get_climate_ambient()
 	var/datum/species/S = dna?.species
 	if(ambient < CLIMATE_COMFORT_MIN)
 		if(HAS_TRAIT(src, TRAIT_RESISTCOLD))
@@ -224,10 +227,11 @@ GLOBAL_LIST_EMPTY(climate_heat_sources)
 		return min(CLIMATE_EXPOSURE_MAX, stress)
 
 /// Tells this person when the air around them turns pleasant, harsh or punishing, so the change is felt rather than only seen in an alert
-/mob/living/carbon/human/proc/climate_feel_check()
+/mob/living/carbon/human/proc/climate_feel_check(ambient)
 	if(!climate_applies() || world.time < climate_feel_next)
 		return
-	var/ambient = get_climate_ambient()
+	if(isnull(ambient))
+		ambient = get_climate_ambient()
 	// Bias the reading back toward whichever band was last reported, so a temperature sitting right on a threshold cannot
 	// flip the message back and forth every cooldown. Leaving a band still takes the real temperature actually clearing it.
 	var/biased = ambient
@@ -268,10 +272,10 @@ GLOBAL_LIST_EMPTY(climate_heat_sources)
 	if(stat == DEAD)
 		return
 	handle_ground_radiation()
-	dry_off()
+	var/ambient = climate_applies() ? get_climate_ambient() : null
 	acid_decay()
-	climate_feel_check()
-	var/target = get_climate_target()
+	climate_feel_check(ambient)
+	var/target = get_climate_target(ambient)
 	climate_exposure += (target - climate_exposure) * CLIMATE_EXPOSURE_RATE
 	if(!target && abs(climate_exposure) < 1)
 		climate_exposure = 0
