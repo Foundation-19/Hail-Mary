@@ -5,7 +5,7 @@
 
 	telegraph_message = span_notice("A chilling and unfamiliar breeze sweeps over the valley.")
 	telegraph_duration = 300
-	telegraph_overlay = "snow_storm"
+	telegraph_overlay = "light_snow"
 	telegraph_sound = 'sound/f13effects/coldwave.ogg'
 	weather_sound = 'sound/f13effects/coldwave.ogg'
 
@@ -16,6 +16,7 @@
 
 	end_duration = 100
 	end_message = span_notice("The cold snap dies down, it should be safe to go outside again.")
+	end_overlay = "light_snow"
 
 	area_types = list(/area/f13/wasteland, /area/f13/desert, /area/f13/farm, /area/f13/forest)
 	protected_areas = list(/area/shuttle)

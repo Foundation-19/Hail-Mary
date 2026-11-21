@@ -159,6 +159,8 @@
 
 //Fog
 /datum/weather/rain/fog
+	name = "fog"
+	desc = "A thick fog rolls over the Wasteland, cutting visibility down to almost nothing."
 	probability = 15
 
 	telegraph_duration = 300
@@ -169,6 +171,7 @@
 
 	weather_message = "<span class='notice'><i>You can feel and see the moisture from the fog as it starts to roll in.</i></span>"
 	weather_overlay = "fog"
+	weather_color = "#C2D1D6" // tints the otherwise pale, low-contrast fog overlay so a bank of it reads clearly against the ground from a distance, the same way rad_storm tints its reused ash_storm sprite
 	weather_duration_lower = 2400
 	weather_duration_upper = 7200
 	end_sound = 'sound/weather/fog.ogg' 
@@ -190,7 +193,7 @@
 	visibility_mult = 0.6
 	wetness_rate = 1.5
 	extinguishes_fires = FALSE
-	cloud_shadow = 0.3
+	cloud_shadow = 0.7 // thick fog greys out the light almost as much as rain clouds do, and this shade is what outsiders near the bank see first
 	gust_message = span_notice("The air turns cold and damp as the fog creeps closer.")
 	lightning_rate = 0
 	wet_ground_time = 2 MINUTES

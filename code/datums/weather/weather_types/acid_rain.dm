@@ -17,6 +17,7 @@
 	end_duration = 100
 	end_message = span_userdanger("The downpour gradually slows to a light shower. It should be safe outside now.")
 	end_sound = 'sound/ambience/acidrain_end.ogg'
+	end_overlay = "acid_rain"
 
 	tag_weather = WEATHER_ACID
 	weather_family = "precipitation"
