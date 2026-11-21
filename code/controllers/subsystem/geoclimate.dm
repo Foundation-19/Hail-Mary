@@ -111,10 +111,14 @@ SUBSYSTEM_DEF(geoclimate)
 		currentrun = parcels.Copy()
 		prepare_tick()
 	var/list/run = currentrun
+	var/done_this_tick = 0
 	while(length(run))
 		var/datum/geo_parcel/P = run[length(run)]
 		run.len--
 		update_parcel(P)
+		done_this_tick++
+		if(done_this_tick >= GEO_PARCELS_PER_TICK)
+			return
 		if(MC_TICK_CHECK)
 			return
 

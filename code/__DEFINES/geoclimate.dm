@@ -17,6 +17,10 @@
 /// A parcel is brought up to date at most this many times a tick, so it is never one long frame
 #define GEO_MUD_PARCELS_PER_TICK 3
 #define GEO_PLANTS_PER_PARCEL_TICK 1
+/// Parcels caught up on in a single fire() before yielding back to the MC regardless of spare tick budget. A big map's worth can
+/// otherwise all get crunched the moment currentrun refills, since MC_TICK_CHECK alone lets a background subsystem burn through
+/// as much of a tick as is free - spreading the same work over more, smaller ticks instead of one lump keeps it from ever being felt
+#define GEO_PARCELS_PER_TICK 200
 
 // Water. Moisture drains toward the parcel's water table, which is as high as the nearby water and low ground make it. A parcel
 // below its table seeps back up toward it more slowly than it dries
