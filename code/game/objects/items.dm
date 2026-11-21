@@ -232,9 +232,12 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 	item_flags &= ~DROPDEL	//prevent reqdels
 	if(ismob(loc))
 		var/mob/m = loc
+		remove_hud_actions(m)
 		m.temporarilyRemoveItemFromInventory(src, TRUE)
 	for(var/X in actions)
 		qdel(X)
+	// Each hud action holds a back-reference to its owner item, so leaving them alive keeps the item from ever GC'ing
+	QDEL_LIST(hud_actions)
 	// Clean up item upgrades to break circular references
 	QDEL_LIST(item_upgrades)
 	item_upgrades = null
