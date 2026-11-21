@@ -47,6 +47,7 @@
 #include "combat.dm"
 #include "component_tests.dm"
 #include "designs.dm"
+#include "geoclimate.dm"
 #include "initialize_sanity.dm"
 #include "medical_wounds.dm"
 #include "merge_type.dm"

@@ -14,6 +14,7 @@
 
 	end_duration = 100
 	end_message = span_boldannounce("The snowfall dies down, it should be safe to go outside again.")
+	end_overlay = "light_snow"
 
 	tag_weather = WEATHER_SNOW
 	area_types = list(/area)
@@ -24,4 +25,5 @@
 
 	barometer_predictable = TRUE
 	climate_temp_shift = -35
+	soak_rate = 3
 

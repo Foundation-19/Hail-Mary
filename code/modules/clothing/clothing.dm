@@ -9,6 +9,8 @@
 	var/flash_protect = 0		//What level of bright light protection item has. 1 = Flashers, Flashes, & Flashbangs | 2 = Welding | -1 = OH GOD WELDING BURNT OUT MY RETINAS
 	var/tint = 0				//Sets the item's level of visual impairment tint, normally set to the same as flash_protect
 	var/up = 0					//but separated to allow items to protect but not impair vision, like space helmets
+	/// Whether having this item worn (and not flipped up/open) is enough eye protection to stop blinding weather, like sandstorms, from reducing the wearer's sight range
+	var/blocks_dust_vision = FALSE
 	var/visor_flags = 0			//flags that are added/removed when an item is adjusted up/down
 	var/visor_flags_inv = 0		//same as visor_flags, but for flags_inv
 	var/visor_flags_cover = 0	//same as above, but for flags_cover

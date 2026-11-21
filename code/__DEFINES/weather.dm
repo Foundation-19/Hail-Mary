@@ -1,3 +1,9 @@
+/// Stages a weather goes through, see datum/weather
+#define STARTUP_STAGE 1
+#define MAIN_STAGE 2
+#define WIND_DOWN_STAGE 3
+#define END_STAGE 4
+
 /// Z levels that are more or less above ground and can see the sky
 /// For telling players about the weather
 #define Z_LEVEL_EASTWOOD_UNDERGROUND 3
@@ -67,6 +73,12 @@
 #define WEATHER_CELL_GROW_RATE 0.04
 /// Seconds between sweeps for turf effects as a patch drifts over new ground
 #define WEATHER_TURF_SWEEP_INTERVAL 10 SECONDS
+/// Seconds between refreshing which turfs show the weather happening on them, as the patch drifts
+#define WEATHER_TURF_VISUAL_INTERVAL 3 SECONDS
+/// Below this many tiles in a patch's bounding box, turf visuals refresh at the normal WEATHER_TURF_VISUAL_INTERVAL rate. Above it, the interval is stretched out proportionally, so a huge, slow-drifting air mass (like a heat wave or cold snap) doesn't re-scan a massive area every few seconds for no visible gain
+#define WEATHER_TURF_VISUAL_BASELINE_TILES 12000
+/// However large a patch gets, turf visuals never wait longer than this between refreshes, so even the biggest, slowest storm still visibly creeps across the ground
+#define WEATHER_TURF_VISUAL_INTERVAL_MAX 18 SECONDS
 /// Opacity of the weather overlay at the heart of a patch, kept well under solid so the middle of a storm is still readable
 #define WEATHER_SCREEN_MAX_ALPHA 150
 /// Opacity of the weather overlay at the very fringe of a patch, so the edge never reads as a hard line

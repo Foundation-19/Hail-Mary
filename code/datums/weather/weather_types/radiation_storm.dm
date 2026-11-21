@@ -38,6 +38,8 @@
 	immunity_type = "rad"
 
 	var/radiation_intensity = 100
+	// Fallout settles into the ground as it rages and keeps giving off rads for a long while after it passes, see geoclimate
+	ground_contamination_rate = 60
 	cell_radius_lower = 0.12
 	cell_radius_upper = 0.2
 	drift_speed = 0.1

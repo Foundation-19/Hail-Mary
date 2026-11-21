@@ -4,7 +4,12 @@
 	probability = 2
 
 	telegraph_duration = 700
-	telegraph_overlay = "acid_rain"
+	// Ordinary-looking rain gathering overhead, same sprite the base rain type warns with.
+	// There's no distinct "light acid rain" sprite, and painting the full acid_rain overlay
+	// here would make the 70-second warning phase look identical to the real storm even
+	// though acid_rain_tick() doesn't fire until MAIN_STAGE. A plain rain visual still reads
+	// as "something's coming" without falsely implying it's already burning you.
+	telegraph_overlay = "rain_gathering"
 	telegraph_message = span_userdanger("Thunder rumbles far above. Droplets start to land around you and fizz as they touch the ground.. acid rain is coming. You have a minute to get under cover.")
 	telegraph_sound = 'sound/ambience/acidrain_start.ogg'
 
@@ -17,6 +22,7 @@
 	end_duration = 100
 	end_message = span_userdanger("The downpour gradually slows to a light shower. It should be safe outside now.")
 	end_sound = 'sound/ambience/acidrain_end.ogg'
+	end_overlay = "acid_rain"
 
 	tag_weather = WEATHER_ACID
 	weather_family = "precipitation"
@@ -35,6 +41,8 @@
 	lightning_rate = 0.03
 	visibility_mult = 0.8
 	extinguishes_fires = TRUE
+	soak_rate = 8
+	vegetation_harm = 3
 	// A small, fast storm cell, so it can be outrun or waited out
 	cell_radius_lower = 0.1
 	cell_radius_upper = 0.17

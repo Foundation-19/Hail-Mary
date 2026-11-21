@@ -16,6 +16,7 @@
 
 	end_duration = 100
 	end_message = span_notice("The heat outside seems to wane to a more bearable degree. You feel as though the outdoors may be viable once more.")
+	end_overlay = "light_ash"
 
 	tag_weather = WEATHER_HEAT
 	weather_family = "temperature"

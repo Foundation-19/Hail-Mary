@@ -37,6 +37,8 @@
 	var/weather_overlay
 	/// Color to apply to the area while weather is occuring
 	var/weather_color = null
+	/// Color applied to the fullscreen blur shown to anyone caught in weather that obscures_sight. Left null, the blur is a flat white "whiteout" - set this so a sandstorm reads as a wall of dust rather than snow
+	var/obscure_color = null
 
 	/// Displayed once the weather is over
 	var/end_message = span_danger("The wind relents its assault.")
@@ -65,10 +67,9 @@
 	/// The list of z-levels that can reasonably see the weather coming and get messages about it
 	var/list/impacted_z_levels = ABOVE_GROUND_Z_LEVELS
 
-	/// Since it's above everything else, this is the layer used by default. TURF_LAYER is below mobs and walls if you need to use that. 
-	var/overlay_layer = AREA_LAYER 
-	/// Plane for the overlay
-	var/overlay_plane = BLACKNESS_PLANE
+	/// Since it's above everything else, this is the layer used by default. TURF_LAYER is below mobs and walls if you need to use that.
+	/// Used for the non-localized /area overlay in update_areas() and the localized turf-by-turf overlay in update_turf_visuals(); the screen haze some one standing near it sees keeps its own FULLSCREEN plane and layer
+	var/overlay_layer = AREA_LAYER
 	/// If the weather has no purpose but aesthetics. 
 	var/aesthetic = FALSE
 	/// Used by mobs to prevent them from being affected by the weather 
@@ -121,16 +122,21 @@
 	var/turf/epicenter
 	var/last_cell_update = 0
 	var/next_turf_sweep = 0
+	var/next_turf_visual_update = 0
 	/// Turfs a drifting patch has already acted on, so nothing is done twice
 	var/list/turfs_done = list()
-	/// The overlay of every client of the players who were out in the open under the patch on the last update. Each client gets its own so it can fade with how deep in the patch they stand
-	var/list/client_screens = list()
+	/// Turf to the /obj/effect/particle_effect/weather_overlay shown on it right now, so the weather itself can be seen on the ground by anyone with line of sight, not only felt by people standing in or near it
+	var/list/turf/turf_overlays = list()
+	/// Bumped every time update_turf_visuals() is entered, so a call that yielded mid-repaint (CHECK_TICK) can tell a newer call - from a timer-driven end()/wind_down() firing while it slept, say - has already settled turf_overlays, and bail out instead of clobbering that with its own stale result
+	var/turf_visual_epoch = 0
 	/// Players who were somewhere under the patch, indoors or out, on the last update
 	var/list/covered_mobs = list()
 	/// Players with the weather's blur applied
 	var/list/blurred_mobs = list()
 	/// Players with the ground darkened by the weather's cloud shadow
 	var/list/shaded_mobs = list()
+	/// Players whose sight range is currently reduced by this weather's obscures_sight, so it can be restored once they leave, gain protection, or the weather ends
+	var/list/view_reduced_mobs = list()
 	/// Players who have already been told about the gust ahead of the patch on this approach
 	var/list/gusted_mobs = list()
 	/// When the main stage began, for working out how far through its life the weather is
@@ -145,6 +151,13 @@
 	var/cloud_shadow = 0.4
 	/// Deciseconds the ground stays wet after it has been rained on, 0 leaves it dry
 	var/wet_ground_time = 0
+	/// Deciseconds before a turf the weather already acted on is acted on again while it is still under the patch. 0 acts once per turf, which would let wet ground dry out under a storm that outlasts wet_ground_time
+	var/turf_reapply_interval = 0	/// Moisture per minute the ground takes up at the heart of the weather, see geoclimate. 0 leaves the land as dry as it was
+	var/soak_rate = 0
+	/// Vegetation per minute the weather kills off at its heart, for blight and acid
+	var/vegetation_harm = 0
+	/// Rads per minute the ground soaks up at the heart of the weather, see geoclimate. 0 leaves the land clean
+	var/ground_contamination_rate = 0
 	/// Tame animals out in this weather go looking for cover
 	var/animals_seek_shelter = FALSE
 
@@ -173,22 +186,21 @@
 			return TRUE
 	return FALSE
 
-/// A purely visual layer for people standing under a localized weather
-/obj/screen/weather_overlay
-	icon = 'icons/effects/weather_effects.dmi'
-	screen_loc = "WEST,SOUTH to EAST,NORTH"
-	plane = FULLSCREEN_PLANE
-	layer = FULLSCREEN_LAYER - 0.05
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-
 /datum/weather/New(list/z_levels, duration, turf/epicenter)
 	..()
 	impacted_z_levels = z_levels ? z_levels.Copy() : list()
 	src.epicenter = epicenter
+	if(duration)
+		weather_duration_lower = duration
+		weather_duration_upper = duration
 	telegraph()
 
 /datum/weather/Destroy(force, ...)
+	STOP_PROCESSING(SSweather, src)
 	clear_presence()
+	if(stage != END_STAGE) // deleted mid-run, so end() never restored the area overlays
+		stage = END_STAGE
+		update_areas()
 	cells = null
 	unique_cells = null
 	epicenter = null
@@ -340,6 +352,10 @@
 	if(!LAZYLEN(impacted_areas))
 		abort()
 		return
+	filter_impacted_areas()
+	if(!LAZYLEN(impacted_areas))
+		abort()
+		return
 	if(localized)
 		form_cells()
 		if(!length(unique_cells))
@@ -351,6 +367,7 @@
 	next_hit_time = world.time + telegraph_duration
 	START_PROCESSING(SSweather, src) //The reason this doesn't start and stop at main stage is because processing list is also used to see active running weathers (for example, you wouldn't want two ash storms starting at once.)
 	update_areas()
+	update_turf_visuals()
 	update_presence()
 	alert_players(telegraph_message, telegraph_sound, forecast_range)
 	addtimer(CALLBACK(src, PROC_REF(start)), telegraph_duration)
@@ -358,6 +375,10 @@
 /// The weather has nowhere to happen. It never ran, so whoever made it has to throw it away
 /datum/weather/proc/abort()
 	stage = END_STAGE
+
+/// Lets a weather narrow the areas it picked up from its tag, before cells are formed
+/datum/weather/proc/filter_impacted_areas()
+	return
 
 /**
  * Starts the actual weather and effects from it
@@ -372,6 +393,7 @@
 	stage = MAIN_STAGE
 	main_started = world.time
 	update_areas()
+	update_turf_visuals()
 	alert_players(weather_message, weather_sound)
 	addtimer(CALLBACK(src, PROC_REF(wind_down)), weather_duration)
 
@@ -387,6 +409,7 @@
 		return
 	stage = WIND_DOWN_STAGE
 	update_areas()
+	update_turf_visuals()
 	alert_players(end_message, end_sound)
 	addtimer(CALLBACK(src, PROC_REF(end)), end_duration)
 
@@ -415,6 +438,7 @@
 	stage = END_STAGE
 	STOP_PROCESSING(SSweather, src)
 	update_areas()
+	update_turf_visuals()
 	clear_presence()
 	if(forced)
 		alert_players(end_message, end_sound)
@@ -425,6 +449,9 @@
 		return
 	if(localized)
 		update_cells()
+		if(world.time >= next_turf_visual_update)
+			next_turf_visual_update = world.time + get_turf_visual_interval()
+			update_turf_visuals()
 	update_presence()
 	if(stage == MAIN_STAGE && localized)
 		if(lightning_rate)
@@ -464,11 +491,102 @@
 		var/max_y = clamp(round(C.y) + reach_y, 1, world.maxy)
 		for(var/z in C.z_levels)
 			for(var/turf/T as anything in block(locate(min_x, min_y, z), locate(max_x, max_y, z)))
-				if(turfs_done[T] || !(T.loc in impacted_areas) || !C.covers(T))
+				if(!(T.loc in impacted_areas) || !C.covers(T))
 					continue
-				turfs_done[T] = TRUE
+				var/last_acted = turfs_done[T]
+				if(last_acted && (!turf_reapply_interval || world.time < last_acted + turf_reapply_interval))
+					continue
+				turfs_done[T] = world.time
 				weather_act_turf(T)
 				CHECK_TICK
+
+/// How long to wait before the next turf-visual repaint. A patch's bounding box can be many times bigger than another's (a heat wave's huge, barely-moving dome versus a small, fast-drifting rain cell), so this scales the wait with how many tiles a repaint would actually have to scan, instead of re-scanning a massive area just as often as a small one
+/datum/weather/proc/get_turf_visual_interval()
+	var/tiles = 0
+	for(var/datum/weather_cell/C as anything in unique_cells)
+		var/reach_x = round(C.radius_x * C.scale * (1 + WEATHER_CELL_LUMP)) + 1
+		var/reach_y = round(C.radius_y * C.scale * (1 + WEATHER_CELL_LUMP)) + 1
+		tiles += (2 * reach_x + 1) * (2 * reach_y + 1) * length(C.z_levels)
+	if(tiles <= WEATHER_TURF_VISUAL_BASELINE_TILES)
+		return WEATHER_TURF_VISUAL_INTERVAL
+	return min(WEATHER_TURF_VISUAL_INTERVAL * (tiles / WEATHER_TURF_VISUAL_BASELINE_TILES), WEATHER_TURF_VISUAL_INTERVAL_MAX)
+
+/// Ground-level weather visual painted turf-by-turf in update_turf_visuals(). A real atom rather than a turf-owned
+/// overlay image, same as /obj/effect/particle_effect/fancy_smoke: mobs sit on MOB_PLANE and items on OBJITEM_PLANE,
+/// both separate, higher planes than FLOOR_PLANE, so MOB_PLANE is needed to visually drape this over them like rain or
+/// snow actually would. A turf-owned image elevated onto MOB_PLANE used to do that, but its mouse_opacity didn't
+/// reliably cede clicks to a different atom on a lower plane underneath it, stealing clicks off items (e.g. out of
+/// hydroponics trays) standing under the weather. Being its own atom instead, competing fairly for the click like the
+/// smoke it's modeled on, lets its inherited MOUSE_OPACITY_TRANSPARENT correctly pass clicks through to whatever's below
+/obj/effect/particle_effect/weather_overlay
+	name = "weather"
+	icon = 'icons/effects/weather_effects.dmi'
+	layer = AREA_LAYER // matches /datum/weather's overlay_layer default, well above mobs/vehicles so it still composites over them within MOB_PLANE
+	plane = MOB_PLANE
+
+/// Paints the weather's overlay directly onto every turf the patch currently covers, the same way update_areas() does for weather that blankets a whole area, so the storm itself is visible to anyone looking at those tiles, not only to people standing in or watching near it
+/datum/weather/proc/update_turf_visuals()
+	if(!localized)
+		return
+	// process() and end()/wind_down() can both reach this proc for the same weather on separate call stacks (a per-tick call versus a timer firing),
+	// and CHECK_TICK below can let either one sleep mid-repaint. Claim this epoch so a stale call that resumes after a newer one already finished knows to stand down
+	var/my_epoch = ++turf_visual_epoch
+	var/new_state
+	if(stage != END_STAGE)
+		switch(stage)
+			if(STARTUP_STAGE)
+				new_state = telegraph_overlay
+			if(MAIN_STAGE)
+				new_state = weather_overlay
+			if(WIND_DOWN_STAGE)
+				new_state = end_overlay
+	var/list/turf/covered = list()
+	if(new_state)
+		for(var/datum/weather_cell/C as anything in unique_cells)
+			var/reach_x = round(C.radius_x * C.scale * (1 + WEATHER_CELL_LUMP)) + 1
+			var/reach_y = round(C.radius_y * C.scale * (1 + WEATHER_CELL_LUMP)) + 1
+			var/min_x = clamp(round(C.x) - reach_x, 1, world.maxx)
+			var/max_x = clamp(round(C.x) + reach_x, 1, world.maxx)
+			var/min_y = clamp(round(C.y) - reach_y, 1, world.maxy)
+			var/max_y = clamp(round(C.y) + reach_y, 1, world.maxy)
+			for(var/z in C.z_levels)
+				for(var/turf/T as anything in block(locate(min_x, min_y, z), locate(max_x, max_y, z)))
+					if(!(T.loc in impacted_areas) || !C.covers(T))
+						continue
+					// Same strength it would show on the screen of someone stood right there, so the view from outside matches what it feels like from within
+					var/alpha = C.screen_alpha(T)
+					if(alpha > 0)
+						covered[T] = alpha
+					CHECK_TICK
+					if(my_epoch != turf_visual_epoch)
+						return
+	// Published straight into turf_overlays turf-by-turf as each one is actually touched, instead of being batched into a
+	// throwaway local and swapped in only once every turf is done. A call that gets superseded mid-loop (CHECK_TICK below
+	// can let that happen) still leaves every turf it already repainted correctly tracked, so nothing it already applied
+	// is ever orphaned - stuck on the ground with no record of it left for a later cleanup pass to find and remove
+	for(var/turf/T as anything in covered)
+		var/obj/effect/particle_effect/weather_overlay/W = turf_overlays[T]
+		if(!W)
+			W = new(T)
+			turf_overlays[T] = W
+		W.icon_state = new_state
+		W.color = weather_color
+		W.alpha = covered[T]
+		// A big patch (a heat wave's huge dome, say) can cover thousands of turfs - spread this across ticks instead of doing it all in one go, or the whole server hitches every repaint no matter how rarely it happens
+		CHECK_TICK
+		if(my_epoch != turf_visual_epoch)
+			return
+	// Anything still tracked that fell out of the covered set (the patch moved on or is winding down) gets deleted. Copy first:
+	// turf_overlays was just written to above, and removing keys from it while iterating it directly is not safe
+	var/list/turf/stale = turf_overlays.Copy()
+	for(var/turf/T in covered)
+		stale -= T
+	for(var/turf/T as anything in stale)
+		qdel(turf_overlays[T])
+		turf_overlays -= T
+		CHECK_TICK
+		if(my_epoch != turf_visual_epoch)
+			return
 
 /**
  * Works out who is out in the weather and keeps what they see, hear and are told in step with it
@@ -543,20 +661,11 @@
 			return 0
 	return 1
 
-/// Shows the weather's overlay to everyone out in it and, fainter, to those out in the open near it. Blurs the sight of those caught in weather that obscures it, and tells people as the patch passes them
+/// Blurs the sight of those caught in weather that obscures it, shades the ground under the patch, and tells people as it passes them
 /datum/weather/proc/update_screens(list/outside, list/covered, list/watching = list())
-	var/new_state
-	switch(stage)
-		if(STARTUP_STAGE)
-			new_state = telegraph_overlay
-		if(MAIN_STAGE)
-			new_state = weather_overlay
-		if(WIND_DOWN_STAGE)
-			new_state = end_overlay
-	// Screens belong to the client, which can move to another body, so they are tracked by client
-	var/list/new_screens = list()
 	var/list/blurred = list()
 	var/list/shaded = list()
+	var/list/view_reduced = list()
 	var/shade_scale = cloud_shadow * get_daylight()
 	for(var/mob/M as anything in outside + watching)
 		var/client/C = M.client
@@ -566,19 +675,6 @@
 		var/fade = get_screen_alpha(M)
 		if(fade <= 0)
 			continue
-		var/obj/screen/weather_overlay/S = client_screens[C]
-		if(S)
-			client_screens -= C
-		else
-			S = new
-			S.plane = overlay_plane
-			S.layer = overlay_layer
-			S.color = weather_color
-			S.alpha = 0
-			C.screen += S
-		new_screens[C] = S
-		S.icon_state = new_state
-		animate(S, alpha = fade, time = 1 SECONDS)
 		// The patch also shades the ground, and it is darker the thicker it is overhead
 		var/shade_alpha = round(WEATHER_SHADE_MAX_ALPHA * shade_scale * fade / WEATHER_SCREEN_MAX_ALPHA)
 		if(shade_alpha > 0)
@@ -589,30 +685,53 @@
 				animate(shade, alpha = shade_alpha, time = 1 SECONDS)
 				shaded += M
 		if(obscures_sight && stage == MAIN_STAGE && (M in outside))
+			var/protected = M.has_dust_eye_protection()
 			var/obj/screen/fullscreen/blur = M.overlay_fullscreen("weather_[type]", /obj/screen/fullscreen/blurry)
 			if(blur)
+				blur.color = obscure_color
 				if(!(M in blurred_mobs))
 					blur.alpha = 0
-				animate(blur, alpha = fade, time = 1 SECONDS)
+				animate(blur, alpha = protected ? 0 : fade, time = 1 SECONDS)
 			blurred += M
-	for(var/client/C as anything in client_screens)
-		var/obj/screen/weather_overlay/S = client_screens[C]
-		if(C)
-			C.screen -= S
-		qdel(S)
+			// Goggles or a mask keep your view clear - anyone else caught out in it unprotected has their sight range cut down, same as walking into a wall of smoke
+			if(C && !protected)
+				if(C.view == CONFIG_GET(string/default_view))
+					C.change_view(get_reduced_view())
+				view_reduced += M
 	for(var/mob/M as anything in blurred_mobs - blurred)
-		M?.clear_fullscreen("weather_[type]")
+		if(QDELETED(M))
+			continue
+		M.clear_fullscreen("weather_[type]")
 	for(var/mob/M as anything in shaded_mobs - shaded)
-		M?.clear_fullscreen("cloud_shadow_[type]")
+		if(QDELETED(M))
+			continue
+		M.clear_fullscreen("cloud_shadow_[type]")
+	for(var/mob/M as anything in view_reduced_mobs - view_reduced)
+		if(QDELETED(M))
+			continue
+		var/client/C = M.client
+		if(C && C.view == get_reduced_view())
+			C.change_view(CONFIG_GET(string/default_view))
 	if(stage == MAIN_STAGE || stage == WIND_DOWN_STAGE)
 		for(var/mob/M as anything in covered - covered_mobs)
 			to_chat(M, span_notice("The [name] sweeps over you."))
 		for(var/mob/M as anything in covered_mobs - covered)
 			to_chat(M, span_notice("The [name] has moved past you."))
-	client_screens = new_screens
 	covered_mobs = covered
 	blurred_mobs = blurred
 	shaded_mobs = shaded
+	view_reduced_mobs = view_reduced
+
+/// How tightly a dust-blinded mob's sight should close in while caught unprotected in this weather, scaled off visibility_mult relative to the server's normal view size
+/datum/weather/proc/get_reduced_view()
+	var/list/base_view = getviewsize(CONFIG_GET(string/default_view))
+	var/view_x = max(5, round(base_view[1] * visibility_mult))
+	var/view_y = max(5, round(base_view[2] * visibility_mult))
+	if(!(view_x % 2))
+		view_x++
+	if(!(view_y % 2))
+		view_y++
+	return "[view_x]x[view_y]"
 
 /// Lightning strikes somewhere under a patch now and then. Storms are livelier at their peak
 /datum/weather/proc/lightning_tick()
@@ -665,22 +784,30 @@
 /datum/weather/proc/update_listeners(list/outside, list/inside)
 	return
 
-/// Takes the weather's overlay and blur off everyone who has them
+/// Takes the weather's blur and shading off everyone who has them
 /datum/weather/proc/clear_presence()
-	for(var/client/C as anything in client_screens)
-		var/obj/screen/weather_overlay/S = client_screens[C]
-		if(C)
-			C.screen -= S
-		qdel(S)
 	for(var/mob/M as anything in blurred_mobs)
-		M?.clear_fullscreen("weather_[type]")
+		if(QDELETED(M))
+			continue
+		M.clear_fullscreen("weather_[type]")
 	for(var/mob/M as anything in shaded_mobs)
-		M?.clear_fullscreen("cloud_shadow_[type]")
-	client_screens = list()
+		if(QDELETED(M))
+			continue
+		M.clear_fullscreen("cloud_shadow_[type]")
+	for(var/mob/M as anything in view_reduced_mobs)
+		if(QDELETED(M))
+			continue
+		var/client/C = M.client
+		if(C && C.view == get_reduced_view())
+			C.change_view(CONFIG_GET(string/default_view))
+	for(var/turf/T as anything in turf_overlays)
+		qdel(turf_overlays[T])
 	covered_mobs = list()
 	blurred_mobs = list()
 	shaded_mobs = list()
+	view_reduced_mobs = list()
 	gusted_mobs = list()
+	turf_overlays = list()
 
 /**
  * Returns TRUE if the living mob can be affected by the weather

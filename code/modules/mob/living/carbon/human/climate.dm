@@ -111,6 +111,7 @@ GLOBAL_LIST_EMPTY(climate_heat_sources)
 		for(var/datum/weather/W as anything in SSweather.get_active_weathers())
 			if(!(W.immunity_type in weather_immunities))
 				. += W.get_gust_shift(src)
+		. += SSgeoclimate.get_thermal_moderation(src, .)
 	. += climate_temp_offset
 	if(. >= CLIMATE_HEAT_SOURCE_CAP)
 		return
@@ -146,12 +147,14 @@ GLOBAL_LIST_EMPTY(climate_heat_sources)
 	else if(was_drenched && climate_wetness < CLIMATE_WET_DRENCHED)
 		to_chat(src, span_notice("You've dried off a bit."))
 
-/mob/living/carbon/human/proc/dry_off()
+/mob/living/carbon/human/proc/dry_off(ambient)
 	if(climate_wetness <= 0)
 		return
 	var/area/A = get_area(src)
 	var/drying = A?.outdoors ? CLIMATE_WET_DRY_OUTDOORS : CLIMATE_WET_DRY_INDOORS
-	if(get_climate_warmth() > 0 || get_climate_ambient() > CLIMATE_COMFORT_MAX)
+	if(isnull(ambient))
+		ambient = get_climate_ambient()
+	if(get_climate_warmth() > 0 || ambient > CLIMATE_COMFORT_MAX)
 		drying += CLIMATE_WET_DRY_WARM
 	adjust_climate_wetness(-drying)
 
@@ -199,12 +202,13 @@ GLOBAL_LIST_EMPTY(climate_heat_sources)
 /mob/living/carbon/human/proc/get_climate_heat_trap()
 	return min(get_climate_layers(TRUE), CLIMATE_HEAT_TRAP_MAX)
 
-/// Signed exposure this person is heading towards right now
-/mob/living/carbon/human/proc/get_climate_target()
+/// Signed exposure this person is heading towards right now. Pass an ambient already worked out this tick to skip recomputing it
+/mob/living/carbon/human/proc/get_climate_target(ambient)
 	. = 0
 	if(!climate_applies())
 		return
-	var/ambient = get_climate_ambient()
+	if(isnull(ambient))
+		ambient = get_climate_ambient()
 	var/datum/species/S = dna?.species
 	if(ambient < CLIMATE_COMFORT_MIN)
 		if(HAS_TRAIT(src, TRAIT_RESISTCOLD))
@@ -223,18 +227,26 @@ GLOBAL_LIST_EMPTY(climate_heat_sources)
 		return min(CLIMATE_EXPOSURE_MAX, stress)
 
 /// Tells this person when the air around them turns pleasant, harsh or punishing, so the change is felt rather than only seen in an alert
-/mob/living/carbon/human/proc/climate_feel_check()
+/mob/living/carbon/human/proc/climate_feel_check(ambient)
 	if(!climate_applies() || world.time < climate_feel_next)
 		return
-	var/ambient = get_climate_ambient()
+	if(isnull(ambient))
+		ambient = get_climate_ambient()
+	// Bias the reading back toward whichever band was last reported, so a temperature sitting right on a threshold cannot
+	// flip the message back and forth every cooldown. Leaving a band still takes the real temperature actually clearing it.
+	var/biased = ambient
+	if(climate_feel > 0)
+		biased += CLIMATE_FEEL_HYSTERESIS
+	else if(climate_feel < 0)
+		biased -= CLIMATE_FEEL_HYSTERESIS
 	var/band = 0
-	if(ambient < CLIMATE_COMFORT_MIN - CLIMATE_FEEL_HARSH)
+	if(biased < CLIMATE_COMFORT_MIN - CLIMATE_FEEL_HARSH)
 		band = -2
-	else if(ambient < CLIMATE_COMFORT_MIN)
+	else if(biased < CLIMATE_COMFORT_MIN)
 		band = -1
-	else if(ambient > CLIMATE_COMFORT_MAX + CLIMATE_FEEL_HARSH)
+	else if(biased > CLIMATE_COMFORT_MAX + CLIMATE_FEEL_HARSH)
 		band = 2
-	else if(ambient > CLIMATE_COMFORT_MAX)
+	else if(biased > CLIMATE_COMFORT_MAX)
 		band = 1
 	if(band == climate_feel)
 		return
@@ -259,16 +271,26 @@ GLOBAL_LIST_EMPTY(climate_heat_sources)
 /mob/living/carbon/human/proc/handle_climate()
 	if(stat == DEAD)
 		return
-	dry_off()
+	handle_ground_radiation()
+	var/ambient = climate_applies() ? get_climate_ambient() : null
 	acid_decay()
-	climate_feel_check()
-	var/target = get_climate_target()
+	climate_feel_check(ambient)
+	var/target = get_climate_target(ambient)
 	climate_exposure += (target - climate_exposure) * CLIMATE_EXPOSURE_RATE
 	if(!target && abs(climate_exposure) < 1)
 		climate_exposure = 0
 	if(!on_fire)
 		bodytemperature = BODYTEMP_NORMAL + climate_exposure * CLIMATE_BODYTEMP_PER_EXPOSURE
 	apply_climate_effects()
+
+/// Rads this person's own ground gives off every life tick, for land a storm has left hot. Builds slowly, nothing like standing in the storm itself
+/mob/living/carbon/human/proc/handle_ground_radiation()
+	var/area/A = get_area(src)
+	if(!A?.outdoors)
+		return
+	var/level = SSgeoclimate.get_radiation_level(src)
+	if(level > 0)
+		rad_act(level * GEO_RADIATION_EXPOSURE)
 
 /mob/living/carbon/human/proc/apply_climate_effects()
 	var/hot = climate_exposure > 0
@@ -302,7 +324,8 @@ GLOBAL_LIST_EMPTY(climate_heat_sources)
 		else
 			adjustStaminaLossBuffered(CLIMATE_HEAT_STAMINA * (0.5 + 0.5 * frac))
 		if(prob(4))
-			to_chat(src, span_warning(machine ? "Your cooling fans are running flat out." : "The heat is wearing you down."))
+			// span_warning() is a textual macro, so the ternary needs its own parentheses or + binds before ?: and throws a type mismatch
+			to_chat(src, span_warning((machine ? "Your cooling fans are running flat out." : "The heat is wearing you down.")))
 	else
 		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/cold, multiplicative_slowdown = CLIMATE_COLD_SLOWDOWN_MAX * (0.2 + 0.8 * frac))
 		if(prob(4))

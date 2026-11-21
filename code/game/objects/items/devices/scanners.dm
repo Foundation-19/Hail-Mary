@@ -781,6 +781,9 @@ GENETICS SCANNER
 			to_chat(user, span_notice("[src]'s barometer function says [initial(forecast_type.name)] is gathering, landing in approximately [butchertime(F.hit_time - world.time)]."))
 		if(!found)
 			to_chat(user, span_warning("[src]'s barometer function was unable to trace any weather patterns."))
+		var/ground = SSgeoclimate.describe_ground(T)
+		if(ground)
+			to_chat(user, span_notice("[src]'s soil probe reads: [ground]"))
 		cooldown = TRUE
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/analyzer, ping)), cooldown_time)
 

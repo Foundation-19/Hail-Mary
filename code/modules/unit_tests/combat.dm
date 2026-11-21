@@ -718,6 +718,51 @@
 	TEST_ASSERT(/datum/weather/rain in weights, "A free family was left out of the roll")
 	SSweather.weather_rolls = old_rolls
 
+/datum/unit_test/weather_turf_visuals/Run()
+	var/turf/here = run_loc_bottom_left
+	var/datum/weather/storm = allocate(/datum/weather, list(here.z))
+	storm.impacted_areas = list(here.loc)
+	storm.stage = MAIN_STAGE
+	var/datum/weather_cell/cell = new(list(here.z), here.x, here.y, 10, 10, 0, 0)
+	cell.scale = 1
+	storm.cells = list("[here.z]" = cell)
+	storm.unique_cells = list(cell)
+	storm.telegraph_overlay = "rain_gathering"
+	storm.weather_overlay = "thunderstorm"
+	storm.end_overlay = "rain_gathering"
+	START_PROCESSING(SSweather, storm)
+
+	// A tile under the storm gets the storm's own look painted onto it, not just a haze on someone's screen - as a
+	// real /obj/effect (the same technique /obj/effect/particle_effect/fancy_smoke uses) rather than a turf-owned
+	// overlay image, so it drapes over mobs/items standing on the tile instead of stealing their clicks
+	storm.update_turf_visuals()
+	TEST_ASSERT(here in storm.turf_overlays, "A tile under a storm was not given a weather overlay of its own")
+	var/obj/effect/particle_effect/weather_overlay/painted = storm.turf_overlays[here]
+	TEST_ASSERT(painted && painted.loc == here, "The storm's overlay was tracked but never actually placed on the tile")
+	TEST_ASSERT_EQUAL(painted.icon_state, storm.weather_overlay, "The tile's overlay did not use the storm's weather icon state")
+
+	// The cloud drifts away, and the tile it left behind should lose its overlay rather than keep showing weather that isn't there any more
+	cell.x = here.x + 100
+	storm.update_turf_visuals()
+	TEST_ASSERT(!(here in storm.turf_overlays), "A tile the storm had already left kept its weather overlay")
+	TEST_ASSERT(QDELETED(painted), "A tile the storm had already left still displayed its old weather overlay")
+
+	// Winding down swaps the look for the dissipating one, and ending the weather clears every overlay it painted
+	cell.x = here.x
+	storm.update_turf_visuals()
+	TEST_ASSERT(here in storm.turf_overlays, "A tile back under the storm was not given its overlay back")
+	storm.stage = WIND_DOWN_STAGE
+	storm.update_turf_visuals()
+	TEST_ASSERT(here in storm.turf_overlays, "A tile under a dissipating storm lost its overlay too soon")
+	painted = storm.turf_overlays[here]
+	TEST_ASSERT_EQUAL(painted.icon_state, storm.end_overlay, "A dissipating storm did not swap the tile to its winding-down look")
+	storm.stage = END_STAGE
+	storm.update_turf_visuals()
+	TEST_ASSERT(!length(storm.turf_overlays), "Ending a storm left its overlays behind on the ground")
+	TEST_ASSERT(!(locate(/obj/effect/particle_effect/weather_overlay) in here), "Ending a storm left a stray overlay object on a tile")
+
+	STOP_PROCESSING(SSweather, storm)
+
 /datum/unit_test/abomhorror_rupture_armor/Run()
 	var/mob/living/simple_animal/hostile/abomhorror/nsb/horror = allocate(/mob/living/simple_animal/hostile/abomhorror/nsb)
 	var/mob/living/simple_animal/hostile/abomhorror/nsb/sibling = allocate(/mob/living/simple_animal/hostile/abomhorror/nsb)
