@@ -4,10 +4,14 @@ SUBSYSTEM_DEF(pathfinder)
 	flags = SS_NO_FIRE
 	var/datum/flowcache/mobs
 	var/datum/flowcache/circuits
-	var/static/space_type_cache
+	// Set right here instead of in Initialize(): INIT_ORDER_PATH runs very late (most other subsystems, and anything they
+	// spawn on the map, come up first), so a mob that needs to pathfind before SSpathfinder has actually initialized -
+	// reacting to an explosion seconds into boot, say - would index this while it's still null and runtime. typecacheof()
+	// only reads compile-time type info, so it's safe to run the moment this subsystem is created, same as the
+	// proc-local static of the same name in /turf/proc/reachableAdjacentTurfs (AStar.dm)
+	var/static/space_type_cache = typecacheof(/turf/open/space)
 
 /datum/controller/subsystem/pathfinder/Initialize()
-	space_type_cache = typecacheof(/turf/open/space)
 	mobs = new(10)
 	circuits = new(3)
 	return ..()
