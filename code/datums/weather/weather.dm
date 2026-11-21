@@ -125,7 +125,7 @@
 	var/next_turf_visual_update = 0
 	/// Turfs a drifting patch has already acted on, so nothing is done twice
 	var/list/turfs_done = list()
-	/// Turf to the overlay image shown on it right now, so the weather itself can be seen on the ground by anyone with line of sight, not only felt by people standing in or near it
+	/// Turf to the /obj/effect/particle_effect/weather_overlay shown on it right now, so the weather itself can be seen on the ground by anyone with line of sight, not only felt by people standing in or near it
 	var/list/turf/turf_overlays = list()
 	/// Bumped every time update_turf_visuals() is entered, so a call that yielded mid-repaint (CHECK_TICK) can tell a newer call - from a timer-driven end()/wind_down() firing while it slept, say - has already settled turf_overlays, and bail out instead of clobbering that with its own stale result
 	var/turf_visual_epoch = 0
@@ -511,6 +511,19 @@
 		return WEATHER_TURF_VISUAL_INTERVAL
 	return min(WEATHER_TURF_VISUAL_INTERVAL * (tiles / WEATHER_TURF_VISUAL_BASELINE_TILES), WEATHER_TURF_VISUAL_INTERVAL_MAX)
 
+/// Ground-level weather visual painted turf-by-turf in update_turf_visuals(). A real atom rather than a turf-owned
+/// overlay image, same as /obj/effect/particle_effect/fancy_smoke: mobs sit on MOB_PLANE and items on OBJITEM_PLANE,
+/// both separate, higher planes than FLOOR_PLANE, so MOB_PLANE is needed to visually drape this over them like rain or
+/// snow actually would. A turf-owned image elevated onto MOB_PLANE used to do that, but its mouse_opacity didn't
+/// reliably cede clicks to a different atom on a lower plane underneath it, stealing clicks off items (e.g. out of
+/// hydroponics trays) standing under the weather. Being its own atom instead, competing fairly for the click like the
+/// smoke it's modeled on, lets its inherited MOUSE_OPACITY_TRANSPARENT correctly pass clicks through to whatever's below
+/obj/effect/particle_effect/weather_overlay
+	name = "weather"
+	icon = 'icons/effects/weather_effects.dmi'
+	layer = AREA_LAYER // matches /datum/weather's overlay_layer default, well above mobs/vehicles so it still composites over them within MOB_PLANE
+	plane = MOB_PLANE
+
 /// Paints the weather's overlay directly onto every turf the patch currently covers, the same way update_areas() does for weather that blankets a whole area, so the storm itself is visible to anyone looking at those tiles, not only to people standing in or watching near it
 /datum/weather/proc/update_turf_visuals()
 	if(!localized)
@@ -552,29 +565,24 @@
 	// can let that happen) still leaves every turf it already repainted correctly tracked, so nothing it already applied
 	// is ever orphaned - stuck on the ground with no record of it left for a later cleanup pass to find and remove
 	for(var/turf/T as anything in covered)
-		var/image/existing = turf_overlays[T]
-		if(existing)
-			T.cut_overlay(existing)
-		var/image/I = image(icon = 'icons/effects/weather_effects.dmi', icon_state = new_state, layer = overlay_layer)
-		I.color = weather_color
-		I.alpha = covered[T]
-		I.plane = MOB_PLANE // mobs/items/vehicles sit on their own higher planes, so without this the weather would render behind them instead of covering them, same as smoke (effects_smoke_new.dm)
-		I.mouse_opacity = MOUSE_OPACITY_TRANSPARENT // purely visual - without this, sitting on top of items/mobs in the click stack steals clicks for the turf instead of whatever is actually there, same as smoke
-		T.add_overlay(I)
-		turf_overlays[T] = I
-		// A big patch (a heat wave's huge dome, say) can cover thousands of turfs - spread the add_overlay() calls across ticks instead of doing them all in one go, or the whole server hitches every repaint no matter how rarely it happens
+		var/obj/effect/particle_effect/weather_overlay/W = turf_overlays[T]
+		if(!W)
+			W = new(T)
+			turf_overlays[T] = W
+		W.icon_state = new_state
+		W.color = weather_color
+		W.alpha = covered[T]
+		// A big patch (a heat wave's huge dome, say) can cover thousands of turfs - spread this across ticks instead of doing it all in one go, or the whole server hitches every repaint no matter how rarely it happens
 		CHECK_TICK
 		if(my_epoch != turf_visual_epoch)
 			return
-	// Anything still tracked that fell out of the covered set (the patch moved on or is winding down) gets cut. Copy first:
+	// Anything still tracked that fell out of the covered set (the patch moved on or is winding down) gets deleted. Copy first:
 	// turf_overlays was just written to above, and removing keys from it while iterating it directly is not safe
 	var/list/turf/stale = turf_overlays.Copy()
 	for(var/turf/T in covered)
 		stale -= T
 	for(var/turf/T as anything in stale)
-		var/image/I = turf_overlays[T]
-		if(T && I)
-			T.cut_overlay(I)
+		qdel(turf_overlays[T])
 		turf_overlays -= T
 		CHECK_TICK
 		if(my_epoch != turf_visual_epoch)
@@ -793,9 +801,7 @@
 		if(C && C.view == get_reduced_view())
 			C.change_view(CONFIG_GET(string/default_view))
 	for(var/turf/T as anything in turf_overlays)
-		var/image/I = turf_overlays[T]
-		if(T && I)
-			T.cut_overlay(I)
+		qdel(turf_overlays[T])
 	covered_mobs = list()
 	blurred_mobs = list()
 	shaded_mobs = list()
