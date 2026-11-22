@@ -137,9 +137,13 @@
 	return FALSE
 
 /mob/living/carbon/has_dust_eye_protection()
+	// "up" is the visor toggle on goggles, masks and helmets, mask_adjusted is a mask pulled out of the way
 	if(glasses && glasses.blocks_dust_vision && !glasses.up)
 		return TRUE
-	if(wear_mask && wear_mask.blocks_dust_vision && !wear_mask.up)
+	if(wear_mask && wear_mask.blocks_dust_vision && !wear_mask.up && !wear_mask.mask_adjusted)
+		return TRUE
+	var/obj/item/clothing/headgear = head
+	if(headgear && headgear.blocks_dust_vision && !headgear.up)
 		return TRUE
 	return FALSE
 
@@ -147,9 +151,10 @@
 /mob/living/carbon/proc/has_dust_airway_protection()
 	if(HAS_TRAIT(src, TRAIT_NOBREATH) || internal)
 		return TRUE
-	if(wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH))
+	if(wear_mask && !wear_mask.mask_adjusted && !wear_mask.up && (wear_mask.flags_cover & MASKCOVERSMOUTH))
 		return TRUE
-	if(head && (head.flags_cover & HEADCOVERSMOUTH))
+	var/obj/item/clothing/headgear = head
+	if(headgear && !headgear.up && (headgear.flags_cover & HEADCOVERSMOUTH))
 		return TRUE
 	return FALSE
 
