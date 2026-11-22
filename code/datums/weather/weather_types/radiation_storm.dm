@@ -10,6 +10,8 @@
 
 	weather_message = "<span class='userdanger'><i>You feel waves of heat wash over you! Find shelter!</i></span>"
 	weather_overlay = "ash_storm"
+	telegraph_overlay = "light_ash"
+	end_overlay = "light_ash"
 	weather_duration_lower = 1500
 	weather_duration_upper = 3000
 	weather_color = "green"
@@ -51,7 +53,7 @@
 	status_alarm(TRUE)
 
 /datum/weather/rad_storm/weather_act(mob/living/L)
-	L.rad_act(rand(10,20))
+	L.rad_act(round(rand(10, 20) * get_effect_scale(L)))
 
 /datum/weather/rad_storm/end()
 	if(..())

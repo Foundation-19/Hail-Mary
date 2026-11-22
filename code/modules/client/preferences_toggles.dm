@@ -249,6 +249,17 @@ TOGGLE_CHECKBOX(/datum/verbs/menu/Settings/Sound, toggleradiomusic)()
 /datum/verbs/menu/Settings/Sound/toggleradiomusic/Get_checked(client/C)
 	return C.prefs.toggles & MUSIC_RADIO
 
+TOGGLE_CHECKBOX(/datum/verbs/menu/Settings, toggle_cloud_shadows)()
+	set name = "Show/Hide Cloud Shadows"
+	set category = "Preferences"
+	set desc = "Show or hide the shadows of clouds drifting over the ground"
+	usr.client.prefs.toggles ^= DISABLE_CLOUD_SHADOWS
+	usr.client.prefs.save_preferences()
+	to_chat(usr, "You will [(usr.client.prefs.toggles & DISABLE_CLOUD_SHADOWS) ? "no longer" : "now"] see the shadows of clouds drifting over the ground.")
+	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Cloud Shadows", "[usr.client.prefs.toggles & DISABLE_CLOUD_SHADOWS ? "Disabled" : "Enabled"]"))
+/datum/verbs/menu/Settings/toggle_cloud_shadows/Get_checked(client/C)
+	return !(C.prefs.toggles & DISABLE_CLOUD_SHADOWS)
+
 TOGGLE_CHECKBOX(/datum/verbs/menu/Settings, listen_ooc)()
 	set name = "Show/Hide OOC"
 	set category = "Preferences"

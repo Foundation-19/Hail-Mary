@@ -142,6 +142,28 @@
 	layer = FULLSCREEN_LAYER - 0.1
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
+/// The shadows of clouds that belong to no weather, drifting over the ground with the wind. A tileable texture scrolled one whole tile at a time so it wraps without a seam
+/obj/screen/fullscreen/ambient_clouds
+	icon = null
+	icon_state = null
+	screen_loc = "WEST,SOUTH"
+	layer = FULLSCREEN_LAYER - 0.2
+	alpha = 0
+	show_when_dead = TRUE
+	/// The drift this layer is animating, so it is only restarted when the wind turns to another quarter
+	var/drift_key
+
+/obj/screen/fullscreen/ambient_clouds/Initialize(mapload)
+	. = ..()
+	var/list/tiles = list()
+	for(var/x in -1 to WEATHER_CLOUD_TILES - 2)
+		for(var/y in -1 to WEATHER_CLOUD_TILES - 2)
+			var/mutable_appearance/tile = mutable_appearance('icons/effects/cloud_shadow.dmi', "cloud_shadow")
+			tile.pixel_x = x * WEATHER_CLOUD_TILE_SIZE
+			tile.pixel_y = y * WEATHER_CLOUD_TILE_SIZE
+			tiles += tile
+	add_overlay(tiles)
+
 /obj/screen/fullscreen/high
 	icon = 'icons/mob/screen_gen.dmi'
 	screen_loc = "WEST,SOUTH to EAST,NORTH"

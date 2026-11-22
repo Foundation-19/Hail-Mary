@@ -63,11 +63,16 @@ GLOBAL_LIST_EMPTY(climate_heat_sources)
 /mob/living/carbon/human/proc/climate_is_machine()
 	return !!dna?.species?.climate_machine
 
+/// Kelvin the sky's cloud cover adds to the outdoor air: it takes the edge off a sunny day and holds the day's warmth in through the night
+/proc/climate_cloud_shift()
+	var/sun = clamp((SSnightcycle.current_sun_power - 40) / 160, 0, 1)
+	return SSweather.cloud_cover * (-WEATHER_CLOUD_DAY_COOLING * sun + WEATHER_CLOUD_NIGHT_WARMING * (1 - sun))
+
 /// Kelvin of the air in this area, before anything specific to whoever is standing in it. Outdoors that is the time of day.
 /// Indoors it is the temperature the room has settled at, which trails the outdoors since nothing heats or cools it any more
 /area/proc/get_climate_temp()
 	if(outdoors)
-		return climate_phase_temp(SSnightcycle.current_time)
+		return climate_phase_temp(SSnightcycle.current_time) + climate_cloud_shift()
 	if(isnull(climate_indoor_temp))
 		climate_indoor_temp = CLIMATE_INDOOR_TEMP
 		climate_indoor_stamp = world.time
@@ -105,11 +110,11 @@ GLOBAL_LIST_EMPTY(climate_heat_sources)
 	. = A ? A.get_climate_temp() : CLIMATE_INDOOR_TEMP
 	if(A?.outdoors)
 		for(var/datum/weather/W as anything in get_active_weathers(src))
-			if(W.climate_temp_shift && !(W.immunity_type in weather_immunities))
+			if(W.climate_temp_shift && !W.is_immune(src))
 				. += W.climate_temp_shift * W.get_intensity(src) // the air only turns fully at the heart of the weather
 		// A gust runs ahead of an approaching patch and carries some of its weather before it
 		for(var/datum/weather/W as anything in SSweather.get_active_weathers())
-			if(!(W.immunity_type in weather_immunities))
+			if(!W.is_immune(src))
 				. += W.get_gust_shift(src)
 		. += SSgeoclimate.get_thermal_moderation(src, .)
 	. += climate_temp_offset
@@ -273,6 +278,7 @@ GLOBAL_LIST_EMPTY(climate_heat_sources)
 		return
 	handle_ground_radiation()
 	var/ambient = climate_applies() ? get_climate_ambient() : null
+	dry_off(ambient)
 	acid_decay()
 	climate_feel_check(ambient)
 	var/target = get_climate_target(ambient)
@@ -360,8 +366,8 @@ GLOBAL_LIST_EMPTY(climate_heat_sources)
 	var/armor = BP ? clamp(getarmor(BP, "acid"), 0, 100) / 100 : 0
 	return min(ACID_PROTECTION_MAX, max(cover, armor))
 
-/// Called every second while this person is standing in acid rain. Exposure has to build before it hurts
-/mob/living/carbon/human/proc/acid_rain_tick()
+/// Called every second while this person is standing in acid rain. Exposure has to build before it hurts. Scale is how hard the rain is hitting here, 1 at the heart of the cell
+/mob/living/carbon/human/proc/acid_rain_tick(scale = 1)
 	if(stat == DEAD)
 		return
 	acid_last_exposed = world.time
@@ -377,7 +383,7 @@ GLOBAL_LIST_EMPTY(climate_heat_sources)
 	var/list/zones = acid_rain_zones()
 	for(var/zone in zones)
 		var/list/info = zones[zone]
-		var/damage = ACID_DAMAGE_PER_SECOND * info[1] * severity * (1 - get_acid_protection(zone, info[2]))
+		var/damage = ACID_DAMAGE_PER_SECOND * info[1] * severity * scale * (1 - get_acid_protection(zone, info[2]))
 		if(damage > 0)
 			apply_damage(damage, BURN, zone, 0)
 	if(prob(5))

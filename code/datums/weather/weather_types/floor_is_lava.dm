@@ -22,6 +22,8 @@
 	overlay_layer = ABOVE_OPEN_TURF_LAYER //Covers floors only
 	immunity_type = "lava"
 	localized = FALSE
+	// A minigame, not a sky: it must not crowd natural weather out of the cap on how many can be out at once
+	counts_toward_concurrency = FALSE
 
 /datum/weather/floor_is_lava/weather_act(mob/living/L)
 	if(issilicon(L))

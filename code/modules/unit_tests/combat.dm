@@ -550,7 +550,7 @@
 /datum/unit_test/weather_cell_locality/Run()
 	var/turf/here = run_loc_bottom_left
 	var/datum/weather/storm = allocate(/datum/weather, list(here.z))
-	storm.impacted_areas = list(here.loc)
+	storm.set_impacted_areas(list(here.loc))
 	storm.stage = MAIN_STAGE
 	var/datum/weather_cell/cell = new(list(here.z), here.x, here.y, 10, 10, 0, 0)
 	cell.scale = 1
@@ -593,7 +593,7 @@
 /datum/unit_test/weather_realism/Run()
 	var/turf/here = run_loc_bottom_left
 	var/datum/weather/storm = allocate(/datum/weather, list(here.z))
-	storm.impacted_areas = list(here.loc)
+	storm.set_impacted_areas(list(here.loc))
 	storm.stage = MAIN_STAGE
 	// A long thin cloud heading east, with the test turf 20 tiles along its path from the middle
 	var/datum/weather_cell/cell = new(list(here.z), here.x - 20, here.y, 30, 6, 0.1, 0)
@@ -681,7 +681,7 @@
 	var/list/storms = list()
 	for(var/i in 1 to 2)
 		var/datum/weather/storm = allocate(/datum/weather, list(here.z))
-		storm.impacted_areas = list(here.loc)
+		storm.set_impacted_areas(list(here.loc))
 		storm.stage = MAIN_STAGE
 		var/datum/weather_cell/cell = new(list(here.z), here.x, here.y, 10, 10, 0, 0)
 		cell.scale = 1
@@ -690,7 +690,7 @@
 		START_PROCESSING(SSweather, storm)
 		storms += storm
 	var/datum/weather/outside = allocate(/datum/weather, list(here.z))
-	outside.impacted_areas = list(here.loc)
+	outside.set_impacted_areas(list(here.loc))
 	outside.stage = MAIN_STAGE
 	var/datum/weather_cell/far = new(list(here.z), here.x + 100, here.y, 10, 10, 0, 0)
 	far.scale = 1
@@ -718,10 +718,74 @@
 	TEST_ASSERT(/datum/weather/rain in weights, "A free family was left out of the roll")
 	SSweather.weather_rolls = old_rolls
 
+/datum/unit_test/weather_conflicts/Run()
+	// Weather that cannot share the sky is left out of the roll along with the busy family
+	var/old_rolls = SSweather.weather_rolls
+	SSweather.weather_rolls = list(/datum/weather/sandstorm = 10, /datum/weather/fog = 10, /datum/weather/rain = 10)
+	var/list/weights = SSweather.get_weather_weights(0, list(get_weather_family(/datum/weather/fog)))
+	TEST_ASSERT(!(/datum/weather/fog in weights), "Fog was rolled while fog was already out")
+	TEST_ASSERT(!(/datum/weather/sandstorm in weights), "A sandstorm was rolled while fog was out")
+	TEST_ASSERT(/datum/weather/rain in weights, "Rain was left out because of fog, though they can share the sky")
+	weights = SSweather.get_weather_weights(0, list(get_weather_family(/datum/weather/rain)))
+	TEST_ASSERT(!(/datum/weather/sandstorm in weights), "A sandstorm was rolled while it was raining")
+	SSweather.weather_rolls = old_rolls
+
+	// Something that is not really weather does not use up one of the slots
+	var/turf/here = run_loc_bottom_left
+	var/datum/weather/minigame = allocate(/datum/weather, list(here.z))
+	minigame.stage = MAIN_STAGE
+	minigame.counts_toward_concurrency = FALSE
+	START_PROCESSING(SSweather, minigame)
+	TEST_ASSERT(minigame in SSweather.get_active_weathers(), "A running weather was not counted as active")
+	TEST_ASSERT(!(minigame in SSweather.get_concurrent_weathers()), "A weather that opts out still used up a weather slot")
+	STOP_PROCESSING(SSweather, minigame)
+
+/datum/unit_test/weather_immunity_types/Run()
+	var/mob/living/carbon/human/person = allocate(/mob/living/carbon/human)
+	var/datum/weather/storm = allocate(/datum/weather, list(run_loc_bottom_left.z))
+	storm.immunity_type = "heat"
+	person.weather_immunities = list("lava")
+	TEST_ASSERT(!storm.is_immune(person), "Lava immunity protected against heat on its own")
+	storm.extra_immunity_types = list("lava")
+	TEST_ASSERT(storm.is_immune(person), "An extra immunity type did not protect")
+	person.weather_immunities = list("heat")
+	storm.extra_immunity_types = list()
+	TEST_ASSERT(storm.is_immune(person), "The main immunity type did not protect")
+
+/datum/unit_test/weather_view_steps/Run()
+	var/datum/weather/storm = allocate(/datum/weather, list(run_loc_bottom_left.z))
+	storm.visibility_mult = 0.5
+	var/steps = storm.get_view_steps()
+	TEST_ASSERT(steps >= 2, "The view closes in fewer than two steps, so there is nothing to step through")
+	TEST_ASSERT_EQUAL(storm.get_view_at_step(0), CONFIG_GET(string/default_view), "Step zero is not the normal view")
+	TEST_ASSERT_EQUAL(storm.get_view_at_step(steps), storm.get_reduced_view(), "The last step is not the fully reduced view")
+	TEST_ASSERT_EQUAL(storm.get_view_step(0, 0), 0, "Clear air closed the view in")
+	TEST_ASSERT_EQUAL(storm.get_view_step(1, 0), steps, "Full density did not close the view in all the way")
+	TEST_ASSERT_EQUAL(storm.get_view_step(0, steps), 0, "The view stayed closed in after the dust cleared")
+	// Hovering around the line between two steps must not flicker between them
+	var/line = (1.5) / steps
+	TEST_ASSERT_EQUAL(storm.get_view_step(line, 1), 1, "The view left a step it had barely drifted from")
+	TEST_ASSERT_EQUAL(storm.get_view_step(line, 2), 2, "The view left a step it had barely drifted from")
+
+/datum/unit_test/weather_sandstorm_protection/Run()
+	var/mob/living/carbon/human/person = allocate(/mob/living/carbon/human)
+	TEST_ASSERT(!person.has_dust_airway_protection(), "A bare face counted as protected from dust")
+	var/obj/item/clothing/mask/gas/mask = allocate(/obj/item/clothing/mask/gas)
+	person.equip_to_slot(mask, SLOT_WEAR_MASK)
+	TEST_ASSERT(person.has_dust_airway_protection(), "A gas mask did not protect the airway from dust")
+	TEST_ASSERT(!person.has_dust_eye_protection(), "A gas mask protected the eyes from dust")
+	var/datum/weather/sandstorm/sandstorm_type = /datum/weather/sandstorm
+	var/protected_loss = initial(sandstorm_type.protected_view_loss)
+	TEST_ASSERT(protected_loss > 0 && protected_loss < 1, "Goggles should cut the loss of sight, not remove or ignore it")
+	TEST_ASSERT(get_weather_family(/datum/weather/sandstorm) != get_weather_family(/datum/weather/ash_storm), "The sandstorm still shares the ash storm's family")
+	TEST_ASSERT(!initial(sandstorm_type.aesthetic), "The sandstorm is still treated as harmless scenery")
+
 /datum/unit_test/weather_turf_visuals/Run()
 	var/turf/here = run_loc_bottom_left
+	var/mob/living/carbon/human/onlooker = allocate(/mob/living/carbon/human)
+	GLOB.player_list |= onlooker // the ground is only painted near someone who could see it
 	var/datum/weather/storm = allocate(/datum/weather, list(here.z))
-	storm.impacted_areas = list(here.loc)
+	storm.set_impacted_areas(list(here.loc))
 	storm.stage = MAIN_STAGE
 	var/datum/weather_cell/cell = new(list(here.z), here.x, here.y, 10, 10, 0, 0)
 	cell.scale = 1
@@ -762,6 +826,95 @@
 	TEST_ASSERT(!(locate(/obj/effect/particle_effect/weather_overlay) in here), "Ending a storm left a stray overlay object on a tile")
 
 	STOP_PROCESSING(SSweather, storm)
+	GLOB.player_list -= onlooker
+
+/datum/unit_test/weather_turf_visuals_near_players/Run()
+	var/turf/here = run_loc_bottom_left
+	var/mob/living/carbon/human/onlooker = allocate(/mob/living/carbon/human)
+	var/datum/weather/storm = allocate(/datum/weather, list(here.z))
+	storm.set_impacted_areas(list(here.loc))
+	storm.stage = MAIN_STAGE
+	var/datum/weather_cell/cell = new(list(here.z), here.x, here.y, 10, 10, 0, 0)
+	cell.scale = 1
+	storm.cells = list("[here.z]" = cell)
+	storm.unique_cells = list(cell)
+	storm.weather_overlay = "thunderstorm"
+	TEST_ASSERT(storm.impacted_areas[here.loc], "set_impacted_areas did not make the area a lookup")
+
+	GLOB.player_list -= onlooker
+	storm.update_turf_visuals()
+	TEST_ASSERT(!length(storm.turf_overlays), "Ground nobody was near was painted anyway")
+	GLOB.player_list |= onlooker
+	storm.update_turf_visuals()
+	TEST_ASSERT(here in storm.turf_overlays, "Ground beside a player was not painted")
+	var/obj/effect/particle_effect/weather_overlay/painted = storm.turf_overlays[here]
+	var/first_alpha = painted.alpha
+	storm.update_turf_visuals()
+	TEST_ASSERT(storm.turf_overlays[here] == painted, "A repaint replaced an overlay that had not changed")
+	TEST_ASSERT_EQUAL(painted.alpha, first_alpha, "A repaint changed an overlay that had not changed")
+	GLOB.player_list -= onlooker
+	storm.stage = END_STAGE
+	storm.update_turf_visuals()
+
+/datum/unit_test/weather_alpha_buckets/Run()
+	var/list/seen = list()
+	for(var/alpha in 1 to WEATHER_SCREEN_MAX_ALPHA)
+		var/bucket = get_weather_alpha_bucket(alpha)
+		TEST_ASSERT(bucket >= alpha && bucket <= WEATHER_SCREEN_MAX_ALPHA, "Alpha [alpha] was bucketed to [bucket], which is not at least as thick and no thicker than the maximum")
+		seen["[bucket]"] = TRUE
+	TEST_ASSERT(length(seen) <= WEATHER_ALPHA_BUCKETS, "Overlays use [length(seen)] different opacities, more than the [WEATHER_ALPHA_BUCKETS] they should share")
+	TEST_ASSERT_EQUAL(get_weather_alpha_bucket(WEATHER_SCREEN_MAX_ALPHA), WEATHER_SCREEN_MAX_ALPHA, "The thickest weather was not shown at full strength")
+
+/datum/unit_test/weather_fog/Run()
+	var/old_effective = SSnightcycle.effective_sun_power
+	SSnightcycle.effective_sun_power = SSnightcycle.nighttime_sun_power
+	var/night_density = get_fog_density()
+	SSnightcycle.effective_sun_power = SSnightcycle.daytime_sun_power
+	var/day_density = get_fog_density()
+	SSnightcycle.effective_sun_power = old_effective
+	TEST_ASSERT(night_density > day_density, "Fog was no thinner in the day than at night")
+	TEST_ASSERT(day_density < FOG_BURN_OFF_ENDS, "Full sun left enough fog that it would never wind down")
+	var/datum/weather/fog/fog_type = /datum/weather/fog
+	TEST_ASSERT(!initial(fog_type.shades_outsiders), "Fog casts a shadow on people looking at it from outside")
+	TEST_ASSERT(initial(fog_type.obscures_sight), "Fog does not cut how far anyone can see")
+	TEST_ASSERT(!initial(fog_type.eye_protection_helps), "Goggles clear fog from the air")
+	var/datum/weather/rain/rain_type = /datum/weather/rain
+	TEST_ASSERT(initial(rain_type.shades_outsiders), "Rain no longer casts a shadow outsiders can see coming")
+
+/datum/unit_test/weather_cloud_cover/Run()
+	var/old_cover = SSweather.cloud_cover
+	var/old_effective = SSnightcycle.effective_sun_power
+	var/old_power = SSnightcycle.current_sun_power
+	SSweather.cloud_cover = 0
+	SSnightcycle.update_effective_sun_power()
+	TEST_ASSERT_EQUAL(SSnightcycle.effective_sun_power, SSnightcycle.current_sun_power, "A clear sky dimmed the sun")
+	SSweather.cloud_cover = 1
+	SSnightcycle.update_effective_sun_power()
+	TEST_ASSERT(SSnightcycle.effective_sun_power < SSnightcycle.current_sun_power, "An overcast sky did not dim the sun")
+	TEST_ASSERT(SSnightcycle.effective_sun_power >= SSnightcycle.current_sun_power * (1 - WEATHER_CLOUD_SUN_DIM) - 1, "Cloud dimmed the sun by more than its limit")
+	SSnightcycle.current_sun_power = SSnightcycle.daytime_sun_power
+	var/day_shift = climate_cloud_shift()
+	SSnightcycle.current_sun_power = SSnightcycle.nighttime_sun_power
+	var/night_shift = climate_cloud_shift()
+	SSnightcycle.current_sun_power = old_power
+	SSnightcycle.effective_sun_power = old_effective
+	TEST_ASSERT(day_shift < 0, "Cloud did not take the edge off a sunny day")
+	TEST_ASSERT(night_shift > 0, "Cloud did not keep the night warm")
+	SSweather.cloud_cover = old_cover
+	for(var/i in 1 to 40)
+		SSweather.update_cloud_cover()
+		TEST_ASSERT(SSweather.cloud_cover >= 0 && SSweather.cloud_cover <= 1, "Cloud cover left the range of 0 to 1")
+	SSweather.cloud_cover = old_cover
+	SSnightcycle.apply_cloud_cover()
+	var/list/drift = SSweather.get_cloud_drift()
+	TEST_ASSERT(abs(drift[1]) <= 1 && abs(drift[2]) <= 1 && (drift[1] || drift[2]), "The cloud shadows drift by something other than whole tiles of the texture, or not at all")
+	TEST_ASSERT(("cloud_shadow" in icon_states('icons/effects/cloud_shadow.dmi')), "The cloud shadow texture has no cloud_shadow state")
+
+/datum/unit_test/weather_wet_dries_off/Run()
+	var/mob/living/carbon/human/person = allocate(/mob/living/carbon/human)
+	person.adjust_climate_wetness(CLIMATE_WET_MAX)
+	person.handle_climate()
+	TEST_ASSERT(person.climate_wetness < CLIMATE_WET_MAX, "Living did not dry anyone off, so a soaking never wears off")
 
 /datum/unit_test/abomhorror_rupture_armor/Run()
 	var/mob/living/simple_animal/hostile/abomhorror/nsb/horror = allocate(/mob/living/simple_animal/hostile/abomhorror/nsb)

@@ -104,28 +104,7 @@
 		if(!IS_STAMCRIT(L))
 			L.adjustStaminaLossBuffered(4)
 		return
-	L.adjustFireLoss(4)
-
-
-/datum/weather/ash_storm/sandstorm
-	name = "sandstorm"
-	desc = "A passing sand storm blankets the area in harmless sands."
-	probability = 15
-
-	telegraph_message = span_userdanger("Sandstorm is coming to the area, decreasing overall visibility outside.")
-
-	weather_message = span_boldannounce("Sand waft down around you like grotesque snow. The sandstorm is here...")
-
-	end_message = span_boldannounce("The sandstorm slows, stops. Another layer of sand to the ground beneath your feet.")
-	end_sound = null
-
-	aesthetic = TRUE
-	obscures_sight = TRUE // try seeing stuff now! YOU CANT!
-	obscure_color = "#926D42" // same sandy tan as the ash_storm ground overlay, so it reads as a wall of dust rather than a snowy whiteout
-	visibility_mult = 0.5
-	// A haboob races ahead of the wind
-	drift_speed = 0.3
-	target_trait = ZTRAIT_STATION
+	L.adjustFireLoss(4 * get_effect_scale(L))
 
 /datum/weather/ash_storm/dust_event
 	name = "toxic cloud"
@@ -160,4 +139,4 @@
 		if(!IS_STAMCRIT(L))
 			L.adjustStaminaLossBuffered(4)
 		return
-	L.adjustToxLoss(7.5)
+	L.adjustToxLoss(7.5 * get_effect_scale(L))

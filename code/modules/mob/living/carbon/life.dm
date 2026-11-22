@@ -143,6 +143,16 @@
 		return TRUE
 	return FALSE
 
+/// Whether this person can breathe through a mask, helmet or tank, or does not breathe at all, so airborne dust does not reach their lungs
+/mob/living/carbon/proc/has_dust_airway_protection()
+	if(HAS_TRAIT(src, TRAIT_NOBREATH) || internal)
+		return TRUE
+	if(wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH))
+		return TRUE
+	if(head && (head.flags_cover & HEADCOVERSMOUTH))
+		return TRUE
+	return FALSE
+
 
 //Third link in a breath chain, calls handle_breath_temperature()
 /mob/living/carbon/proc/check_breath()

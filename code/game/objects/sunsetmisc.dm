@@ -30,10 +30,3 @@ obj/item/trade_sign
 	anchored = 1
 	w_class = 4
 	layer = 5
-
-/datum/weather/ash_storm/sandstorm
-	telegraph_message = span_userdanger("A sandstorm is coming to the area, decreasing overall visibility outside.")
-
-	weather_message = span_boldannounce("The sand wafts down around you like grotesque, thick snow. The sandstorm is here...")
-
-	end_message = span_boldannounce("The sandstorm slows before stopping. Adding another layer of sand to the ground beneath your feet.")

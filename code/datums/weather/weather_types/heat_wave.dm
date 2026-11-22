@@ -24,7 +24,9 @@
 	protected_areas = list(/area/shuttle)
 	target_trait = ZTRAIT_STATION
 
-	immunity_type = "lava"
+	immunity_type = "heat"
+	extra_immunity_types = list("lava")
+	conflicting_families = "fog"
 
 	barometer_predictable = TRUE
 
@@ -32,6 +34,7 @@
 	climate_temp_shift = 12
 	// Clear sky, so no shade, but the air ahead of it blows hot
 	cloud_shadow = 0
+	cloud_cover_goal = 0.05
 	gust_message = span_warning("A hot, dry gust rolls in off the wasteland ahead of the heat.")
 	// A heat dome is a huge air mass that barely moves
 	cell_radius_lower = 0.3

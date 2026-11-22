@@ -504,7 +504,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	var/weather_icon
 	for(var/V in SSweather.processing)
 		var/datum/weather/W = V
-		if(W.stage != END_STAGE && (src in W.impacted_areas))
+		if(W.stage != END_STAGE && W.impacted_areas[src])
 			W.update_areas()
 			weather_icon = TRUE
 	if(!weather_icon)

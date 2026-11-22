@@ -17,7 +17,21 @@ PROCESSING_SUBSYSTEM_DEF(weather)
 	/// Ground that rain has soaked, turf = when it dries out. See wet_turf()
 	var/list/wet_turfs = list()
 	COOLDOWN_DECLARE(wet_check_cooldown)
-
+	/// Family to the families it cannot be out alongside, worked out from every weather's conflicting_families the first time it is needed
+	var/list/family_conflicts
+	/// How much of the sky is covered in cloud, 0 clear to 1 overcast, across the whole map. It drifts slowly, fills in before rain and clears after
+	var/cloud_cover = 0.25
+	/// How far the cloud cover has been pulled from the level the ground's moisture sets, a slow random walk
+	var/cloud_wander = 0
+	/// How much cloud cover changed last time it was nudged, positive while the sky is filling in. This is what a barometer calls pressure falling
+	var/cloud_trend = 0
+	COOLDOWN_DECLARE(cloud_cooldown)
+	/// Milliseconds of server time the parts of weather cost per second, for stat_entry
+	var/cost_visuals = 0
+	var/cost_sweep = 0
+	var/cost_presence = 0
+	var/cost_shelter = 0
+	var/cost_clouds = 0
 /// A cloud that has been forecast and is yet to form
 /datum/weather_forecast
 	var/datum/weather/weather_type
@@ -39,6 +53,13 @@ PROCESSING_SUBSYSTEM_DEF(weather)
 
 /datum/controller/subsystem/processing/weather/fire()
 	. = ..() //Active weather is handled by . = ..() processing subsystem base fire().
+	if(COOLDOWN_FINISHED(src, cloud_cooldown))
+		update_cloud_cover()
+		COOLDOWN_START(src, cloud_cooldown, WEATHER_CLOUD_INTERVAL)
+	if(length(GLOB.player_list))
+		var/started = TICK_USAGE
+		update_cloud_layers()
+		cost_clouds = MC_AVERAGE(cost_clouds, TICK_DELTA_TO_MS(TICK_USAGE - started))
 	if(COOLDOWN_FINISHED(src, wind_change_cooldown))
 		set_wind_direction()
 		COOLDOWN_START(src, wind_change_cooldown, rand(WEATHER_WIND_SHIFT_MIN, WEATHER_WIND_SHIFT_MAX))
@@ -78,9 +99,39 @@ PROCESSING_SUBSYSTEM_DEF(weather)
 	F.timerid = null
 	var/datum/weather/weather_type = F.weather_type
 	qdel(F)
-	if(length(get_active_weathers()) >= WEATHER_MAX_CONCURRENT || (get_weather_family(weather_type) in get_busy_families(TRUE)))
+	if(length(get_concurrent_weathers()) >= WEATHER_MAX_CONCURRENT || (get_weather_family(weather_type) in expand_families(get_busy_families(TRUE))))
 		return
 	run_weather(weather_type, null, null, FALSE)
+
+/// Weathers out that count towards the cap on how many can be out at once
+/datum/controller/subsystem/processing/weather/proc/get_concurrent_weathers()
+	. = list()
+	for(var/datum/weather/W as anything in get_active_weathers())
+		if(W.counts_toward_concurrency)
+			. += W
+
+/// Families that cannot be out alongside this one, as declared by either side
+/datum/controller/subsystem/processing/weather/proc/get_conflicts(family)
+	if(!family_conflicts)
+		family_conflicts = list()
+		for(var/datum/weather/W as anything in subtypesof(/datum/weather))
+			var/own = get_weather_family(W)
+			for(var/other in splittext(initial(W.conflicting_families), " "))
+				if(!length(other))
+					continue
+				if(!family_conflicts[own])
+					family_conflicts[own] = list()
+				if(!family_conflicts[other])
+					family_conflicts[other] = list()
+				family_conflicts[own] |= other
+				family_conflicts[other] |= own
+	return family_conflicts[family] || list()
+
+/// These families and every family that conflicts with one of them
+/datum/controller/subsystem/processing/weather/proc/expand_families(list/families)
+	. = families.Copy()
+	for(var/family in families)
+		. |= get_conflicts(family)
 
 /// The families of every cloud out or on its way
 /datum/controller/subsystem/processing/weather/proc/get_busy_families(active_only = FALSE)
@@ -103,6 +154,9 @@ PROCESSING_SUBSYSTEM_DEF(weather)
 /datum/controller/subsystem/processing/weather/proc/get_weather_weights(wait, list/blocked)
 	var/list/weights = list()
 	var/list/open = list()
+	if(blocked)
+		blocked = expand_families(blocked)
+	var/dryness
 	for(var/datum/weather/W as anything in weather_rolls)
 		if(blocked && (get_weather_family(W) in blocked))
 			continue
@@ -113,12 +167,24 @@ PROCESSING_SUBSYSTEM_DEF(weather)
 			var/list/phase_weights = splittext(weight_text, " ")
 			var/phase = SSnightcycle.predict_phase(wait + initial(W.weather_duration_upper))
 			mult = text2num(phase_weights[phase + 1])
+		var/dry_pull = initial(W.dryness_weight)
+		var/wet_pull = initial(W.wetness_weight)
+		if(dry_pull || wet_pull)
+			if(isnull(dryness))
+				dryness = SSgeoclimate.get_dryness()
+			mult *= (1 - dry_pull) + dry_pull * dryness
+			mult *= (1 - wet_pull) + wet_pull * (1 - dryness)
+		var/cloud_pull = initial(W.cloud_weight)
+		if(cloud_pull)
+			mult *= (1 - cloud_pull) + cloud_pull * (0.5 + cloud_cover)
 		if(mult > 0)
 			weights[W] = weather_rolls[W] * mult
 	return LAZYLEN(weights) ? weights : open
 
 /datum/controller/subsystem/processing/weather/Initialize(start_timeofday)
 	set_wind_direction(rand(0, 359))
+	cloud_cover = rand(10, 40) / 100
+	SSnightcycle.apply_cloud_cover()
 	for(var/V in subtypesof(/datum/weather))
 		var/datum/weather/W = V
 		var/probability = initial(W.probability)
@@ -126,6 +192,93 @@ PROCESSING_SUBSYSTEM_DEF(weather)
 		if (probability)
 			weather_rolls[W] = probability
 	return ..()
+
+/// How much sun there is for a cloud to block, 0 at night and 1 in full day
+/datum/controller/subsystem/processing/weather/proc/get_daylight()
+	switch(SSnightcycle.current_time)
+		if(NIGHTCYCLE_PHASE_SUNRISE, NIGHTCYCLE_PHASE_SUNSET)
+			return 0.5
+		if(NIGHTCYCLE_PHASE_MORNING, NIGHTCYCLE_PHASE_LATEAFTERNOON)
+			return 0.85
+		if(NIGHTCYCLE_PHASE_FULLSUNSET)
+			return 0.25
+		if(NIGHTCYCLE_PHASE_NIGHTTIME)
+			return 0
+	return 1
+
+/// Nudges the sky's cloud cover towards what the ground's moisture, the weather out and the weather on its way ask of it
+/datum/controller/subsystem/processing/weather/proc/update_cloud_cover()
+	cloud_wander = clamp(cloud_wander + (rand(-100, 100) / 100) * WEATHER_CLOUD_WANDER_STEP, WEATHER_CLOUD_WANDER_MIN, WEATHER_CLOUD_WANDER_MAX)
+	var/goal = clamp(0.15 + 0.4 * (1 - SSgeoclimate.get_dryness()) + cloud_wander, 0, 1)
+	for(var/datum/weather/W as anything in get_active_weathers())
+		if(isnull(W.cloud_cover_goal))
+			continue
+		goal += (W.cloud_cover_goal - goal) * (W.stage == WIND_DOWN_STAGE ? 0.5 : 1)
+	// A forecast cloud fills the sky in over the build-up to it, rather than popping into being
+	for(var/datum/weather_forecast/F as anything in forecast)
+		var/datum/weather/weather_type = F.weather_type
+		var/forecast_goal = initial(weather_type.cloud_cover_goal)
+		if(isnull(forecast_goal))
+			continue
+		goal += (forecast_goal - goal) * clamp(1 - (F.hit_time - world.time) / WEATHER_CLOUD_BUILDUP, 0, 1)
+	var/old_cover = cloud_cover
+	cloud_cover = clamp(cloud_cover + (goal - cloud_cover) * WEATHER_CLOUD_RATE, 0, 1)
+	cloud_trend = (cloud_trend + (cloud_cover - old_cover)) * 0.5
+	SSnightcycle.apply_cloud_cover()
+
+/// Which way the cloud shadows scroll as how many whole tiles of the texture across and up, one of the eight directions nearest the wind. Whole tiles are what let the texture wrap without a seam
+/datum/controller/subsystem/processing/weather/proc/get_cloud_drift()
+	var/east = sin(wind_angle)
+	var/north = cos(wind_angle)
+	return list(abs(east) >= 0.38 ? (east > 0 ? 1 : -1) : 0, abs(north) >= 0.38 ? (north > 0 ? 1 : -1) : 0)
+
+/// How much of the sky someone can see to cast cloud shadows on the ground they stand on, 0 indoors, under a storm or in a bank of fog
+/datum/controller/subsystem/processing/weather/proc/get_sky_openness(mob/M)
+	var/turf/T = get_turf(M)
+	if(!T || !(T.z in eligible_zlevels))
+		return 0
+	var/area/A = T.loc
+	if(!A.outdoors)
+		return 0
+	. = 1
+	for(var/datum/weather/W as anything in processing)
+		if(W.cloud_shadow <= 0 || (W.stage != MAIN_STAGE && W.stage != WIND_DOWN_STAGE))
+			continue
+		// Weather's own shadow and its murk replace the ambient clouds' as it closes in
+		. *= 1 - clamp(W.get_screen_alpha(T) * W.get_density_mult() / WEATHER_SCREEN_MAX_ALPHA, 0, 1)
+
+/// Keeps every player's drifting cloud shadow layer in step with the cloud cover, the wind and the time of day
+/datum/controller/subsystem/processing/weather/proc/update_cloud_layers()
+	var/max_alpha = cloud_cover * get_daylight() * WEATHER_CLOUD_LAYER_MAX_ALPHA
+	var/list/drift = get_cloud_drift()
+	var/drift_key = "[drift[1]],[drift[2]]"
+	for(var/mob/M as anything in GLOB.player_list)
+		var/client/C = M.client
+		if(!C)
+			continue
+		var/target = 0
+		if(max_alpha >= WEATHER_CLOUD_LAYER_MIN_ALPHA && !(C.prefs?.toggles & DISABLE_CLOUD_SHADOWS))
+			target = round(max_alpha * get_sky_openness(M))
+		if(target < WEATHER_CLOUD_LAYER_MIN_ALPHA)
+			if(M.screens["ambient_clouds"])
+				M.clear_fullscreen("ambient_clouds", 2 SECONDS)
+			continue
+		var/obj/screen/fullscreen/ambient_clouds/layer = M.overlay_fullscreen("ambient_clouds", /obj/screen/fullscreen/ambient_clouds)
+		if(!layer)
+			continue
+		if(layer.drift_key != drift_key)
+			layer.drift_key = drift_key
+			layer.pixel_x = 0
+			layer.pixel_y = 0
+			layer.alpha = target
+			// Moving a whole tile of the texture looks the same as not having moved, so the loop can jump back with no one the wiser
+			animate(layer, pixel_x = drift[1] * WEATHER_CLOUD_TILE_SIZE, pixel_y = drift[2] * WEATHER_CLOUD_TILE_SIZE, time = WEATHER_CLOUD_DRIFT_SECONDS * 10 * sqrt(drift[1] ** 2 + drift[2] ** 2), loop = -1)
+		else if(abs(layer.alpha - target) >= 2)
+			animate(layer, alpha = target, time = 2 SECONDS, flags = ANIMATION_PARALLEL)
+
+/datum/controller/subsystem/processing/weather/stat_entry(msg)
+	. = ..()
+	return "[.]|W:[length(get_active_weathers())]|C:[round(cloud_cover * 100)]%|V:[round(cost_visuals, 0.1)]|S:[round(cost_sweep, 0.1)]|U:[round(cost_presence, 0.1)]|A:[round(cost_shelter, 0.1)]|L:[round(cost_clouds, 0.1)]"
 
 /// Forms a weather. Unless it is a forecast cloud forming (replace is FALSE), it takes the place of any weather of the same family that is already out
 /datum/controller/subsystem/processing/weather/proc/run_weather(datum/weather/weather_datum_type, duration, turf/epicenter, replace = TRUE)

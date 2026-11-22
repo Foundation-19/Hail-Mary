@@ -65,3 +65,13 @@
 		)
 	mid_length = 8 SECONDS
 	volume = 25
+
+/datum/looping_sound/sandstorm_outside
+	mid_sounds = list(SOUND_LOOP_ENTRY('sound/f13effects/sandstorm_loop.ogg', 14 SECONDS, 1))
+	mid_length = 14 SECONDS
+	volume = 40
+
+/datum/looping_sound/sandstorm_inside
+	mid_sounds = list(SOUND_LOOP_ENTRY('sound/f13effects/sandstorm_loop.ogg', 14 SECONDS, 1))
+	mid_length = 14 SECONDS
+	volume = 12
