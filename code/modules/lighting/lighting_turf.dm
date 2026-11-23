@@ -69,9 +69,9 @@
 
 	switch(sunlight_state)
 		if (SUNLIGHT_SOURCE)
-			. += (SSnightcycle.current_sun_power / 255) // 255 is the maximum alpha value.
+			. += (SSnightcycle.effective_sun_power / 255) // 255 is the maximum alpha value.
 		if (SUNLIGHT_BORDER)
-			. += ((SSnightcycle.current_sun_power * 0.5) / 255) // Half the intensity if not directly under the sun.
+			. += ((SSnightcycle.effective_sun_power * 0.5) / 255) // Half the intensity if not directly under the sun.
 
 	if (lighting_object)
 		. += ( \

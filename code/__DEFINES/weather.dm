@@ -79,8 +79,16 @@
 #define WEATHER_TURF_VISUAL_BASELINE_TILES 12000
 /// However large a patch gets, turf visuals never wait longer than this between refreshes, so even the biggest, slowest storm still visibly creeps across the ground
 #define WEATHER_TURF_VISUAL_INTERVAL_MAX 18 SECONDS
+/// Weather is only painted on the ground and swept for turf effects near players. The map is cut into chunks this many tiles wide
+#define WEATHER_CHUNK_SIZE 16
+/// Chunks out from every player's chunk that still count as near them. 1 is a 3x3 block, at least a screen's width of margin in every direction
+#define WEATHER_ACTIVE_CHUNKS 1
+/// The ground overlay's opacity is rounded up to one of this many steps, so the whole patch shares a handful of looks instead of each tile having its own
+#define WEATHER_ALPHA_BUCKETS 7
 /// Opacity of the weather overlay at the heart of a patch, kept well under solid so the middle of a storm is still readable
 #define WEATHER_SCREEN_MAX_ALPHA 150
+/// How far, in steps, the wanted view has to be from the one someone has before it changes, so the edge of a lumpy cloud does not flicker the view back and forth
+#define WEATHER_VIEW_HYSTERESIS 0.75
 /// Opacity of the weather overlay at the very fringe of a patch, so the edge never reads as a hard line
 #define WEATHER_SCREEN_MIN_ALPHA 30
 /// People out in the open see a patch coming from this many tiles beyond its edge, as a haze that thickens as they close in
@@ -114,10 +122,46 @@
 #define WEATHER_WET_CHECK_INTERVAL 10 SECONDS
 /// The colour wet ground is tinted
 #define WEATHER_WET_COLOUR "#b9bdc9"
+/// How often the sky's overall cloud cover is nudged
+#define WEATHER_CLOUD_INTERVAL 20 SECONDS
+/// Fraction of the gap to its goal the cloud cover closes every WEATHER_CLOUD_INTERVAL
+#define WEATHER_CLOUD_RATE 0.08
+/// How far ahead of a forecast cloud the sky starts to fill in
+#define WEATHER_CLOUD_BUILDUP 20 MINUTES
+/// Most of the sun that full cloud cover blocks, as a fraction
+#define WEATHER_CLOUD_SUN_DIM 0.18
+/// Kelvin full cloud cover takes off a day's air, and puts on a night's, as a blanket would
+#define WEATHER_CLOUD_DAY_COOLING 3
+#define WEATHER_CLOUD_NIGHT_WARMING 2
+/// Cloud cover has to change by more than this per WEATHER_CLOUD_INTERVAL for a barometer to call the pressure rising or falling
+#define WEATHER_CLOUD_TREND_THRESHOLD 0.006
+/// Opacity of the drifting cloud shadows on the ground at full cover and full daylight
+#define WEATHER_CLOUD_LAYER_MAX_ALPHA 70
+/// Pixels the drifting cloud shadows are tiled at
+#define WEATHER_CLOUD_TILE_SIZE 512
+/// Seconds the shadows take to drift one tile of the texture
+#define WEATHER_CLOUD_DRIFT_SECONDS 40
+/// How far the cloud cover's slow wander can pull it off the level the ground's moisture sets
+#define WEATHER_CLOUD_WANDER_MIN -0.2
+#define WEATHER_CLOUD_WANDER_MAX 0.25
+/// Most the wander moves in one WEATHER_CLOUD_INTERVAL
+#define WEATHER_CLOUD_WANDER_STEP 0.03
+/// How many tiles of the texture wide and high the cloud shadow layer is built from, enough to cover a big view while it scrolls
+#define WEATHER_CLOUD_TILES 5
+/// The cloud shadow layer is skipped for anything fainter than this alpha
+#define WEATHER_CLOUD_LAYER_MIN_ALPHA 2
 /// Animals out in the rain look for cover this often, and no farther than this many tiles
 #define WEATHER_SHELTER_INTERVAL 4 SECONDS
 #define WEATHER_SHELTER_RANGE 9
+/// Someone is told a weather has swept over them or moved past them no more often than this
+#define WEATHER_COVER_MESSAGE_COOLDOWN 30 SECONDS
 
+/// How much of the fog the sun burns off at full strength, as a fraction
+#define FOG_BURN_OFF_MAX 0.8
+/// Fog thinner than this fraction of its full thickness is as good as gone
+#define FOG_BURN_OFF_ENDS 0.35
+/// How long fog has to stay that thin before it winds down
+#define FOG_BURN_OFF_DELAY 2 MINUTES
 /// Weather tags!
 
 #define WEATHER_HEAT "heat_wave"

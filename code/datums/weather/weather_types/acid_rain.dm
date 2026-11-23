@@ -25,7 +25,8 @@
 	end_overlay = "acid_rain"
 
 	tag_weather = WEATHER_ACID
-	weather_family = "precipitation"
+	weather_family = "acid_precipitation"
+	conflicting_families = "precipitation fog dust"
 	area_types = list(/area/f13/wasteland, /area/f13/desert, /area/f13/farm, /area/f13/forest)
 	target_trait = ZTRAIT_STATION
 	protect_indoors = TRUE
@@ -37,6 +38,8 @@
 	carbons_only = TRUE
 	climate_temp_shift = 8
 	cloud_shadow = 1
+	cloud_cover_goal = 0.95
+	cloud_weight = 0.3
 	gust_message = span_warning("A sharp, acrid gust blows ahead of the dark cloud. Something tastes wrong in the air.")
 	lightning_rate = 0.03
 	visibility_mult = 0.8
@@ -49,13 +52,14 @@
 	drift_speed = 0.2
 
 /datum/weather/acid_rain/weather_act(mob/living/L)
+	var/scale = get_effect_scale(L)
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
-		H.acid_rain_tick()
+		H.acid_rain_tick(scale)
 		return
 	// Other carbons just take a flat burn that acid armor shaves down
 	var/resist = clamp(L.getarmor(null, "acid"), 0, 75)
-	L.adjustFireLoss(1 * (1 - resist / 100))
+	L.adjustFireLoss(1 * scale * (1 - resist / 100))
 
 /* // Stops weather from cleaning the ground (though it still cleans mobs c:)
 /datum/weather/acid_rain/weather_act_turf(turf/T)

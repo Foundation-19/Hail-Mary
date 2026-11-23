@@ -16,6 +16,8 @@
 #define DISABLE_ARRIVALRATTLE	(1<<13)
 #define COMBOHUD_LIGHTING		(1<<14)
 #define MUSIC_RADIO				(1<<15)
+/// Hides the drifting shadows of the clouds that aren't part of any weather. A disable flag so everyone sees them until they say otherwise
+#define DISABLE_CLOUD_SHADOWS	(1<<16)
 // Gap in prefs between tg and fortune13 prefs.
 #define SPLIT_ADMIN_TABS (1<<23)
 

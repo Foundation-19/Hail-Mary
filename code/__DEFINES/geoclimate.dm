@@ -85,3 +85,6 @@
 /// Hot sun and heat waves dry the ground faster, cold and the dark slower: evaporation is scaled between these
 #define GEO_EVAP_MIN 0.25
 #define GEO_EVAP_MAX 2
+
+/// Moisture, averaged over the ground, at which it counts as not dry at all. See get_dryness()
+#define GEO_DRY_REFERENCE 30

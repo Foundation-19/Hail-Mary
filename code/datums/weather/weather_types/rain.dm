@@ -34,6 +34,8 @@
 	wetness_rate = 3
 	extinguishes_fires = TRUE
 	cloud_shadow = 1
+	cloud_cover_goal = 0.9
+	cloud_weight = 0.6
 	gust_message = span_notice("A cool gust of damp air rushes ahead of the storm, smelling of wet earth.")
 	lightning_rate = 0.04
 	wet_ground_time = 5 MINUTES
@@ -114,7 +116,7 @@
 				H.update_inv_shoes()
 			if(H.wear_mask && washmask && wash_obj(H.wear_mask))
 				H.update_inv_wear_mask()
-			else
+			else if(H.lip_style)
 				H.lip_style = null
 				H.update_body()
 			if(H.glasses && washglasses && wash_obj(H.glasses))
@@ -145,6 +147,22 @@
 
 	SSweather.wet_turf(T, wet_ground_time)
 
+/// Trays are watered wherever the rain reaches them, not only near players, so crops left alone do not dry out under a storm
+/datum/weather/rain/sweep_remote()
+	for(var/obj/machinery/hydroponics/tray as anything in GLOB.plant_bins)
+		var/turf/T = get_turf(tray)
+		if(!T || !impacted_areas[T.loc])
+			continue
+		var/last_acted = turfs_done[T]
+		if(last_acted && (!turf_reapply_interval || world.time < last_acted + turf_reapply_interval))
+			continue
+		for(var/datum/weather_cell/C as anything in unique_cells)
+			if((T.z in C.z_levels) && C.covers(T))
+				turfs_done[T] = world.time
+				tray.adjustWater(80)
+				break
+		CHECK_TICK
+
 /datum/weather/rain/proc/wash_obj(obj/O)
 	. = SEND_SIGNAL(O, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_WEAK)
 	O.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
@@ -168,69 +186,3 @@
 	. = ..()
 	sound_ao?.stop()
 	sound_ai?.stop()
-
-//Fog
-/datum/weather/rain/fog
-	name = "fog"
-	desc = "A thick fog rolls over the Wasteland, cutting visibility down to almost nothing."
-	probability = 15
-
-	telegraph_duration = 300
-	telegraph_overlay = "fog"
-	telegraph_message = "<span class='notice'><font size=2>You see the fog rolling in.</font></span>"
-	telegraph_sound = 'sound/weather/fog.ogg' 
-	weather_sound = 'sound/weather/fog.ogg'
-
-	weather_message = "<span class='notice'><i>You can feel and see the moisture from the fog as it starts to roll in.</i></span>"
-	weather_overlay = "fog"
-	weather_color = "#C2D1D6" // tints the otherwise pale, low-contrast fog overlay so a bank of it reads clearly against the ground from a distance, the same way rad_storm tints its reused ash_storm sprite
-	weather_duration_lower = 2400
-	weather_duration_upper = 7200
-	end_sound = 'sound/weather/fog.ogg' 
-	end_duration = 250
-	end_message = "<span class='notice'><font size=2>The blanket of fog finally lifts up.</font></span>"
-	end_overlay = "fog"
-	weather_family = "fog"
-	area_types = list(/area/f13/wasteland, /area/f13/desert, /area/f13/farm, /area/f13/forest)
-	protected_areas = list(/area/shuttle)
-	target_trait = ZTRAIT_STATION
-	protect_indoors = TRUE
-	immunity_type = "water"
-
-	barometer_predictable = TRUE
-
-	affects_turfs = TRUE
-	carbons_only = TRUE
-	climate_temp_shift = -3
-	visibility_mult = 0.6
-	wetness_rate = 1.5
-	extinguishes_fires = FALSE
-	cloud_shadow = 0.7 // thick fog greys out the light almost as much as rain clouds do, and this shade is what outsiders near the bank see first
-	gust_message = span_notice("The air turns cold and damp as the fog creeps closer.")
-	lightning_rate = 0
-	wet_ground_time = 2 MINUTES
-	turf_reapply_interval = 90 SECONDS
-	soak_rate = 4
-	animals_seek_shelter = FALSE
-	// Fog pools in low ground and hangs there
-	cell_radius_lower = 0.12
-	cell_radius_upper = 0.22
-	drift_speed = 0.02
-	// Fog gathers in the cool hours around dawn
-	phase_weights = "3 2 0.8 0.4 0.4 0.6 1 1.2 1.5"
-	// Fog is damp air, not falling water: no rain loops
-	sound_ao = null
-	sound_ai = null
-
-/// Fog only dampens people; it doesn't wash, douse or soak them the way falling rain does
-/datum/weather/rain/fog/weather_act(mob/living/L)
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
-		H.adjust_climate_wetness(wetness_rate)
-
-/// Fog leaves the ground damp but doesn't clean blood or water trays
-/datum/weather/rain/fog/weather_act_turf(turf/open/T)
-	SSweather.wet_turf(T, wet_ground_time)
-
-/datum/weather/rain/fog/update_listeners(list/outside, list/inside)
-	return

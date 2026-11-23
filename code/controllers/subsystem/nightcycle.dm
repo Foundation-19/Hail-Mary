@@ -26,8 +26,10 @@
 #define NIGHTCYCLE_PHASE_NIGHTTIME 8
 #define NIGHTCYCLE_PHASE_DAY_END 9
 
-/// How long the shared sunlight objects take to fade to the next phase's color and power
-#define NIGHTCYCLE_TRANSITION_TIME (10 SECONDS)
+/// How long the shared sunlight objects take to fade to the next phase's color and power, long enough that dusk and dawn read as a slow change
+#define NIGHTCYCLE_TRANSITION_TIME (90 SECONDS)
+/// Cloud cover has to shift the sun's power by this much before the light objects are animated again
+#define NIGHTCYCLE_CLOUD_MIN_STEP 3
 
 SUBSYSTEM_DEF(nightcycle)
 	name = "Day/Night Cycle"
@@ -36,6 +38,8 @@ SUBSYSTEM_DEF(nightcycle)
 	var/current_time = NIGHTCYCLE_PHASE_DAYTIME
 	var/current_sun_color = "#FFFFFF"
 	var/current_sun_power = 230
+	/// current_sun_power after clouds have dimmed it: what the light objects and anything reading the sun's strength go by
+	var/effective_sun_power = 230
 
 	// Variables for badmining
 	var/sunrise_sun_color = "#ffd1b3"
@@ -72,7 +76,8 @@ SUBSYSTEM_DEF(nightcycle)
 
 /datum/controller/subsystem/nightcycle/Initialize(start_timeofday)
 	. = ..()
-	sunlight_source_object.alpha = current_sun_power
+	update_effective_sun_power()
+	sunlight_source_object.alpha = effective_sun_power
 	sunlight_source_object.color = current_sun_color
 
 
@@ -176,20 +181,34 @@ SUBSYSTEM_DEF(nightcycle)
 			CRASH("Invalid new_time passed to set_phase()")
 
 	current_time = new_time
+	update_effective_sun_power()
 	AnimateTransition()
 
-/datum/controller/subsystem/nightcycle/proc/AnimateTransition()
+/// The sun's power once the sky's cloud cover has dimmed it a little
+/datum/controller/subsystem/nightcycle/proc/update_effective_sun_power()
+	effective_sun_power = round(current_sun_power * (1 - WEATHER_CLOUD_SUN_DIM * SSweather.cloud_cover), 1)
+
+/// Dims or brightens the sun as clouds build and clear, only bothering the shared light objects for a change anyone would notice
+/datum/controller/subsystem/nightcycle/proc/apply_cloud_cover()
+	var/old_power = effective_sun_power
+	update_effective_sun_power()
+	if(abs(effective_sun_power - old_power) < NIGHTCYCLE_CLOUD_MIN_STEP)
+		effective_sun_power = old_power
+		return
+	AnimateTransition(WEATHER_CLOUD_INTERVAL)
+
+/datum/controller/subsystem/nightcycle/proc/AnimateTransition(time = NIGHTCYCLE_TRANSITION_TIME)
 	// The light objects are shared through vis_contents, so animating them fades every turf's light at once instead of snapping at the phase boundary
-	animate(sunlight_source_object, alpha = current_sun_power, color = current_sun_color, time = NIGHTCYCLE_TRANSITION_TIME)
+	animate(sunlight_source_object, alpha = effective_sun_power, color = current_sun_color, time = time)
 	for(var/key in sunlight_border_objects)
 		var/atom/movable/sunlight/border = sunlight_border_objects[key]
 		if(border)
-			animate(border, alpha = current_sun_power, color = current_sun_color, time = NIGHTCYCLE_TRANSITION_TIME)
+			animate(border, alpha = effective_sun_power, color = current_sun_color, time = time)
 
 /datum/controller/subsystem/nightcycle/proc/get_border_object(object_key)
 	. = sunlight_border_objects["[object_key]"]
 	if(!.)
-		. = new /atom/movable/sunlight(null, current_sun_power, current_sun_color, object_key)
+		. = new /atom/movable/sunlight(null, effective_sun_power, current_sun_color, object_key)
 		sunlight_border_objects["[object_key]"] = .
 
 

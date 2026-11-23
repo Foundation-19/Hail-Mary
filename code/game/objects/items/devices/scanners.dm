@@ -766,7 +766,9 @@ GENETICS SCANNER
 				to_chat(user, span_warning("[src]'s barometer function can't trace the [W.name] while it is [W.stage == MAIN_STAGE ? "already here!" : "winding down."]"))
 			else
 				to_chat(user, span_notice("The next [W.name] will hit in [butchertime(W.next_hit_time - world.time)]."))
-			if(W.aesthetic)
+			if(length(W.barometer_note))
+				to_chat(user, span_notice("[src]'s barometer function says: [W.barometer_note]"))
+			else if(W.aesthetic)
 				to_chat(user, span_warning("[src]'s barometer function says that the [W.name] will breeze on by."))
 		// Clouds still forming over the horizon
 		var/listed = 0
@@ -781,6 +783,12 @@ GENETICS SCANNER
 			to_chat(user, span_notice("[src]'s barometer function says [initial(forecast_type.name)] is gathering, landing in approximately [butchertime(F.hit_time - world.time)]."))
 		if(!found)
 			to_chat(user, span_warning("[src]'s barometer function was unable to trace any weather patterns."))
+		var/pressure = "steady"
+		if(SSweather.cloud_trend > WEATHER_CLOUD_TREND_THRESHOLD)
+			pressure = "falling, as the sky fills in"
+		else if(SSweather.cloud_trend < -WEATHER_CLOUD_TREND_THRESHOLD)
+			pressure = "rising, as the sky clears"
+		to_chat(user, span_notice("[src]'s barometer function reads the pressure as [pressure]."))
 		var/ground = SSgeoclimate.describe_ground(T)
 		if(ground)
 			to_chat(user, span_notice("[src]'s soil probe reads: [ground]"))

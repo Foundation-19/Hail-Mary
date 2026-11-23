@@ -24,7 +24,8 @@
 	tag_weather = WEATHER_COLD
 	weather_family = "temperature"
 
-	immunity_type = "snow"
+	immunity_type = "cold"
+	extra_immunity_types = list("snow")
 
 	barometer_predictable = TRUE
 

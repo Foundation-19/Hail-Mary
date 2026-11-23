@@ -35,6 +35,7 @@
 	visor_flags_cover = MASKCOVERSEYES
 	visor_vars_to_toggle = VISOR_TINT | VISOR_DARKNESSVIEW
 	alternate_worn_layer = (HEAD_LAYER-0.1) // so its not hidden
+	blocks_dust_vision = TRUE
 
 /obj/item/clothing/glasses/night/polarizing/attack_self(mob/user)
 	weldingvisortoggle(user)

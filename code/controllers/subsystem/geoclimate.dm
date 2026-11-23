@@ -148,7 +148,7 @@ SUBSYSTEM_DEF(geoclimate)
 			wet_weathers += W
 		if(W.ground_contamination_rate && (W.stage == MAIN_STAGE || W.stage == WIND_DOWN_STAGE))
 			rad_weathers += W
-	var/sun = SSnightcycle.current_sun_power / 200
+	var/sun = SSnightcycle.effective_sun_power / 200
 	evaporation = clamp((0.3 + 0.7 * sun) * (1 + heat / 30), GEO_EVAP_MIN, GEO_EVAP_MAX)
 
 /datum/controller/subsystem/geoclimate/proc/update_parcel(datum/geo_parcel/P)
@@ -287,6 +287,24 @@ SUBSYSTEM_DEF(geoclimate)
 /datum/controller/subsystem/geoclimate/proc/get_ground_moisture(atom/A)
 	var/datum/geo_parcel/P = get_parcel(A)
 	return P ? P.moisture : 0
+
+/// 0 to 1, how dry the country is overall right now: 1 for ground that has nothing to give a dust storm to lift off, 0 once it is all soaked. Weathers that need dry land scale their odds with it
+/datum/controller/subsystem/geoclimate/proc/get_dryness()
+	var/total = 0
+	var/count = 0
+	for(var/datum/geo_parcel/P as anything in parcels)
+		total += P.moisture
+		count++
+	if(!count)
+		return 1
+	return clamp(1 - (total / count) / GEO_DRY_REFERENCE, 0, 1)
+
+/// 0 to 1, how dry and bare the ground under this spot is, for dust to be lifted off it
+/datum/controller/subsystem/geoclimate/proc/get_local_dryness(atom/A)
+	var/datum/geo_parcel/P = get_parcel(A)
+	if(!P)
+		return 0
+	return clamp(1 - P.moisture / GEO_DRY_REFERENCE, 0, 1) * clamp(1 - P.vegetation / 100, 0, 1)
 
 /// 0 to GEO_RADIATION_MAX, how hot a storm's fallout has left this ground. Keeps giving off rads long after the sky has cleared
 /datum/controller/subsystem/geoclimate/proc/get_radiation_level(atom/A)

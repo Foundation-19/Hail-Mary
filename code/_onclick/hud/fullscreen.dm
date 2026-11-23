@@ -142,6 +142,67 @@
 	layer = FULLSCREEN_LAYER - 0.1
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
+/// The shadows of clouds that belong to no weather, drifting over the ground with the wind. A tileable texture scrolled one whole tile at a time so it wraps without a seam. The sheet is also slid against the viewer's footsteps, so the shadows stay put on the ground instead of on the screen
+/obj/screen/fullscreen/ambient_clouds
+	icon = null
+	icon_state = null
+	screen_loc = "WEST,SOUTH"
+	layer = FULLSCREEN_LAYER - 0.2
+	alpha = 0
+	show_when_dead = TRUE
+	/// The drift this layer is animating, so it is only restarted when the wind turns to another quarter
+	var/drift_key
+	/// Where, in pixels, the sheet is slid to match the ground under the viewer, always within one tile of the texture
+	var/offset_x = 0
+	var/offset_y = 0
+	/// The mob whose footsteps move the sheet
+	var/datum/weakref/viewer
+
+/obj/screen/fullscreen/ambient_clouds/Initialize(mapload)
+	. = ..()
+	var/list/tiles = list()
+	for(var/x in -1 to WEATHER_CLOUD_TILES - 2)
+		for(var/y in -1 to WEATHER_CLOUD_TILES - 2)
+			var/mutable_appearance/tile = mutable_appearance('icons/effects/cloud_shadow.dmi', "cloud_shadow")
+			tile.pixel_x = x * WEATHER_CLOUD_TILE_SIZE
+			tile.pixel_y = y * WEATHER_CLOUD_TILE_SIZE
+			tiles += tile
+	add_overlay(tiles)
+
+/obj/screen/fullscreen/ambient_clouds/Destroy()
+	var/mob/M = viewer?.resolve()
+	if(M)
+		UnregisterSignal(M, COMSIG_MOVABLE_MOVED)
+	viewer = null
+	return ..()
+
+/// Starts following a mob's steps and puts the sheet where the ground under them says it should be
+/obj/screen/fullscreen/ambient_clouds/proc/follow(mob/M)
+	if(viewer?.resolve() != M)
+		var/mob/old = viewer?.resolve()
+		if(old)
+			UnregisterSignal(old, COMSIG_MOVABLE_MOVED)
+		viewer = WEAKREF(M)
+		RegisterSignal(M, COMSIG_MOVABLE_MOVED, PROC_REF(on_viewer_moved))
+	sync_position(M, TRUE)
+
+/obj/screen/fullscreen/ambient_clouds/proc/on_viewer_moved(datum/source)
+	sync_position(source)
+
+/// Slides the sheet by the whole of the viewer's position, wrapped to one tile of the texture. A wrap looks the same as no move, so it is jumped to rather than slid
+/obj/screen/fullscreen/ambient_clouds/proc/sync_position(mob/M, force = FALSE)
+	var/turf/T = get_turf(M.client?.eye || M)
+	if(!T)
+		return
+	var/new_x = -((T.x * world.icon_size) % WEATHER_CLOUD_TILE_SIZE)
+	var/new_y = -((T.y * world.icon_size) % WEATHER_CLOUD_TILE_SIZE)
+	if(!force && new_x == offset_x && new_y == offset_y)
+		return
+	var/jump = force || abs(new_x - offset_x) > WEATHER_CLOUD_TILE_SIZE / 2 || abs(new_y - offset_y) > WEATHER_CLOUD_TILE_SIZE / 2
+	offset_x = new_x
+	offset_y = new_y
+	animate(src, transform = matrix(1, 0, new_x, 0, 1, new_y), time = jump ? 0 : max(1, round(world.icon_size / max(M.glide_size, 1))), flags = ANIMATION_PARALLEL)
+
 /obj/screen/fullscreen/high
 	icon = 'icons/mob/screen_gen.dmi'
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
