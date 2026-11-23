@@ -147,6 +147,22 @@
 
 	SSweather.wet_turf(T, wet_ground_time)
 
+/// Trays are watered wherever the rain reaches them, not only near players, so crops left alone do not dry out under a storm
+/datum/weather/rain/sweep_remote()
+	for(var/obj/machinery/hydroponics/tray as anything in GLOB.plant_bins)
+		var/turf/T = get_turf(tray)
+		if(!T || !impacted_areas[T.loc])
+			continue
+		var/last_acted = turfs_done[T]
+		if(last_acted && (!turf_reapply_interval || world.time < last_acted + turf_reapply_interval))
+			continue
+		for(var/datum/weather_cell/C as anything in unique_cells)
+			if((T.z in C.z_levels) && C.covers(T))
+				turfs_done[T] = world.time
+				tray.adjustWater(80)
+				break
+		CHECK_TICK
+
 /datum/weather/rain/proc/wash_obj(obj/O)
 	. = SEND_SIGNAL(O, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_WEAK)
 	O.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)

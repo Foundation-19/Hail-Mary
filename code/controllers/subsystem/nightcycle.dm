@@ -26,8 +26,8 @@
 #define NIGHTCYCLE_PHASE_NIGHTTIME 8
 #define NIGHTCYCLE_PHASE_DAY_END 9
 
-/// How long the shared sunlight objects take to fade to the next phase's color and power
-#define NIGHTCYCLE_TRANSITION_TIME (10 SECONDS)
+/// How long the shared sunlight objects take to fade to the next phase's color and power, long enough that dusk and dawn read as a slow change
+#define NIGHTCYCLE_TRANSITION_TIME (90 SECONDS)
 /// Cloud cover has to shift the sun's power by this much before the light objects are animated again
 #define NIGHTCYCLE_CLOUD_MIN_STEP 3
 

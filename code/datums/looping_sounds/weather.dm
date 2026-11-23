@@ -1,8 +1,8 @@
 /datum/looping_sound/active_outside_ashstorm
 	mid_sounds = list(
 		SOUND_LOOP_ENTRY('sound/weather/ashstorm/outside/active_mid1.ogg', 8 SECONDS, 1),
-		SOUND_LOOP_ENTRY('sound/weather/ashstorm/outside/active_mid1.ogg', 8 SECONDS, 1),
-		SOUND_LOOP_ENTRY('sound/weather/ashstorm/outside/active_mid1.ogg', 8 SECONDS, 1)
+		SOUND_LOOP_ENTRY('sound/weather/ashstorm/outside/active_mid2.ogg', 8 SECONDS, 1),
+		SOUND_LOOP_ENTRY('sound/weather/ashstorm/outside/active_mid3.ogg', 8 SECONDS, 1)
 		)
 	mid_length = 8 SECONDS
 	start_sound = list(SOUND_LOOP_ENTRY('sound/weather/ashstorm/outside/active_start.ogg', 8 SECONDS, 1))

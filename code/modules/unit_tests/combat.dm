@@ -728,6 +728,12 @@
 	TEST_ASSERT(/datum/weather/rain in weights, "Rain was left out because of fog, though they can share the sky")
 	weights = SSweather.get_weather_weights(0, list(get_weather_family(/datum/weather/rain)))
 	TEST_ASSERT(!(/datum/weather/sandstorm in weights), "A sandstorm was rolled while it was raining")
+	SSweather.weather_rolls = list(/datum/weather/acid_rain = 10, /datum/weather/rain = 10)
+	weights = SSweather.get_weather_weights(0, list(get_weather_family(/datum/weather/fog)))
+	TEST_ASSERT(!(/datum/weather/acid_rain in weights), "Acid rain was rolled while fog was out")
+	TEST_ASSERT(/datum/weather/rain in weights, "Rain was left out because of fog, though they can share the sky")
+	weights = SSweather.get_weather_weights(0, list(get_weather_family(/datum/weather/rain)))
+	TEST_ASSERT(!(/datum/weather/acid_rain in weights), "Acid rain was rolled while it was already raining")
 	SSweather.weather_rolls = old_rolls
 
 	// Something that is not really weather does not use up one of the slots
@@ -871,6 +877,77 @@
 	GLOB.player_list -= onlooker
 	storm.stage = END_STAGE
 	storm.update_turf_visuals()
+
+/datum/unit_test/weather_player_signature/Run()
+	var/turf/base = run_loc_bottom_left
+	var/mob/living/carbon/human/first = allocate(/mob/living/carbon/human)
+	var/mob/living/carbon/human/second = allocate(/mob/living/carbon/human)
+	var/mob/dead/observer/ghost = allocate(/mob/dead/observer)
+	var/datum/weather/storm = allocate(/datum/weather, list(base.z))
+	var/old_players = GLOB.player_list.Copy()
+	GLOB.player_list = list(first, second)
+	var/y = base.y
+	first.forceMove(locate(1, y, base.z))
+	second.forceMove(locate(1 + 2 * WEATHER_CHUNK_SIZE, y, base.z))
+	var/spread = storm.get_player_signature()
+	first.forceMove(locate(1 + WEATHER_CHUNK_SIZE, y, base.z))
+	second.forceMove(locate(1 + WEATHER_CHUNK_SIZE, y, base.z))
+	TEST_ASSERT(spread != storm.get_player_signature(), "Two players in different chunks looked the same as two in one chunk, so the ground would not be repainted")
+	first.forceMove(locate(1, y, base.z))
+	second.forceMove(locate(1 + WEATHER_CHUNK_SIZE, y, base.z))
+	var/pair = storm.get_player_signature()
+	first.forceMove(locate(1 + WEATHER_CHUNK_SIZE, y, base.z))
+	second.forceMove(locate(1, y, base.z))
+	TEST_ASSERT_EQUAL(storm.get_player_signature(), pair, "Players trading chunks counted as a change")
+	GLOB.player_list |= ghost
+	ghost.forceMove(locate(1 + 3 * WEATHER_CHUNK_SIZE, y, base.z))
+	TEST_ASSERT_EQUAL(storm.get_player_signature(), pair, "A ghost drifting about counted as a change")
+	GLOB.player_list = old_players
+
+/datum/unit_test/weather_cloud_follows_viewer/Run()
+	var/turf/base = run_loc_bottom_left
+	var/mob/living/carbon/human/walker = allocate(/mob/living/carbon/human)
+	var/obj/screen/fullscreen/ambient_clouds/clouds = allocate(/obj/screen/fullscreen/ambient_clouds)
+	walker.forceMove(locate(5, base.y, base.z))
+	clouds.follow(walker)
+	TEST_ASSERT_EQUAL(clouds.offset_x, -((5 * world.icon_size) % WEATHER_CLOUD_TILE_SIZE), "The cloud shadows were not slid to the ground under the viewer")
+	var/before = clouds.offset_x
+	walker.forceMove(locate(6, base.y, base.z))
+	TEST_ASSERT_EQUAL(clouds.offset_x, before - world.icon_size, "The cloud shadows did not follow a step east")
+	walker.forceMove(locate(5, base.y, base.z))
+	TEST_ASSERT_EQUAL(clouds.offset_x, before, "The cloud shadows did not follow a step back west")
+	walker.forceMove(locate(5 + WEATHER_CLOUD_TILE_SIZE / world.icon_size, base.y, base.z))
+	TEST_ASSERT_EQUAL(clouds.offset_x, before, "The texture did not repeat after one whole tile of walking")
+
+/datum/unit_test/weather_remote_trays/Run()
+	var/turf/here = run_loc_bottom_left
+	var/obj/machinery/hydroponics/constructable/tray = allocate(/obj/machinery/hydroponics/constructable, here)
+	tray.waterlevel = 0
+	var/datum/weather/rain/storm = allocate(/datum/weather/rain, list(here.z))
+	storm.set_impacted_areas(list(here.loc))
+	storm.stage = MAIN_STAGE
+	var/datum/weather_cell/cell = new(list(here.z), here.x, here.y, 10, 10, 0, 0)
+	cell.scale = 1
+	storm.unique_cells = list(cell)
+	storm.sweep_remote()
+	TEST_ASSERT(tray.waterlevel > 0, "Rain did not water a tray nobody was near")
+	var/watered = tray.waterlevel
+	storm.sweep_remote()
+	TEST_ASSERT_EQUAL(tray.waterlevel, watered, "Rain watered the same tray twice in one pass")
+	cell.x = here.x + 100
+	tray.waterlevel = 0
+	storm.turfs_done = list()
+	storm.sweep_remote()
+	TEST_ASSERT_EQUAL(tray.waterlevel, 0, "Rain watered a tray it had not reached")
+
+/datum/unit_test/weather_sandstorm_details/Run()
+	var/datum/weather/sandstorm/storm = allocate(/datum/weather/sandstorm, list(run_loc_bottom_left.z))
+	var/mob/living/carbon/human/dead_man = allocate(/mob/living/carbon/human)
+	dead_man.stat = DEAD
+	for(var/i in 1 to 40)
+		storm.weather_act(dead_man)
+	TEST_ASSERT_EQUAL(dead_man.eye_blurry, 0, "A sandstorm blurred the eyes of the dead")
+	TEST_ASSERT(initial(storm.immunity_clears_sight), "Mobs immune to a sandstorm are blinded by it all the same")
 
 /datum/unit_test/weather_alpha_buckets/Run()
 	var/list/seen = list()

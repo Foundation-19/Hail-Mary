@@ -81,8 +81,8 @@
 #define WEATHER_TURF_VISUAL_INTERVAL_MAX 18 SECONDS
 /// Weather is only painted on the ground and swept for turf effects near players. The map is cut into chunks this many tiles wide
 #define WEATHER_CHUNK_SIZE 16
-/// Chunks out from every player's chunk that still count as near them
-#define WEATHER_ACTIVE_CHUNKS 2
+/// Chunks out from every player's chunk that still count as near them. 1 is a 3x3 block, at least a screen's width of margin in every direction
+#define WEATHER_ACTIVE_CHUNKS 1
 /// The ground overlay's opacity is rounded up to one of this many steps, so the whole patch shares a handful of looks instead of each tile having its own
 #define WEATHER_ALPHA_BUCKETS 7
 /// Opacity of the weather overlay at the heart of a patch, kept well under solid so the middle of a storm is still readable
@@ -153,6 +153,8 @@
 /// Animals out in the rain look for cover this often, and no farther than this many tiles
 #define WEATHER_SHELTER_INTERVAL 4 SECONDS
 #define WEATHER_SHELTER_RANGE 9
+/// Someone is told a weather has swept over them or moved past them no more often than this
+#define WEATHER_COVER_MESSAGE_COOLDOWN 30 SECONDS
 
 /// How much of the fog the sun burns off at full strength, as a fraction
 #define FOG_BURN_OFF_MAX 0.8

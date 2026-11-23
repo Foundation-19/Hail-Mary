@@ -275,6 +275,7 @@ PROCESSING_SUBSYSTEM_DEF(weather)
 			animate(layer, pixel_x = drift[1] * WEATHER_CLOUD_TILE_SIZE, pixel_y = drift[2] * WEATHER_CLOUD_TILE_SIZE, time = WEATHER_CLOUD_DRIFT_SECONDS * 10 * sqrt(drift[1] ** 2 + drift[2] ** 2), loop = -1)
 		else if(abs(layer.alpha - target) >= 2)
 			animate(layer, alpha = target, time = 2 SECONDS, flags = ANIMATION_PARALLEL)
+		layer.follow(M)
 
 /datum/controller/subsystem/processing/weather/stat_entry(msg)
 	. = ..()

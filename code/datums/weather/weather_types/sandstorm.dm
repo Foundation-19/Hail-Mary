@@ -31,7 +31,7 @@
 	target_trait = ZTRAIT_STATION
 	tag_weather = WEATHER_SAND
 	weather_family = "dust"
-	conflicting_families = "fog precipitation"
+	conflicting_families = "fog precipitation acid_precipitation"
 
 	// Same protection as the ash storm, so golems, silicons and the like can walk through it
 	immunity_type = "ash"
@@ -41,6 +41,7 @@
 	barometer_note = "a wall of dust is on the way, and will cut visibility to a fraction for anyone caught outside"
 
 	obscures_sight = TRUE
+	immunity_clears_sight = TRUE
 	obscure_color = "#926D42"
 	visibility_mult = 0.5
 	// Goggles stop it stinging, but they do not clear the air, so half the loss of sight is left
@@ -50,7 +51,7 @@
 	cloud_shadow = 0.5
 	cloud_cover_goal = 0.35
 	climate_temp_shift = -3
-	gust_message = span_warning("A hot, gritty gust hits you ahead of a brown wall on the horizon.")
+	gust_message = span_warning("A cool, gritty gust hits you ahead of a brown wall on the horizon.")
 	drift_speed = 0.3
 	cell_radius_lower = 0.12
 	cell_radius_upper = 0.22
@@ -78,11 +79,6 @@
 	sound_ao?.start()
 	sound_ai?.start()
 
-/datum/weather/sandstorm/wind_down()
-	. = ..()
-	sound_ao?.stop()
-	sound_ai?.stop()
-
 /datum/weather/sandstorm/end()
 	. = ..()
 	sound_ao?.stop()
@@ -97,7 +93,7 @@
 	var/wind_y = cos(SSweather.wind_angle)
 	var/turf/best
 	var/best_score
-	for(var/i in 1 to 12)
+	for(var/i in 1 to 24)
 		var/turf/T = locate(rand(1, world.maxx), rand(1, world.maxy), z)
 		if(!T || !impacted_areas[T.loc])
 			continue
@@ -106,9 +102,11 @@
 		if(isnull(best_score) || score > best_score)
 			best = T
 			best_score = score
-	return best
+	return best || ..()
 
 /datum/weather/sandstorm/weather_act(mob/living/L)
+	if(L.stat >= UNCONSCIOUS)
+		return
 	var/mob/living/carbon/C = L
 	var/scale = get_effect_scale(C)
 	if(!C.has_dust_eye_protection() && prob(10 * scale))

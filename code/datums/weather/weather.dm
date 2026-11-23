@@ -61,6 +61,8 @@
 	var/is_dangerous = TRUE // most are tbh
 	/// Does this make the area impossible to see through? Like walking through smoke
 	var/obscures_sight = FALSE
+	/// Whether a mob immune to this weather (a silicon, say) sees through what obscures_sight, instead of being blinded all the same
+	var/immunity_clears_sight = FALSE
 	/// How much of the view loss from obscures_sight someone with eye protection still suffers, 0 to 1. Goggles keep dust out of the eyes, but not out of the air
 	var/protected_view_loss = 0
 	/// Whether goggles or a mask against dust help with the blur and view loss from obscures_sight. Dust is kept out of the eyes, but fog is just in the way
@@ -148,7 +150,7 @@
 	var/next_turf_visual_update = 0
 	/// When the ground was last repainted, and where the players were then, so a repaint is not left waiting for the timer when someone walks somewhere the ground has not been painted
 	var/last_turf_visual = 0
-	var/visual_signature = 0
+	var/visual_signature = ""
 	/// Turfs a drifting patch has already acted on, so nothing is done twice
 	var/list/turfs_done = list()
 	/// Turf to the /obj/effect/particle_effect/weather_overlay shown on it right now, so the weather itself can be seen on the ground by anyone with line of sight, not only felt by people standing in or near it
@@ -157,6 +159,8 @@
 	var/turf_visual_epoch = 0
 	/// Players who were somewhere under the patch, indoors or out, on the last update
 	var/list/covered_mobs = list()
+	/// Mob to the world.time the next sweeps over / moved past message may be sent, so someone at the ragged edge of a patch is not spammed
+	var/list/cover_messages = list()
 	/// Players with the weather's blur applied
 	var/list/blurred_mobs = list()
 	/// Players with the ground darkened by the weather's cloud shadow
@@ -513,21 +517,28 @@
 		if(can_weather_act(L))
 			weather_act(L)
 
-/// A number that changes whenever a player crosses into another chunk of the map, so the ground can be repainted when someone heads somewhere it has not been
-/datum/weather/proc/get_player_signature()
-	. = 0
+/// The turfs of living players on the weather's z levels. Ghosts are left out so one flying across the map does not keep forcing repaints
+/datum/weather/proc/get_viewer_turfs()
+	. = list()
 	for(var/mob/M as anything in GLOB.player_list)
+		if(!isliving(M))
+			continue
 		var/turf/T = get_turf(M)
 		if(T && (T.z in impacted_z_levels))
-			. += CEILING(T.x / WEATHER_CHUNK_SIZE, 1) + CEILING(T.y / WEATHER_CHUNK_SIZE, 1) * 256 + T.z * 65536
+			. += T
+
+/// Text that changes whenever the set of chunks holding a player changes, so the ground is repainted when someone heads somewhere it has not been
+/datum/weather/proc/get_player_signature()
+	var/list/keys = list()
+	for(var/turf/T as anything in get_viewer_turfs())
+		keys |= "[T.z]:[CEILING(T.x / WEATHER_CHUNK_SIZE, 1)]:[CEILING(T.y / WEATHER_CHUNK_SIZE, 1)]"
+	sortTim(keys, GLOBAL_PROC_REF(cmp_text_asc))
+	return keys.Join("|")
 
 /// The parts of the map near a player, by z level: "z" to an assoc of chunk number to TRUE. Weather far from everyone is not painted or swept
 /datum/weather/proc/get_active_chunks()
 	. = list()
-	for(var/mob/M as anything in GLOB.player_list)
-		var/turf/T = get_turf(M)
-		if(!T || !(T.z in impacted_z_levels))
-			continue
+	for(var/turf/T as anything in get_viewer_turfs())
 		var/list/level_chunks = .["[T.z]"]
 		if(!level_chunks)
 			level_chunks = list()
@@ -596,7 +607,12 @@
 				turfs_done[T] = world.time
 				weather_act_turf(T)
 				CHECK_TICK
+	sweep_remote()
 	SSweather.cost_sweep = MC_AVERAGE(SSweather.cost_sweep, TICK_DELTA_TO_MS(TICK_USAGE - started))
+
+/// Acts on the few things that matter wherever the weather reaches them, even where nobody is near enough for the chunked sweep to look. Nothing by default
+/datum/weather/proc/sweep_remote()
+	return
 
 /// How long to wait before the next turf-visual repaint. A patch's bounding box can be many times bigger than another's (a heat wave's huge, barely-moving dome versus a small, fast-drifting rain cell), so this scales the wait with how many tiles a repaint would actually have to scan, instead of re-scanning a massive area just as often as a small one
 /datum/weather/proc/get_turf_visual_interval()
@@ -787,7 +803,7 @@
 					shade.alpha = 0
 				animate(shade, alpha = shade_alpha, time = 1 SECONDS)
 				shaded += M
-		if(obscures_sight && (stage == MAIN_STAGE || stage == WIND_DOWN_STAGE) && (M in outside))
+		if(obscures_sight && (stage == MAIN_STAGE || stage == WIND_DOWN_STAGE) && (M in outside) && !(immunity_clears_sight && isliving(M) && is_immune(M)))
 			var/protected = eye_protection_helps && M.has_dust_eye_protection()
 			var/obj/screen/fullscreen/blur = M.overlay_fullscreen("weather_[type]", /obj/screen/fullscreen/blurry)
 			if(blur)
@@ -824,9 +840,13 @@
 		restore_view(M, view_reduced_mobs[M])
 	if(stage == MAIN_STAGE || stage == WIND_DOWN_STAGE)
 		for(var/mob/M as anything in covered - covered_mobs)
-			to_chat(M, span_notice("The [name] sweeps over you."))
+			if(world.time >= cover_messages[M])
+				cover_messages[M] = world.time + WEATHER_COVER_MESSAGE_COOLDOWN
+				to_chat(M, span_notice("The [name] sweeps over you."))
 		for(var/mob/M as anything in covered_mobs - covered)
-			to_chat(M, span_notice("The [name] has moved past you."))
+			if(world.time >= cover_messages[M])
+				cover_messages[M] = world.time + WEATHER_COVER_MESSAGE_COOLDOWN
+				to_chat(M, span_notice("The [name] has moved past you."))
 	covered_mobs = covered
 	blurred_mobs = blurred
 	shaded_mobs = shaded
@@ -936,14 +956,21 @@
 		if(QDELETED(M))
 			continue
 		restore_view(M, view_reduced_mobs[M])
-	for(var/turf/T as anything in turf_overlays)
-		qdel(turf_overlays[T])
+	var/list/overlays_to_clear = turf_overlays
+	turf_overlays = list()
 	covered_mobs = list()
+	cover_messages = list()
 	blurred_mobs = list()
 	shaded_mobs = list()
 	view_reduced_mobs = list()
 	gusted_mobs = list()
-	turf_overlays = list()
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(qdel_weather_overlays), overlays_to_clear)
+
+/// Removes a storm's ground overlays a few at a time. Run on its own so a storm ending, or being deleted, never waits on it
+/proc/qdel_weather_overlays(list/turf_overlays)
+	for(var/turf/T as anything in turf_overlays)
+		qdel(turf_overlays[T])
+		CHECK_TICK
 
 /**
  * Returns TRUE if the living mob can be affected by the weather
